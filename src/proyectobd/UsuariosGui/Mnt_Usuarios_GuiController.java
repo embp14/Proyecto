@@ -12,7 +12,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -40,17 +39,12 @@ public class Mnt_Usuarios_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
     @FXML private Button btn_Grabar;
     @FXML private AnchorPane Ap_Main;
-    @FXML private TextField txt_idUsuario;
-    @FXML private TextField txt_Nombre;
-    @FXML private TextField txt_Apellido;
-    @FXML private TextField txt_Login;
-    @FXML private PasswordField txt_Password;
-    @FXML private TextField txt_Email;
-    @FXML private CheckBox chk_Inactivo;
-    @FXML private TextField txt_Crea;
-    @FXML private TextField txt_FechaCrea;
-    @FXML private TextField txt_Modifica;
-    @FXML private TextField txt_FechaModifica;
+    @FXML private TextField txt_id;
+    @FXML private TextField txt_rolId;
+    @FXML private TextField txt_nombre;
+    @FXML private TextField txt_email;
+    @FXML private PasswordField txt_contrasena;
+    @FXML private TextField txt_creadoEn;
     
     
     @Override
@@ -65,12 +59,9 @@ public class Mnt_Usuarios_GuiController implements Initializable {
                 CargarDatos();
                 //Deshabilito los controles que no son editables
                 // El campo del código no es editable, por lo tanto se deshabilita
-                txt_idUsuario.setDisable(true);
+                txt_id.setDisable(true);
                 //Los campos de auditoría no deben ser editados directamente por el usuario, por lo tanto se deshabilitan
-                txt_Crea.setDisable(true);
-                txt_FechaCrea.setDisable(true);
-                txt_Modifica.setDisable(true);
-                txt_FechaModifica.setDisable(true);
+                txt_creadoEn.setDisable(true);
               }
             });        
 
@@ -89,21 +80,19 @@ public class Mnt_Usuarios_GuiController implements Initializable {
             try{
                 //Preparamos el objeto DTO para transferencia de la información
                 UsuarioDTO usrdto =new UsuarioDTO();
-                usrdto.setNombre(txt_Nombre.getText());
-                usrdto.setApellido(txt_Apellido.getText());
-                usrdto.setLogin(txt_Login.getText());
-                usrdto.setPassword(txt_Password.getText());
-                usrdto.setEmail(txt_Email.getText());
-                usrdto.setInactivo(chk_Inactivo.isSelected());
+                usrdto.setRolId(Integer.parseInt(txt_rolId.getText()));
+                usrdto.setNombre(txt_nombre.getText());
+                usrdto.setEmail(txt_email.getText());
+                usrdto.setContrasena(txt_contrasena.getText());
                 //Los campos Crea, FechaCrea, Modifica y FechaModifica se manejan desde el trigger de la base de datos
                 // Ejecutamos la insercción
                 int idRegistro=usrdao.InsertarUsuario(usrdto);
                 if (idRegistro>0){
                     //Establezco el valor del id generado en el objeto usrdto
-                    txt_idUsuario.setText(Integer.toString(idRegistro));
+                    txt_id.setText(Integer.toString(idRegistro));
                     //Aviso al usuario que se generó el registro
                     fu.MostrarAlertas("Información del sistema", "El nuevo usuario se grabó con éxtio, id generado: "+Integer.toString(idRegistro));
-                    usrdto.setIdUsuario(idRegistro);
+                    usrdto.setId(idRegistro);
                     //Deshabilito el botón de grabar para no generar registros duplicados
                     btn_Grabar.setDisable(true);
                 }
@@ -119,12 +108,10 @@ public class Mnt_Usuarios_GuiController implements Initializable {
             // Recupero el objeto UsuarioDTO que pasé como parámetros desde la pantalla del listado
             UsuarioDTO usrdto =(UsuarioDTO)stage.getUserData();
             //Establezco los nuevos valores a grabar
-            usrdto.setNombre(txt_Nombre.getText());
-            usrdto.setApellido(txt_Apellido.getText());
-            usrdto.setLogin(txt_Login.getText());
-            usrdto.setPassword(txt_Password.getText());
-            usrdto.setEmail(txt_Email.getText());
-            usrdto.setInactivo(chk_Inactivo.isSelected());
+            usrdto.setRolId(Integer.parseInt(txt_rolId.getText()));
+            usrdto.setNombre(txt_nombre.getText());
+            usrdto.setEmail(txt_email.getText());
+            usrdto.setContrasena(txt_contrasena.getText());
             try{
                 int idRegistro=usrdao.ActualizarUsuario(usrdto);
                 if (idRegistro>0){
@@ -152,37 +139,21 @@ public class Mnt_Usuarios_GuiController implements Initializable {
     }
 
     public void CargarDatos(){
-            // Obtengo el stage del AnchorPane de mi interface gráfica
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
-            // Recupero el objeto UsuarioDTO que pasé como parámetros desde la pantalla del listado
             UsuarioDTO usrdto =(UsuarioDTO)stage.getUserData();
-            //Recupero los datos del usuario recibido
-            try{        
+            try{
                 if (usrdto!=null){
-                    //Si usrdto no es null, estamos en modo de acutalizacion del registro
                     actualizar=true;
-                    // El campo idUsuario es numérico, lo transformo a string para mostrarlo en el TextField
-                    txt_idUsuario.setText(Integer.toString(usrdto.getIdUsuario()));
-                    // Cargo los demás valores en los cuadros de texto correspondientes
-                    txt_Nombre.setText(usrdto.getNombre());
-                    txt_Apellido.setText(usrdto.getApellido());
-                    txt_Login.setText(usrdto.getLogin());
-                    txt_Password.setText(usrdto.getPassword());
-                    txt_Email.setText(usrdto.getEmail());
-                    chk_Inactivo.setSelected(usrdto.isInactivo());
-                    txt_Crea.setText(usrdto.getCrea());            
-                    txt_FechaCrea.setText(usrdto.getFechaCrea().toString());
-                    // Los campos Modifica y Fecha Modifica podrían contener valores nulos, si es que no se han actualizado antes, por lo tanto validamos:
-                    if(usrdto.getModifica()!=null){
-                        txt_Modifica.setText(usrdto.getModifica());
-                    }
-                    if(usrdto.getFechaModifica()!=null){
-                        txt_FechaModifica.setText(usrdto.getFechaModifica().toString());
+                    txt_id.setText(Integer.toString(usrdto.getId()));
+                    txt_rolId.setText(Integer.toString(usrdto.getRolId()));
+                    txt_nombre.setText(usrdto.getNombre());
+                    txt_email.setText(usrdto.getEmail());
+                    txt_contrasena.setText(usrdto.getContrasena());
+                    if(usrdto.getCreadoEn()!=null){
+                        txt_creadoEn.setText(usrdto.getCreadoEn().toString());
                     }
                 }
-
             }catch (Exception ex){
-                // Si ocurre un error lo muestro
                 fu.MostrarAlertas("Error del sistema", ex.toString());
             }
     }

@@ -51,13 +51,10 @@ public class Lst_Usuarios_GuiController implements Initializable {
     // Anotaciones FXML para referenciar los objetos de la interface gráfica
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_Buscar;
-    @FXML private TableView<UsuarioDTO> tbl_ListaUsuarios;    
-    @FXML private TableColumn<UsuarioDTO, Integer> col_idUsuario;
-    @FXML private TableColumn<UsuarioDTO, String> col_Nombre;
-    @FXML private TableColumn<UsuarioDTO, String> col_Apellido;
-    @FXML private TableColumn<UsuarioDTO, String> col_Login;
-    @FXML private TableColumn<UsuarioDTO, String> col_Email;
-    @FXML private TableColumn<UsuarioDTO, Boolean> col_Inactivo;
+    @FXML private TableView<UsuarioDTO> tbl_ListaUsuarios;
+    @FXML private TableColumn<UsuarioDTO, Integer> col_id;
+    @FXML private TableColumn<UsuarioDTO, String> col_nombre;
+    @FXML private TableColumn<UsuarioDTO, String> col_email;
     
     
     //Instancio FeedbackUsuario para mostrar las alertas
@@ -77,12 +74,9 @@ public class Lst_Usuarios_GuiController implements Initializable {
         UsuarioDAO UsrDAO=new UsuarioDAO();
         //Obtengo la lista de usuarios
         ObservableList<UsuarioDTO> ListaUsuarios=UsrDAO.ListarUsuarios();
-        col_idUsuario.setCellValueFactory(new PropertyValueFactory<UsuarioDTO, Integer>("idUsuario"));
-        col_Nombre.setCellValueFactory(new PropertyValueFactory<UsuarioDTO,String>("Nombre"));
-        col_Apellido.setCellValueFactory(new PropertyValueFactory<UsuarioDTO,String>("Apellido"));
-        col_Login.setCellValueFactory(new PropertyValueFactory<UsuarioDTO,String>("Login"));
-        col_Email.setCellValueFactory(new PropertyValueFactory<UsuarioDTO,String>("Email"));
-        col_Inactivo.setCellValueFactory(new PropertyValueFactory<UsuarioDTO,Boolean>("Inactivo"));
+        col_id.setCellValueFactory(new PropertyValueFactory<UsuarioDTO, Integer>("id"));
+        col_nombre.setCellValueFactory(new PropertyValueFactory<UsuarioDTO,String>("nombre"));
+        col_email.setCellValueFactory(new PropertyValueFactory<UsuarioDTO,String>("email"));
         tbl_ListaUsuarios.setItems(null);
         tbl_ListaUsuarios.setItems(ListaUsuarios);
         }catch(Exception ex){
@@ -139,12 +133,9 @@ public void call_NuevoRegistro(){
         UsuarioDAO UsrDAO=new UsuarioDAO();
         //Obtengo la lista de usuarios
         ObservableList<UsuarioDTO> ListaUsuarios=UsrDAO.BuscarUsuarios(txt_Buscar.getText());
-        col_idUsuario.setCellValueFactory(new PropertyValueFactory<UsuarioDTO, Integer>("idUsuario"));
-        col_Nombre.setCellValueFactory(new PropertyValueFactory<UsuarioDTO,String>("Nombre"));
-        col_Apellido.setCellValueFactory(new PropertyValueFactory<UsuarioDTO,String>("Apellido"));
-        col_Login.setCellValueFactory(new PropertyValueFactory<UsuarioDTO,String>("Login"));
-        col_Email.setCellValueFactory(new PropertyValueFactory<UsuarioDTO,String>("Email"));
-        col_Inactivo.setCellValueFactory(new PropertyValueFactory<UsuarioDTO,Boolean>("Inactivo"));
+        col_id.setCellValueFactory(new PropertyValueFactory<UsuarioDTO, Integer>("id"));
+        col_nombre.setCellValueFactory(new PropertyValueFactory<UsuarioDTO,String>("nombre"));
+        col_email.setCellValueFactory(new PropertyValueFactory<UsuarioDTO,String>("email"));
         //Limpio el tableview antes de cargar datos
         tbl_ListaUsuarios.setItems(null);
         //Cargo los datos en el datamodel del tableview
