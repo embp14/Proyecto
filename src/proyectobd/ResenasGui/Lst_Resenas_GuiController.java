@@ -6,7 +6,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -17,6 +20,8 @@ import proyectobd.ParametrosGenerales.FeedbackResena;
 
 public class Lst_Resenas_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
+    @FXML private Button btn_Nuevo;
+    @FXML private Button btn_Editar;
     @FXML private TextField txt_Buscar;
     @FXML private TableView<ResenaDTO> tbl_Lista;
     @FXML private TableColumn<ResenaDTO, Integer> col_id;
@@ -58,6 +63,38 @@ public class Lst_Resenas_GuiController implements Initializable {
             ResenaDAO dao = new ResenaDAO();
             ObservableList<ResenaDTO> lista = dao.BuscarResenas(txt_Buscar.getText());
             tbl_Lista.setItems(lista);
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
+        }
+    }
+
+    public void call_NuevoRegistro(){
+        try{
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/ResenasGui/Mnt_Resenas_Gui.fxml"));
+            stage.setTitle("Mantenimiento de Reseñas");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            call_CargarDatos();
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
+        }
+    }
+
+    public void call_Editar(){
+        try{
+            ResenaDTO dto = tbl_Lista.getSelectionModel().getSelectedItem();
+            if(dto == null){
+                fu.MostrarAlertas("Información", "Seleccione un registro para editar");
+                return;
+            }
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/ResenasGui/Mnt_Resenas_Gui.fxml"));
+            stage.setTitle("Mantenimiento de Reseñas");
+            stage.setScene(new Scene(root));
+            stage.setUserData(dto);
+            stage.showAndWait();
+            call_CargarDatos();
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
         }
