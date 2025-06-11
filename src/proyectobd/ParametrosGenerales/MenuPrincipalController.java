@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackOrden;
 import proyectobd.ParametrosGenerales.FeedbackResena;
 import proyectobd.ParametrosGenerales.FeedbackVendedor;
+import proyectobd.ParametrosGenerales.FeedbackUsuario;
 
 /**
  * FXML Controller class
@@ -31,6 +32,7 @@ public class MenuPrincipalController implements Initializable {
     FeedbackVendedor fv = new FeedbackVendedor();
     FeedbackOrden fo = new FeedbackOrden();
     FeedbackResena fr = new FeedbackResena();
+    FeedbackUsuario fu = new FeedbackUsuario();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -44,7 +46,19 @@ public class MenuPrincipalController implements Initializable {
         ConnBD.AbrirConexionBD();
         // Ejecutamos el método Cerrar Conexión
         ConnBD.CerrarConexionBD();
-        
+
+    }
+
+    public void call_ListarUsuarios(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/UsuariosGui/Lst_Usuarios_Gui.fxml"));
+                stage.setTitle("Gestión de usuarios");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            fu.MostrarAlertas("Error del sistema", ex.toString());
+        }
     }
     
 

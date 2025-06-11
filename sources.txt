@@ -18,3 +18,6 @@ src/dto/UsuarioDTO.java
 src/dto/OrdenDTO.java
 src/dto/ResenaDTO.java
 src/dto/VendedorDTO.java
+src/proyectobd/UsuariosGui/Lst_Usuarios_GuiController.java
+src/proyectobd/UsuariosGui/Mnt_Usuarios_GuiController.java
+src/proyectobd/ParametrosGenerales/FeedbackUsuario.java

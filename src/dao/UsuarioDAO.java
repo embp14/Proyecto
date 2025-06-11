@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import proyectobd.ParametrosGenerales.FeedbackUsuario;
 
 
 
@@ -20,6 +21,8 @@ import javafx.collections.ObservableList;
  * @author admin
  */
 public class UsuarioDAO {
+
+    FeedbackUsuario fu = new FeedbackUsuario();
     
     // Método para obtener la lista de usuarios de la BD
     // Devolverá un array de UsuarioDTO
@@ -44,7 +47,7 @@ public class UsuarioDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            System.err.println("Error: "+ex.toString());
+            fu.MostrarAlertas("Error", ex.toString());
         }
         return usuarios;
     }
@@ -73,7 +76,7 @@ public class UsuarioDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            System.err.println("Error: "+ex.toString()+"\n"+sql);
+            fu.MostrarAlertas("Error", ex.toString()+"\n"+sql);
         }
         return usuarios;
     }
@@ -93,11 +96,11 @@ public class UsuarioDAO {
             if(rs.next()){
                 codigoInsertado=rs.getInt(1);
             }
-            System.out.println("Usuario registrado con ID: "+codigoInsertado);
+            fu.MostrarAlertas("Información", "Usuario registrado con ID: "+codigoInsertado);
             ConnBD.CerrarConexionBD();
             return codigoInsertado;
         }catch(Exception ex){
-            System.err.println("Error del sistema: "+ex.toString());
+            fu.MostrarAlertas("Error del sistema", ex.toString());
             return 0;
         }
     }
@@ -113,11 +116,11 @@ public class UsuarioDAO {
             ps.setString(4, usrdto.getContrasena());
             ps.setInt(5, usrdto.getId());
             int registrosActualizados=ps.executeUpdate();
-            System.out.println("Usuario actualizado. Registros modificados: "+registrosActualizados);
+            fu.MostrarAlertas("Información", "Usuario actualizado. Registros modificados: "+registrosActualizados);
             ConnBD.CerrarConexionBD();
             return registrosActualizados;
         }catch(Exception ex){
-            System.err.println("Error del sistema: "+ex.toString());
+            fu.MostrarAlertas("Error del sistema", ex.toString());
             return 0;
         }
     }
