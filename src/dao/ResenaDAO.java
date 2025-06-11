@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import proyectobd.ParametrosGenerales.FeedbackUsuario;
+import proyectobd.ParametrosGenerales.FeedbackResena;
 
 public class ResenaDAO {
-    FeedbackUsuario fu = new FeedbackUsuario();
+    FeedbackResena fu = new FeedbackResena();
 
     public ObservableList<ResenaDTO> ListarResenas(){
         ObservableList<ResenaDTO> resenas = FXCollections.observableArrayList();

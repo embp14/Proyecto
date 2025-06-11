@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import proyectobd.ParametrosGenerales.FeedbackUsuario;
+import proyectobd.ParametrosGenerales.FeedbackVendedor;
 
 public class VendedorDAO {
-    FeedbackUsuario fu = new FeedbackUsuario();
+    FeedbackVendedor fu = new FeedbackVendedor();
 
     public ObservableList<VendedorDTO> ListarVendedores(){
         ObservableList<VendedorDTO> vendedores = FXCollections.observableArrayList();

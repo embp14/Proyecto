@@ -13,7 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import proyectobd.ParametrosGenerales.FeedbackUsuario;
+import proyectobd.ParametrosGenerales.FeedbackVendedor;
 
 public class Lst_Vendedores_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
@@ -24,7 +24,7 @@ public class Lst_Vendedores_GuiController implements Initializable {
     @FXML private TableColumn<VendedorDTO, String> col_nombre;
     @FXML private TableColumn<VendedorDTO, Number> col_calificacion;
 
-    FeedbackUsuario fu = new FeedbackUsuario();
+    FeedbackVendedor fu = new FeedbackVendedor();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

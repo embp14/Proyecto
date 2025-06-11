@@ -12,6 +12,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import proyectobd.ParametrosGenerales.FeedbackOrden;
+import proyectobd.ParametrosGenerales.FeedbackResena;
+import proyectobd.ParametrosGenerales.FeedbackVendedor;
 
 /**
  * FXML Controller class
@@ -24,8 +27,10 @@ public class MenuPrincipalController implements Initializable {
      * Initializes the controller class.
      */
     
-    //Instanciamos FeedbackUsuario para mostrar las alertas
-    FeedbackUsuario fu=new FeedbackUsuario();
+    // Instanciamos feedback específicos para mostrar alertas
+    FeedbackVendedor fv = new FeedbackVendedor();
+    FeedbackOrden fo = new FeedbackOrden();
+    FeedbackResena fr = new FeedbackResena();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -51,7 +56,7 @@ public class MenuPrincipalController implements Initializable {
                 stage.setScene(new Scene(root));
                 stage.show();
         } catch (Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fv.MostrarAlertas("Error del sistema", ex.toString());
         }
     }
 
@@ -63,7 +68,7 @@ public class MenuPrincipalController implements Initializable {
                 stage.setScene(new Scene(root));
                 stage.show();
         } catch (Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fo.MostrarAlertas("Error del sistema", ex.toString());
         }
     }
 
@@ -75,7 +80,7 @@ public class MenuPrincipalController implements Initializable {
                 stage.setScene(new Scene(root));
                 stage.show();
         } catch (Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fr.MostrarAlertas("Error del sistema", ex.toString());
         }
     }
     

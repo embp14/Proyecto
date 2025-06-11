@@ -13,7 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import proyectobd.ParametrosGenerales.FeedbackUsuario;
+import proyectobd.ParametrosGenerales.FeedbackOrden;
 
 public class Lst_Ordenes_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
@@ -25,7 +25,7 @@ public class Lst_Ordenes_GuiController implements Initializable {
     @FXML private TableColumn<OrdenDTO, Number> col_total;
     @FXML private TableColumn<OrdenDTO, String> col_fecha;
 
-    FeedbackUsuario fu = new FeedbackUsuario();
+    FeedbackOrden fu = new FeedbackOrden();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

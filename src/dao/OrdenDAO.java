@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import proyectobd.ParametrosGenerales.FeedbackUsuario;
+import proyectobd.ParametrosGenerales.FeedbackOrden;
 
 public class OrdenDAO {
-    FeedbackUsuario fu = new FeedbackUsuario();
+    FeedbackOrden fu = new FeedbackOrden();
 
     public ObservableList<OrdenDTO> ListarOrdenes(){
         ObservableList<OrdenDTO> ordenes = FXCollections.observableArrayList();
