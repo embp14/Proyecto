@@ -1,0 +1,65 @@
+package proyectobd.ResenasGui;
+
+import dao.ResenaDAO;
+import dto.ResenaDTO;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import proyectobd.ParametrosGenerales.FeedbackUsuario;
+
+public class Lst_Resenas_GuiController implements Initializable {
+    @FXML private Button btn_Cerrar;
+    @FXML private TextField txt_Buscar;
+    @FXML private TableView<ResenaDTO> tbl_Lista;
+    @FXML private TableColumn<ResenaDTO, Integer> col_id;
+    @FXML private TableColumn<ResenaDTO, Integer> col_producto;
+    @FXML private TableColumn<ResenaDTO, Integer> col_usuario;
+    @FXML private TableColumn<ResenaDTO, Integer> col_rating;
+    @FXML private TableColumn<ResenaDTO, String> col_fecha;
+
+    FeedbackUsuario fu = new FeedbackUsuario();
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        txt_Buscar.textProperty().addListener((obs, ov, nv) -> { call_Buscar(); });
+        call_CargarDatos();
+    }
+
+    public void call_CerrarVentana(){
+        Stage stage = (Stage) btn_Cerrar.getScene().getWindow();
+        stage.close();
+    }
+
+    public void call_CargarDatos(){
+        try{
+            ResenaDAO dao = new ResenaDAO();
+            ObservableList<ResenaDTO> lista = dao.ListarResenas();
+            col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+            col_producto.setCellValueFactory(new PropertyValueFactory<>("productoId"));
+            col_usuario.setCellValueFactory(new PropertyValueFactory<>("usuarioId"));
+            col_rating.setCellValueFactory(new PropertyValueFactory<>("rating"));
+            col_fecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+            tbl_Lista.setItems(lista);
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
+        }
+    }
+
+    public void call_Buscar(){
+        try{
+            ResenaDAO dao = new ResenaDAO();
+            ObservableList<ResenaDTO> lista = dao.BuscarResenas(txt_Buscar.getText());
+            tbl_Lista.setItems(lista);
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
+        }
+    }
+}

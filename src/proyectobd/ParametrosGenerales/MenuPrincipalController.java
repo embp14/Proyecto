@@ -62,5 +62,41 @@ public class MenuPrincipalController implements Initializable {
             fu.MostrarAlertas("Error del sistema", ex.toString());
         }
     }
+
+    public void call_ListarVendedores(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/VendedoresGui/Lst_Vendedores_Gui.fxml"));
+                stage.setTitle("Gestión de vendedores");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            fu.MostrarAlertas("Error del sistema", ex.toString());
+        }
+    }
+
+    public void call_ListarOrdenes(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/OrdenesGui/Lst_Ordenes_Gui.fxml"));
+                stage.setTitle("Gestión de órdenes");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            fu.MostrarAlertas("Error del sistema", ex.toString());
+        }
+    }
+
+    public void call_ListarResenas(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/ResenasGui/Lst_Resenas_Gui.fxml"));
+                stage.setTitle("Gestión de reseñas");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            fu.MostrarAlertas("Error del sistema", ex.toString());
+        }
+    }
     
 }

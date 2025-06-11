@@ -34,6 +34,30 @@ public class VendedorDAO {
         return vendedores;
     }
 
+    public ObservableList<VendedorDTO> BuscarVendedores(String criterio){
+        ObservableList<VendedorDTO> vendedores = FXCollections.observableArrayList();
+        ConectorBD ConnBD = new ConectorBD();
+        String sql = "SELECT id, usuario_id, nombre_tienda, descripcion, calificacion_promedio FROM vendedores " +
+                     "WHERE nombre_tienda LIKE '%"+criterio+"%' ORDER BY id";
+        try{
+            Statement st = ConnBD.AbrirConexionBD().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                VendedorDTO dto = new VendedorDTO();
+                dto.setId(rs.getInt("id"));
+                dto.setUsuarioId(rs.getInt("usuario_id"));
+                dto.setNombreTienda(rs.getString("nombre_tienda"));
+                dto.setDescripcion(rs.getString("descripcion"));
+                dto.setCalificacionPromedio(rs.getBigDecimal("calificacion_promedio"));
+                vendedores.add(dto);
+            }
+            ConnBD.CerrarConexionBD();
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error: "+ex.toString());
+        }
+        return vendedores;
+    }
+
     public int InsertarVendedor(VendedorDTO dto){
         try{
             String sql = "INSERT INTO vendedores(usuario_id, nombre_tienda, descripcion, calificacion_promedio) VALUES(?,?,?,?)";

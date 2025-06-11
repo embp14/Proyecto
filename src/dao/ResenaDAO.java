@@ -35,6 +35,31 @@ public class ResenaDAO {
         return resenas;
     }
 
+    public ObservableList<ResenaDTO> BuscarResenas(String criterio){
+        ObservableList<ResenaDTO> resenas = FXCollections.observableArrayList();
+        ConectorBD ConnBD = new ConectorBD();
+        String sql = "SELECT id, producto_id, usuario_id, rating, comentario, fecha FROM reseñas " +
+                     "WHERE comentario LIKE '%"+criterio+"%' ORDER BY id";
+        try{
+            Statement st = ConnBD.AbrirConexionBD().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                ResenaDTO dto = new ResenaDTO();
+                dto.setId(rs.getInt("id"));
+                dto.setProductoId(rs.getInt("producto_id"));
+                dto.setUsuarioId(rs.getInt("usuario_id"));
+                dto.setRating(rs.getInt("rating"));
+                dto.setComentario(rs.getString("comentario"));
+                dto.setFecha(rs.getTimestamp("fecha"));
+                resenas.add(dto);
+            }
+            ConnBD.CerrarConexionBD();
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error: "+ex.toString());
+        }
+        return resenas;
+    }
+
     public int InsertarResena(ResenaDTO dto){
         try{
             String sql = "INSERT INTO reseñas(producto_id, usuario_id, rating, comentario, fecha) VALUES(?,?,?,?,?)";
