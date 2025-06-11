@@ -21,11 +21,12 @@ public class ConectorBD {
     String NombreBD="ekuamarket";
     String HostBD="localhost";
     String PuertoBD="3306";
-    String CadenaConexion="jdbc:mysql://"+HostBD+":"+PuertoBD+"/"+NombreBD;
+    String CadenaConexion="jdbc:mysql://"+HostBD+":"+PuertoBD+"/"+NombreBD+
+            "?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8";
 
 public Connection AbrirConexionBD(){
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connBD=DriverManager.getConnection(CadenaConexion,UsuarioBD,PassBD);
             //MostrarAlertas("Información de la conexión","Conexión con la base de datos realizada correctamente\n La cadena de conexión es: "+CadenaConexion);
             /*System.out.println("La cadena de conexión es:\n"+CadenaConexion);
