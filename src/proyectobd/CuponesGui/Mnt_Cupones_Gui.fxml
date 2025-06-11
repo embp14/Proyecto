@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="Ap_Main" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.CuponesGui.Mnt_Cupones_GuiController">
+    <children>
+        <Pane prefHeight="39.0" prefWidth="800.0" style="-fx-background-color: #5585b5;">
+            <children>
+                <Label layoutX="232.0" layoutY="2.0" text="Mantenimiento de Cupones" textFill="WHITE">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+        <TitledPane layoutY="39.0" prefHeight="300.0" prefWidth="800.0" text="Detalles del Registro" animated="false">
+            <content>
+                <AnchorPane prefHeight="280.0" prefWidth="798.0" minHeight="0.0" minWidth="0.0">
+                    <children>
+                        <Label layoutX="170.0" layoutY="40.0" text="ID:" />
+                        <TextField fx:id="txt_id" layoutX="220.0" layoutY="36.0" prefHeight="25.0" prefWidth="400.0" />
+                        <Label layoutX="158.0" layoutY="76.0" text="Código:" />
+                        <TextField fx:id="txt_codigo" layoutX="220.0" layoutY="72.0" prefHeight="25.0" prefWidth="400.0" />
+                        <Label layoutX="134.0" layoutY="112.0" text="Descuento %:" />
+                        <TextField fx:id="txt_descuento" layoutX="220.0" layoutY="108.0" prefHeight="25.0" prefWidth="400.0" />
+                        <Label layoutX="112.0" layoutY="148.0" text="Fecha Expiración:" />
+                        <TextField fx:id="txt_expira" layoutX="220.0" layoutY="144.0" prefHeight="25.0" prefWidth="400.0" />
+                        <Label layoutX="142.0" layoutY="184.0" text="Uso Máximo:" />
+                        <TextField fx:id="txt_uso" layoutX="220.0" layoutY="180.0" prefHeight="25.0" prefWidth="400.0" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </TitledPane>
+        <TitledPane layoutY="339.0" prefHeight="61.0" prefWidth="800.0" text="Acciones" animated="false">
+            <content>
+                <AnchorPane prefHeight="27.0" prefWidth="798.0" minHeight="0.0" minWidth="0.0">
+                    <children>
+                        <Button fx:id="btn_Grabar" layoutX="555.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Grabar" text="Grabar" />
+                        <Button fx:id="btn_Cerrar" layoutX="624.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_CerrarVentana" text="Cerrar" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </TitledPane>
+    </children>
+</AnchorPane>

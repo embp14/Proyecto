@@ -26,3 +26,13 @@ src/proyectobd/RolesGui/Mnt_Roles_GuiController.java
 src/dao/RolDAO.java
 src/dto/RolDTO.java
 src/proyectobd/ParametrosGenerales/FeedbackRol.java
+src/proyectobd/ProductosGui/Lst_Productos_GuiController.java
+src/proyectobd/ProductosGui/Mnt_Productos_GuiController.java
+src/proyectobd/CuponesGui/Lst_Cupones_GuiController.java
+src/proyectobd/CuponesGui/Mnt_Cupones_GuiController.java
+src/dao/ProductoDAO.java
+src/dao/CuponDAO.java
+src/dto/ProductoDTO.java
+src/dto/CuponDTO.java
+src/proyectobd/ParametrosGenerales/FeedbackProducto.java
+src/proyectobd/ParametrosGenerales/FeedbackCupon.java

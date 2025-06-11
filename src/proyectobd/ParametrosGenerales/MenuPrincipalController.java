@@ -17,6 +17,8 @@ import proyectobd.ParametrosGenerales.FeedbackResena;
 import proyectobd.ParametrosGenerales.FeedbackVendedor;
 import proyectobd.ParametrosGenerales.FeedbackUsuario;
 import proyectobd.ParametrosGenerales.FeedbackRol;
+import proyectobd.ParametrosGenerales.FeedbackProducto;
+import proyectobd.ParametrosGenerales.FeedbackCupon;
 
 /**
  * FXML Controller class
@@ -35,6 +37,8 @@ public class MenuPrincipalController implements Initializable {
     FeedbackResena fr = new FeedbackResena();
     FeedbackUsuario fu = new FeedbackUsuario();
     FeedbackRol frl = new FeedbackRol();
+    FeedbackProducto fpr = new FeedbackProducto();
+    FeedbackCupon fcu = new FeedbackCupon();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -113,6 +117,30 @@ public class MenuPrincipalController implements Initializable {
                 stage.show();
         } catch (Exception ex){
             fr.MostrarAlertas("Error del sistema", ex.toString());
+        }
+    }
+
+    public void call_ListarProductos(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/ProductosGui/Lst_Productos_Gui.fxml"));
+                stage.setTitle("Gestión de productos");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            fpr.MostrarAlertas("Error del sistema", ex.toString());
+        }
+    }
+
+    public void call_ListarCupones(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/CuponesGui/Lst_Cupones_Gui.fxml"));
+                stage.setTitle("Gestión de cupones");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            fcu.MostrarAlertas("Error del sistema", ex.toString());
         }
     }
     

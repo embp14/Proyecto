@@ -17,6 +17,8 @@
                   <MenuItem fx:id="mni_Vendedores" mnemonicParsing="false" onAction="#call_ListarVendedores" text="Vendedores" />
                   <MenuItem fx:id="mni_Ordenes" mnemonicParsing="false" onAction="#call_ListarOrdenes" text="Órdenes" />
                   <MenuItem fx:id="mni_Resenas" mnemonicParsing="false" onAction="#call_ListarResenas" text="Reseñas" />
+                  <MenuItem fx:id="mni_Productos" mnemonicParsing="false" onAction="#call_ListarProductos" text="Productos" />
+                  <MenuItem fx:id="mni_Cupones" mnemonicParsing="false" onAction="#call_ListarCupones" text="Cupones" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
