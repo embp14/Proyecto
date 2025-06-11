@@ -11,6 +11,22 @@ import proyectobd.ParametrosGenerales.FeedbackOrden;
 public class OrdenDAO {
     FeedbackOrden fu = new FeedbackOrden();
 
+    private boolean existeUsuario(int usuarioId){
+        ConectorBD ConnBD = new ConectorBD();
+        String sql = "SELECT id FROM usuarios WHERE id=?";
+        try{
+            PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
+            ps.setInt(1, usuarioId);
+            ResultSet rs = ps.executeQuery();
+            boolean existe = rs.next();
+            ConnBD.CerrarConexionBD();
+            return existe;
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
+            return false;
+        }
+    }
+
     public ObservableList<OrdenDTO> ListarOrdenes(){
         ObservableList<OrdenDTO> ordenes = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
@@ -62,6 +78,10 @@ public class OrdenDAO {
 
     public int InsertarOrden(OrdenDTO dto){
         try{
+            if(!existeUsuario(dto.getUsuarioId())){
+                fu.MostrarAlertas("Datos inválidos", "El usuario especificado no existe");
+                return 0;
+            }
             String sql = "INSERT INTO ordenes(usuario_id, estado, total_bruto, total_descuento, fecha_creacion) VALUES(?,?,?,?,?)";
             ConectorBD ConnBD = new ConectorBD();
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -87,6 +107,10 @@ public class OrdenDAO {
 
     public int ActualizarOrden(OrdenDTO dto){
         try{
+            if(!existeUsuario(dto.getUsuarioId())){
+                fu.MostrarAlertas("Datos inválidos", "El usuario especificado no existe");
+                return 0;
+            }
             String sql = "UPDATE ordenes SET usuario_id=?, estado=?, total_bruto=?, total_descuento=?, fecha_creacion=? WHERE id=?";
             ConectorBD ConnBD = new ConectorBD();
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);

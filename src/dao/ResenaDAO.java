@@ -11,6 +11,38 @@ import proyectobd.ParametrosGenerales.FeedbackResena;
 public class ResenaDAO {
     FeedbackResena fu = new FeedbackResena();
 
+    private boolean existeUsuario(int usuarioId){
+        ConectorBD ConnBD = new ConectorBD();
+        String sql = "SELECT id FROM usuarios WHERE id=?";
+        try{
+            PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
+            ps.setInt(1, usuarioId);
+            ResultSet rs = ps.executeQuery();
+            boolean existe = rs.next();
+            ConnBD.CerrarConexionBD();
+            return existe;
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
+            return false;
+        }
+    }
+
+    private boolean existeProducto(int productoId){
+        ConectorBD ConnBD = new ConectorBD();
+        String sql = "SELECT id FROM productos WHERE id=?";
+        try{
+            PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
+            ps.setInt(1, productoId);
+            ResultSet rs = ps.executeQuery();
+            boolean existe = rs.next();
+            ConnBD.CerrarConexionBD();
+            return existe;
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
+            return false;
+        }
+    }
+
     public ObservableList<ResenaDTO> ListarResenas(){
         ObservableList<ResenaDTO> resenas = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
@@ -62,6 +94,10 @@ public class ResenaDAO {
 
     public int InsertarResena(ResenaDTO dto){
         try{
+            if(!existeProducto(dto.getProductoId()) || !existeUsuario(dto.getUsuarioId())){
+                fu.MostrarAlertas("Datos inválidos", "Verifique producto y usuario");
+                return 0;
+            }
             String sql = "INSERT INTO reseñas(producto_id, usuario_id, rating, comentario, fecha) VALUES(?,?,?,?,?)";
             ConectorBD ConnBD = new ConectorBD();
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -87,6 +123,10 @@ public class ResenaDAO {
 
     public int ActualizarResena(ResenaDTO dto){
         try{
+            if(!existeProducto(dto.getProductoId()) || !existeUsuario(dto.getUsuarioId())){
+                fu.MostrarAlertas("Datos inválidos", "Verifique producto y usuario");
+                return 0;
+            }
             String sql = "UPDATE reseñas SET producto_id=?, usuario_id=?, rating=?, comentario=?, fecha=? WHERE id=?";
             ConectorBD ConnBD = new ConectorBD();
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);

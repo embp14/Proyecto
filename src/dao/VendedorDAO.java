@@ -11,6 +11,22 @@ import proyectobd.ParametrosGenerales.FeedbackVendedor;
 public class VendedorDAO {
     FeedbackVendedor fu = new FeedbackVendedor();
 
+    private boolean existeUsuario(int usuarioId){
+        ConectorBD ConnBD = new ConectorBD();
+        String sql = "SELECT id FROM usuarios WHERE id=?";
+        try{
+            PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
+            ps.setInt(1, usuarioId);
+            ResultSet rs = ps.executeQuery();
+            boolean existe = rs.next();
+            ConnBD.CerrarConexionBD();
+            return existe;
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
+            return false;
+        }
+    }
+
     public ObservableList<VendedorDTO> ListarVendedores(){
         ObservableList<VendedorDTO> vendedores = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
@@ -60,6 +76,10 @@ public class VendedorDAO {
 
     public int InsertarVendedor(VendedorDTO dto){
         try{
+            if(!existeUsuario(dto.getUsuarioId())){
+                fu.MostrarAlertas("Datos inválidos", "El usuario especificado no existe");
+                return 0;
+            }
             String sql = "INSERT INTO vendedores(usuario_id, nombre_tienda, descripcion, calificacion_promedio) VALUES(?,?,?,?)";
             ConectorBD ConnBD = new ConectorBD();
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -84,6 +104,10 @@ public class VendedorDAO {
 
     public int ActualizarVendedor(VendedorDTO dto){
         try{
+            if(!existeUsuario(dto.getUsuarioId())){
+                fu.MostrarAlertas("Datos inválidos", "El usuario especificado no existe");
+                return 0;
+            }
             String sql = "UPDATE vendedores SET usuario_id=?, nombre_tienda=?, descripcion=?, calificacion_promedio=? WHERE id=?";
             ConectorBD ConnBD = new ConectorBD();
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
