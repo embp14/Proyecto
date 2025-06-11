@@ -19,6 +19,7 @@ import proyectobd.ParametrosGenerales.FeedbackUsuario;
 import proyectobd.ParametrosGenerales.FeedbackRol;
 import proyectobd.ParametrosGenerales.FeedbackProducto;
 import proyectobd.ParametrosGenerales.FeedbackCupon;
+import proyectobd.ParametrosGenerales.FeedbackCategoria;
 
 /**
  * FXML Controller class
@@ -39,6 +40,7 @@ public class MenuPrincipalController implements Initializable {
     FeedbackRol frl = new FeedbackRol();
     FeedbackProducto fpr = new FeedbackProducto();
     FeedbackCupon fcu = new FeedbackCupon();
+    FeedbackCategoria fca = new FeedbackCategoria();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -129,6 +131,18 @@ public class MenuPrincipalController implements Initializable {
                 stage.show();
         } catch (Exception ex){
             fpr.MostrarAlertas("Error del sistema", ex.toString());
+        }
+    }
+
+    public void call_ListarCategorias(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/CategoriasGui/Lst_Categorias_Gui.fxml"));
+                stage.setTitle("Gestión de categorías");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            fca.MostrarAlertas("Error del sistema", ex.toString());
         }
     }
 

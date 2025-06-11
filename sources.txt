@@ -36,3 +36,8 @@ src/dto/ProductoDTO.java
 src/dto/CuponDTO.java
 src/proyectobd/ParametrosGenerales/FeedbackProducto.java
 src/proyectobd/ParametrosGenerales/FeedbackCupon.java
+src/proyectobd/CategoriasGui/Lst_Categorias_GuiController.java
+src/proyectobd/CategoriasGui/Mnt_Categorias_GuiController.java
+src/dao/CategoriaDAO.java
+src/dto/CategoriaDTO.java
+src/proyectobd/ParametrosGenerales/FeedbackCategoria.java
