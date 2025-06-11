@@ -45,7 +45,11 @@ public class MenuPrincipalController implements Initializable {
         //Creamos la instancia de ConectorBD
         ConectorBD ConnBD=new ConectorBD();
         // Ejecutamos el método Abrir Conexión
-        ConnBD.AbrirConexionBD();
+        if(ConnBD.AbrirConexionBD()!=null){
+            fu.MostrarAlertas("Conexión exitosa","Se estableció conexión con la base de datos");
+        }else{
+            fu.MostrarAlertas("Conexión no exitosa","No se pudo establecer conexión con la base de datos");
+        }
         // Ejecutamos el método Cerrar Conexión
         ConnBD.CerrarConexionBD();
 
