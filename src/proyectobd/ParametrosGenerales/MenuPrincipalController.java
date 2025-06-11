@@ -16,6 +16,7 @@ import proyectobd.ParametrosGenerales.FeedbackOrden;
 import proyectobd.ParametrosGenerales.FeedbackResena;
 import proyectobd.ParametrosGenerales.FeedbackVendedor;
 import proyectobd.ParametrosGenerales.FeedbackUsuario;
+import proyectobd.ParametrosGenerales.FeedbackRol;
 
 /**
  * FXML Controller class
@@ -33,6 +34,7 @@ public class MenuPrincipalController implements Initializable {
     FeedbackOrden fo = new FeedbackOrden();
     FeedbackResena fr = new FeedbackResena();
     FeedbackUsuario fu = new FeedbackUsuario();
+    FeedbackRol frl = new FeedbackRol();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -58,6 +60,18 @@ public class MenuPrincipalController implements Initializable {
                 stage.show();
         } catch (Exception ex){
             fu.MostrarAlertas("Error del sistema", ex.toString());
+        }
+    }
+
+    public void call_ListarRoles(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/RolesGui/Lst_Roles_Gui.fxml"));
+                stage.setTitle("Gestión de roles");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            frl.MostrarAlertas("Error del sistema", ex.toString());
         }
     }
     
