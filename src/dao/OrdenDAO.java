@@ -30,7 +30,7 @@ public class OrdenDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error: "+ex.toString());
+            fu.MostrarAlertas("Error", ex.toString());
         }
         return ordenes;
     }
@@ -55,7 +55,7 @@ public class OrdenDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error: "+ex.toString());
+            fu.MostrarAlertas("Error", ex.toString());
         }
         return ordenes;
     }
@@ -80,7 +80,7 @@ public class OrdenDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema"+ex.toString());
+            fu.MostrarAlertas("Error del sistema", ex.toString());
             return 0;
         }
     }
@@ -101,7 +101,7 @@ public class OrdenDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema"+ex.toString());
+            fu.MostrarAlertas("Error del sistema", ex.toString());
             return 0;
         }
     }
