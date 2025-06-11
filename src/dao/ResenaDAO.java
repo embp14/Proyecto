@@ -76,6 +76,7 @@ public class ResenaDAO {
             if(rs.next()){
                 codigo = rs.getInt(1);
             }
+            fu.MostrarAlertas("Información del sistema", "Reseña registrada con ID: "+codigo);
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
@@ -96,6 +97,7 @@ public class ResenaDAO {
             ps.setTimestamp(5, dto.getFecha());
             ps.setInt(6, dto.getId());
             int registros = ps.executeUpdate();
+            fu.MostrarAlertas("Información del sistema", "Reseña actualizada. Registros modificados: "+registros);
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){

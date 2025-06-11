@@ -73,6 +73,7 @@ public class VendedorDAO {
             if(rs.next()){
                 codigo = rs.getInt(1);
             }
+            fu.MostrarAlertas("Información del sistema", "Vendedor registrado con ID: "+codigo);
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
@@ -92,6 +93,7 @@ public class VendedorDAO {
             ps.setBigDecimal(4, dto.getCalificacionPromedio());
             ps.setInt(5, dto.getId());
             int registros = ps.executeUpdate();
+            fu.MostrarAlertas("Información del sistema", "Vendedor actualizado. Registros modificados: "+registros);
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){

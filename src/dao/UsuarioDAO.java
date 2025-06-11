@@ -96,6 +96,7 @@ public class UsuarioDAO {
             if(rs.next()){
                 codigoInsertado=rs.getInt(1);
             }
+            fu.MostrarAlertas("Información del sistema", "Usuario registrado con ID: "+codigoInsertado);
             ConnBD.CerrarConexionBD();
             return codigoInsertado;
         }catch(Exception ex){
@@ -115,6 +116,7 @@ public class UsuarioDAO {
             ps.setString(4, usrdto.getContrasena());
             ps.setInt(5, usrdto.getId());
             int registrosActualizados=ps.executeUpdate();
+            fu.MostrarAlertas("Información del sistema", "Usuario actualizado. Registros modificados: "+registrosActualizados);
             ConnBD.CerrarConexionBD();
             return registrosActualizados;
         }catch(Exception ex){
