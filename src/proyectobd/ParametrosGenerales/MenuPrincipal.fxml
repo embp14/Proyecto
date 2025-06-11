@@ -12,7 +12,6 @@
           <Menu mnemonicParsing="false" text="Administracion">
             <items>
               <MenuItem fx:id="mni_ProbarConexionBD" mnemonicParsing="false" onAction="#call_ProbarConexionBD" text="Probar Conexión BD" />
-                  <MenuItem fx:id="mni_Usuarios" mnemonicParsing="false" onAction="#call_ListarUsuarios" text="Usuarios" />
                   <MenuItem fx:id="mni_Vendedores" mnemonicParsing="false" onAction="#call_ListarVendedores" text="Vendedores" />
                   <MenuItem fx:id="mni_Ordenes" mnemonicParsing="false" onAction="#call_ListarOrdenes" text="Órdenes" />
                   <MenuItem fx:id="mni_Resenas" mnemonicParsing="false" onAction="#call_ListarResenas" text="Reseñas" />
