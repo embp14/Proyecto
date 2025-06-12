@@ -31,8 +31,9 @@
                     <columns>
                       <TableColumn fx:id="col_id" prefWidth="50.0" text="ID" />
                       <TableColumn fx:id="col_producto" prefWidth="75.0" text="Producto" />
-                      <TableColumn fx:id="col_url" prefWidth="250.0" text="URL" />
-                      <TableColumn fx:id="col_principal" prefWidth="75.0" text="Principal" />
+                        <TableColumn fx:id="col_url" prefWidth="250.0" text="URL" />
+                        <TableColumn fx:id="col_imagen" prefWidth="120.0" text="Imagen" />
+                        <TableColumn fx:id="col_principal" prefWidth="75.0" text="Principal" />
                     </columns>
                     <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY" /></columnResizePolicy>
                   </TableView>

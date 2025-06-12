@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -27,9 +28,9 @@ public class Mnt_Envios_GuiController implements Initializable {
     @FXML private TextField txt_direccion;
     @FXML private TextField txt_empresa;
     @FXML private TextField txt_tracking;
-    @FXML private TextField txt_envio;
-    @FXML private TextField txt_estimado;
-    @FXML private TextField txt_entrega;
+    @FXML private DatePicker dp_envio;
+    @FXML private DatePicker dp_estimado;
+    @FXML private DatePicker dp_entrega;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -45,9 +46,12 @@ public class Mnt_Envios_GuiController implements Initializable {
                 dto.setDireccionId(Integer.parseInt(txt_direccion.getText()));
                 dto.setEmpresaEnvio(txt_empresa.getText());
                 dto.setCodigoTracking(txt_tracking.getText());
-                dto.setFechaEnvio(Timestamp.valueOf(txt_envio.getText()));
-                dto.setFechaEntregaEstimada(Timestamp.valueOf(txt_estimado.getText()));
-                dto.setFechaEntregaReal(Timestamp.valueOf(txt_entrega.getText()));
+                if(dp_envio.getValue() != null)
+                    dto.setFechaEnvio(Timestamp.valueOf(dp_envio.getValue().atStartOfDay()));
+                if(dp_estimado.getValue() != null)
+                    dto.setFechaEntregaEstimada(Timestamp.valueOf(dp_estimado.getValue().atStartOfDay()));
+                if(dp_entrega.getValue() != null)
+                    dto.setFechaEntregaReal(Timestamp.valueOf(dp_entrega.getValue().atStartOfDay()));
                 int id = dao.InsertarEnvio(dto);
                 if(id>0){
                     txt_id.setText(Integer.toString(id));
@@ -63,9 +67,12 @@ public class Mnt_Envios_GuiController implements Initializable {
             dto.setDireccionId(Integer.parseInt(txt_direccion.getText()));
             dto.setEmpresaEnvio(txt_empresa.getText());
             dto.setCodigoTracking(txt_tracking.getText());
-            dto.setFechaEnvio(Timestamp.valueOf(txt_envio.getText()));
-            dto.setFechaEntregaEstimada(Timestamp.valueOf(txt_estimado.getText()));
-            dto.setFechaEntregaReal(Timestamp.valueOf(txt_entrega.getText()));
+            if(dp_envio.getValue() != null)
+                dto.setFechaEnvio(Timestamp.valueOf(dp_envio.getValue().atStartOfDay()));
+            if(dp_estimado.getValue() != null)
+                dto.setFechaEntregaEstimada(Timestamp.valueOf(dp_estimado.getValue().atStartOfDay()));
+            if(dp_entrega.getValue() != null)
+                dto.setFechaEntregaReal(Timestamp.valueOf(dp_entrega.getValue().atStartOfDay()));
             try{
                 dao.ActualizarEnvio(dto);
                 btn_Grabar.setDisable(true);
@@ -90,13 +97,16 @@ public class Mnt_Envios_GuiController implements Initializable {
             txt_direccion.setText(Integer.toString(dto.getDireccionId()));
             txt_empresa.setText(dto.getEmpresaEnvio());
             txt_tracking.setText(dto.getCodigoTracking());
-            txt_envio.setText(dto.getFechaEnvio() != null ? dto.getFechaEnvio().toString() : "");
-            txt_estimado.setText(dto.getFechaEntregaEstimada() != null ? dto.getFechaEntregaEstimada().toString() : "");
-            txt_entrega.setText(dto.getFechaEntregaReal() != null ? dto.getFechaEntregaReal().toString() : "");
+            if(dto.getFechaEnvio() != null)
+                dp_envio.setValue(dto.getFechaEnvio().toLocalDateTime().toLocalDate());
+            if(dto.getFechaEntregaEstimada() != null)
+                dp_estimado.setValue(dto.getFechaEntregaEstimada().toLocalDateTime().toLocalDate());
+            if(dto.getFechaEntregaReal() != null)
+                dp_entrega.setValue(dto.getFechaEntregaReal().toLocalDateTime().toLocalDate());
         }else{
-            txt_envio.setText(new Timestamp(System.currentTimeMillis()).toString());
-            txt_estimado.clear();
-            txt_entrega.clear();
+            dp_envio.setValue(new Timestamp(System.currentTimeMillis()).toLocalDateTime().toLocalDate());
+            dp_estimado.setValue(null);
+            dp_entrega.setValue(null);
         }
     }
 }

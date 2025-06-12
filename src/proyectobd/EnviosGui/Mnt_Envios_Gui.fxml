@@ -27,12 +27,12 @@
                         <TextField fx:id="txt_empresa" layoutX="160.0" layoutY="140.0" prefWidth="400.0" />
                         <Label layoutX="76.0" layoutY="180.0" text="Tracking:" />
                         <TextField fx:id="txt_tracking" layoutX="160.0" layoutY="176.0" prefWidth="400.0" />
-                        <Label layoutX="68.0" layoutY="216.0" text="F.Envio:" />
-                        <TextField fx:id="txt_envio" layoutX="160.0" layoutY="212.0" prefWidth="400.0" />
-                        <Label layoutX="48.0" layoutY="252.0" text="F.Estimada:" />
-                        <TextField fx:id="txt_estimado" layoutX="160.0" layoutY="248.0" prefWidth="400.0" />
-                        <Label layoutX="60.0" layoutY="288.0" text="F.Entrega:" />
-                        <TextField fx:id="txt_entrega" layoutX="160.0" layoutY="284.0" prefWidth="400.0" />
+                          <Label layoutX="68.0" layoutY="216.0" text="F.Envio:" />
+                          <DatePicker fx:id="dp_envio" layoutX="160.0" layoutY="212.0" prefWidth="400.0" />
+                          <Label layoutX="48.0" layoutY="252.0" text="F.Estimada:" />
+                          <DatePicker fx:id="dp_estimado" layoutX="160.0" layoutY="248.0" prefWidth="400.0" />
+                          <Label layoutX="60.0" layoutY="288.0" text="F.Entrega:" />
+                          <DatePicker fx:id="dp_entrega" layoutX="160.0" layoutY="284.0" prefWidth="400.0" />
                     </children>
                 </AnchorPane>
             </content>

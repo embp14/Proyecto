@@ -38,6 +38,7 @@ public class Lst_Envios_GuiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txt_Buscar.textProperty().addListener((obs, oldV, newV) -> { call_Buscar(); });
+        call_CargarDatos();
     }
 
     public void call_CerrarVentana(){
@@ -64,8 +65,21 @@ public class Lst_Envios_GuiController implements Initializable {
     }
 
     public void call_Buscar(){
-        // For simplicity fetch all records
-        call_CargarDatos();
+        try{
+            EnvioDAO dao = new EnvioDAO();
+            ObservableList<EnvioDTO> lista = dao.ListarEnvios();
+            String filtro = txt_Buscar.getText().toLowerCase();
+            if(!filtro.isEmpty()){
+                lista = lista.filtered(e ->
+                        Integer.toString(e.getOrdenId()).contains(filtro) ||
+                        (e.getEmpresaEnvio() != null && e.getEmpresaEnvio().toLowerCase().contains(filtro)) ||
+                        (e.getCodigoTracking() != null && e.getCodigoTracking().toLowerCase().contains(filtro))
+                );
+            }
+            tbl_Lista.setItems(lista);
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
+        }
     }
 
     public void call_NuevoRegistro(){

@@ -11,10 +11,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackProducto;
 
@@ -27,6 +30,7 @@ public class Lst_ImagenesProducto_GuiController implements Initializable {
     @FXML private TableColumn<ImagenProductoDTO, Integer> col_id;
     @FXML private TableColumn<ImagenProductoDTO, Integer> col_producto;
     @FXML private TableColumn<ImagenProductoDTO, String> col_url;
+    @FXML private TableColumn<ImagenProductoDTO, ImageView> col_imagen;
     @FXML private TableColumn<ImagenProductoDTO, Boolean> col_principal;
 
     FeedbackProducto fu = new FeedbackProducto();
@@ -49,6 +53,8 @@ public class Lst_ImagenesProducto_GuiController implements Initializable {
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             col_producto.setCellValueFactory(new PropertyValueFactory<>("productoId"));
             col_url.setCellValueFactory(new PropertyValueFactory<>("url"));
+            col_imagen.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(
+                    new ImageView(new Image(param.getValue().getUrl(), 80, 60, true, true))));
             col_principal.setCellValueFactory(new PropertyValueFactory<>("esPrincipal"));
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
@@ -63,8 +69,12 @@ public class Lst_ImagenesProducto_GuiController implements Initializable {
             if(txt_Buscar.getText().isEmpty()){
                 lista = dao.ListarImagenes(0);
             }else{
-                int id = Integer.parseInt(txt_Buscar.getText());
-                lista = dao.ListarImagenes(id);
+                try{
+                    int id = Integer.parseInt(txt_Buscar.getText());
+                    lista = dao.ListarImagenes(id);
+                }catch(NumberFormatException nfe){
+                    lista = dao.ListarImagenes(0);
+                }
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
