@@ -1,4 +1,4 @@
-package proyectobd.CarritoItemsGui;
+package proyectobd.EnviosGui;
 
 import dao.CarritoItemDAO;
 import dto.CarritoItemDTO;
@@ -18,7 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackEnvio;
 
-public class Lst_CarritoItems_GuiController implements Initializable {
+public class Lst_Envios_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
     @FXML private Button btn_Nuevo;
     @FXML private Button btn_Editar;
@@ -64,8 +64,8 @@ public class Lst_CarritoItems_GuiController implements Initializable {
     public void call_NuevoRegistro(){
         try{
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/CarritoItemsGui/Mnt_CarritoItems_Gui.fxml"));
-            stage.setTitle("Mantenimiento Items");
+            Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/EnviosGui/Mnt_Envios_Gui.fxml"));
+            stage.setTitle("Mantenimiento Envios");
             stage.setScene(new Scene(root));
             stage.showAndWait();
             call_Buscar();
@@ -82,8 +82,8 @@ public class Lst_CarritoItems_GuiController implements Initializable {
                 return;
             }
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/CarritoItemsGui/Mnt_CarritoItems_Gui.fxml"));
-            stage.setTitle("Mantenimiento Items");
+            Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/EnviosGui/Mnt_Envios_Gui.fxml"));
+            stage.setTitle("Mantenimiento Envios");
             stage.setScene(new Scene(root));
             stage.setUserData(dto);
             stage.showAndWait();

@@ -1,4 +1,4 @@
-package proyectobd.CarritoItemsGui;
+package proyectobd.EnviosGui;
 
 import dao.CarritoItemDAO;
 import dto.CarritoItemDTO;
@@ -13,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackEnvio;
 
-public class Mnt_CarritoItems_GuiController implements Initializable {
+public class Mnt_Envios_GuiController implements Initializable {
 
     FeedbackEnvio fu = new FeedbackEnvio();
     private boolean actualizar = false;
