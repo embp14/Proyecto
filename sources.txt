@@ -56,3 +56,17 @@ src/dto/EnvioDTO.java
 src/proyectobd/ParametrosGenerales/FeedbackCarrito.java
 src/proyectobd/ParametrosGenerales/FeedbackDireccion.java
 src/proyectobd/ParametrosGenerales/FeedbackEnvio.java
+src/dao/VarianteProductoDAO.java
+src/dao/ImagenProductoDAO.java
+src/dao/OfertaDAO.java
+src/dao/ListaDeseoDAO.java
+src/dao/ListaDeseoItemDAO.java
+src/dao/OrdenItemDAO.java
+src/dao/PagoDAO.java
+src/dto/VarianteProductoDTO.java
+src/dto/ImagenProductoDTO.java
+src/dto/OfertaDTO.java
+src/dto/ListaDeseoDTO.java
+src/dto/ListaDeseoItemDTO.java
+src/dto/OrdenItemDTO.java
+src/dto/PagoDTO.java
