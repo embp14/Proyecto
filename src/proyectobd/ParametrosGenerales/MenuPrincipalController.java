@@ -20,6 +20,8 @@ import proyectobd.ParametrosGenerales.FeedbackRol;
 import proyectobd.ParametrosGenerales.FeedbackProducto;
 import proyectobd.ParametrosGenerales.FeedbackCupon;
 import proyectobd.ParametrosGenerales.FeedbackCategoria;
+import proyectobd.ParametrosGenerales.FeedbackCarrito;
+import proyectobd.ParametrosGenerales.FeedbackDireccion;
 
 /**
  * FXML Controller class
@@ -41,6 +43,8 @@ public class MenuPrincipalController implements Initializable {
     FeedbackProducto fpr = new FeedbackProducto();
     FeedbackCupon fcu = new FeedbackCupon();
     FeedbackCategoria fca = new FeedbackCategoria();
+    FeedbackCarrito fcar = new FeedbackCarrito();
+    FeedbackDireccion fdir = new FeedbackDireccion();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -155,6 +159,30 @@ public class MenuPrincipalController implements Initializable {
                 stage.show();
         } catch (Exception ex){
             fcu.MostrarAlertas("Error del sistema", ex.toString());
+        }
+    }
+
+    public void call_ListarCarritos(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/CarritosGui/Lst_Carritos_Gui.fxml"));
+                stage.setTitle("Gestión de carritos");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            fcar.MostrarAlertas("Error del sistema", ex.toString());
+        }
+    }
+
+    public void call_ListarDirecciones(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/DireccionesGui/Lst_Direcciones_Gui.fxml"));
+                stage.setTitle("Gestión de direcciones");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            fdir.MostrarAlertas("Error del sistema", ex.toString());
         }
     }
     
