@@ -16,7 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import proyectobd.ParametrosGenerales.FeedbackVendedor;
+import proyectobd.ParametrosGenerales.FeedbackCarritoItem;
 
 public class Lst_CarritoItems_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
@@ -29,7 +29,7 @@ public class Lst_CarritoItems_GuiController implements Initializable {
     @FXML private TableColumn<CarritoItemDTO, Integer> col_variante;
     @FXML private TableColumn<CarritoItemDTO, Integer> col_cantidad;
 
-    FeedbackVendedor fu = new FeedbackVendedor();
+    FeedbackCarritoItem fu = new FeedbackCarritoItem();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

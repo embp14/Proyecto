@@ -16,7 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import proyectobd.ParametrosGenerales.FeedbackProducto;
+import proyectobd.ParametrosGenerales.FeedbackImagenProducto;
 
 public class Lst_ImagenesProducto_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
@@ -29,7 +29,7 @@ public class Lst_ImagenesProducto_GuiController implements Initializable {
     @FXML private TableColumn<ImagenProductoDTO, String> col_url;
     @FXML private TableColumn<ImagenProductoDTO, Boolean> col_principal;
 
-    FeedbackProducto fu = new FeedbackProducto();
+    FeedbackImagenProducto fu = new FeedbackImagenProducto();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -59,13 +59,11 @@ public class Lst_ImagenesProducto_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             ImagenProductoDAO dao = new ImagenProductoDAO();
-            ObservableList<ImagenProductoDTO> lista;
-            if(txt_Buscar.getText().isEmpty()){
-                lista = dao.ListarImagenes(0);
-            }else{
-                int id = Integer.parseInt(txt_Buscar.getText());
-                lista = dao.ListarImagenes(id);
+            int id = 0;
+            if(!txt_Buscar.getText().isEmpty()){
+                id = Integer.parseInt(txt_Buscar.getText());
             }
+            ObservableList<ImagenProductoDTO> lista = dao.ListarImagenes(id);
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());

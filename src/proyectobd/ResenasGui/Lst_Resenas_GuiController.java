@@ -61,7 +61,11 @@ public class Lst_Resenas_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             ResenaDAO dao = new ResenaDAO();
-            ObservableList<ResenaDTO> lista = dao.BuscarResenas(txt_Buscar.getText());
+            ObservableList<ResenaDTO> lista = dao.ListarResenas();
+            if(!txt_Buscar.getText().isEmpty()){
+                int id = Integer.parseInt(txt_Buscar.getText());
+                lista.removeIf(r -> r.getId() != id);
+            }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());

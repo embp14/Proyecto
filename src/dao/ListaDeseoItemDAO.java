@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import proyectobd.ParametrosGenerales.FeedbackVendedor;
+import proyectobd.ParametrosGenerales.FeedbackListaDeseoItem;
 
 public class ListaDeseoItemDAO {
-    FeedbackVendedor fu = new FeedbackVendedor();
+    FeedbackListaDeseoItem fu = new FeedbackListaDeseoItem();
 
     private boolean existeLista(int id){
         ConectorBD ConnBD = new ConectorBD();
@@ -46,7 +46,7 @@ public class ListaDeseoItemDAO {
     public ObservableList<ListaDeseoItemDTO> ListarItems(int listaId){
         ObservableList<ListaDeseoItemDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, lista_deseos_id, variante_id FROM lista_deseos_items WHERE lista_deseos_id="+listaId+" ORDER BY id";
+        String sql = "SELECT id, lista_deseos_id, variante_id, cantidad FROM lista_deseos_items WHERE lista_deseos_id="+listaId+" ORDER BY id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -55,6 +55,7 @@ public class ListaDeseoItemDAO {
                 dto.setId(rs.getInt("id"));
                 dto.setListaDeseosId(rs.getInt("lista_deseos_id"));
                 dto.setVarianteId(rs.getInt("variante_id"));
+                dto.setCantidad(rs.getInt("cantidad"));
                 lista.add(dto);
             }
             ConnBD.CerrarConexionBD();
@@ -70,11 +71,12 @@ public class ListaDeseoItemDAO {
                 fu.MostrarAlertas("Datos invalidos", "Lista o variante inexistente");
                 return 0;
             }
-            String sql = "INSERT INTO lista_deseos_items(lista_deseos_id, variante_id) VALUES(?,?)";
+            String sql = "INSERT INTO lista_deseos_items(lista_deseos_id, variante_id, cantidad) VALUES(?,?,?)";
             ConectorBD ConnBD = new ConectorBD();
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, dto.getListaDeseosId());
             ps.setInt(2, dto.getVarianteId());
+            ps.setInt(3, dto.getCantidad());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             int codigo = 0;
@@ -94,12 +96,13 @@ public class ListaDeseoItemDAO {
                 fu.MostrarAlertas("Datos invalidos", "Lista o variante inexistente");
                 return 0;
             }
-            String sql = "UPDATE lista_deseos_items SET lista_deseos_id=?, variante_id=? WHERE id=?";
+            String sql = "UPDATE lista_deseos_items SET lista_deseos_id=?, variante_id=?, cantidad=? WHERE id=?";
             ConectorBD ConnBD = new ConectorBD();
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, dto.getListaDeseosId());
             ps.setInt(2, dto.getVarianteId());
-            ps.setInt(3, dto.getId());
+            ps.setInt(3, dto.getCantidad());
+            ps.setInt(4, dto.getId());
             int registros = ps.executeUpdate();
             fu.MostrarAlertas("Informacion", "Item actualizado. Registros: "+registros);
             ConnBD.CerrarConexionBD();

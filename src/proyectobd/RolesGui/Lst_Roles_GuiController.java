@@ -55,7 +55,11 @@ public class Lst_Roles_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             RolDAO dao = new RolDAO();
-            ObservableList<RolDTO> lista = dao.BuscarRoles(txt_Buscar.getText());
+            ObservableList<RolDTO> lista = dao.ListarRoles();
+            if(!txt_Buscar.getText().isEmpty()){
+                int id = Integer.parseInt(txt_Buscar.getText());
+                lista.removeIf(r -> r.getId() != id);
+            }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());

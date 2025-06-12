@@ -61,7 +61,11 @@ public class Lst_Ordenes_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             OrdenDAO dao = new OrdenDAO();
-            ObservableList<OrdenDTO> lista = dao.BuscarOrdenes(txt_Buscar.getText());
+            ObservableList<OrdenDTO> lista = dao.ListarOrdenes();
+            if(!txt_Buscar.getText().isEmpty()){
+                int id = Integer.parseInt(txt_Buscar.getText());
+                lista.removeIf(o -> o.getId() != id);
+            }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());

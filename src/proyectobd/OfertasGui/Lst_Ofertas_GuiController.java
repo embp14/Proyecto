@@ -16,7 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import proyectobd.ParametrosGenerales.FeedbackProducto;
+import proyectobd.ParametrosGenerales.FeedbackOferta;
 
 public class Lst_Ofertas_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
@@ -30,7 +30,7 @@ public class Lst_Ofertas_GuiController implements Initializable {
     @FXML private TableColumn<OfertaDTO, String> col_inicio;
     @FXML private TableColumn<OfertaDTO, String> col_fin;
 
-    FeedbackProducto fu = new FeedbackProducto();
+    FeedbackOferta fu = new FeedbackOferta();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -64,7 +64,7 @@ public class Lst_Ofertas_GuiController implements Initializable {
             ObservableList<OfertaDTO> lista = dao.ListarOfertas();
             if(!txt_Buscar.getText().isEmpty()){
                 int id = Integer.parseInt(txt_Buscar.getText());
-                lista.removeIf(o -> o.getVarianteId() != id);
+                lista.removeIf(o -> o.getId() != id);
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

@@ -59,7 +59,11 @@ public class Lst_Direcciones_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             DireccionDAO dao = new DireccionDAO();
-            ObservableList<DireccionDTO> lista = dao.BuscarDirecciones(txt_Buscar.getText());
+            ObservableList<DireccionDTO> lista = dao.ListarDirecciones();
+            if(!txt_Buscar.getText().isEmpty()){
+                int id = Integer.parseInt(txt_Buscar.getText());
+                lista.removeIf(d -> d.getId() != id);
+            }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());

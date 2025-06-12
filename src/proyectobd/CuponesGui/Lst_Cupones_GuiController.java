@@ -59,7 +59,11 @@ public class Lst_Cupones_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             CuponDAO dao = new CuponDAO();
-            ObservableList<CuponDTO> lista = dao.BuscarCupones(txt_Buscar.getText());
+            ObservableList<CuponDTO> lista = dao.ListarCupones();
+            if(!txt_Buscar.getText().isEmpty()){
+                int id = Integer.parseInt(txt_Buscar.getText());
+                lista.removeIf(c -> c.getId() != id);
+            }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());

@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackCupon;
@@ -25,7 +26,7 @@ public class Mnt_Cupones_GuiController implements Initializable {
     @FXML private TextField txt_id;
     @FXML private TextField txt_codigo;
     @FXML private TextField txt_descuento;
-    @FXML private TextField txt_expira;
+    @FXML private DatePicker dp_expira;
     @FXML private TextField txt_uso;
 
     @Override
@@ -43,7 +44,7 @@ public class Mnt_Cupones_GuiController implements Initializable {
                 CuponDTO dto = new CuponDTO();
                 dto.setCodigo(txt_codigo.getText());
                 dto.setDescuentoPct(Integer.parseInt(txt_descuento.getText()));
-                dto.setFechaExpiracion(Timestamp.valueOf(txt_expira.getText()));
+                dto.setFechaExpiracion(Timestamp.valueOf(dp_expira.getValue().atStartOfDay()));
                 dto.setUsoMaximo(Integer.parseInt(txt_uso.getText()));
                 int id = dao.InsertarCupon(dto);
                 if(id>0){
@@ -58,7 +59,7 @@ public class Mnt_Cupones_GuiController implements Initializable {
             CuponDTO dto = (CuponDTO) stage.getUserData();
             dto.setCodigo(txt_codigo.getText());
             dto.setDescuentoPct(Integer.parseInt(txt_descuento.getText()));
-            dto.setFechaExpiracion(Timestamp.valueOf(txt_expira.getText()));
+            dto.setFechaExpiracion(Timestamp.valueOf(dp_expira.getValue().atStartOfDay()));
             dto.setUsoMaximo(Integer.parseInt(txt_uso.getText()));
             try{
                 dao.ActualizarCupon(dto);
@@ -82,10 +83,10 @@ public class Mnt_Cupones_GuiController implements Initializable {
             txt_id.setText(Integer.toString(dto.getId()));
             txt_codigo.setText(dto.getCodigo());
             txt_descuento.setText(Integer.toString(dto.getDescuentoPct()));
-            txt_expira.setText(dto.getFechaExpiracion().toString());
+            dp_expira.setValue(dto.getFechaExpiracion().toLocalDateTime().toLocalDate());
             txt_uso.setText(Integer.toString(dto.getUsoMaximo()));
         }else{
-            txt_expira.setText(new Timestamp(System.currentTimeMillis()).toString());
+            dp_expira.setValue(java.time.LocalDate.now());
         }
     }
 }

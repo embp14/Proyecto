@@ -59,7 +59,11 @@ public class Lst_Vendedores_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             VendedorDAO dao = new VendedorDAO();
-            ObservableList<VendedorDTO> lista = dao.BuscarVendedores(txt_Buscar.getText());
+            ObservableList<VendedorDTO> lista = dao.ListarVendedores();
+            if(!txt_Buscar.getText().isEmpty()){
+                int id = Integer.parseInt(txt_Buscar.getText());
+                lista.removeIf(v -> v.getId() != id);
+            }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());

@@ -61,7 +61,11 @@ public class Lst_Productos_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             ProductoDAO dao = new ProductoDAO();
-            ObservableList<ProductoDTO> lista = dao.BuscarProductos(txt_Buscar.getText());
+            ObservableList<ProductoDTO> lista = dao.ListarProductos();
+            if(!txt_Buscar.getText().isEmpty()){
+                int id = Integer.parseInt(txt_Buscar.getText());
+                lista.removeIf(p -> p.getId() != id);
+            }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());

@@ -6,22 +6,25 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import proyectobd.ParametrosGenerales.FeedbackVendedor;
+import proyectobd.ParametrosGenerales.FeedbackListaDeseo;
 
 public class Mnt_ListasDeseos_GuiController implements Initializable {
 
-    FeedbackVendedor fu = new FeedbackVendedor();
+    FeedbackListaDeseo fu = new FeedbackListaDeseo();
     private boolean actualizar = false;
 
     @FXML private AnchorPane Ap_Main;
     @FXML private Button btn_Guardar;
     @FXML private TextField txt_usuario;
     @FXML private TextField txt_nombre;
-    @FXML private TextField txt_creado;
+    @FXML private DatePicker dp_creado;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -37,7 +40,7 @@ public class Mnt_ListasDeseos_GuiController implements Initializable {
                 ListaDeseoDTO dto = new ListaDeseoDTO();
                 dto.setUsuarioId(Integer.parseInt(txt_usuario.getText()));
                 dto.setNombre(txt_nombre.getText());
-                dto.setCreadoEn(Timestamp.valueOf(txt_creado.getText()));
+                dto.setCreadoEn(Timestamp.valueOf(dp_creado.getValue().atStartOfDay()));
                 int id = dao.InsertarLista(dto);
                 if(id>0){
                     btn_Guardar.setDisable(true);
@@ -50,7 +53,7 @@ public class Mnt_ListasDeseos_GuiController implements Initializable {
             ListaDeseoDTO dto = (ListaDeseoDTO) stage.getUserData();
             dto.setUsuarioId(Integer.parseInt(txt_usuario.getText()));
             dto.setNombre(txt_nombre.getText());
-            dto.setCreadoEn(Timestamp.valueOf(txt_creado.getText()));
+            dto.setCreadoEn(Timestamp.valueOf(dp_creado.getValue().atStartOfDay()));
             try{
                 dao.ActualizarLista(dto);
                 btn_Guardar.setDisable(true);
@@ -67,10 +70,10 @@ public class Mnt_ListasDeseos_GuiController implements Initializable {
             actualizar = true;
             txt_usuario.setText(Integer.toString(dto.getUsuarioId()));
             txt_nombre.setText(dto.getNombre());
-            txt_creado.setText(dto.getCreadoEn().toString());
+            dp_creado.setValue(dto.getCreadoEn().toLocalDateTime().toLocalDate());
         }else{
             txt_nombre.clear();
-            txt_creado.setText(new Timestamp(System.currentTimeMillis()).toString());
+            dp_creado.setValue(java.time.LocalDate.now());
         }
     }
 }

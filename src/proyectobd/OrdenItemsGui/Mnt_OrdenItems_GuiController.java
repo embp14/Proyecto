@@ -11,11 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import proyectobd.ParametrosGenerales.FeedbackVendedor;
+import proyectobd.ParametrosGenerales.FeedbackOrdenItem;
 
 public class Mnt_OrdenItems_GuiController implements Initializable {
 
-    FeedbackVendedor fu = new FeedbackVendedor();
+    FeedbackOrdenItem fu = new FeedbackOrdenItem();
     private boolean actualizar = false;
 
     @FXML private AnchorPane Ap_Main;

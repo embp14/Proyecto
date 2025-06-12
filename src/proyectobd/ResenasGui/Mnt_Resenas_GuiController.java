@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackResena;
@@ -27,7 +28,7 @@ public class Mnt_Resenas_GuiController implements Initializable {
     @FXML private TextField txt_usuario;
     @FXML private TextField txt_rating;
     @FXML private TextField txt_comentario;
-    @FXML private TextField txt_fecha;
+    @FXML private DatePicker dp_fecha;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -46,7 +47,7 @@ public class Mnt_Resenas_GuiController implements Initializable {
                 dto.setUsuarioId(Integer.parseInt(txt_usuario.getText()));
                 dto.setRating(Integer.parseInt(txt_rating.getText()));
                 dto.setComentario(txt_comentario.getText());
-                dto.setFecha(Timestamp.valueOf(txt_fecha.getText()));
+                dto.setFecha(Timestamp.valueOf(dp_fecha.getValue().atStartOfDay()));
                 int id = dao.InsertarResena(dto);
                 if(id>0){
                     txt_id.setText(Integer.toString(id));
@@ -62,7 +63,7 @@ public class Mnt_Resenas_GuiController implements Initializable {
             dto.setUsuarioId(Integer.parseInt(txt_usuario.getText()));
             dto.setRating(Integer.parseInt(txt_rating.getText()));
             dto.setComentario(txt_comentario.getText());
-            dto.setFecha(Timestamp.valueOf(txt_fecha.getText()));
+            dto.setFecha(Timestamp.valueOf(dp_fecha.getValue().atStartOfDay()));
             try{
                 dao.ActualizarResena(dto);
                 btn_Grabar.setDisable(true);
@@ -87,9 +88,9 @@ public class Mnt_Resenas_GuiController implements Initializable {
             txt_usuario.setText(Integer.toString(dto.getUsuarioId()));
             txt_rating.setText(Integer.toString(dto.getRating()));
             txt_comentario.setText(dto.getComentario());
-            txt_fecha.setText(dto.getFecha().toString());
+            dp_fecha.setValue(dto.getFecha().toLocalDateTime().toLocalDate());
         }else{
-            txt_fecha.setText(new Timestamp(System.currentTimeMillis()).toString());
+            dp_fecha.setValue(java.time.LocalDate.now());
         }
     }
 }
