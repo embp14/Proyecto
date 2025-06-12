@@ -3,6 +3,7 @@ package proyectobd.PagosGui;
 import dao.PagoDAO;
 import dto.PagoDTO;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
