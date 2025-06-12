@@ -1,0 +1,91 @@
+package proyectobd.CuponesGui;
+
+import dao.CuponDAO;
+import dto.CuponDTO;
+import java.net.URL;
+import java.sql.Timestamp;
+import java.util.ResourceBundle;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import proyectobd.ParametrosGenerales.FeedbackCupon;
+
+public class Mnt_Cupones_GuiController implements Initializable {
+
+    FeedbackCupon fu = new FeedbackCupon();
+    private boolean actualizar = false;
+
+    @FXML private AnchorPane Ap_Main;
+    @FXML private Button btn_Grabar;
+    @FXML private Button btn_Cerrar;
+    @FXML private TextField txt_id;
+    @FXML private TextField txt_codigo;
+    @FXML private TextField txt_descuento;
+    @FXML private TextField txt_expira;
+    @FXML private TextField txt_uso;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        Platform.runLater(() -> {
+            cargarDatos();
+            txt_id.setDisable(true);
+        });
+    }
+
+    public void call_Grabar(){
+        CuponDAO dao = new CuponDAO();
+        if(!actualizar){
+            try{
+                CuponDTO dto = new CuponDTO();
+                dto.setCodigo(txt_codigo.getText());
+                dto.setDescuentoPct(Integer.parseInt(txt_descuento.getText()));
+                dto.setFechaExpiracion(Timestamp.valueOf(txt_expira.getText()));
+                dto.setUsoMaximo(Integer.parseInt(txt_uso.getText()));
+                int id = dao.InsertarCupon(dto);
+                if(id>0){
+                    txt_id.setText(Integer.toString(id));
+                    btn_Grabar.setDisable(true);
+                }
+            }catch(Exception ex){
+                fu.MostrarAlertas("Error", ex.toString());
+            }
+        }else{
+            Stage stage = (Stage) Ap_Main.getScene().getWindow();
+            CuponDTO dto = (CuponDTO) stage.getUserData();
+            dto.setCodigo(txt_codigo.getText());
+            dto.setDescuentoPct(Integer.parseInt(txt_descuento.getText()));
+            dto.setFechaExpiracion(Timestamp.valueOf(txt_expira.getText()));
+            dto.setUsoMaximo(Integer.parseInt(txt_uso.getText()));
+            try{
+                dao.ActualizarCupon(dto);
+                btn_Grabar.setDisable(true);
+            }catch(Exception ex){
+                fu.MostrarAlertas("Error", ex.toString());
+            }
+        }
+    }
+
+    public void call_CerrarVentana(){
+        Stage stage = (Stage) btn_Cerrar.getScene().getWindow();
+        stage.close();
+    }
+
+    private void cargarDatos(){
+        Stage stage = (Stage) Ap_Main.getScene().getWindow();
+        CuponDTO dto = (CuponDTO) stage.getUserData();
+        if(dto != null){
+            actualizar = true;
+            txt_id.setText(Integer.toString(dto.getId()));
+            txt_codigo.setText(dto.getCodigo());
+            txt_descuento.setText(Integer.toString(dto.getDescuentoPct()));
+            txt_expira.setText(dto.getFechaExpiracion().toString());
+            txt_uso.setText(Integer.toString(dto.getUsoMaximo()));
+        }else{
+            txt_expira.setText(new Timestamp(System.currentTimeMillis()).toString());
+        }
+    }
+}

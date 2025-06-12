@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.CarritosGui.Mnt_Carritos_GuiController">
+   <children>
+      <Pane prefHeight="39.0" prefWidth="400.0" style="-fx-background-color: #5585b5;">
+         <children>
+            <Label layoutX="124.0" layoutY="7.0" text="Carrito" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Label layoutX="32.0" layoutY="67.0" text="Usuario:" />
+      <TextField fx:id="txt_usuario" layoutX="98.0" layoutY="63.0" prefWidth="250.0" />
+      <Label layoutX="32.0" layoutY="108.0" text="Creado:" />
+      <TextField fx:id="txt_creado" layoutX="98.0" layoutY="104.0" prefWidth="250.0" />
+      <Button fx:id="btn_Guardar" layoutX="154.0" layoutY="164.0" mnemonicParsing="false" onAction="#call_Guardar" text="Guardar" />
+   </children>
+</AnchorPane>
