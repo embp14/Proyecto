@@ -11,7 +11,7 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import proyectobd.ParametrosGenerales.FeedbackUsuario;
+import proyectobd.ParametrosGenerales.FeedbackRol;
 
 
 
@@ -22,7 +22,7 @@ import proyectobd.ParametrosGenerales.FeedbackUsuario;
  */
 public class UsuarioDAO {
 
-    FeedbackUsuario fu = new FeedbackUsuario();
+    FeedbackRol fu = new FeedbackRol();
     
     // Método para obtener la lista de usuarios de la BD
     // Devolverá un array de UsuarioDTO

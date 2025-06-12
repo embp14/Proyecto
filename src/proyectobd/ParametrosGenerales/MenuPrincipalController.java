@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackOrden;
 import proyectobd.ParametrosGenerales.FeedbackResena;
 import proyectobd.ParametrosGenerales.FeedbackVendedor;
-import proyectobd.ParametrosGenerales.FeedbackUsuario;
 import proyectobd.ParametrosGenerales.FeedbackRol;
 import proyectobd.ParametrosGenerales.FeedbackProducto;
 import proyectobd.ParametrosGenerales.FeedbackCupon;
@@ -38,7 +37,6 @@ public class MenuPrincipalController implements Initializable {
     FeedbackVendedor fv = new FeedbackVendedor();
     FeedbackOrden fo = new FeedbackOrden();
     FeedbackResena fr = new FeedbackResena();
-    FeedbackUsuario fu = new FeedbackUsuario();
     FeedbackRol frl = new FeedbackRol();
     FeedbackProducto fpr = new FeedbackProducto();
     FeedbackCupon fcu = new FeedbackCupon();
@@ -56,25 +54,13 @@ public class MenuPrincipalController implements Initializable {
         ConectorBD ConnBD=new ConectorBD();
         // Ejecutamos el método Abrir Conexión
         if(ConnBD.AbrirConexionBD()!=null){
-            fu.MostrarAlertas("Conexión exitosa","Se estableció conexión con la base de datos");
+            fo.MostrarAlertas("Conexión exitosa","Se estableció conexión con la base de datos");
         }else{
-            fu.MostrarAlertas("Conexión no exitosa","No se pudo establecer conexión con la base de datos");
+            fo.MostrarAlertas("Conexión no exitosa","No se pudo establecer conexión con la base de datos");
         }
         // Ejecutamos el método Cerrar Conexión
         ConnBD.CerrarConexionBD();
 
-    }
-
-    public void call_ListarUsuarios(){
-        try{
-                Stage stage = new Stage();
-                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/UsuariosGui/Lst_Usuarios_Gui.fxml"));
-                stage.setTitle("Gestión de usuarios");
-                stage.setScene(new Scene(root));
-                stage.show();
-        } catch (Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
-        }
     }
 
     public void call_ListarRoles(){
