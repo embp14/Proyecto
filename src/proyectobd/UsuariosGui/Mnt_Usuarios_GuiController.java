@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackUsuario;
+import proyectobd.Utilidades.GeneradorCredenciales;
 
 /**
  * FXML Controller class
@@ -51,17 +52,40 @@ public class Mnt_Usuarios_GuiController implements Initializable {
     @FXML private TextField txt_FechaCrea;
     @FXML private TextField txt_Modifica;
     @FXML private TextField txt_FechaModifica;
+
+    //Genera valores por defecto para Login y Email a partir del nombre y el apellido
+    private void autoCompletarCampos() {
+        String nombre = txt_Nombre.getText() != null ? txt_Nombre.getText().trim() : "";
+        String apellido = txt_Apellido.getText() != null ? txt_Apellido.getText().trim() : "";
+        if(!nombre.isEmpty() && !apellido.isEmpty()){
+            String loginGenerado = GeneradorCredenciales.generarLogin(nombre, apellido);
+            String emailGenerado = GeneradorCredenciales.generarEmail(nombre, apellido);
+            if(txt_Login.getText() == null || txt_Login.getText().isBlank()) {
+                txt_Login.setText(loginGenerado);
+            }
+            if(txt_Email.getText() == null || txt_Email.getText().isBlank()) {
+                txt_Email.setText(emailGenerado);
+            }
+        }
+    }
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
-//Platform.runLater permite ejecutar código luego de que la interface se cargue
+        // Agregamos listeners para autocompletar los campos Login y Email
+        txt_Nombre.textProperty().addListener((obs, oldText, newText) -> {
+            autoCompletarCampos();
+        });
+        txt_Apellido.textProperty().addListener((obs, oldText, newText) -> {
+            autoCompletarCampos();
+        });
+
+        //Platform.runLater permite ejecutar código luego de que la interface se cargue
         Platform.runLater(new Runnable() {
         @Override public void run() {
                 //Si es que debo cargar datos, ejecuto el procedimiento de carga de datos
-                //esto sirve si estoy editando un registro, para recuperar la información a editar                
+                //esto sirve si estoy editando un registro, para recuperar la información a editar
                 CargarDatos();
                 //Deshabilito los controles que no son editables
                 // El campo del código no es editable, por lo tanto se deshabilita
