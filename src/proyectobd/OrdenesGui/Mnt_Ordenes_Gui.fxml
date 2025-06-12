@@ -34,7 +34,7 @@
                         <Label layoutX="122.0" layoutY="184.0" text="Total Descuento:" />
                         <TextField fx:id="txt_totaldescuento" layoutX="220.0" layoutY="180.0" prefHeight="25.0" prefWidth="400.0" />
                         <Label layoutX="146.0" layoutY="220.0" text="Fecha:" />
-                        <TextField fx:id="txt_fecha" layoutX="220.0" layoutY="216.0" prefHeight="25.0" prefWidth="400.0" />
+                        <DatePicker fx:id="dp_fecha" layoutX="220.0" layoutY="216.0" prefWidth="400.0" />
                     </children>
                 </AnchorPane>
             </content>

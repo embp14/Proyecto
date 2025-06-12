@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackCarrito;
@@ -22,7 +23,7 @@ public class Mnt_Carritos_GuiController implements Initializable {
     @FXML private AnchorPane Ap_Main;
     @FXML private Button btn_Guardar;
     @FXML private TextField txt_usuario;
-    @FXML private TextField txt_creado;
+    @FXML private DatePicker dp_creado;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -37,7 +38,7 @@ public class Mnt_Carritos_GuiController implements Initializable {
             try{
                 CarritoDTO dto = new CarritoDTO();
                 dto.setUsuarioId(Integer.parseInt(txt_usuario.getText()));
-                dto.setCreadoEn(Timestamp.valueOf(txt_creado.getText()));
+                dto.setCreadoEn(Timestamp.valueOf(dp_creado.getValue().atStartOfDay()));
                 int id = dao.InsertarCarrito(dto);
                 if(id>0){
                     btn_Guardar.setDisable(true);
@@ -49,7 +50,7 @@ public class Mnt_Carritos_GuiController implements Initializable {
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             CarritoDTO dto = (CarritoDTO) stage.getUserData();
             dto.setUsuarioId(Integer.parseInt(txt_usuario.getText()));
-            dto.setCreadoEn(Timestamp.valueOf(txt_creado.getText()));
+            dto.setCreadoEn(Timestamp.valueOf(dp_creado.getValue().atStartOfDay()));
             try{
                 dao.ActualizarCarrito(dto);
                 btn_Guardar.setDisable(true);
@@ -65,9 +66,9 @@ public class Mnt_Carritos_GuiController implements Initializable {
         if(dto != null){
             actualizar = true;
             txt_usuario.setText(Integer.toString(dto.getUsuarioId()));
-            txt_creado.setText(dto.getCreadoEn().toString());
+            dp_creado.setValue(dto.getCreadoEn().toLocalDateTime().toLocalDate());
         }else{
-            txt_creado.setText(new Timestamp(System.currentTimeMillis()).toString());
+            dp_creado.setValue(java.time.LocalDate.now());
         }
     }
 }

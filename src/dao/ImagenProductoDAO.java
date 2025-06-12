@@ -30,7 +30,11 @@ public class ImagenProductoDAO {
     public ObservableList<ImagenProductoDTO> ListarImagenes(int productoId){
         ObservableList<ImagenProductoDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, producto_id, url, es_principal FROM imagenes_producto WHERE producto_id="+productoId+" ORDER BY id";
+        String sql = "SELECT id, producto_id, url, es_principal FROM imagenes_producto";
+        if(productoId > 0){
+            sql += " WHERE producto_id=" + productoId;
+        }
+        sql += " ORDER BY id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);

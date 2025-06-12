@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackPago;
@@ -26,7 +27,7 @@ public class Mnt_Pagos_GuiController implements Initializable {
     @FXML private TextField txt_orden;
     @FXML private TextField txt_metodo;
     @FXML private TextField txt_monto;
-    @FXML private TextField txt_fecha;
+    @FXML private DatePicker dp_fecha;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -41,7 +42,7 @@ public class Mnt_Pagos_GuiController implements Initializable {
                 dto.setOrdenId(Integer.parseInt(txt_orden.getText()));
                 dto.setMetodoPago(txt_metodo.getText());
                 dto.setMonto(Double.parseDouble(txt_monto.getText()));
-                dto.setFechaPago(Timestamp.valueOf(txt_fecha.getText()));
+                dto.setFechaPago(Timestamp.valueOf(dp_fecha.getValue().atStartOfDay()));
                 int id = dao.InsertarPago(dto);
                 if(id>0){
                     txt_id.setText(Integer.toString(id));
@@ -56,7 +57,7 @@ public class Mnt_Pagos_GuiController implements Initializable {
             dto.setOrdenId(Integer.parseInt(txt_orden.getText()));
             dto.setMetodoPago(txt_metodo.getText());
             dto.setMonto(Double.parseDouble(txt_monto.getText()));
-            dto.setFechaPago(Timestamp.valueOf(txt_fecha.getText()));
+            dto.setFechaPago(Timestamp.valueOf(dp_fecha.getValue().atStartOfDay()));
             try{
                 dao.ActualizarPago(dto);
                 btn_Grabar.setDisable(true);
@@ -80,10 +81,10 @@ public class Mnt_Pagos_GuiController implements Initializable {
             txt_orden.setText(Integer.toString(dto.getOrdenId()));
             txt_metodo.setText(dto.getMetodoPago());
             txt_monto.setText(Double.toString(dto.getMonto()));
-            txt_fecha.setText(dto.getFechaPago().toString());
+            dp_fecha.setValue(dto.getFechaPago().toLocalDateTime().toLocalDate());
         }
         else{
-            txt_fecha.setText(new Timestamp(System.currentTimeMillis()).toString());
+            dp_fecha.setValue(java.time.LocalDate.now());
         }
     }
 }
