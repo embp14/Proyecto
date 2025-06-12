@@ -7,6 +7,8 @@ src/proyectobd/ParametrosGenerales/FeedbackVendedor.java
 src/proyectobd/ParametrosGenerales/MenuPrincipalController.java
 src/proyectobd/VendedoresGui/Lst_Vendedores_GuiController.java
 src/proyectobd/VendedoresGui/Mnt_Vendedores_GuiController.java
+src/proyectobd/UsuariosGui/Lst_Usuarios_GuiController.java
+src/proyectobd/UsuariosGui/Mnt_Usuarios_GuiController.java
 src/proyectobd/OrdenesGui/Lst_Ordenes_GuiController.java
 src/proyectobd/OrdenesGui/Mnt_Ordenes_GuiController.java
 src/dao/VendedorDAO.java
@@ -53,6 +55,7 @@ src/dto/EnvioDTO.java
 src/proyectobd/ParametrosGenerales/FeedbackCarrito.java
 src/proyectobd/ParametrosGenerales/FeedbackDireccion.java
 src/proyectobd/ParametrosGenerales/FeedbackEnvio.java
+src/proyectobd/ParametrosGenerales/FeedbackUsuario.java
 src/dao/VarianteProductoDAO.java
 src/dao/ImagenProductoDAO.java
 src/dao/OfertaDAO.java
