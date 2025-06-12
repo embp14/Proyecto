@@ -12,11 +12,11 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.ResenasGui.Lst_Resenas_GuiController">
    <children>
-      <Pane prefHeight="39.0" prefWidth="800.0" style="-fx-background-color: #5585b5;">
+      <Pane prefHeight="39.0" prefWidth="800.0" style="-fx-background-color: #f0ad4e;">
          <children>
             <Label layoutX="330.0" layoutY="3.0" text="Lista de Reseñas" textFill="WHITE">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Comic Sans MS" size="24.0" />
                </font>
             </Label>
          </children>
