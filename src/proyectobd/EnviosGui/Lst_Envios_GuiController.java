@@ -1,7 +1,7 @@
-package proyectobd.CarritoItemsGui;
+package proyectobd.EnviosGui;
 
-import dao.CarritoItemDAO;
-import dto.CarritoItemDTO;
+import dao.EnvioDAO;
+import dto.EnvioDTO;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
@@ -16,24 +16,29 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import proyectobd.ParametrosGenerales.FeedbackVendedor;
+import proyectobd.ParametrosGenerales.FeedbackEnvio;
 
-public class Lst_CarritoItems_GuiController implements Initializable {
+public class Lst_Envios_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
     @FXML private Button btn_Nuevo;
     @FXML private Button btn_Editar;
     @FXML private TextField txt_Buscar;
-    @FXML private TableView<CarritoItemDTO> tbl_Lista;
-    @FXML private TableColumn<CarritoItemDTO, Integer> col_id;
-    @FXML private TableColumn<CarritoItemDTO, Integer> col_carrito;
-    @FXML private TableColumn<CarritoItemDTO, Integer> col_variante;
-    @FXML private TableColumn<CarritoItemDTO, Integer> col_cantidad;
+    @FXML private TableView<EnvioDTO> tbl_Lista;
+    @FXML private TableColumn<EnvioDTO, Integer> col_id;
+    @FXML private TableColumn<EnvioDTO, Integer> col_orden;
+    @FXML private TableColumn<EnvioDTO, Integer> col_direccion;
+    @FXML private TableColumn<EnvioDTO, String> col_empresa;
+    @FXML private TableColumn<EnvioDTO, String> col_tracking;
+    @FXML private TableColumn<EnvioDTO, String> col_envio;
+    @FXML private TableColumn<EnvioDTO, String> col_estimado;
+    @FXML private TableColumn<EnvioDTO, String> col_entrega;
 
-    FeedbackVendedor fu = new FeedbackVendedor();
+    FeedbackEnvio fu = new FeedbackEnvio();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txt_Buscar.textProperty().addListener((obs, oldV, newV) -> { call_Buscar(); });
+        call_CargarDatos();
     }
 
     public void call_CerrarVentana(){
@@ -41,14 +46,18 @@ public class Lst_CarritoItems_GuiController implements Initializable {
         stage.close();
     }
 
-    public void call_CargarDatos(int idCarrito){
+    public void call_CargarDatos(){
         try{
-            CarritoItemDAO dao = new CarritoItemDAO();
-            ObservableList<CarritoItemDTO> lista = dao.ListarItems(idCarrito);
+            EnvioDAO dao = new EnvioDAO();
+            ObservableList<EnvioDTO> lista = dao.ListarEnvios();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_carrito.setCellValueFactory(new PropertyValueFactory<>("carritoId"));
-            col_variante.setCellValueFactory(new PropertyValueFactory<>("varianteId"));
-            col_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+            col_orden.setCellValueFactory(new PropertyValueFactory<>("ordenId"));
+            col_direccion.setCellValueFactory(new PropertyValueFactory<>("direccionId"));
+            col_empresa.setCellValueFactory(new PropertyValueFactory<>("empresaEnvio"));
+            col_tracking.setCellValueFactory(new PropertyValueFactory<>("codigoTracking"));
+            col_envio.setCellValueFactory(new PropertyValueFactory<>("fechaEnvio"));
+            col_estimado.setCellValueFactory(new PropertyValueFactory<>("fechaEntregaEstimada"));
+            col_entrega.setCellValueFactory(new PropertyValueFactory<>("fechaEntregaReal"));
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
@@ -56,19 +65,31 @@ public class Lst_CarritoItems_GuiController implements Initializable {
     }
 
     public void call_Buscar(){
-        int id = 0;
-        try{ id = Integer.parseInt(txt_Buscar.getText()); }catch(Exception e){}
-        call_CargarDatos(id);
+        try{
+            EnvioDAO dao = new EnvioDAO();
+            ObservableList<EnvioDTO> lista = dao.ListarEnvios();
+            String filtro = txt_Buscar.getText().toLowerCase();
+            if(!filtro.isEmpty()){
+                lista = lista.filtered(e ->
+                        Integer.toString(e.getOrdenId()).contains(filtro) ||
+                        (e.getEmpresaEnvio() != null && e.getEmpresaEnvio().toLowerCase().contains(filtro)) ||
+                        (e.getCodigoTracking() != null && e.getCodigoTracking().toLowerCase().contains(filtro))
+                );
+            }
+            tbl_Lista.setItems(lista);
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
+        }
     }
 
     public void call_NuevoRegistro(){
         try{
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/CarritoItemsGui/Mnt_CarritoItems_Gui.fxml"));
-            stage.setTitle("Mantenimiento Items");
+            Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/EnviosGui/Mnt_Envios_Gui.fxml"));
+            stage.setTitle("Mantenimiento Envios");
             stage.setScene(new Scene(root));
             stage.showAndWait();
-            call_Buscar();
+            call_CargarDatos();
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
         }
@@ -76,18 +97,18 @@ public class Lst_CarritoItems_GuiController implements Initializable {
 
     public void call_Editar(){
         try{
-            CarritoItemDTO dto = tbl_Lista.getSelectionModel().getSelectedItem();
+            EnvioDTO dto = tbl_Lista.getSelectionModel().getSelectedItem();
             if(dto == null){
                 fu.MostrarAlertas("Información", "Seleccione un registro para editar");
                 return;
             }
             Stage stage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/CarritoItemsGui/Mnt_CarritoItems_Gui.fxml"));
-            stage.setTitle("Mantenimiento Items");
+            Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/EnviosGui/Mnt_Envios_Gui.fxml"));
+            stage.setTitle("Mantenimiento Envios");
             stage.setScene(new Scene(root));
             stage.setUserData(dto);
             stage.showAndWait();
-            call_Buscar();
+            call_CargarDatos();
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
         }

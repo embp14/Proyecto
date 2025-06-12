@@ -32,7 +32,6 @@
                       <TableColumn fx:id="col_id" prefWidth="50.0" text="ID" />
                       <TableColumn fx:id="col_lista" prefWidth="75.0" text="Lista" />
                       <TableColumn fx:id="col_variante" prefWidth="75.0" text="Variante" />
-                      <TableColumn fx:id="col_cantidad" prefWidth="75.0" text="Cantidad" />
                     </columns>
                     <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY" /></columnResizePolicy>
                   </TableView>
