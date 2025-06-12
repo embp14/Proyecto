@@ -16,7 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import proyectobd.ParametrosGenerales.FeedbackProducto;
+import proyectobd.ParametrosGenerales.FeedbackVarianteProducto;
 
 public class Lst_VariantesProducto_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
@@ -30,7 +30,7 @@ public class Lst_VariantesProducto_GuiController implements Initializable {
     @FXML private TableColumn<VarianteProductoDTO, Double> col_precio;
     @FXML private TableColumn<VarianteProductoDTO, Integer> col_stock;
 
-    FeedbackProducto fu = new FeedbackProducto();
+    FeedbackVarianteProducto fu = new FeedbackVarianteProducto();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

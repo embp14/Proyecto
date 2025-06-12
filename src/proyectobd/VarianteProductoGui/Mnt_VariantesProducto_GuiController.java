@@ -11,11 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import proyectobd.ParametrosGenerales.FeedbackProducto;
+import proyectobd.ParametrosGenerales.FeedbackVarianteProducto;
 
 public class Mnt_VariantesProducto_GuiController implements Initializable {
 
-    FeedbackProducto fu = new FeedbackProducto();
+    FeedbackVarianteProducto fu = new FeedbackVarianteProducto();
     private boolean actualizar = false;
 
     @FXML private AnchorPane Ap_Main;

@@ -10,11 +10,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import proyectobd.ParametrosGenerales.FeedbackVendedor;
+import proyectobd.ParametrosGenerales.FeedbackListaDeseo;
 
 public class Mnt_ListasDeseos_GuiController implements Initializable {
 
-    FeedbackVendedor fu = new FeedbackVendedor();
+    FeedbackListaDeseo fu = new FeedbackListaDeseo();
     private boolean actualizar = false;
 
     @FXML private AnchorPane Ap_Main;

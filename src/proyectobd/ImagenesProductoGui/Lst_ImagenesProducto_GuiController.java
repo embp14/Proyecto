@@ -16,7 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import proyectobd.ParametrosGenerales.FeedbackProducto;
+import proyectobd.ParametrosGenerales.FeedbackImagenProducto;
 
 public class Lst_ImagenesProducto_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
@@ -29,7 +29,7 @@ public class Lst_ImagenesProducto_GuiController implements Initializable {
     @FXML private TableColumn<ImagenProductoDTO, String> col_url;
     @FXML private TableColumn<ImagenProductoDTO, Boolean> col_principal;
 
-    FeedbackProducto fu = new FeedbackProducto();
+    FeedbackImagenProducto fu = new FeedbackImagenProducto();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

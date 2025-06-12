@@ -16,7 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import proyectobd.ParametrosGenerales.FeedbackVendedor;
+import proyectobd.ParametrosGenerales.FeedbackListaDeseo;
 
 public class Lst_ListasDeseos_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
@@ -29,7 +29,7 @@ public class Lst_ListasDeseos_GuiController implements Initializable {
     @FXML private TableColumn<ListaDeseoDTO, String> col_nombre;
     @FXML private TableColumn<ListaDeseoDTO, String> col_creado;
 
-    FeedbackVendedor fu = new FeedbackVendedor();
+    FeedbackListaDeseo fu = new FeedbackListaDeseo();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

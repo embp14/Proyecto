@@ -11,11 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import proyectobd.ParametrosGenerales.FeedbackVendedor;
+import proyectobd.ParametrosGenerales.FeedbackEnvio;
 
 public class Mnt_CarritoItems_GuiController implements Initializable {
 
-    FeedbackVendedor fu = new FeedbackVendedor();
+    FeedbackEnvio fu = new FeedbackEnvio();
     private boolean actualizar = false;
 
     @FXML private AnchorPane Ap_Main;

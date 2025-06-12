@@ -17,7 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import proyectobd.ParametrosGenerales.FeedbackOrden;
+import proyectobd.ParametrosGenerales.FeedbackPago;
 
 public class Lst_Pagos_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
@@ -30,7 +30,7 @@ public class Lst_Pagos_GuiController implements Initializable {
     @FXML private TableColumn<PagoDTO, Integer> col_metodo;
     @FXML private TableColumn<PagoDTO, Integer> col_monto;
 
-    FeedbackOrden fu = new FeedbackVendedor();
+    FeedbackPago fu = new FeedbackPago();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
