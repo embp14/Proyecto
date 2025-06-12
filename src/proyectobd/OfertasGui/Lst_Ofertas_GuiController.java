@@ -64,7 +64,7 @@ public class Lst_Ofertas_GuiController implements Initializable {
             ObservableList<OfertaDTO> lista = dao.ListarOfertas();
             if(!txt_Buscar.getText().isEmpty()){
                 int id = Integer.parseInt(txt_Buscar.getText());
-                lista.removeIf(o -> o.getVarianteId() != id);
+                lista.removeIf(o -> o.getId() != id);
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

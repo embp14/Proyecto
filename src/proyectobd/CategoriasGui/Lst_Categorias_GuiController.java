@@ -57,7 +57,11 @@ public class Lst_Categorias_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             CategoriaDAO dao = new CategoriaDAO();
-            ObservableList<CategoriaDTO> lista = dao.BuscarCategorias(txt_Buscar.getText());
+            ObservableList<CategoriaDTO> lista = dao.ListarCategorias();
+            if(!txt_Buscar.getText().isEmpty()){
+                int id = Integer.parseInt(txt_Buscar.getText());
+                lista.removeIf(c -> c.getId() != id);
+            }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());

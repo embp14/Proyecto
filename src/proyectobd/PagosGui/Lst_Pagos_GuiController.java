@@ -58,7 +58,17 @@ public class Lst_Pagos_GuiController implements Initializable {
     }
 
     public void call_Buscar(){
-        call_CargarDatos();
+        try{
+            PagoDAO dao = new PagoDAO();
+            ObservableList<PagoDTO> lista = dao.ListarPagos();
+            if(!txt_Buscar.getText().isEmpty()){
+                int id = Integer.parseInt(txt_Buscar.getText());
+                lista.removeIf(p -> p.getId() != id);
+            }
+            tbl_Lista.setItems(lista);
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
+        }
     }
 
     public void call_NuevoRegistro(){

@@ -59,12 +59,10 @@ public class Lst_ImagenesProducto_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             ImagenProductoDAO dao = new ImagenProductoDAO();
-            ObservableList<ImagenProductoDTO> lista;
-            if(txt_Buscar.getText().isEmpty()){
-                lista = dao.ListarImagenes(0);
-            }else{
+            ObservableList<ImagenProductoDTO> lista = dao.ListarImagenes(0);
+            if(!txt_Buscar.getText().isEmpty()){
                 int id = Integer.parseInt(txt_Buscar.getText());
-                lista = dao.ListarImagenes(id);
+                lista.removeIf(i -> i.getId() != id);
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

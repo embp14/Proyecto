@@ -57,7 +57,11 @@ public class Lst_Carritos_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             CarritoDAO dao = new CarritoDAO();
-            ObservableList<CarritoDTO> lista = dao.BuscarCarritos(txt_Buscar.getText());
+            ObservableList<CarritoDTO> lista = dao.ListarCarritos();
+            if(!txt_Buscar.getText().isEmpty()){
+                int id = Integer.parseInt(txt_Buscar.getText());
+                lista.removeIf(c -> c.getId() != id);
+            }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());

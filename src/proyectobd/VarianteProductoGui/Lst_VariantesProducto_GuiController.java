@@ -61,13 +61,10 @@ public class Lst_VariantesProducto_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             VarianteProductoDAO dao = new VarianteProductoDAO();
-            ObservableList<VarianteProductoDTO> lista;
-            if(txt_Buscar.getText().isEmpty()){
-                lista = dao.ListarVariantes();
-            }else{
+            ObservableList<VarianteProductoDTO> lista = dao.ListarVariantes();
+            if(!txt_Buscar.getText().isEmpty()){
                 int id = Integer.parseInt(txt_Buscar.getText());
-                lista = dao.ListarVariantes();
-                lista.removeIf(v -> v.getProductoId() != id);
+                lista.removeIf(v -> v.getId() != id);
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
