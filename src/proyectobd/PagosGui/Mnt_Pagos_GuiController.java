@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackVendedor;
+import java.sql.Timestamp;
 
 public class Mnt_Pagos_GuiController implements Initializable {
 

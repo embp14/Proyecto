@@ -24,7 +24,6 @@ public class Mnt_ListaDeseoItems_GuiController implements Initializable {
     @FXML private TextField txt_id;
     @FXML private TextField txt_lista;
     @FXML private TextField txt_variante;
-    @FXML private TextField txt_cantidad;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -38,7 +37,6 @@ public class Mnt_ListaDeseoItems_GuiController implements Initializable {
                 ListaDeseoItemDTO dto = new ListaDeseoItemDTO();
                 dto.setListaDeseosId(Integer.parseInt(txt_lista.getText()));
                 dto.setVarianteId(Integer.parseInt(txt_variante.getText()));
-                dto.setCantidad(Integer.parseInt(txt_cantidad.getText()));
                 int id = dao.InsertarItem(dto);
                 if(id>0){
                     txt_id.setText(Integer.toString(id));
@@ -52,7 +50,6 @@ public class Mnt_ListaDeseoItems_GuiController implements Initializable {
             ListaDeseoItemDTO dto = (ListaDeseoItemDTO) stage.getUserData();
             dto.setListaDeseosId(Integer.parseInt(txt_lista.getText()));
             dto.setVarianteId(Integer.parseInt(txt_variante.getText()));
-            dto.setCantidad(Integer.parseInt(txt_cantidad.getText()));
             try{
                 dao.ActualizarItem(dto);
                 btn_Grabar.setDisable(true);
@@ -75,7 +72,6 @@ public class Mnt_ListaDeseoItems_GuiController implements Initializable {
             txt_id.setText(Integer.toString(dto.getId()));
             txt_lista.setText(Integer.toString(dto.getListaDeseosId()));
             txt_variante.setText(Integer.toString(dto.getVarianteId()));
-            txt_cantidad.setText(Integer.toString(dto.getCantidad()));
         }
     }
 }

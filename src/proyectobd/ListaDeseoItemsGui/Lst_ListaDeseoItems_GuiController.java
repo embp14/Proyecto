@@ -27,7 +27,6 @@ public class Lst_ListaDeseoItems_GuiController implements Initializable {
     @FXML private TableColumn<ListaDeseoItemDTO, Integer> col_id;
     @FXML private TableColumn<ListaDeseoItemDTO, Integer> col_lista;
     @FXML private TableColumn<ListaDeseoItemDTO, Integer> col_variante;
-    @FXML private TableColumn<ListaDeseoItemDTO, Integer> col_cantidad;
 
     FeedbackVendedor fu = new FeedbackVendedor();
 
@@ -48,7 +47,6 @@ public class Lst_ListaDeseoItems_GuiController implements Initializable {
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             col_lista.setCellValueFactory(new PropertyValueFactory<>("listaDeseosId"));
             col_variante.setCellValueFactory(new PropertyValueFactory<>("varianteId"));
-            col_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
