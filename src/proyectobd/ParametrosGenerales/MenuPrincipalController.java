@@ -185,5 +185,113 @@ public class MenuPrincipalController implements Initializable {
             fdir.MostrarAlertas("Error del sistema", ex.toString());
         }
     }
+
+    public void call_ListarVariantes(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/VarianteProductoGui/Lst_VariantesProducto_Gui.fxml"));
+                stage.setTitle("Gestión de variantes");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            fpr.MostrarAlertas("Error del sistema", ex.toString());
+        }
+    }
+
+    public void call_ListarImagenes(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/ImagenesProductoGui/Lst_ImagenesProducto_Gui.fxml"));
+                stage.setTitle("Gestión de imágenes");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            fpr.MostrarAlertas("Error del sistema", ex.toString());
+        }
+    }
+
+    public void call_ListarOfertas(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/OfertasGui/Lst_Ofertas_Gui.fxml"));
+                stage.setTitle("Gestión de ofertas");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            fpr.MostrarAlertas("Error del sistema", ex.toString());
+        }
+    }
+
+    public void call_ListarCarritoItems(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/CarritoItemsGui/Lst_CarritoItems_Gui.fxml"));
+                stage.setTitle("Items de carrito");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            fcar.MostrarAlertas("Error del sistema", ex.toString());
+        }
+    }
+
+    public void call_ListarListasDeseos(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/ListasDeseosGui/Lst_ListasDeseos_Gui.fxml"));
+                stage.setTitle("Listas de deseos");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            fv.MostrarAlertas("Error del sistema", ex.toString());
+        }
+    }
+
+    public void call_ListarListaItems(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/ListaDeseoItemsGui/Lst_ListaDeseoItems_Gui.fxml"));
+                stage.setTitle("Items de lista");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            fv.MostrarAlertas("Error del sistema", ex.toString());
+        }
+    }
+
+    public void call_ListarOrdenItems(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/OrdenItemsGui/Lst_OrdenItems_Gui.fxml"));
+                stage.setTitle("Items de orden");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            fo.MostrarAlertas("Error del sistema", ex.toString());
+        }
+    }
+
+    public void call_ListarPagos(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/PagosGui/Lst_Pagos_Gui.fxml"));
+                stage.setTitle("Pagos");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            fo.MostrarAlertas("Error del sistema", ex.toString());
+        }
+    }
+
+    public void call_ListarEnvios(){
+        try{
+                Stage stage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/EnviosGui/Lst_Envios_Gui.fxml"));
+                stage.setTitle("Envios");
+                stage.setScene(new Scene(root));
+                stage.show();
+        } catch (Exception ex){
+            fdir.MostrarAlertas("Error del sistema", ex.toString());
+        }
+    }
     
 }

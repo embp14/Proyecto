@@ -70,3 +70,11 @@ src/dto/ListaDeseoDTO.java
 src/dto/ListaDeseoItemDTO.java
 src/dto/OrdenItemDTO.java
 src/dto/PagoDTO.java
+src/proyectobd/VarianteProductoGui/Lst_VariantesProducto_GuiController.java
+src/proyectobd/VarianteProductoGui/Mnt_VariantesProducto_GuiController.java
+src/proyectobd/ImagenesProductoGui/Lst_ImagenesProducto_GuiController.java
+src/proyectobd/ImagenesProductoGui/Mnt_ImagenesProducto_GuiController.java
+src/proyectobd/OfertasGui/Lst_Ofertas_GuiController.java
+src/proyectobd/OfertasGui/Mnt_Ofertas_GuiController.java
+src/proyectobd/CarritoItemsGui/Lst_CarritoItems_GuiController.java
+src/proyectobd/CarritoItemsGui/Mnt_CarritoItems_GuiController.java

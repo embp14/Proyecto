@@ -22,6 +22,15 @@
                   <MenuItem fx:id="mni_Cupones" mnemonicParsing="false" onAction="#call_ListarCupones" text="Cupones" />
                   <MenuItem fx:id="mni_Carritos" mnemonicParsing="false" onAction="#call_ListarCarritos" text="Carritos" />
                   <MenuItem fx:id="mni_Direcciones" mnemonicParsing="false" onAction="#call_ListarDirecciones" text="Direcciones" />
+                  <MenuItem fx:id="mni_Variantes" mnemonicParsing="false" onAction="#call_ListarVariantes" text="Variantes" />
+                  <MenuItem fx:id="mni_Imagenes" mnemonicParsing="false" onAction="#call_ListarImagenes" text="Imágenes" />
+                  <MenuItem fx:id="mni_Ofertas" mnemonicParsing="false" onAction="#call_ListarOfertas" text="Ofertas" />
+                  <MenuItem fx:id="mni_CarritoItems" mnemonicParsing="false" onAction="#call_ListarCarritoItems" text="Items Carrito" />
+                  <MenuItem fx:id="mni_ListasDeseos" mnemonicParsing="false" onAction="#call_ListarListasDeseos" text="Listas Deseos" />
+                  <MenuItem fx:id="mni_ListaItems" mnemonicParsing="false" onAction="#call_ListarListaItems" text="Items Lista" />
+                  <MenuItem fx:id="mni_OrdenItems" mnemonicParsing="false" onAction="#call_ListarOrdenItems" text="Items Orden" />
+                  <MenuItem fx:id="mni_Pagos" mnemonicParsing="false" onAction="#call_ListarPagos" text="Pagos" />
+                  <MenuItem fx:id="mni_Envios" mnemonicParsing="false" onAction="#call_ListarEnvios" text="Envios" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
