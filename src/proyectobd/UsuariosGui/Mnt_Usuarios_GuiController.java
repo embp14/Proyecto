@@ -1,6 +1,8 @@
 package proyectobd.UsuariosGui;
 
 import dao.UsuarioDAO;
+import dao.RolDAO;
+import dto.RolDTO;
 import dto.UsuarioDTO;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -10,6 +12,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackUsuario;
@@ -22,7 +27,7 @@ public class Mnt_Usuarios_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
     @FXML private Button btn_Grabar;
     @FXML private TextField txt_id;
-    @FXML private TextField txt_rol;
+    @FXML private ComboBox<Integer> cmb_rol;
     @FXML private TextField txt_nombre;
     @FXML private TextField txt_email;
     @FXML private PasswordField txt_contrasena;
@@ -30,6 +35,7 @@ public class Mnt_Usuarios_GuiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
+            cargarCombos();
             CargarDatos();
             txt_id.setDisable(true);
         });
@@ -40,7 +46,7 @@ public class Mnt_Usuarios_GuiController implements Initializable {
         if(!actualizar){
             try{
                 UsuarioDTO dto = new UsuarioDTO();
-                dto.setRolId(Integer.parseInt(txt_rol.getText()));
+                dto.setRolId(cmb_rol.getValue());
                 dto.setNombre(txt_nombre.getText());
                 dto.setEmail(txt_email.getText());
                 dto.setContrasena(txt_contrasena.getText());
@@ -55,7 +61,7 @@ public class Mnt_Usuarios_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             UsuarioDTO dto = (UsuarioDTO) stage.getUserData();
-            dto.setRolId(Integer.parseInt(txt_rol.getText()));
+            dto.setRolId(cmb_rol.getValue());
             dto.setNombre(txt_nombre.getText());
             dto.setEmail(txt_email.getText());
             dto.setContrasena(txt_contrasena.getText());
@@ -81,10 +87,23 @@ public class Mnt_Usuarios_GuiController implements Initializable {
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            txt_rol.setText(Integer.toString(dto.getRolId()));
+            cmb_rol.setValue(dto.getRolId());
             txt_nombre.setText(dto.getNombre());
             txt_email.setText(dto.getEmail());
             txt_contrasena.setText(dto.getContrasena());
+        }
+    }
+
+    private void cargarCombos(){
+        try {
+            ObservableList<Integer> roles = FXCollections.observableArrayList();
+            RolDAO rdao = new RolDAO();
+            for (RolDTO r : rdao.ListarRoles()) {
+                roles.add(r.getId());
+            }
+            cmb_rol.setItems(roles);
+        } catch (Exception ex) {
+            fu.MostrarAlertas("Error", ex.toString());
         }
     }
 }

@@ -16,7 +16,7 @@
          </children>
       </Pane>
       <Label layoutX="32.0" layoutY="67.0" text="Usuario:" />
-      <TextField fx:id="txt_usuario" layoutX="98.0" layoutY="63.0" prefWidth="250.0" />
+      <ComboBox fx:id="cmb_usuario" layoutX="98.0" layoutY="63.0" prefWidth="250.0" />
       <Label layoutX="32.0" layoutY="88.0" text="Nombre:" />
       <TextField fx:id="txt_nombre" layoutX="98.0" layoutY="84.0" prefWidth="250.0" />
       <Label layoutX="32.0" layoutY="108.0" text="Creado:" />

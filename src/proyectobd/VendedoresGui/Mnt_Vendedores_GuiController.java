@@ -1,7 +1,9 @@
 package proyectobd.VendedoresGui;
 
 import dao.VendedorDAO;
+import dao.UsuarioDAO;
 import dto.VendedorDTO;
+import dto.UsuarioDTO;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -9,6 +11,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackVendedor;
@@ -22,7 +27,7 @@ public class Mnt_Vendedores_GuiController implements Initializable {
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
-    @FXML private TextField txt_usuario;
+    @FXML private ComboBox<Integer> cmb_usuario;
     @FXML private TextField txt_nombre;
     @FXML private TextField txt_descripcion;
     @FXML private TextField txt_calificacion;
@@ -30,6 +35,7 @@ public class Mnt_Vendedores_GuiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
+            cargarCombos();
             cargarDatos();
             txt_id.setDisable(true);
         });
@@ -40,7 +46,7 @@ public class Mnt_Vendedores_GuiController implements Initializable {
         if(!actualizar){
             try{
                 VendedorDTO dto = new VendedorDTO();
-                dto.setUsuarioId(Integer.parseInt(txt_usuario.getText()));
+                dto.setUsuarioId(cmb_usuario.getValue());
                 dto.setNombreTienda(txt_nombre.getText());
                 dto.setDescripcion(txt_descripcion.getText());
                 dto.setCalificacionPromedio(new java.math.BigDecimal(txt_calificacion.getText()));
@@ -55,7 +61,7 @@ public class Mnt_Vendedores_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             VendedorDTO dto = (VendedorDTO) stage.getUserData();
-            dto.setUsuarioId(Integer.parseInt(txt_usuario.getText()));
+            dto.setUsuarioId(cmb_usuario.getValue());
             dto.setNombreTienda(txt_nombre.getText());
             dto.setDescripcion(txt_descripcion.getText());
             dto.setCalificacionPromedio(new java.math.BigDecimal(txt_calificacion.getText()));
@@ -79,10 +85,23 @@ public class Mnt_Vendedores_GuiController implements Initializable {
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            txt_usuario.setText(Integer.toString(dto.getUsuarioId()));
+            cmb_usuario.setValue(dto.getUsuarioId());
             txt_nombre.setText(dto.getNombreTienda());
             txt_descripcion.setText(dto.getDescripcion());
             txt_calificacion.setText(dto.getCalificacionPromedio().toString());
+        }
+    }
+
+    private void cargarCombos(){
+        try {
+            ObservableList<Integer> usuarios = FXCollections.observableArrayList();
+            UsuarioDAO udao = new UsuarioDAO();
+            for (UsuarioDTO u : udao.ListarUsuarios()) {
+                usuarios.add(u.getId());
+            }
+            cmb_usuario.setItems(usuarios);
+        } catch (Exception ex) {
+            fu.MostrarAlertas("Error", ex.toString());
         }
     }
 }
