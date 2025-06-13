@@ -8,16 +8,16 @@
    <children>
       <Pane prefHeight="39.0" prefWidth="800.0" style="-fx-background-color: #5585b5;">
          <children>
-            <Label layoutX="300.0" layoutY="3.0" text="Items de Carrito" textFill="WHITE">
+            <Label layoutX="320.0" layoutY="3.0" text="Lista de Envíos" textFill="WHITE">
                <font><Font size="24.0" /></font>
             </Label>
          </children>
       </Pane>
       <TitledPane layoutY="39.0" prefHeight="87.0" prefWidth="800.0" text="Filtros" animated="false">
         <content>
-          <AnchorPane>
+          <AnchorPane prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="29.0" layoutY="22.0" text="Carrito ID:" />
+                  <Label layoutX="29.0" layoutY="22.0" text="Orden ID:" />
                   <TextField fx:id="txt_Buscar" layoutX="110.0" layoutY="18.0" prefHeight="25.0" prefWidth="590.0" />
                </children>
             </AnchorPane>
@@ -25,16 +25,22 @@
       </TitledPane>
       <TitledPane layoutY="126.0" prefHeight="407.0" prefWidth="800.0" text="Registros" animated="false">
         <content>
-          <AnchorPane>
+          <AnchorPane prefHeight="180.0" prefWidth="200.0">
                <children>
                   <TableView fx:id="tbl_Lista" layoutX="14.0" layoutY="14.0" prefHeight="354.0" prefWidth="769.0">
                     <columns>
                       <TableColumn fx:id="col_id" prefWidth="50.0" text="ID" />
-                      <TableColumn fx:id="col_carrito" prefWidth="75.0" text="Carrito" />
-                      <TableColumn fx:id="col_variante" prefWidth="75.0" text="Variante" />
-                      <TableColumn fx:id="col_cantidad" prefWidth="75.0" text="Cantidad" />
+                      <TableColumn fx:id="col_orden" prefWidth="75.0" text="Orden" />
+                      <TableColumn fx:id="col_direccion" prefWidth="75.0" text="Direccion" />
+                      <TableColumn fx:id="col_empresa" prefWidth="100.0" text="Empresa" />
+                      <TableColumn fx:id="col_tracking" prefWidth="100.0" text="Tracking" />
+                      <TableColumn fx:id="col_envio" prefWidth="120.0" text="Enviado" />
+                      <TableColumn fx:id="col_estimada" prefWidth="120.0" text="Estimada" />
+                      <TableColumn fx:id="col_entrega" prefWidth="120.0" text="Entregado" />
                     </columns>
-                    <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY" /></columnResizePolicy>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
                   </TableView>
                </children>
             </AnchorPane>
@@ -42,11 +48,11 @@
       </TitledPane>
       <TitledPane layoutY="533.0" prefHeight="67.0" prefWidth="800.0" text="Acciones" animated="false">
         <content>
-          <AnchorPane>
+          <AnchorPane prefHeight="27.0" prefWidth="479.0">
                <children>
                   <Button fx:id="btn_Nuevo" layoutX="435.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_NuevoRegistro" text="Nuevo" />
                   <Button fx:id="btn_Editar" layoutX="494.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Editar" text="Editar" />
-                  <Button fx:id="btn_Cerrar" layoutX="552.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_CerrarVentana" text="Cerrar" />
+                  <Button fx:id="btn_Cerrar" layoutX="552.0" layoutY="8.0" text="Cerrar" mnemonicParsing="false" onAction="#call_CerrarVentana" />
                </children>
             </AnchorPane>
         </content>

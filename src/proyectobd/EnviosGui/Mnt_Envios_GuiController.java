@@ -1,12 +1,13 @@
 package proyectobd.EnviosGui;
 
-import dao.CarritoItemDAO;
-import dao.CarritoDAO;
-import dao.VarianteProductoDAO;
-import dto.CarritoItemDTO;
-import dto.CarritoDTO;
-import dto.VarianteProductoDTO;
+import dao.EnvioDAO;
+import dao.OrdenDAO;
+import dao.DireccionDAO;
+import dto.EnvioDTO;
+import dto.OrdenDTO;
+import dto.DireccionDTO;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.AnchorPane;
@@ -29,9 +31,13 @@ public class Mnt_Envios_GuiController implements Initializable {
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
-    @FXML private ComboBox<Integer> cmb_carrito;
-    @FXML private ComboBox<Integer> cmb_variante;
-    @FXML private TextField txt_cantidad;
+    @FXML private ComboBox<Integer> cmb_orden;
+    @FXML private ComboBox<Integer> cmb_direccion;
+    @FXML private TextField txt_empresa;
+    @FXML private TextField txt_tracking;
+    @FXML private DatePicker dp_envio;
+    @FXML private DatePicker dp_estimada;
+    @FXML private DatePicker dp_entrega;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -42,14 +48,18 @@ public class Mnt_Envios_GuiController implements Initializable {
     }
 
     public void call_Grabar(){
-        CarritoItemDAO dao = new CarritoItemDAO();
+        EnvioDAO dao = new EnvioDAO();
         if(!actualizar){
             try{
-                CarritoItemDTO dto = new CarritoItemDTO();
-                dto.setCarritoId(cmb_carrito.getValue());
-                dto.setVarianteId(cmb_variante.getValue());
-                dto.setCantidad(Integer.parseInt(txt_cantidad.getText()));
-                int id = dao.InsertarItem(dto);
+                EnvioDTO dto = new EnvioDTO();
+                dto.setOrdenId(cmb_orden.getValue());
+                dto.setDireccionId(cmb_direccion.getValue());
+                dto.setEmpresaEnvio(txt_empresa.getText());
+                dto.setCodigoTracking(txt_tracking.getText());
+                dto.setFechaEnvio(Timestamp.valueOf(dp_envio.getValue().atStartOfDay()));
+                dto.setFechaEntregaEstimada(Timestamp.valueOf(dp_estimada.getValue().atStartOfDay()));
+                dto.setFechaEntregaReal(Timestamp.valueOf(dp_entrega.getValue().atStartOfDay()));
+                int id = dao.InsertarEnvio(dto);
                 if(id>0){
                     txt_id.setText(Integer.toString(id));
                     btn_Grabar.setDisable(true);
@@ -59,12 +69,16 @@ public class Mnt_Envios_GuiController implements Initializable {
             }
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
-            CarritoItemDTO dto = (CarritoItemDTO) stage.getUserData();
-            dto.setCarritoId(cmb_carrito.getValue());
-            dto.setVarianteId(cmb_variante.getValue());
-            dto.setCantidad(Integer.parseInt(txt_cantidad.getText()));
+            EnvioDTO dto = (EnvioDTO) stage.getUserData();
+            dto.setOrdenId(cmb_orden.getValue());
+            dto.setDireccionId(cmb_direccion.getValue());
+            dto.setEmpresaEnvio(txt_empresa.getText());
+            dto.setCodigoTracking(txt_tracking.getText());
+            dto.setFechaEnvio(Timestamp.valueOf(dp_envio.getValue().atStartOfDay()));
+            dto.setFechaEntregaEstimada(Timestamp.valueOf(dp_estimada.getValue().atStartOfDay()));
+            dto.setFechaEntregaReal(Timestamp.valueOf(dp_entrega.getValue().atStartOfDay()));
             try{
-                dao.ActualizarItem(dto);
+                dao.ActualizarEnvio(dto);
                 btn_Grabar.setDisable(true);
             }catch(Exception ex){
                 fu.MostrarAlertas("Error", ex.toString());
@@ -79,19 +93,19 @@ public class Mnt_Envios_GuiController implements Initializable {
 
     private void cargarCombos(){
         try {
-            ObservableList<Integer> carritos = FXCollections.observableArrayList();
-            CarritoDAO cdao = new CarritoDAO();
-            for (CarritoDTO c : cdao.ListarCarritos()) {
-                carritos.add(c.getId());
+            ObservableList<Integer> ordenes = FXCollections.observableArrayList();
+            OrdenDAO odao = new OrdenDAO();
+            for (OrdenDTO o : odao.ListarOrdenes()) {
+                ordenes.add(o.getId());
             }
-            cmb_carrito.setItems(carritos);
+            cmb_orden.setItems(ordenes);
 
-            ObservableList<Integer> variantes = FXCollections.observableArrayList();
-            VarianteProductoDAO vdao = new VarianteProductoDAO();
-            for (VarianteProductoDTO v : vdao.ListarVariantes()) {
-                variantes.add(v.getId());
+            ObservableList<Integer> direcciones = FXCollections.observableArrayList();
+            DireccionDAO ddao = new DireccionDAO();
+            for (DireccionDTO d : ddao.ListarDirecciones()) {
+                direcciones.add(d.getId());
             }
-            cmb_variante.setItems(variantes);
+            cmb_direccion.setItems(direcciones);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
         }
@@ -99,13 +113,21 @@ public class Mnt_Envios_GuiController implements Initializable {
 
     private void cargarDatos(){
         Stage stage = (Stage) Ap_Main.getScene().getWindow();
-        CarritoItemDTO dto = (CarritoItemDTO) stage.getUserData();
+        EnvioDTO dto = (EnvioDTO) stage.getUserData();
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            cmb_carrito.setValue(dto.getCarritoId());
-            cmb_variante.setValue(dto.getVarianteId());
-            txt_cantidad.setText(Integer.toString(dto.getCantidad()));
+            cmb_orden.setValue(dto.getOrdenId());
+            cmb_direccion.setValue(dto.getDireccionId());
+            txt_empresa.setText(dto.getEmpresaEnvio());
+            txt_tracking.setText(dto.getCodigoTracking());
+            dp_envio.setValue(dto.getFechaEnvio().toLocalDateTime().toLocalDate());
+            dp_estimada.setValue(dto.getFechaEntregaEstimada().toLocalDateTime().toLocalDate());
+            dp_entrega.setValue(dto.getFechaEntregaReal().toLocalDateTime().toLocalDate());
+        } else {
+            dp_envio.setValue(java.time.LocalDate.now());
+            dp_estimada.setValue(java.time.LocalDate.now());
+            dp_entrega.setValue(java.time.LocalDate.now());
         }
     }
 }

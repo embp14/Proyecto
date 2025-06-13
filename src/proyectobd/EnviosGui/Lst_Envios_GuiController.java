@@ -1,7 +1,7 @@
 package proyectobd.EnviosGui;
 
-import dao.CarritoItemDAO;
-import dto.CarritoItemDTO;
+import dao.EnvioDAO;
+import dto.EnvioDTO;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
@@ -23,17 +23,22 @@ public class Lst_Envios_GuiController implements Initializable {
     @FXML private Button btn_Nuevo;
     @FXML private Button btn_Editar;
     @FXML private TextField txt_Buscar;
-    @FXML private TableView<CarritoItemDTO> tbl_Lista;
-    @FXML private TableColumn<CarritoItemDTO, Integer> col_id;
-    @FXML private TableColumn<CarritoItemDTO, Integer> col_carrito;
-    @FXML private TableColumn<CarritoItemDTO, Integer> col_variante;
-    @FXML private TableColumn<CarritoItemDTO, Integer> col_cantidad;
+    @FXML private TableView<EnvioDTO> tbl_Lista;
+    @FXML private TableColumn<EnvioDTO, Integer> col_id;
+    @FXML private TableColumn<EnvioDTO, Integer> col_orden;
+    @FXML private TableColumn<EnvioDTO, Integer> col_direccion;
+    @FXML private TableColumn<EnvioDTO, String> col_empresa;
+    @FXML private TableColumn<EnvioDTO, String> col_tracking;
+    @FXML private TableColumn<EnvioDTO, String> col_envio;
+    @FXML private TableColumn<EnvioDTO, String> col_estimada;
+    @FXML private TableColumn<EnvioDTO, String> col_entrega;
 
     FeedbackEnvio fu = new FeedbackEnvio();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txt_Buscar.textProperty().addListener((obs, oldV, newV) -> { call_Buscar(); });
+        call_Buscar();
     }
 
     public void call_CerrarVentana(){
@@ -41,14 +46,21 @@ public class Lst_Envios_GuiController implements Initializable {
         stage.close();
     }
 
-    public void call_CargarDatos(int idCarrito){
+    public void call_CargarDatos(int ordenId){
         try{
-            CarritoItemDAO dao = new CarritoItemDAO();
-            ObservableList<CarritoItemDTO> lista = dao.ListarItems(idCarrito);
+            EnvioDAO dao = new EnvioDAO();
+            ObservableList<EnvioDTO> lista = dao.ListarEnvios();
+            if(ordenId > 0){
+                lista.removeIf(e -> e.getOrdenId() != ordenId);
+            }
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_carrito.setCellValueFactory(new PropertyValueFactory<>("carritoId"));
-            col_variante.setCellValueFactory(new PropertyValueFactory<>("varianteId"));
-            col_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+            col_orden.setCellValueFactory(new PropertyValueFactory<>("ordenId"));
+            col_direccion.setCellValueFactory(new PropertyValueFactory<>("direccionId"));
+            col_empresa.setCellValueFactory(new PropertyValueFactory<>("empresaEnvio"));
+            col_tracking.setCellValueFactory(new PropertyValueFactory<>("codigoTracking"));
+            col_envio.setCellValueFactory(new PropertyValueFactory<>("fechaEnvio"));
+            col_estimada.setCellValueFactory(new PropertyValueFactory<>("fechaEntregaEstimada"));
+            col_entrega.setCellValueFactory(new PropertyValueFactory<>("fechaEntregaReal"));
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
@@ -65,7 +77,7 @@ public class Lst_Envios_GuiController implements Initializable {
         try{
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/EnviosGui/Mnt_Envios_Gui.fxml"));
-            stage.setTitle("Mantenimiento Envios");
+            stage.setTitle("Mantenimiento Envíos");
             stage.setScene(new Scene(root));
             stage.showAndWait();
             call_Buscar();
@@ -76,14 +88,14 @@ public class Lst_Envios_GuiController implements Initializable {
 
     public void call_Editar(){
         try{
-            CarritoItemDTO dto = tbl_Lista.getSelectionModel().getSelectedItem();
+            EnvioDTO dto = tbl_Lista.getSelectionModel().getSelectedItem();
             if(dto == null){
                 fu.MostrarAlertas("Información", "Seleccione un registro para editar");
                 return;
             }
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/EnviosGui/Mnt_Envios_Gui.fxml"));
-            stage.setTitle("Mantenimiento Envios");
+            stage.setTitle("Mantenimiento Envíos");
             stage.setScene(new Scene(root));
             stage.setUserData(dto);
             stage.showAndWait();
