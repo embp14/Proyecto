@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Ap_Main" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/app.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.OfertasGui.Mnt_Ofertas_GuiController">
+<AnchorPane fx:id="Ap_Main" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/app.css" styleClass="main-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.OfertasGui.Mnt_Ofertas_GuiController">
     <children>
         <Pane prefHeight="50.0" prefWidth="600.0" styleClass="header-pane">
             <children>

@@ -3,6 +3,10 @@
     -fx-padding: 10 0 10 0;
 }
 
+.main-pane {
+    -fx-background-color: #f6faff;
+}
+
 .header-label {
     -fx-text-fill: white;
     -fx-font-size: 26px;
@@ -14,13 +18,24 @@
     -fx-background-color: #5585b5;
     -fx-text-fill: white;
     -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 8 12;
 }
 
 .table-view {
     -fx-font-size: 14px;
 }
 
+.table-view .column-header-background {
+    -fx-background-color: #ebf2fa;
+}
+
+.table-view .table-row-cell:filled:selected {
+    -fx-background-color: #66a1d2;
+}
+
 .titled-pane > .title {
+    -fx-background-color: #ebf2fa;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
 }
