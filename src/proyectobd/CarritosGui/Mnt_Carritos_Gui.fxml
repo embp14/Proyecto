@@ -19,6 +19,8 @@
       <ComboBox fx:id="cmb_usuario" layoutX="98.0" layoutY="63.0" prefWidth="250.0" />
       <Label layoutX="32.0" layoutY="108.0" text="Creado:" />
       <DatePicker fx:id="dp_creado" layoutX="98.0" layoutY="104.0" prefWidth="250.0" />
-      <Button fx:id="btn_Guardar" layoutX="154.0" layoutY="164.0" mnemonicParsing="false" onAction="#call_Guardar" text="Guardar" />
+      <Button fx:id="btn_Guardar" layoutX="94.0" layoutY="164.0" mnemonicParsing="false" onAction="#call_Guardar" text="Guardar" />
+      <Button fx:id="btn_Borrar" layoutX="163.0" layoutY="164.0" mnemonicParsing="false" onAction="#call_Borrar" text="Borrar" />
+      <Button fx:id="btn_Cerrar" layoutX="232.0" layoutY="164.0" mnemonicParsing="false" onAction="#call_CerrarVentana" text="Cerrar" />
    </children>
 </AnchorPane>

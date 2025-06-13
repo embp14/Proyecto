@@ -27,6 +27,8 @@ public class Mnt_Carritos_GuiController implements Initializable {
 
     @FXML private AnchorPane Ap_Main;
     @FXML private Button btn_Guardar;
+    @FXML private Button btn_Borrar;
+    @FXML private Button btn_Cerrar;
     @FXML private ComboBox<Integer> cmb_usuario;
     @FXML private DatePicker dp_creado;
 
@@ -66,6 +68,23 @@ public class Mnt_Carritos_GuiController implements Initializable {
         }
     }
 
+    public void call_Borrar(){
+        try{
+            Stage stage = (Stage) Ap_Main.getScene().getWindow();
+            CarritoDTO dto = (CarritoDTO) stage.getUserData();
+            if(dto == null){
+                fu.MostrarAlertas("Información", "No hay registro para borrar");
+                return;
+            }
+            CarritoDAO dao = new CarritoDAO();
+            dao.EliminarCarrito(dto.getId());
+            btn_Guardar.setDisable(true);
+            btn_Borrar.setDisable(true);
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
+        }
+    }
+
     private void cargarDatos(){
         Stage stage = (Stage) Ap_Main.getScene().getWindow();
         CarritoDTO dto = (CarritoDTO) stage.getUserData();
@@ -89,5 +108,10 @@ public class Mnt_Carritos_GuiController implements Initializable {
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
         }
+    }
+
+    public void call_CerrarVentana(){
+        Stage stage = (Stage) btn_Cerrar.getScene().getWindow();
+        stage.close();
     }
 }

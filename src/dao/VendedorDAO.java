@@ -125,4 +125,20 @@ public class VendedorDAO {
             return 0;
         }
     }
+
+    public int EliminarVendedor(int id){
+        try{
+            String sql = "DELETE FROM vendedores WHERE id=?";
+            ConectorBD ConnBD = new ConectorBD();
+            PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
+            ps.setInt(1, id);
+            int registros = ps.executeUpdate();
+            fu.MostrarAlertas("Información del sistema", "Vendedor eliminado. Registros afectados: "+registros);
+            ConnBD.CerrarConexionBD();
+            return registros;
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error del sistema", ex.toString());
+            return 0;
+        }
+    }
 }

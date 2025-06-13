@@ -149,4 +149,20 @@ public class ProductoDAO {
             return 0;
         }
     }
+
+    public int EliminarProducto(int id){
+        try{
+            String sql = "DELETE FROM productos WHERE id=?";
+            ConectorBD ConnBD = new ConectorBD();
+            PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
+            ps.setInt(1, id);
+            int registros = ps.executeUpdate();
+            fu.MostrarAlertas("Información del sistema", "Producto eliminado. Registros afectados: "+registros);
+            ConnBD.CerrarConexionBD();
+            return registros;
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error del sistema", ex.toString());
+            return 0;
+        }
+    }
 }

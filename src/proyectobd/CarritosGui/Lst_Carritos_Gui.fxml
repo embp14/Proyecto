@@ -47,9 +47,10 @@
         <content>
           <AnchorPane prefHeight="27.0" prefWidth="479.0">
                <children>
-                  <Button fx:id="btn_Nuevo" layoutX="435.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_NuevoRegistro" text="Nuevo" />
-                  <Button fx:id="btn_Editar" layoutX="494.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Editar" text="Editar" />
-                  <Button fx:id="btn_Cerrar" layoutX="552.0" layoutY="8.0" text="Cerrar" mnemonicParsing="false" onAction="#call_CerrarVentana" />
+                  <Button fx:id="btn_Nuevo" layoutX="405.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_NuevoRegistro" text="Nuevo" />
+                  <Button fx:id="btn_Editar" layoutX="464.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Editar" text="Editar" />
+                  <Button fx:id="btn_Borrar" layoutX="523.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Borrar" text="Borrar" />
+                  <Button fx:id="btn_Cerrar" layoutX="582.0" layoutY="8.0" text="Cerrar" mnemonicParsing="false" onAction="#call_CerrarVentana" />
                </children>
             </AnchorPane>
         </content>

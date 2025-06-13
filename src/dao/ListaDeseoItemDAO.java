@@ -112,4 +112,20 @@ public class ListaDeseoItemDAO {
             return 0;
         }
     }
+
+    public int EliminarItem(int id){
+        try{
+            String sql = "DELETE FROM lista_deseos_items WHERE id=?";
+            ConectorBD ConnBD = new ConectorBD();
+            PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
+            ps.setInt(1, id);
+            int registros = ps.executeUpdate();
+            fu.MostrarAlertas("Informacion", "Item eliminado. Registros afectados: "+registros);
+            ConnBD.CerrarConexionBD();
+            return registros;
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error del sistema", ex.toString());
+            return 0;
+        }
+    }
 }

@@ -99,4 +99,20 @@ public class VarianteProductoDAO {
             return 0;
         }
     }
+
+    public int EliminarVariante(int id){
+        try{
+            String sql = "DELETE FROM variantes_producto WHERE id=?";
+            ConectorBD ConnBD = new ConectorBD();
+            PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
+            ps.setInt(1, id);
+            int registros = ps.executeUpdate();
+            fu.MostrarAlertas("Informacion", "Variante eliminada. Registros afectados: "+registros);
+            ConnBD.CerrarConexionBD();
+            return registros;
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error del sistema", ex.toString());
+            return 0;
+        }
+    }
 }
