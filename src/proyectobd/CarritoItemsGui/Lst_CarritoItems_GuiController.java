@@ -22,6 +22,7 @@ public class Lst_CarritoItems_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
     @FXML private Button btn_Nuevo;
     @FXML private Button btn_Editar;
+    @FXML private Button btn_Borrar;
     @FXML private TextField txt_Buscar;
     @FXML private TableView<CarritoItemDTO> tbl_Lista;
     @FXML private TableColumn<CarritoItemDTO, Integer> col_id;
@@ -87,6 +88,21 @@ public class Lst_CarritoItems_GuiController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setUserData(dto);
             stage.showAndWait();
+            call_Buscar();
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
+        }
+    }
+
+    public void call_Borrar(){
+        try{
+            CarritoItemDTO dto = tbl_Lista.getSelectionModel().getSelectedItem();
+            if(dto == null){
+                fu.MostrarAlertas("Información", "Seleccione un registro para borrar");
+                return;
+            }
+            CarritoItemDAO dao = new CarritoItemDAO();
+            dao.EliminarItem(dto.getId());
             call_Buscar();
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());

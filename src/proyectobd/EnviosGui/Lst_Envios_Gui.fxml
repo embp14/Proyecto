@@ -52,7 +52,8 @@
                <children>
                   <Button fx:id="btn_Nuevo" layoutX="435.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_NuevoRegistro" text="Nuevo" />
                   <Button fx:id="btn_Editar" layoutX="494.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Editar" text="Editar" />
-                  <Button fx:id="btn_Cerrar" layoutX="552.0" layoutY="8.0" text="Cerrar" mnemonicParsing="false" onAction="#call_CerrarVentana" />
+                  <Button fx:id="btn_Borrar" layoutX="552.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Borrar" text="Borrar" />
+                  <Button fx:id="btn_Cerrar" layoutX="611.0" layoutY="8.0" text="Cerrar" mnemonicParsing="false" onAction="#call_CerrarVentana" />
                </children>
             </AnchorPane>
         </content>

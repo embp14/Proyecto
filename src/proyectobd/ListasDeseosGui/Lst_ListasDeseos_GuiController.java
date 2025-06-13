@@ -22,6 +22,7 @@ public class Lst_ListasDeseos_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
     @FXML private Button btn_Nuevo;
     @FXML private Button btn_Editar;
+    @FXML private Button btn_Borrar;
     @FXML private TextField txt_Buscar;
     @FXML private TableView<ListaDeseoDTO> tbl_Lista;
     @FXML private TableColumn<ListaDeseoDTO, Integer> col_id;
@@ -96,6 +97,21 @@ public class Lst_ListasDeseos_GuiController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setUserData(dto);
             stage.showAndWait();
+            call_CargarDatos();
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
+        }
+    }
+
+    public void call_Borrar(){
+        try{
+            ListaDeseoDTO dto = tbl_Lista.getSelectionModel().getSelectedItem();
+            if(dto == null){
+                fu.MostrarAlertas("Información", "Seleccione un registro para borrar");
+                return;
+            }
+            ListaDeseoDAO dao = new ListaDeseoDAO();
+            dao.EliminarLista(dto.getId());
             call_CargarDatos();
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
