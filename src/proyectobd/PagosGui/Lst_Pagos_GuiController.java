@@ -22,6 +22,7 @@ public class Lst_Pagos_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
     @FXML private Button btn_Nuevo;
     @FXML private Button btn_Editar;
+    @FXML private Button btn_Borrar;
     @FXML private TextField txt_Buscar;
     @FXML private TableView<PagoDTO> tbl_Lista;
     @FXML private TableColumn<PagoDTO, Integer> col_id;
@@ -97,6 +98,21 @@ public class Lst_Pagos_GuiController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setUserData(dto);
             stage.showAndWait();
+            call_Buscar();
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
+        }
+    }
+
+    public void call_Borrar(){
+        try{
+            PagoDTO dto = tbl_Lista.getSelectionModel().getSelectedItem();
+            if(dto == null){
+                fu.MostrarAlertas("Información", "Seleccione un registro para borrar");
+                return;
+            }
+            PagoDAO dao = new PagoDAO();
+            dao.EliminarPago(dto.getId());
             call_Buscar();
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
