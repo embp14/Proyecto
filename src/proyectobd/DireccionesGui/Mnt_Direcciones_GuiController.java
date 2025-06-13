@@ -1,7 +1,9 @@
 package proyectobd.DireccionesGui;
 
 import dao.DireccionDAO;
+import dao.UsuarioDAO;
 import dto.DireccionDTO;
+import dto.UsuarioDTO;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -9,6 +11,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackDireccion;
@@ -20,7 +25,7 @@ public class Mnt_Direcciones_GuiController implements Initializable {
 
     @FXML private AnchorPane Ap_Main;
     @FXML private Button btn_Guardar;
-    @FXML private TextField txt_usuario;
+    @FXML private ComboBox<Integer> cmb_usuario;
     @FXML private TextField txt_alias;
     @FXML private TextField txt_direccion;
     @FXML private TextField txt_ciudad;
@@ -31,6 +36,7 @@ public class Mnt_Direcciones_GuiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
+            cargarCombos();
             cargarDatos();
         });
     }
@@ -40,7 +46,7 @@ public class Mnt_Direcciones_GuiController implements Initializable {
         if(!actualizar){
             try{
                 DireccionDTO dto = new DireccionDTO();
-                dto.setUsuarioId(Integer.parseInt(txt_usuario.getText()));
+                dto.setUsuarioId(cmb_usuario.getValue());
                 dto.setAlias(txt_alias.getText());
                 dto.setDireccion(txt_direccion.getText());
                 dto.setCiudad(txt_ciudad.getText());
@@ -57,7 +63,7 @@ public class Mnt_Direcciones_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             DireccionDTO dto = (DireccionDTO) stage.getUserData();
-            dto.setUsuarioId(Integer.parseInt(txt_usuario.getText()));
+            dto.setUsuarioId(cmb_usuario.getValue());
             dto.setAlias(txt_alias.getText());
             dto.setDireccion(txt_direccion.getText());
             dto.setCiudad(txt_ciudad.getText());
@@ -78,13 +84,26 @@ public class Mnt_Direcciones_GuiController implements Initializable {
         DireccionDTO dto = (DireccionDTO) stage.getUserData();
         if(dto != null){
             actualizar = true;
-            txt_usuario.setText(Integer.toString(dto.getUsuarioId()));
+            cmb_usuario.setValue(dto.getUsuarioId());
             txt_alias.setText(dto.getAlias());
             txt_direccion.setText(dto.getDireccion());
             txt_ciudad.setText(dto.getCiudad());
             txt_provincia.setText(dto.getProvincia());
             txt_postal.setText(dto.getCodigoPostal());
             txt_telefono.setText(dto.getTelefonoContacto());
+        }
+    }
+
+    private void cargarCombos(){
+        try {
+            ObservableList<Integer> usuarios = FXCollections.observableArrayList();
+            UsuarioDAO udao = new UsuarioDAO();
+            for (UsuarioDTO u : udao.ListarUsuarios()) {
+                usuarios.add(u.getId());
+            }
+            cmb_usuario.setItems(usuarios);
+        } catch (Exception ex) {
+            fu.MostrarAlertas("Error", ex.toString());
         }
     }
 }

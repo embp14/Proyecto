@@ -16,7 +16,7 @@
          </children>
       </Pane>
       <Label layoutX="32.0" layoutY="67.0" text="Usuario:" />
-      <TextField fx:id="txt_usuario" layoutX="98.0" layoutY="63.0" prefWidth="250.0" />
+      <ComboBox fx:id="cmb_usuario" layoutX="98.0" layoutY="63.0" prefWidth="250.0" />
       <Label layoutX="32.0" layoutY="108.0" text="Creado:" />
       <DatePicker fx:id="dp_creado" layoutX="98.0" layoutY="104.0" prefWidth="250.0" />
       <Button fx:id="btn_Guardar" layoutX="154.0" layoutY="164.0" mnemonicParsing="false" onAction="#call_Guardar" text="Guardar" />

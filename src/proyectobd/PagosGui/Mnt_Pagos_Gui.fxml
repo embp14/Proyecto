@@ -19,8 +19,8 @@
                     <children>
                         <Label layoutX="96.0" layoutY="36.0" text="ID:" />
                         <TextField fx:id="txt_id" layoutX="160.0" layoutY="32.0" prefWidth="400.0" />
-                        <Label layoutX="56.0" layoutY="72.0" text="Orden ID:" />
-                        <TextField fx:id="txt_orden" layoutX="160.0" layoutY="68.0" prefWidth="400.0" />
+                        <Label layoutX="56.0" layoutY="72.0" text="Orden:" />
+                        <ComboBox fx:id="cmb_orden" layoutX="160.0" layoutY="68.0" prefWidth="400.0" />
                         <Label layoutX="48.0" layoutY="108.0" text="Metodo:" />
                         <TextField fx:id="txt_metodo" layoutX="160.0" layoutY="104.0" prefWidth="400.0" />
                         <Label layoutX="92.0" layoutY="144.0" text="Monto:" />
