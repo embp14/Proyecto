@@ -1,0 +1,26 @@
+.header-pane {
+    -fx-background-color: linear-gradient(to right, #5585b5, #66a1d2);
+    -fx-padding: 10 0 10 0;
+}
+
+.header-label {
+    -fx-text-fill: white;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 0 10;
+}
+
+.action-button {
+    -fx-background-color: #5585b5;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.table-view {
+    -fx-font-size: 14px;
+}
+
+.titled-pane > .title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}

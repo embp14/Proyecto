@@ -4,13 +4,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.OfertasGui.Lst_Ofertas_GuiController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/app.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.OfertasGui.Lst_Ofertas_GuiController">
    <children>
-      <Pane prefHeight="39.0" prefWidth="800.0" style="-fx-background-color: #5585b5;">
+      <Pane prefHeight="50.0" prefWidth="800.0" styleClass="header-pane">
          <children>
-            <Label layoutX="300.0" layoutY="3.0" text="Lista de Ofertas" textFill="WHITE">
-               <font><Font size="24.0" /></font>
-            </Label>
+            <Label layoutX="300.0" layoutY="12.0" text="Lista de Ofertas" styleClass="header-label" />
          </children>
       </Pane>
       <TitledPane layoutY="39.0" prefHeight="87.0" prefWidth="800.0" text="Filtros" animated="false">
@@ -27,7 +25,7 @@
         <content>
           <AnchorPane>
                <children>
-                  <TableView fx:id="tbl_Lista" layoutX="14.0" layoutY="14.0" prefHeight="354.0" prefWidth="769.0">
+                  <TableView fx:id="tbl_Lista" layoutX="14.0" layoutY="14.0" prefHeight="354.0" prefWidth="769.0" styleClass="table-view">
                     <columns>
                       <TableColumn fx:id="col_id" prefWidth="50.0" text="ID" />
                       <TableColumn fx:id="col_variante" prefWidth="75.0" text="Variante" />
@@ -45,10 +43,10 @@
         <content>
           <AnchorPane>
                <children>
-                  <Button fx:id="btn_Nuevo" layoutX="435.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_NuevoRegistro" text="Nuevo" />
-                  <Button fx:id="btn_Editar" layoutX="494.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Editar" text="Editar" />
-                  <Button fx:id="btn_Borrar" layoutX="552.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Borrar" text="Borrar" />
-                  <Button fx:id="btn_Cerrar" layoutX="611.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_CerrarVentana" text="Cerrar" />
+                  <Button fx:id="btn_Nuevo" layoutX="435.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_NuevoRegistro" text="Nuevo" styleClass="action-button" />
+                  <Button fx:id="btn_Editar" layoutX="494.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Editar" text="Editar" styleClass="action-button" />
+                  <Button fx:id="btn_Borrar" layoutX="552.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Borrar" text="Borrar" styleClass="action-button" />
+                  <Button fx:id="btn_Cerrar" layoutX="611.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_CerrarVentana" text="Cerrar" styleClass="action-button" />
                </children>
             </AnchorPane>
         </content>

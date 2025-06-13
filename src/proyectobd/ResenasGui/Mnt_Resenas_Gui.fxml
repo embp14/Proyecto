@@ -9,15 +9,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Ap_Main" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.ResenasGui.Mnt_Resenas_GuiController">
+<AnchorPane fx:id="Ap_Main" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/app.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.ResenasGui.Mnt_Resenas_GuiController">
     <children>
-        <Pane prefHeight="39.0" prefWidth="800.0" style="-fx-background-color: #f0ad4e;">
+        <Pane prefHeight="50.0" prefWidth="800.0" styleClass="header-pane">
             <children>
-                <Label layoutX="240.0" layoutY="2.0" text="Mantenimiento de Reseñas" textFill="WHITE">
-                    <font>
-                        <Font name="Comic Sans MS" size="24.0" />
-                    </font>
-                </Label>
+                <Label layoutX="240.0" layoutY="12.0" text="Mantenimiento de Reseñas" styleClass="header-label" />
             </children>
         </Pane>
         <TitledPane layoutY="39.0" prefHeight="300.0" prefWidth="800.0" text="Detalles del Registro" animated="false">
@@ -44,8 +40,8 @@
             <content>
                 <AnchorPane prefHeight="27.0" prefWidth="798.0" minHeight="0.0" minWidth="0.0">
                     <children>
-                        <Button fx:id="btn_Grabar" layoutX="555.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Grabar" text="Grabar" />
-                        <Button fx:id="btn_Cerrar" layoutX="624.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_CerrarVentana" text="Cerrar" />
+                        <Button fx:id="btn_Grabar" layoutX="555.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Grabar" text="Grabar" styleClass="action-button" />
+                        <Button fx:id="btn_Cerrar" layoutX="624.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_CerrarVentana" text="Cerrar" styleClass="action-button" />
                     </children>
                 </AnchorPane>
             </content>
