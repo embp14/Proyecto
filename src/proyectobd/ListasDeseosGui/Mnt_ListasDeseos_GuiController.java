@@ -1,7 +1,9 @@
 package proyectobd.ListasDeseosGui;
 
 import dao.ListaDeseoDAO;
+import dao.UsuarioDAO;
 import dto.ListaDeseoDTO;
+import dto.UsuarioDTO;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
@@ -9,7 +11,10 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -22,13 +27,14 @@ public class Mnt_ListasDeseos_GuiController implements Initializable {
 
     @FXML private AnchorPane Ap_Main;
     @FXML private Button btn_Guardar;
-    @FXML private TextField txt_usuario;
+    @FXML private ComboBox<Integer> cmb_usuario;
     @FXML private TextField txt_nombre;
     @FXML private DatePicker dp_creado;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
+            cargarCombos();
             cargarDatos();
         });
     }
@@ -38,7 +44,7 @@ public class Mnt_ListasDeseos_GuiController implements Initializable {
         if(!actualizar){
             try{
                 ListaDeseoDTO dto = new ListaDeseoDTO();
-                dto.setUsuarioId(Integer.parseInt(txt_usuario.getText()));
+                dto.setUsuarioId(cmb_usuario.getValue());
                 dto.setNombre(txt_nombre.getText());
                 dto.setCreadoEn(Timestamp.valueOf(dp_creado.getValue().atStartOfDay()));
                 int id = dao.InsertarLista(dto);
@@ -51,7 +57,7 @@ public class Mnt_ListasDeseos_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             ListaDeseoDTO dto = (ListaDeseoDTO) stage.getUserData();
-            dto.setUsuarioId(Integer.parseInt(txt_usuario.getText()));
+            dto.setUsuarioId(cmb_usuario.getValue());
             dto.setNombre(txt_nombre.getText());
             dto.setCreadoEn(Timestamp.valueOf(dp_creado.getValue().atStartOfDay()));
             try{
@@ -68,12 +74,25 @@ public class Mnt_ListasDeseos_GuiController implements Initializable {
         ListaDeseoDTO dto = (ListaDeseoDTO) stage.getUserData();
         if(dto != null){
             actualizar = true;
-            txt_usuario.setText(Integer.toString(dto.getUsuarioId()));
+            cmb_usuario.setValue(dto.getUsuarioId());
             txt_nombre.setText(dto.getNombre());
             dp_creado.setValue(dto.getCreadoEn().toLocalDateTime().toLocalDate());
         }else{
             txt_nombre.clear();
             dp_creado.setValue(java.time.LocalDate.now());
+        }
+    }
+
+    private void cargarCombos(){
+        try {
+            ObservableList<Integer> usuarios = FXCollections.observableArrayList();
+            UsuarioDAO udao = new UsuarioDAO();
+            for (UsuarioDTO u : udao.ListarUsuarios()) {
+                usuarios.add(u.getId());
+            }
+            cmb_usuario.setItems(usuarios);
+        } catch (Exception ex) {
+            fu.MostrarAlertas("Error", ex.toString());
         }
     }
 }

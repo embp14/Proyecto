@@ -99,4 +99,20 @@ public class PagoDAO {
             return 0;
         }
     }
+
+    public int EliminarPago(int id){
+        try{
+            String sql = "DELETE FROM pagos WHERE id=?";
+            ConectorBD ConnBD = new ConectorBD();
+            PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
+            ps.setInt(1, id);
+            int registros = ps.executeUpdate();
+            fu.MostrarAlertas("Informacion", "Pago eliminado. Registros afectados: "+registros);
+            ConnBD.CerrarConexionBD();
+            return registros;
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error del sistema", ex.toString());
+            return 0;
+        }
+    }
 }

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -26,7 +27,7 @@
                         <Label layoutX="170.0" layoutY="40.0" text="ID:" />
                         <TextField fx:id="txt_id" layoutX="220.0" layoutY="36.0" prefHeight="25.0" prefWidth="400.0" />
                         <Label layoutX="126.0" layoutY="76.0" text="Usuario ID:" />
-                        <TextField fx:id="txt_usuario" layoutX="220.0" layoutY="72.0" prefHeight="25.0" prefWidth="400.0" />
+                        <ComboBox fx:id="cmb_usuario" layoutX="220.0" layoutY="72.0" prefHeight="25.0" prefWidth="400.0" />
                         <Label layoutX="102.0" layoutY="112.0" text="Nombre Tienda:" />
                         <TextField fx:id="txt_nombre" layoutX="220.0" layoutY="108.0" prefHeight="25.0" prefWidth="400.0" />
                         <Label layoutX="136.0" layoutY="148.0" text="Descripción:" />

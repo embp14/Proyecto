@@ -22,6 +22,7 @@ public class Lst_Roles_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
     @FXML private Button btn_Nuevo;
     @FXML private Button btn_Editar;
+    @FXML private Button btn_Borrar;
     @FXML private TextField txt_Buscar;
     @FXML private TableView<RolDTO> tbl_Lista;
     @FXML private TableColumn<RolDTO, Integer> col_id;
@@ -92,6 +93,21 @@ public class Lst_Roles_GuiController implements Initializable {
             stage.setScene(new Scene(root));
             stage.setUserData(dto);
             stage.showAndWait();
+            call_CargarDatos();
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
+        }
+    }
+
+    public void call_Borrar(){
+        try{
+            RolDTO dto = tbl_Lista.getSelectionModel().getSelectedItem();
+            if(dto == null){
+                fu.MostrarAlertas("Información", "Seleccione un registro para borrar");
+                return;
+            }
+            RolDAO dao = new RolDAO();
+            dao.EliminarRol(dto.getId());
             call_CargarDatos();
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());

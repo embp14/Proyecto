@@ -20,6 +20,7 @@ public class Mnt_Roles_GuiController implements Initializable {
 
     @FXML private AnchorPane Ap_Main;
     @FXML private Button btn_Grabar;
+    @FXML private Button btn_Borrar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
     @FXML private TextField txt_nombre;
@@ -56,6 +57,21 @@ public class Mnt_Roles_GuiController implements Initializable {
             }catch(Exception ex){
                 fu.MostrarAlertas("Error", ex.toString());
             }
+        }
+    }
+
+    public void call_Borrar(){
+        try{
+            if(txt_id.getText().isEmpty()){
+                fu.MostrarAlertas("Información", "No hay registro para borrar");
+                return;
+            }
+            RolDAO dao = new RolDAO();
+            dao.EliminarRol(Integer.parseInt(txt_id.getText()));
+            btn_Grabar.setDisable(true);
+            btn_Borrar.setDisable(true);
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
         }
     }
 

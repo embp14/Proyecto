@@ -1,7 +1,11 @@
 package proyectobd.ListaDeseoItemsGui;
 
 import dao.ListaDeseoItemDAO;
+import dao.ListaDeseoDAO;
+import dao.VarianteProductoDAO;
 import dto.ListaDeseoItemDTO;
+import dto.ListaDeseoDTO;
+import dto.VarianteProductoDTO;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -9,6 +13,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackListaDeseoItem;
@@ -22,13 +29,16 @@ public class Mnt_ListaDeseoItems_GuiController implements Initializable {
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
-    @FXML private TextField txt_lista;
-    @FXML private TextField txt_variante;
+    @FXML private ComboBox<Integer> cmb_lista;
+    @FXML private ComboBox<Integer> cmb_variante;
     @FXML private TextField txt_cantidad;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Platform.runLater(() -> { cargarDatos(); });
+        Platform.runLater(() -> {
+            cargarCombos();
+            cargarDatos();
+        });
     }
 
     public void call_Grabar(){
@@ -36,8 +46,8 @@ public class Mnt_ListaDeseoItems_GuiController implements Initializable {
         if(!actualizar){
             try{
                 ListaDeseoItemDTO dto = new ListaDeseoItemDTO();
-                dto.setListaDeseosId(Integer.parseInt(txt_lista.getText()));
-                dto.setVarianteId(Integer.parseInt(txt_variante.getText()));
+                dto.setListaDeseosId(cmb_lista.getValue());
+                dto.setVarianteId(cmb_variante.getValue());
                 dto.setCantidad(Integer.parseInt(txt_cantidad.getText()));
                 int id = dao.InsertarItem(dto);
                 if(id>0){
@@ -50,8 +60,8 @@ public class Mnt_ListaDeseoItems_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             ListaDeseoItemDTO dto = (ListaDeseoItemDTO) stage.getUserData();
-            dto.setListaDeseosId(Integer.parseInt(txt_lista.getText()));
-            dto.setVarianteId(Integer.parseInt(txt_variante.getText()));
+            dto.setListaDeseosId(cmb_lista.getValue());
+            dto.setVarianteId(cmb_variante.getValue());
             dto.setCantidad(Integer.parseInt(txt_cantidad.getText()));
             try{
                 dao.ActualizarItem(dto);
@@ -67,14 +77,34 @@ public class Mnt_ListaDeseoItems_GuiController implements Initializable {
         stage.close();
     }
 
+    private void cargarCombos(){
+        try {
+            ObservableList<Integer> listas = FXCollections.observableArrayList();
+            ListaDeseoDAO ldao = new ListaDeseoDAO();
+            for (ListaDeseoDTO l : ldao.ListarListas()) {
+                listas.add(l.getId());
+            }
+            cmb_lista.setItems(listas);
+
+            ObservableList<Integer> variantes = FXCollections.observableArrayList();
+            VarianteProductoDAO vdao = new VarianteProductoDAO();
+            for (VarianteProductoDTO v : vdao.ListarVariantes()) {
+                variantes.add(v.getId());
+            }
+            cmb_variante.setItems(variantes);
+        } catch (Exception ex) {
+            fu.MostrarAlertas("Error", ex.toString());
+        }
+    }
+
     private void cargarDatos(){
         Stage stage = (Stage) Ap_Main.getScene().getWindow();
         ListaDeseoItemDTO dto = (ListaDeseoItemDTO) stage.getUserData();
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            txt_lista.setText(Integer.toString(dto.getListaDeseosId()));
-            txt_variante.setText(Integer.toString(dto.getVarianteId()));
+            cmb_lista.setValue(dto.getListaDeseosId());
+            cmb_variante.setValue(dto.getVarianteId());
             txt_cantidad.setText(Integer.toString(dto.getCantidad()));
         }
     }

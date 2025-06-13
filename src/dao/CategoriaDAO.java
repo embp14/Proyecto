@@ -116,4 +116,20 @@ public class CategoriaDAO {
             return 0;
         }
     }
+
+    public int EliminarCategoria(int id){
+        try{
+            String sql = "DELETE FROM categorias WHERE id=?";
+            ConectorBD ConnBD = new ConectorBD();
+            PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
+            ps.setInt(1, id);
+            int registros = ps.executeUpdate();
+            fu.MostrarAlertas("Información del sistema","Categoría eliminada. Registros afectados: "+registros);
+            ConnBD.CerrarConexionBD();
+            return registros;
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error del sistema", ex.toString());
+            return 0;
+        }
+    }
 }

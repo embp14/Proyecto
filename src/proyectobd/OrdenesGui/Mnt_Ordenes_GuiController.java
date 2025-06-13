@@ -1,7 +1,9 @@
 package proyectobd.OrdenesGui;
 
 import dao.OrdenDAO;
+import dao.UsuarioDAO;
 import dto.OrdenDTO;
+import dto.UsuarioDTO;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
@@ -10,6 +12,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -24,7 +29,7 @@ public class Mnt_Ordenes_GuiController implements Initializable {
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
-    @FXML private TextField txt_usuario;
+    @FXML private ComboBox<Integer> cmb_usuario;
     @FXML private TextField txt_estado;
     @FXML private TextField txt_totalbruto;
     @FXML private TextField txt_totaldescuento;
@@ -33,6 +38,7 @@ public class Mnt_Ordenes_GuiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
+            cargarCombos();
             cargarDatos();
             txt_id.setDisable(true);
         });
@@ -43,7 +49,7 @@ public class Mnt_Ordenes_GuiController implements Initializable {
         if(!actualizar){
             try{
                 OrdenDTO dto = new OrdenDTO();
-                dto.setUsuarioId(Integer.parseInt(txt_usuario.getText()));
+                dto.setUsuarioId(cmb_usuario.getValue());
                 dto.setEstado(txt_estado.getText());
                 dto.setTotalBruto(new java.math.BigDecimal(txt_totalbruto.getText()));
                 dto.setTotalDescuento(new java.math.BigDecimal(txt_totaldescuento.getText()));
@@ -59,7 +65,7 @@ public class Mnt_Ordenes_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             OrdenDTO dto = (OrdenDTO) stage.getUserData();
-            dto.setUsuarioId(Integer.parseInt(txt_usuario.getText()));
+            dto.setUsuarioId(cmb_usuario.getValue());
             dto.setEstado(txt_estado.getText());
             dto.setTotalBruto(new java.math.BigDecimal(txt_totalbruto.getText()));
             dto.setTotalDescuento(new java.math.BigDecimal(txt_totaldescuento.getText()));
@@ -78,13 +84,26 @@ public class Mnt_Ordenes_GuiController implements Initializable {
         stage.close();
     }
 
+    private void cargarCombos(){
+        try {
+            ObservableList<Integer> usuarios = FXCollections.observableArrayList();
+            UsuarioDAO udao = new UsuarioDAO();
+            for (UsuarioDTO u : udao.ListarUsuarios()) {
+                usuarios.add(u.getId());
+            }
+            cmb_usuario.setItems(usuarios);
+        } catch (Exception ex) {
+            fu.MostrarAlertas("Error", ex.toString());
+        }
+    }
+
     private void cargarDatos(){
         Stage stage = (Stage) Ap_Main.getScene().getWindow();
         OrdenDTO dto = (OrdenDTO) stage.getUserData();
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            txt_usuario.setText(Integer.toString(dto.getUsuarioId()));
+            cmb_usuario.setValue(dto.getUsuarioId());
             txt_estado.setText(dto.getEstado());
             txt_totalbruto.setText(dto.getTotalBruto().toString());
             txt_totaldescuento.setText(dto.getTotalDescuento().toString());

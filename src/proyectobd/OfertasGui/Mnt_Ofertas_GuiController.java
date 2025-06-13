@@ -1,7 +1,9 @@
 package proyectobd.OfertasGui;
 
 import dao.OfertaDAO;
+import dao.VarianteProductoDAO;
 import dto.OfertaDTO;
+import dto.VarianteProductoDTO;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
@@ -10,6 +12,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -24,14 +29,17 @@ public class Mnt_Ofertas_GuiController implements Initializable {
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
-    @FXML private TextField txt_variante;
+    @FXML private ComboBox<Integer> cmb_variante;
     @FXML private TextField txt_precio;
     @FXML private DatePicker dp_inicio;
     @FXML private DatePicker dp_fin;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Platform.runLater(() -> { cargarDatos(); });
+        Platform.runLater(() -> {
+            cargarCombos();
+            cargarDatos();
+        });
     }
 
     public void call_Grabar(){
@@ -39,7 +47,7 @@ public class Mnt_Ofertas_GuiController implements Initializable {
         if(!actualizar){
             try{
                 OfertaDTO dto = new OfertaDTO();
-                dto.setVarianteId(Integer.parseInt(txt_variante.getText()));
+                dto.setVarianteId(cmb_variante.getValue());
                 dto.setPrecioDescuento(Double.parseDouble(txt_precio.getText()));
                 dto.setFechaInicio(Timestamp.valueOf(dp_inicio.getValue().atStartOfDay()));
                 dto.setFechaFin(Timestamp.valueOf(dp_fin.getValue().atStartOfDay()));
@@ -54,7 +62,7 @@ public class Mnt_Ofertas_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             OfertaDTO dto = (OfertaDTO) stage.getUserData();
-            dto.setVarianteId(Integer.parseInt(txt_variante.getText()));
+            dto.setVarianteId(cmb_variante.getValue());
             dto.setPrecioDescuento(Double.parseDouble(txt_precio.getText()));
             dto.setFechaInicio(Timestamp.valueOf(dp_inicio.getValue().atStartOfDay()));
             dto.setFechaFin(Timestamp.valueOf(dp_fin.getValue().atStartOfDay()));
@@ -72,13 +80,26 @@ public class Mnt_Ofertas_GuiController implements Initializable {
         stage.close();
     }
 
+    private void cargarCombos(){
+        try {
+            ObservableList<Integer> variantes = FXCollections.observableArrayList();
+            VarianteProductoDAO vdao = new VarianteProductoDAO();
+            for (VarianteProductoDTO v : vdao.ListarVariantes()) {
+                variantes.add(v.getId());
+            }
+            cmb_variante.setItems(variantes);
+        } catch (Exception ex) {
+            fu.MostrarAlertas("Error", ex.toString());
+        }
+    }
+
     private void cargarDatos(){
         Stage stage = (Stage) Ap_Main.getScene().getWindow();
         OfertaDTO dto = (OfertaDTO) stage.getUserData();
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            txt_variante.setText(Integer.toString(dto.getVarianteId()));
+            cmb_variante.setValue(dto.getVarianteId());
             txt_precio.setText(Double.toString(dto.getPrecioDescuento()));
             dp_inicio.setValue(dto.getFechaInicio().toLocalDateTime().toLocalDate());
             dp_fin.setValue(dto.getFechaFin().toLocalDateTime().toLocalDate());

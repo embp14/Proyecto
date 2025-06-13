@@ -21,10 +21,10 @@
                     <children>
                         <Label layoutX="170.0" layoutY="40.0" text="ID:" />
                         <TextField fx:id="txt_id" layoutX="220.0" layoutY="36.0" prefHeight="25.0" prefWidth="400.0" />
-                        <Label layoutX="126.0" layoutY="76.0" text="Vendedor ID:" />
-                        <TextField fx:id="txt_vendedor" layoutX="220.0" layoutY="72.0" prefHeight="25.0" prefWidth="400.0" />
-                        <Label layoutX="122.0" layoutY="112.0" text="Categoría ID:" />
-                        <TextField fx:id="txt_categoria" layoutX="220.0" layoutY="108.0" prefHeight="25.0" prefWidth="400.0" />
+                        <Label layoutX="126.0" layoutY="76.0" text="Vendedor:" />
+                        <ComboBox fx:id="cmb_vendedor" layoutX="220.0" layoutY="72.0" prefHeight="25.0" prefWidth="400.0" />
+                        <Label layoutX="122.0" layoutY="112.0" text="Categoría:" />
+                        <ComboBox fx:id="cmb_categoria" layoutX="220.0" layoutY="108.0" prefHeight="25.0" prefWidth="400.0" />
                         <Label layoutX="164.0" layoutY="148.0" text="Título:" />
                         <TextField fx:id="txt_titulo" layoutX="220.0" layoutY="144.0" prefHeight="25.0" prefWidth="400.0" />
                         <Label layoutX="136.0" layoutY="184.0" text="Descripción:" />
