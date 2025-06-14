@@ -41,7 +41,7 @@
       </TitledPane>
       <TitledPane layoutY="533.0" prefHeight="67.0" prefWidth="800.0" text="Acciones" animated="false">
         <content>
-          <AnchorPane>
+          <AnchorPane prefHeight="27.0" prefWidth="798.0">
                <children>
                   <Button fx:id="btn_Nuevo" layoutX="435.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_NuevoRegistro" text="Nuevo" styleClass="action-button" />
                   <Button fx:id="btn_Editar" layoutX="494.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Editar" text="Editar" styleClass="action-button" />
