@@ -2,42 +2,47 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="Ap_Main" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/app.css" styleClass="main-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.OfertasGui.Mnt_Ofertas_GuiController">
     <children>
-        <Pane prefHeight="50.0" prefWidth="600.0" styleClass="header-pane">
+        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" spacing="10">
             <children>
-                <Label layoutX="190.0" layoutY="12.0" text="Mantenimiento de Ofertas" styleClass="header-label" />
+                <Pane prefHeight="50.0" prefWidth="600.0" styleClass="header-pane">
+                    <children>
+                        <Label text="Mantenimiento de Ofertas" styleClass="header-label" />
+                    </children>
+                </Pane>
+                <TitledPane text="Detalles" animated="false">
+                    <content>
+                        <GridPane hgap="10" vgap="10" padding="10">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="100" />
+                                <ColumnConstraints minWidth="400" />
+                            </columnConstraints>
+                            <children>
+                                <Label text="ID:" GridPane.rowIndex="0" />
+                                <TextField fx:id="txt_id" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label text="Variante:" GridPane.rowIndex="1" />
+                                <ComboBox fx:id="cmb_variante" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label text="Descuento:" GridPane.rowIndex="2" />
+                                <TextField fx:id="txt_precio" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label text="Inicio:" GridPane.rowIndex="3" />
+                                <DatePicker fx:id="dp_inicio" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <Label text="Fin:" GridPane.rowIndex="4" />
+                                <DatePicker fx:id="dp_fin" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                            </children>
+                        </GridPane>
+                    </content>
+                </TitledPane>
+                <TitledPane text="Acciones" animated="false">
+                    <content>
+                        <HBox alignment="CENTER_RIGHT" spacing="10" padding="10">
+                            <Button fx:id="btn_Grabar" mnemonicParsing="false" onAction="#call_Grabar" text="Grabar" styleClass="action-button" />
+                            <Button fx:id="btn_Cerrar" mnemonicParsing="false" onAction="#call_CerrarVentana" text="Cerrar" styleClass="action-button" />
+                        </HBox>
+                    </content>
+                </TitledPane>
             </children>
-        </Pane>
-        <TitledPane layoutY="39.0" prefHeight="250.0" prefWidth="600.0" text="Detalles" animated="false">
-            <content>
-                <AnchorPane prefHeight="230.0" prefWidth="598.0">
-                    <children>
-                        <Label layoutX="96.0" layoutY="36.0" text="ID:" />
-                        <TextField fx:id="txt_id" layoutX="160.0" layoutY="32.0" prefWidth="400.0" />
-                        <Label layoutX="48.0" layoutY="72.0" text="Variante:" />
-                        <ComboBox fx:id="cmb_variante" layoutX="160.0" layoutY="68.0" prefWidth="400.0" />
-                        <Label layoutX="72.0" layoutY="108.0" text="Descuento:" />
-                        <TextField fx:id="txt_precio" layoutX="160.0" layoutY="104.0" prefWidth="400.0" />
-                        <Label layoutX="100.0" layoutY="144.0" text="Inicio:" />
-                        <DatePicker fx:id="dp_inicio" layoutX="160.0" layoutY="140.0" prefWidth="400.0" />
-                        <Label layoutX="116.0" layoutY="180.0" text="Fin:" />
-                        <DatePicker fx:id="dp_fin" layoutX="160.0" layoutY="176.0" prefWidth="400.0" />
-                    </children>
-                </AnchorPane>
-            </content>
-        </TitledPane>
-        <TitledPane layoutY="289.0" prefHeight="61.0" prefWidth="600.0" text="Acciones" animated="false">
-            <content>
-                <AnchorPane>
-                    <children>
-                        <Button fx:id="btn_Grabar" layoutX="440.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Grabar" text="Grabar" styleClass="action-button" />
-                        <Button fx:id="btn_Cerrar" layoutX="509.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_CerrarVentana" text="Cerrar" styleClass="action-button" />
-                    </children>
-                </AnchorPane>
-            </content>
-        </TitledPane>
+        </VBox>
     </children>
 </AnchorPane>
