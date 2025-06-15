@@ -35,7 +35,7 @@
                </Label>
                <TextField fx:id="txt_Buscar" prefWidth="300.0" promptText="Ingrese el ID de la orden..." styleClass="search-field"/>
                <Button text="🔍 Buscar" onAction="#call_Buscar" styleClass="search-button"/>
-               <Button text="🔄 Limpiar" styleClass="clear-button"/>
+               <Button fx:id="btn_Limpiar" onAction="#call_Limpiar" text="🔄 Limpiar" styleClass="clear-button"/>
             </HBox>
          </VBox>
 

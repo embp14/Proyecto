@@ -120,4 +120,9 @@ public class Lst_Resenas_GuiController implements Initializable {
             fu.MostrarAlertas("Error", ex.toString());
         }
     }
+
+    public void call_Limpiar(){
+        txt_Buscar.clear();
+        call_Buscar();
+    }
 }
