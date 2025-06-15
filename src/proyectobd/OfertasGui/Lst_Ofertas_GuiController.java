@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import java.sql.Timestamp;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackOferta;
@@ -28,8 +29,8 @@ public class Lst_Ofertas_GuiController implements Initializable {
     @FXML private TableColumn<OfertaDTO, Integer> col_id;
     @FXML private TableColumn<OfertaDTO, Integer> col_variante;
     @FXML private TableColumn<OfertaDTO, Double> col_precio;
-    @FXML private TableColumn<OfertaDTO, String> col_inicio;
-    @FXML private TableColumn<OfertaDTO, String> col_fin;
+    @FXML private TableColumn<OfertaDTO, Timestamp> col_inicio;
+    @FXML private TableColumn<OfertaDTO, Timestamp> col_fin;
 
     FeedbackOferta fu = new FeedbackOferta();
 

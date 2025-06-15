@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import java.sql.Timestamp;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackResena;
@@ -29,7 +30,7 @@ public class Lst_Resenas_GuiController implements Initializable {
     @FXML private TableColumn<ResenaDTO, Integer> col_producto;
     @FXML private TableColumn<ResenaDTO, Integer> col_usuario;
     @FXML private TableColumn<ResenaDTO, Integer> col_rating;
-    @FXML private TableColumn<ResenaDTO, String> col_fecha;
+    @FXML private TableColumn<ResenaDTO, Timestamp> col_fecha;
 
     FeedbackResena fu = new FeedbackResena();
 

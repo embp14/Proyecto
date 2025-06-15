@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import java.sql.Timestamp;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackEnvio;
@@ -30,9 +31,9 @@ public class Lst_Envios_GuiController implements Initializable {
     @FXML private TableColumn<EnvioDTO, Integer> col_direccion;
     @FXML private TableColumn<EnvioDTO, String> col_empresa;
     @FXML private TableColumn<EnvioDTO, String> col_tracking;
-    @FXML private TableColumn<EnvioDTO, String> col_envio;
-    @FXML private TableColumn<EnvioDTO, String> col_estimada;
-    @FXML private TableColumn<EnvioDTO, String> col_entrega;
+    @FXML private TableColumn<EnvioDTO, Timestamp> col_envio;
+    @FXML private TableColumn<EnvioDTO, Timestamp> col_estimada;
+    @FXML private TableColumn<EnvioDTO, Timestamp> col_entrega;
 
     FeedbackEnvio fu = new FeedbackEnvio();
 
