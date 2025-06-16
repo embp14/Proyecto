@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import java.sql.Timestamp;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackCupon;
@@ -28,7 +29,7 @@ public class Lst_Cupones_GuiController implements Initializable {
     @FXML private TableColumn<CuponDTO, Integer> col_id;
     @FXML private TableColumn<CuponDTO, String> col_codigo;
     @FXML private TableColumn<CuponDTO, Integer> col_descuento;
-    @FXML private TableColumn<CuponDTO, String> col_expira;
+    @FXML private TableColumn<CuponDTO, Timestamp> col_expira;
 
     FeedbackCupon fu = new FeedbackCupon();
 
@@ -116,5 +117,10 @@ public class Lst_Cupones_GuiController implements Initializable {
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
         }
+    }
+
+    public void call_Limpiar(){
+        txt_Buscar.clear();
+        call_Buscar();
     }
 }
