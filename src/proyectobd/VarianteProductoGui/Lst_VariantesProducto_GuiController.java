@@ -77,7 +77,7 @@ public class Lst_VariantesProducto_GuiController implements Initializable {
         try{
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/VarianteProductoGui/Mnt_VariantesProducto_Gui.fxml"));
-            stage.setTitle("Mantenimiento de Variantes");
+            stage.setTitle("Formulario de Mantenimiento de Variantes de Producto");
             stage.setScene(new Scene(root));
             stage.showAndWait();
             call_CargarDatos();
@@ -95,7 +95,7 @@ public class Lst_VariantesProducto_GuiController implements Initializable {
             }
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/VarianteProductoGui/Mnt_VariantesProducto_Gui.fxml"));
-            stage.setTitle("Mantenimiento de Variantes");
+            stage.setTitle("Formulario de Mantenimiento de Variantes de Producto");
             stage.setScene(new Scene(root));
             stage.setUserData(dto);
             stage.showAndWait();

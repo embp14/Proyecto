@@ -76,7 +76,7 @@ public class Lst_Cupones_GuiController implements Initializable {
         try{
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/CuponesGui/Mnt_Cupones_Gui.fxml"));
-            stage.setTitle("Mantenimiento de Cupones");
+            stage.setTitle("Formulario de Mantenimiento de Cupones");
             stage.setScene(new Scene(root));
             stage.showAndWait();
             call_CargarDatos();
@@ -94,7 +94,7 @@ public class Lst_Cupones_GuiController implements Initializable {
             }
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/CuponesGui/Mnt_Cupones_Gui.fxml"));
-            stage.setTitle("Mantenimiento de Cupones");
+            stage.setTitle("Formulario de Mantenimiento de Cupones");
             stage.setScene(new Scene(root));
             stage.setUserData(dto);
             stage.showAndWait();

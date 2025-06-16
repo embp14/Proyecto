@@ -79,7 +79,7 @@ public class Lst_Envios_GuiController implements Initializable {
         try{
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/EnviosGui/Mnt_Envios_Gui.fxml"));
-            stage.setTitle("Mantenimiento Envíos");
+            stage.setTitle("Formulario de Mantenimiento de Envíos");
             stage.setScene(new Scene(root));
             stage.showAndWait();
             call_Buscar();
@@ -97,7 +97,7 @@ public class Lst_Envios_GuiController implements Initializable {
             }
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/EnviosGui/Mnt_Envios_Gui.fxml"));
-            stage.setTitle("Mantenimiento Envíos");
+            stage.setTitle("Formulario de Mantenimiento de Envíos");
             stage.setScene(new Scene(root));
             stage.setUserData(dto);
             stage.showAndWait();
