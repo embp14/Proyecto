@@ -4,12 +4,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@../styles/app.css" styleClass="main-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.ResenasGui.Lst_Resenas_GuiController">
+<BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.ResenasGui.Lst_Resenas_GuiController">
    <top>
-      <VBox styleClass="header-section">
-         <HBox alignment="CENTER" prefHeight="60.0" styleClass="header-pane">
-            <Label text="⭐ Gestión de Reseñas" styleClass="header-title">
-               <font><Font name="System Bold" size="24.0"/></font>
+      <VBox>
+         <HBox alignment="CENTER" prefHeight="60.0">
+            <Label text="Gestión de Reseñas">
             </Label>
          </HBox>
          <Separator/>
@@ -17,40 +16,37 @@
    </top>
 
    <center>
-      <VBox spacing="10.0" styleClass="content-area">
+      <VBox spacing="10.0">
          <padding>
             <Insets bottom="10.0" left="15.0" right="15.0" top="10.0"/>
          </padding>
 
-         <VBox styleClass="filter-section">
-            <Label text="🔍 Filtros de Búsqueda" styleClass="section-title">
-               <font><Font name="System Bold" size="16.0"/></font>
+         <VBox>
+            <Label text="Filtros de Búsqueda">
             </Label>
-            <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="filter-container">
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
                <padding>
                   <Insets bottom="15.0" left="10.0" right="10.0" top="15.0"/>
                </padding>
-               <Label text="ID de Reseña:" styleClass="filter-label">
-                  <font><Font name="System Bold" size="12.0"/></font>
+               <Label text="ID de Reseña:">
                </Label>
-               <TextField fx:id="txt_Buscar" prefWidth="300.0" promptText="Buscar..." styleClass="search-field"/>
-               <Button text="🔍 Buscar" onAction="#call_Buscar" styleClass="search-button"/>
-               <Button fx:id="btn_Limpiar" onAction="#call_Limpiar" text="🔄 Limpiar" styleClass="clear-button"/>
+               <TextField fx:id="txt_Buscar" prefWidth="300.0" promptText="Buscar..."/>
+               <Button text="Buscar" onAction="#call_Buscar"/>
+               <Button fx:id="btn_Limpiar" onAction="#call_Limpiar" text="Limpiar"/>
             </HBox>
          </VBox>
 
-         <VBox VBox.vgrow="ALWAYS" styleClass="table-section">
+         <VBox VBox.vgrow="ALWAYS">
             <HBox alignment="CENTER_LEFT" spacing="10.0">
-               <Label text="📋 Lista de Reseñas" styleClass="section-title">
-                  <font><Font name="System Bold" size="16.0"/></font>
+               <Label text="Lista de Reseñas">
                </Label>
             </HBox>
-            <TableView fx:id="tbl_Lista" VBox.vgrow="ALWAYS" styleClass="modern-table">
+            <TableView fx:id="tbl_Lista" VBox.vgrow="ALWAYS">
                <columns>
-                  <TableColumn fx:id="col_id" prefWidth="75.0" text="ID" styleClass="table-column-center"/>
-                  <TableColumn fx:id="col_producto" prefWidth="75.0" text="Producto" styleClass="table-column-center"/>
-                  <TableColumn fx:id="col_usuario" prefWidth="75.0" text="Usuario" styleClass="table-column-center"/>
-                  <TableColumn fx:id="col_rating" prefWidth="75.0" text="Rating" styleClass="table-column-center"/>
+                  <TableColumn fx:id="col_id" prefWidth="75.0" text="ID"/>
+                  <TableColumn fx:id="col_producto" prefWidth="75.0" text="Producto"/>
+                  <TableColumn fx:id="col_usuario" prefWidth="75.0" text="Usuario"/>
+                  <TableColumn fx:id="col_rating" prefWidth="75.0" text="Rating"/>
                   <TableColumn fx:id="col_fecha" prefWidth="150.0" text="Fecha"/>
                </columns>
                <columnResizePolicy>
@@ -62,25 +58,17 @@
    </center>
 
    <bottom>
-      <VBox styleClass="footer-section">
+      <VBox>
          <Separator/>
-         <HBox alignment="CENTER_RIGHT" spacing="10.0" styleClass="action-bar">
+         <HBox alignment="CENTER_RIGHT" spacing="10.0">
             <padding>
                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
             </padding>
             <Region HBox.hgrow="ALWAYS"/>
-            <Button fx:id="btn_Nuevo" onAction="#call_NuevoRegistro" styleClass="primary-button">
-               <graphic><Label text="➕ Nuevo"/></graphic>
-            </Button>
-            <Button fx:id="btn_Editar" onAction="#call_Editar" styleClass="secondary-button">
-               <graphic><Label text="✏️ Editar"/></graphic>
-            </Button>
-            <Button fx:id="btn_Borrar" onAction="#call_Borrar" styleClass="danger-button">
-               <graphic><Label text="🗑️ Borrar"/></graphic>
-            </Button>
-            <Button fx:id="btn_Cerrar" onAction="#call_CerrarVentana" styleClass="default-button">
-               <graphic><Label text="❌ Cerrar"/></graphic>
-            </Button>
+            <Button fx:id="btn_Nuevo" onAction="#call_NuevoRegistro" text="Nuevo"/>
+            <Button fx:id="btn_Editar" onAction="#call_Editar" text="Editar"/>
+            <Button fx:id="btn_Borrar" onAction="#call_Borrar" text="Borrar"/>
+            <Button fx:id="btn_Cerrar" onAction="#call_CerrarVentana" text="Cerrar"/>
          </HBox>
       </VBox>
    </bottom>
