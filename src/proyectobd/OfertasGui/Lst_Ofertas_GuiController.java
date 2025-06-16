@@ -78,7 +78,7 @@ public class Lst_Ofertas_GuiController implements Initializable {
         try{
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/OfertasGui/Mnt_Ofertas_Gui.fxml"));
-            stage.setTitle("Mantenimiento de Ofertas");
+            stage.setTitle("Formulario de Mantenimiento de Ofertas");
             stage.setScene(new Scene(root));
             stage.showAndWait();
             call_CargarDatos();
@@ -96,7 +96,7 @@ public class Lst_Ofertas_GuiController implements Initializable {
             }
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/OfertasGui/Mnt_Ofertas_Gui.fxml"));
-            stage.setTitle("Mantenimiento de Ofertas");
+            stage.setTitle("Formulario de Mantenimiento de Ofertas");
             stage.setScene(new Scene(root));
             stage.setUserData(dto);
             stage.showAndWait();
