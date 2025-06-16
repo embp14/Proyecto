@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Ap_Main" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/app.css" styleClass="main-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.EnviosGui.Mnt_Envios_GuiController">
+<AnchorPane fx:id="Ap_Main" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.EnviosGui.Mnt_Envios_GuiController">
     <children>
-        <Pane prefHeight="50.0" prefWidth="800.0" styleClass="header-pane">
+        <Pane prefHeight="50.0" prefWidth="800.0">
             <children>
-                <Label layoutX="240.0" layoutY="12.0" text="Mantenimiento Envíos" styleClass="header-label" />
+                <Label layoutX="240.0" layoutY="12.0" text="Formulario de Mantenimiento de Envíos" />
             </children>
         </Pane>
         <TitledPane layoutY="39.0" prefHeight="350.0" prefWidth="800.0" text="Detalles" animated="false">
@@ -39,8 +40,8 @@
             <content>
                 <AnchorPane prefHeight="27.0" prefWidth="798.0" minHeight="0.0" minWidth="0.0">
                     <children>
-                        <Button fx:id="btn_Grabar" layoutX="555.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Grabar" text="Grabar" styleClass="action-button" />
-                        <Button fx:id="btn_Cerrar" layoutX="624.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_CerrarVentana" text="Cerrar" styleClass="action-button" />
+                        <Button fx:id="btn_Grabar" layoutX="555.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Grabar" text="Grabar" />
+                        <Button fx:id="btn_Cerrar" layoutX="624.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_CerrarVentana" text="Cerrar" />
                     </children>
                 </AnchorPane>
             </content>

@@ -78,7 +78,7 @@ public class Lst_Resenas_GuiController implements Initializable {
         try{
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/ResenasGui/Mnt_Resenas_Gui.fxml"));
-            stage.setTitle("Mantenimiento de Reseñas");
+            stage.setTitle("Formulario de Mantenimiento de Reseñas");
             stage.setScene(new Scene(root));
             stage.showAndWait();
             call_CargarDatos();
@@ -96,7 +96,7 @@ public class Lst_Resenas_GuiController implements Initializable {
             }
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/proyectobd/ResenasGui/Mnt_Resenas_Gui.fxml"));
-            stage.setTitle("Mantenimiento de Reseñas");
+            stage.setTitle("Formulario de Mantenimiento de Reseñas");
             stage.setScene(new Scene(root));
             stage.setUserData(dto);
             stage.showAndWait();
