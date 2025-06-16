@@ -9,7 +9,7 @@
     <children>
         <Pane prefHeight="50.0" prefWidth="600.0">
             <children>
-                <Label layoutX="190.0" layoutY="12.0" text="Mantenimiento de Ofertas" />
+                <Label layoutX="190.0" layoutY="12.0" text="Formulario de Mantenimiento de Ofertas" />
             </children>
         </Pane>
         <TitledPane layoutY="39.0" prefHeight="250.0" prefWidth="600.0" text="Detalles" animated="false">

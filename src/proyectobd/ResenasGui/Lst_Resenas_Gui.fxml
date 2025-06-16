@@ -8,7 +8,7 @@
    <top>
       <VBox>
          <HBox alignment="CENTER" prefHeight="60.0">
-            <Label text="Gestión de Reseñas">
+            <Label text="Panel de Gestión de Reseñas">
             </Label>
          </HBox>
          <Separator/>
