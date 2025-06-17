@@ -47,7 +47,7 @@ public class UsuarioDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.error("listar usuarios");
         }
         return usuarios;
     }
@@ -76,7 +76,7 @@ public class UsuarioDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString()+"\n"+sql);
+            fu.error("buscar usuarios");
         }
         return usuarios;
     }
@@ -100,7 +100,7 @@ public class UsuarioDAO {
             ConnBD.CerrarConexionBD();
             return codigoInsertado;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.error("registrar el usuario");
             return 0;
         }
     }
@@ -120,7 +120,7 @@ public class UsuarioDAO {
             ConnBD.CerrarConexionBD();
             return registrosActualizados;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.error("actualizar el usuario");
             return 0;
         }
     }
@@ -136,7 +136,7 @@ public class UsuarioDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.error("eliminar el usuario");
             return 0;
         }
     }

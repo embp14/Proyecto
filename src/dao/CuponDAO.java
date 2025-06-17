@@ -29,7 +29,7 @@ public class CuponDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
         }
         return cupones;
     }
@@ -53,7 +53,7 @@ public class CuponDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
         }
         return cupones;
     }
@@ -77,7 +77,7 @@ public class CuponDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -97,7 +97,7 @@ public class CuponDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -113,7 +113,7 @@ public class CuponDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }

@@ -22,7 +22,7 @@ public class DireccionDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return false;
         }
     }
@@ -48,7 +48,7 @@ public class DireccionDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
         }
         return lista;
     }
@@ -74,7 +74,7 @@ public class DireccionDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
         }
         return lista;
     }
@@ -82,7 +82,7 @@ public class DireccionDAO {
     public int InsertarDireccion(DireccionDTO dto){
         try{
             if(!existeUsuario(dto.getUsuarioId())){
-                fu.MostrarAlertas("Datos inválidos", "El usuario no existe");
+                fu.datosInvalidos("El usuario no existe");
                 return 0;
             }
             String sql = "INSERT INTO direcciones(usuario_id, alias, direccion, ciudad, provincia, codigo_postal, telefono_contacto) VALUES(?,?,?,?,?,?,?)";
@@ -103,7 +103,7 @@ public class DireccionDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -111,7 +111,7 @@ public class DireccionDAO {
     public int ActualizarDireccion(DireccionDTO dto){
         try{
             if(!existeUsuario(dto.getUsuarioId())){
-                fu.MostrarAlertas("Datos inválidos", "El usuario no existe");
+                fu.datosInvalidos("El usuario no existe");
                 return 0;
             }
             String sql = "UPDATE direcciones SET usuario_id=?, alias=?, direccion=?, ciudad=?, provincia=?, codigo_postal=?, telefono_contacto=? WHERE id=?";
@@ -130,7 +130,7 @@ public class DireccionDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -146,7 +146,7 @@ public class DireccionDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }

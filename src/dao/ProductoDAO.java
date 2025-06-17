@@ -22,7 +22,7 @@ public class ProductoDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return false;
         }
     }
@@ -38,7 +38,7 @@ public class ProductoDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return false;
         }
     }
@@ -63,7 +63,7 @@ public class ProductoDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
         }
         return productos;
     }
@@ -89,7 +89,7 @@ public class ProductoDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
         }
         return productos;
     }
@@ -97,7 +97,7 @@ public class ProductoDAO {
     public int InsertarProducto(ProductoDTO dto){
         try{
             if(!existeVendedor(dto.getVendedorId()) || !existeCategoria(dto.getCategoriaId())){
-                fu.MostrarAlertas("Datos inválidos", "Verifique vendedor y categoría");
+                fu.datosInvalidos("Verifique vendedor y categoría");
                 return 0;
             }
             String sql = "INSERT INTO productos(vendedor_id, categoria_id, titulo, descripcion, creado_en, activo) VALUES(?,?,?,?,?,?)";
@@ -119,7 +119,7 @@ public class ProductoDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -127,7 +127,7 @@ public class ProductoDAO {
     public int ActualizarProducto(ProductoDTO dto){
         try{
             if(!existeVendedor(dto.getVendedorId()) || !existeCategoria(dto.getCategoriaId())){
-                fu.MostrarAlertas("Datos inválidos", "Verifique vendedor y categoría");
+                fu.datosInvalidos("Verifique vendedor y categoría");
                 return 0;
             }
             String sql = "UPDATE productos SET vendedor_id=?, categoria_id=?, titulo=?, descripcion=?, creado_en=?, activo=? WHERE id=?";
@@ -145,7 +145,7 @@ public class ProductoDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -161,7 +161,7 @@ public class ProductoDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }

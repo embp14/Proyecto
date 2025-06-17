@@ -22,7 +22,7 @@ public class CarritoDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "verificar el usuario");
             return false;
         }
     }
@@ -43,7 +43,7 @@ public class CarritoDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "listar carritos");
         }
         return lista;
     }
@@ -64,7 +64,7 @@ public class CarritoDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "buscar carritos");
         }
         return lista;
     }
@@ -72,7 +72,7 @@ public class CarritoDAO {
     public int InsertarCarrito(CarritoDTO dto){
         try{
             if(!existeUsuario(dto.getUsuarioId())){
-                fu.MostrarAlertas("Datos inválidos", "El usuario no existe");
+                fu.datosInvalidos("El usuario no existe");
                 return 0;
             }
             String sql = "INSERT INTO carritos(usuario_id, creado_en) VALUES(?,?)";
@@ -88,7 +88,7 @@ public class CarritoDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "registrar el carrito");
             return 0;
         }
     }
@@ -96,7 +96,7 @@ public class CarritoDAO {
     public int ActualizarCarrito(CarritoDTO dto){
         try{
             if(!existeUsuario(dto.getUsuarioId())){
-                fu.MostrarAlertas("Datos inválidos", "El usuario no existe");
+                fu.datosInvalidos("El usuario no existe");
                 return 0;
             }
             String sql = "UPDATE carritos SET usuario_id=?, creado_en=? WHERE id=?";
@@ -110,7 +110,7 @@ public class CarritoDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "actualizar el carrito");
             return 0;
         }
     }
@@ -126,7 +126,7 @@ public class CarritoDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "eliminar el carrito");
             return 0;
         }
     }

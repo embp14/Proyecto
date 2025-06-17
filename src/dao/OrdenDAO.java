@@ -22,7 +22,7 @@ public class OrdenDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return false;
         }
     }
@@ -46,7 +46,7 @@ public class OrdenDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
         }
         return ordenes;
     }
@@ -71,7 +71,7 @@ public class OrdenDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
         }
         return ordenes;
     }
@@ -79,7 +79,7 @@ public class OrdenDAO {
     public int InsertarOrden(OrdenDTO dto){
         try{
             if(!existeUsuario(dto.getUsuarioId())){
-                fu.MostrarAlertas("Datos inválidos", "El usuario especificado no existe");
+                fu.datosInvalidos("El usuario especificado no existe");
                 return 0;
             }
             String sql = "INSERT INTO ordenes(usuario_id, estado, total_bruto, total_descuento, fecha_creacion) VALUES(?,?,?,?,?)";
@@ -100,7 +100,7 @@ public class OrdenDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -108,7 +108,7 @@ public class OrdenDAO {
     public int ActualizarOrden(OrdenDTO dto){
         try{
             if(!existeUsuario(dto.getUsuarioId())){
-                fu.MostrarAlertas("Datos inválidos", "El usuario especificado no existe");
+                fu.datosInvalidos("El usuario especificado no existe");
                 return 0;
             }
             String sql = "UPDATE ordenes SET usuario_id=?, estado=?, total_bruto=?, total_descuento=?, fecha_creacion=? WHERE id=?";
@@ -125,7 +125,7 @@ public class OrdenDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -141,7 +141,7 @@ public class OrdenDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }

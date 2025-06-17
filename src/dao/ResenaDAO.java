@@ -22,7 +22,7 @@ public class ResenaDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return false;
         }
     }
@@ -38,7 +38,7 @@ public class ResenaDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return false;
         }
     }
@@ -62,7 +62,7 @@ public class ResenaDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
         }
         return resenas;
     }
@@ -87,7 +87,7 @@ public class ResenaDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
         }
         return resenas;
     }
@@ -95,7 +95,7 @@ public class ResenaDAO {
     public int InsertarResena(ResenaDTO dto){
         try{
             if(!existeProducto(dto.getProductoId()) || !existeUsuario(dto.getUsuarioId())){
-                fu.MostrarAlertas("Datos inválidos", "Verifique producto y usuario");
+                fu.datosInvalidos("Verifique producto y usuario");
                 return 0;
             }
             String sql = "INSERT INTO reseñas(producto_id, usuario_id, rating, comentario, fecha) VALUES(?,?,?,?,?)";
@@ -116,7 +116,7 @@ public class ResenaDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -124,7 +124,7 @@ public class ResenaDAO {
     public int ActualizarResena(ResenaDTO dto){
         try{
             if(!existeProducto(dto.getProductoId()) || !existeUsuario(dto.getUsuarioId())){
-                fu.MostrarAlertas("Datos inválidos", "Verifique producto y usuario");
+                fu.datosInvalidos("Verifique producto y usuario");
                 return 0;
             }
             String sql = "UPDATE reseñas SET producto_id=?, usuario_id=?, rating=?, comentario=?, fecha=? WHERE id=?";
@@ -141,7 +141,7 @@ public class ResenaDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -157,7 +157,7 @@ public class ResenaDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }

@@ -22,7 +22,7 @@ public class VarianteProductoDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return false;
         }
     }
@@ -45,7 +45,7 @@ public class VarianteProductoDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
         }
         return lista;
     }
@@ -53,7 +53,7 @@ public class VarianteProductoDAO {
     public int InsertarVariante(VarianteProductoDTO dto){
         try{
             if(!existeProducto(dto.getProductoId())){
-                fu.MostrarAlertas("Datos invalidos", "Producto inexistente");
+                fu.datosInvalidos("Producto inexistente");
                 return 0;
             }
             String sql = "INSERT INTO variantes_producto(producto_id, sku, precio, stock) VALUES(?,?,?,?)";
@@ -71,7 +71,7 @@ public class VarianteProductoDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -79,7 +79,7 @@ public class VarianteProductoDAO {
     public int ActualizarVariante(VarianteProductoDTO dto){
         try{
             if(!existeProducto(dto.getProductoId())){
-                fu.MostrarAlertas("Datos invalidos", "Producto inexistente");
+                fu.datosInvalidos("Producto inexistente");
                 return 0;
             }
             String sql = "UPDATE variantes_producto SET producto_id=?, sku=?, precio=?, stock=? WHERE id=?";
@@ -95,7 +95,7 @@ public class VarianteProductoDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -111,7 +111,7 @@ public class VarianteProductoDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }

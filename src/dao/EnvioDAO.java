@@ -22,7 +22,7 @@ public class EnvioDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return false;
         }
     }
@@ -38,7 +38,7 @@ public class EnvioDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return false;
         }
     }
@@ -64,7 +64,7 @@ public class EnvioDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
         }
         return lista;
     }
@@ -72,7 +72,7 @@ public class EnvioDAO {
     public int InsertarEnvio(EnvioDTO dto){
         try{
             if(!existeOrden(dto.getOrdenId()) || !existeDireccion(dto.getDireccionId())){
-                fu.MostrarAlertas("Datos inválidos", "Orden o dirección inexistente");
+                fu.datosInvalidos("Orden o dirección inexistente");
                 return 0;
             }
             String sql = "INSERT INTO envios(orden_id, direccion_id, empresa_envio, codigo_tracking, fecha_envio, fecha_entrega_estimada, fecha_entrega_real) VALUES(?,?,?,?,?,?,?)";
@@ -93,7 +93,7 @@ public class EnvioDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -101,7 +101,7 @@ public class EnvioDAO {
     public int ActualizarEnvio(EnvioDTO dto){
         try{
             if(!existeOrden(dto.getOrdenId()) || !existeDireccion(dto.getDireccionId())){
-                fu.MostrarAlertas("Datos inválidos", "Orden o dirección inexistente");
+                fu.datosInvalidos("Orden o dirección inexistente");
                 return 0;
             }
             String sql = "UPDATE envios SET orden_id=?, direccion_id=?, empresa_envio=?, codigo_tracking=?, fecha_envio=?, fecha_entrega_estimada=?, fecha_entrega_real=? WHERE id=?";
@@ -120,7 +120,7 @@ public class EnvioDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -136,7 +136,7 @@ public class EnvioDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }

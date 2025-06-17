@@ -22,7 +22,7 @@ public class PagoDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return false;
         }
     }
@@ -45,7 +45,7 @@ public class PagoDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
         }
         return lista;
     }
@@ -53,7 +53,7 @@ public class PagoDAO {
     public int InsertarPago(PagoDTO dto){
         try{
             if(!existeOrden(dto.getOrdenId())){
-                fu.MostrarAlertas("Datos invalidos", "Orden inexistente");
+                fu.datosInvalidos("Orden inexistente");
                 return 0;
             }
             String sql = "INSERT INTO pagos(orden_id, metodo_pago, monto, fecha_pago) VALUES(?,?,?,?)";
@@ -71,7 +71,7 @@ public class PagoDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -79,7 +79,7 @@ public class PagoDAO {
     public int ActualizarPago(PagoDTO dto){
         try{
             if(!existeOrden(dto.getOrdenId())){
-                fu.MostrarAlertas("Datos invalidos", "Orden inexistente");
+                fu.datosInvalidos("Orden inexistente");
                 return 0;
             }
             String sql = "UPDATE pagos SET orden_id=?, metodo_pago=?, monto=?, fecha_pago=? WHERE id=?";
@@ -95,7 +95,7 @@ public class PagoDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -111,7 +111,7 @@ public class PagoDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }

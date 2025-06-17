@@ -22,7 +22,7 @@ public class ImagenProductoDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return false;
         }
     }
@@ -48,7 +48,7 @@ public class ImagenProductoDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
         }
         return lista;
     }
@@ -56,7 +56,7 @@ public class ImagenProductoDAO {
     public int InsertarImagen(ImagenProductoDTO dto){
         try{
             if(!existeProducto(dto.getProductoId())){
-                fu.MostrarAlertas("Datos invalidos", "Producto inexistente");
+                fu.datosInvalidos("Producto inexistente");
                 return 0;
             }
             String sql = "INSERT INTO imagenes_producto(producto_id, url, es_principal) VALUES(?,?,?)";
@@ -73,7 +73,7 @@ public class ImagenProductoDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -81,7 +81,7 @@ public class ImagenProductoDAO {
     public int ActualizarImagen(ImagenProductoDTO dto){
         try{
             if(!existeProducto(dto.getProductoId())){
-                fu.MostrarAlertas("Datos invalidos", "Producto inexistente");
+                fu.datosInvalidos("Producto inexistente");
                 return 0;
             }
             String sql = "UPDATE imagenes_producto SET producto_id=?, url=?, es_principal=? WHERE id=?";
@@ -96,7 +96,7 @@ public class ImagenProductoDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -112,7 +112,7 @@ public class ImagenProductoDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }

@@ -22,7 +22,7 @@ public class ListaDeseoDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return false;
         }
     }
@@ -44,7 +44,7 @@ public class ListaDeseoDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
         }
         return lista;
     }
@@ -52,7 +52,7 @@ public class ListaDeseoDAO {
     public int InsertarLista(ListaDeseoDTO dto){
         try{
             if(!existeUsuario(dto.getUsuarioId())){
-                fu.MostrarAlertas("Datos invalidos", "Usuario inexistente");
+                fu.datosInvalidos("Usuario inexistente");
                 return 0;
             }
             String sql = "INSERT INTO listas_deseos(usuario_id, nombre, creado_en) VALUES(?,?,?)";
@@ -69,7 +69,7 @@ public class ListaDeseoDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -77,7 +77,7 @@ public class ListaDeseoDAO {
     public int ActualizarLista(ListaDeseoDTO dto){
         try{
             if(!existeUsuario(dto.getUsuarioId())){
-                fu.MostrarAlertas("Datos invalidos", "Usuario inexistente");
+                fu.datosInvalidos("Usuario inexistente");
                 return 0;
             }
             String sql = "UPDATE listas_deseos SET usuario_id=?, nombre=?, creado_en=? WHERE id=?";
@@ -92,7 +92,7 @@ public class ListaDeseoDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -108,7 +108,7 @@ public class ListaDeseoDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }

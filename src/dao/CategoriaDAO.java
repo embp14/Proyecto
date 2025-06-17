@@ -22,7 +22,7 @@ public class CategoriaDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "verificar la categoría");
             return false;
         }
     }
@@ -44,7 +44,7 @@ public class CategoriaDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "listar categorías");
         }
         return lista;
     }
@@ -66,7 +66,7 @@ public class CategoriaDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "buscar categorías");
         }
         return lista;
     }
@@ -74,7 +74,7 @@ public class CategoriaDAO {
     public int InsertarCategoria(CategoriaDTO dto){
         try{
             if(dto.getParentId()!=null && !existeCategoria(dto.getParentId())){
-                fu.MostrarAlertas("Datos inválidos","Categoría padre inexistente");
+                fu.datosInvalidos("Categoría padre inexistente");
                 return 0;
             }
             String sql = "INSERT INTO categorias(nombre, parent_id) VALUES(?,?)";
@@ -90,7 +90,7 @@ public class CategoriaDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "registrar la categoría");
             return 0;
         }
     }
@@ -98,7 +98,7 @@ public class CategoriaDAO {
     public int ActualizarCategoria(CategoriaDTO dto){
         try{
             if(dto.getParentId()!=null && !existeCategoria(dto.getParentId())){
-                fu.MostrarAlertas("Datos inválidos","Categoría padre inexistente");
+                fu.datosInvalidos("Categoría padre inexistente");
                 return 0;
             }
             String sql = "UPDATE categorias SET nombre=?, parent_id=? WHERE id=?";
@@ -112,7 +112,7 @@ public class CategoriaDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "actualizar la categoría");
             return 0;
         }
     }
@@ -128,7 +128,7 @@ public class CategoriaDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "eliminar la categoría");
             return 0;
         }
     }

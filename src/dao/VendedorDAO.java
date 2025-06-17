@@ -22,7 +22,7 @@ public class VendedorDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return false;
         }
     }
@@ -45,7 +45,7 @@ public class VendedorDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
         }
         return vendedores;
     }
@@ -69,7 +69,7 @@ public class VendedorDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
         }
         return vendedores;
     }
@@ -77,7 +77,7 @@ public class VendedorDAO {
     public int InsertarVendedor(VendedorDTO dto){
         try{
             if(!existeUsuario(dto.getUsuarioId())){
-                fu.MostrarAlertas("Datos inválidos", "El usuario especificado no existe");
+                fu.datosInvalidos("El usuario especificado no existe");
                 return 0;
             }
             String sql = "INSERT INTO vendedores(usuario_id, nombre_tienda, descripcion, calificacion_promedio) VALUES(?,?,?,?)";
@@ -97,7 +97,7 @@ public class VendedorDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -105,7 +105,7 @@ public class VendedorDAO {
     public int ActualizarVendedor(VendedorDTO dto){
         try{
             if(!existeUsuario(dto.getUsuarioId())){
-                fu.MostrarAlertas("Datos inválidos", "El usuario especificado no existe");
+                fu.datosInvalidos("El usuario especificado no existe");
                 return 0;
             }
             String sql = "UPDATE vendedores SET usuario_id=?, nombre_tienda=?, descripcion=?, calificacion_promedio=? WHERE id=?";
@@ -121,7 +121,7 @@ public class VendedorDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
@@ -137,7 +137,7 @@ public class VendedorDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "procesar los datos");
             return 0;
         }
     }
