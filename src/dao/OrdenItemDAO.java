@@ -22,7 +22,7 @@ public class OrdenItemDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "verificar la orden");
             return false;
         }
     }
@@ -38,7 +38,7 @@ public class OrdenItemDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "verificar la variante");
             return false;
         }
     }
@@ -62,7 +62,7 @@ public class OrdenItemDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "listar items de orden");
         }
         return lista;
     }
@@ -70,7 +70,7 @@ public class OrdenItemDAO {
     public int InsertarItem(OrdenItemDTO dto){
         try{
             if(!existeOrden(dto.getOrdenId()) || !existeVariante(dto.getVarianteId())){
-                fu.MostrarAlertas("Datos invalidos", "Orden o variante inexistente");
+                fu.datosInvalidos("Orden o variante inexistente");
                 return 0;
             }
             String sql = "INSERT INTO orden_items(orden_id, variante_id, cantidad, precio_unitario, precio_descuento) VALUES(?,?,?,?,?)";
@@ -89,7 +89,7 @@ public class OrdenItemDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "registrar el item");
             return 0;
         }
     }
@@ -97,7 +97,7 @@ public class OrdenItemDAO {
     public int ActualizarItem(OrdenItemDTO dto){
         try{
             if(!existeOrden(dto.getOrdenId()) || !existeVariante(dto.getVarianteId())){
-                fu.MostrarAlertas("Datos invalidos", "Orden o variante inexistente");
+                fu.datosInvalidos("Orden o variante inexistente");
                 return 0;
             }
             String sql = "UPDATE orden_items SET orden_id=?, variante_id=?, cantidad=?, precio_unitario=?, precio_descuento=? WHERE id=?";
@@ -110,11 +110,15 @@ public class OrdenItemDAO {
             ps.setDouble(5, dto.getPrecioDescuento());
             ps.setInt(6, dto.getId());
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Informacion", "Item actualizado. Registros: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Item no encontrado");
+            }else{
+                fu.MostrarAlertas("Informacion", "Item actualizado. Registros: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "actualizar el item");
             return 0;
         }
     }
@@ -126,11 +130,15 @@ public class OrdenItemDAO {
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, id);
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Informacion", "Item eliminado. Registros afectados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Item no encontrado");
+            }else{
+                fu.MostrarAlertas("Informacion", "Item eliminado. Registros afectados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "eliminar el item");
             return 0;
         }
     }

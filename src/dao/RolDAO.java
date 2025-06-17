@@ -26,7 +26,7 @@ public class RolDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "listar roles");
         }
         return roles;
     }
@@ -46,7 +46,7 @@ public class RolDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "buscar roles");
         }
         return roles;
     }
@@ -67,7 +67,7 @@ public class RolDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "registrar el rol");
             return 0;
         }
     }
@@ -84,7 +84,7 @@ public class RolDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "actualizar el rol");
             return 0;
         }
     }
@@ -100,7 +100,7 @@ public class RolDAO {
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "eliminar el rol");
             return 0;
         }
     }

@@ -22,7 +22,7 @@ public class ResenaDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "verificar el usuario");
             return false;
         }
     }
@@ -38,7 +38,7 @@ public class ResenaDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "verificar el producto");
             return false;
         }
     }
@@ -62,7 +62,7 @@ public class ResenaDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "listar reseñas");
         }
         return resenas;
     }
@@ -87,7 +87,7 @@ public class ResenaDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "buscar reseñas");
         }
         return resenas;
     }
@@ -95,7 +95,7 @@ public class ResenaDAO {
     public int InsertarResena(ResenaDTO dto){
         try{
             if(!existeProducto(dto.getProductoId()) || !existeUsuario(dto.getUsuarioId())){
-                fu.MostrarAlertas("Datos inválidos", "Verifique producto y usuario");
+                fu.datosInvalidos("Verifique producto y usuario");
                 return 0;
             }
             String sql = "INSERT INTO reseñas(producto_id, usuario_id, rating, comentario, fecha) VALUES(?,?,?,?,?)";
@@ -116,7 +116,7 @@ public class ResenaDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "registrar la reseña");
             return 0;
         }
     }
@@ -124,7 +124,7 @@ public class ResenaDAO {
     public int ActualizarResena(ResenaDTO dto){
         try{
             if(!existeProducto(dto.getProductoId()) || !existeUsuario(dto.getUsuarioId())){
-                fu.MostrarAlertas("Datos inválidos", "Verifique producto y usuario");
+                fu.datosInvalidos("Verifique producto y usuario");
                 return 0;
             }
             String sql = "UPDATE reseñas SET producto_id=?, usuario_id=?, rating=?, comentario=?, fecha=? WHERE id=?";
@@ -137,11 +137,15 @@ public class ResenaDAO {
             ps.setTimestamp(5, dto.getFecha());
             ps.setInt(6, dto.getId());
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Información del sistema", "Reseña actualizada. Registros modificados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Reseña no encontrada");
+            }else{
+                fu.MostrarAlertas("Información del sistema", "Reseña actualizada. Registros modificados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "actualizar la reseña");
             return 0;
         }
     }
@@ -153,11 +157,15 @@ public class ResenaDAO {
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, id);
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Información del sistema", "Reseña eliminada. Registros afectados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Reseña no encontrada");
+            }else{
+                fu.MostrarAlertas("Información del sistema", "Reseña eliminada. Registros afectados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "eliminar la reseña");
             return 0;
         }
     }

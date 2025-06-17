@@ -22,7 +22,7 @@ public class VarianteProductoDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "verificar el producto");
             return false;
         }
     }
@@ -45,7 +45,7 @@ public class VarianteProductoDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "listar variantes");
         }
         return lista;
     }
@@ -53,7 +53,7 @@ public class VarianteProductoDAO {
     public int InsertarVariante(VarianteProductoDTO dto){
         try{
             if(!existeProducto(dto.getProductoId())){
-                fu.MostrarAlertas("Datos invalidos", "Producto inexistente");
+                fu.datosInvalidos("Producto inexistente");
                 return 0;
             }
             String sql = "INSERT INTO variantes_producto(producto_id, sku, precio, stock) VALUES(?,?,?,?)";
@@ -71,7 +71,7 @@ public class VarianteProductoDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "registrar la variante");
             return 0;
         }
     }
@@ -79,7 +79,7 @@ public class VarianteProductoDAO {
     public int ActualizarVariante(VarianteProductoDTO dto){
         try{
             if(!existeProducto(dto.getProductoId())){
-                fu.MostrarAlertas("Datos invalidos", "Producto inexistente");
+                fu.datosInvalidos("Producto inexistente");
                 return 0;
             }
             String sql = "UPDATE variantes_producto SET producto_id=?, sku=?, precio=?, stock=? WHERE id=?";
@@ -91,11 +91,15 @@ public class VarianteProductoDAO {
             ps.setInt(4, dto.getStock());
             ps.setInt(5, dto.getId());
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Informacion", "Variante actualizada. Registros: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Variante no encontrada");
+            }else{
+                fu.MostrarAlertas("Informacion", "Variante actualizada. Registros: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "actualizar la variante");
             return 0;
         }
     }
@@ -107,11 +111,15 @@ public class VarianteProductoDAO {
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, id);
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Informacion", "Variante eliminada. Registros afectados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Variante no encontrada");
+            }else{
+                fu.MostrarAlertas("Informacion", "Variante eliminada. Registros afectados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "eliminar la variante");
             return 0;
         }
     }

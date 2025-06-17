@@ -22,7 +22,7 @@ public class OrdenDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "verificar el usuario");
             return false;
         }
     }
@@ -46,7 +46,7 @@ public class OrdenDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "listar órdenes");
         }
         return ordenes;
     }
@@ -71,7 +71,7 @@ public class OrdenDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "buscar órdenes");
         }
         return ordenes;
     }
@@ -79,7 +79,7 @@ public class OrdenDAO {
     public int InsertarOrden(OrdenDTO dto){
         try{
             if(!existeUsuario(dto.getUsuarioId())){
-                fu.MostrarAlertas("Datos inválidos", "El usuario especificado no existe");
+                fu.datosInvalidos("El usuario especificado no existe");
                 return 0;
             }
             String sql = "INSERT INTO ordenes(usuario_id, estado, total_bruto, total_descuento, fecha_creacion) VALUES(?,?,?,?,?)";
@@ -100,7 +100,7 @@ public class OrdenDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "registrar la orden");
             return 0;
         }
     }
@@ -108,7 +108,7 @@ public class OrdenDAO {
     public int ActualizarOrden(OrdenDTO dto){
         try{
             if(!existeUsuario(dto.getUsuarioId())){
-                fu.MostrarAlertas("Datos inválidos", "El usuario especificado no existe");
+                fu.datosInvalidos("El usuario especificado no existe");
                 return 0;
             }
             String sql = "UPDATE ordenes SET usuario_id=?, estado=?, total_bruto=?, total_descuento=?, fecha_creacion=? WHERE id=?";
@@ -121,11 +121,15 @@ public class OrdenDAO {
             ps.setTimestamp(5, dto.getFechaCreacion());
             ps.setInt(6, dto.getId());
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Información del sistema", "Orden actualizada. Registros modificados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Orden no encontrada");
+            }else{
+                fu.MostrarAlertas("Información del sistema", "Orden actualizada. Registros modificados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "actualizar la orden");
             return 0;
         }
     }
@@ -137,11 +141,15 @@ public class OrdenDAO {
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, id);
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Información del sistema", "Orden eliminada. Registros afectados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Orden no encontrada");
+            }else{
+                fu.MostrarAlertas("Información del sistema", "Orden eliminada. Registros afectados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "eliminar la orden");
             return 0;
         }
     }

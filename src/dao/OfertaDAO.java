@@ -22,7 +22,7 @@ public class OfertaDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "verificar la variante");
             return false;
         }
     }
@@ -45,7 +45,7 @@ public class OfertaDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.errorSQL(ex, "listar ofertas");
         }
         return lista;
     }
@@ -53,7 +53,7 @@ public class OfertaDAO {
     public int InsertarOferta(OfertaDTO dto){
         try{
             if(!existeVariante(dto.getVarianteId())){
-                fu.MostrarAlertas("Datos invalidos", "Variante inexistente");
+                fu.datosInvalidos("Variante inexistente");
                 return 0;
             }
             String sql = "INSERT INTO ofertas(variante_id, precio_descuento, fecha_inicio, fecha_fin) VALUES(?,?,?,?)";
@@ -71,7 +71,7 @@ public class OfertaDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "registrar la oferta");
             return 0;
         }
     }
@@ -79,7 +79,7 @@ public class OfertaDAO {
     public int ActualizarOferta(OfertaDTO dto){
         try{
             if(!existeVariante(dto.getVarianteId())){
-                fu.MostrarAlertas("Datos invalidos", "Variante inexistente");
+                fu.datosInvalidos("Variante inexistente");
                 return 0;
             }
             String sql = "UPDATE ofertas SET variante_id=?, precio_descuento=?, fecha_inicio=?, fecha_fin=? WHERE id=?";
@@ -91,11 +91,15 @@ public class OfertaDAO {
             ps.setTimestamp(4, dto.getFechaFin());
             ps.setInt(5, dto.getId());
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Informacion", "Oferta actualizada. Registros: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Oferta no encontrada");
+            }else{
+                fu.MostrarAlertas("Informacion", "Oferta actualizada. Registros: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "actualizar la oferta");
             return 0;
         }
     }
@@ -107,11 +111,15 @@ public class OfertaDAO {
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, id);
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Informacion", "Oferta eliminada. Registros afectados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Oferta no encontrada");
+            }else{
+                fu.MostrarAlertas("Informacion", "Oferta eliminada. Registros afectados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.MostrarAlertas("Error del sistema", ex.toString());
+            fu.errorSQL(ex, "eliminar la oferta");
             return 0;
         }
     }
