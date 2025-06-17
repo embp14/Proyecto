@@ -29,7 +29,7 @@ public class CuponDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "listar cupones");
         }
         return cupones;
     }
@@ -53,7 +53,7 @@ public class CuponDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "buscar cupones");
         }
         return cupones;
     }
@@ -77,7 +77,7 @@ public class CuponDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "registrar el cupón");
             return 0;
         }
     }
@@ -93,11 +93,15 @@ public class CuponDAO {
             ps.setInt(4, dto.getUsoMaximo());
             ps.setInt(5, dto.getId());
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Información del sistema", "Cupón actualizado. Registros modificados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Cupón no encontrado");
+            }else{
+                fu.MostrarAlertas("Información del sistema", "Cupón actualizado. Registros modificados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "actualizar el cupón");
             return 0;
         }
     }
@@ -109,11 +113,15 @@ public class CuponDAO {
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, id);
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Información del sistema", "Cupón eliminado. Registros afectados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Cupón no encontrado");
+            }else{
+                fu.MostrarAlertas("Información del sistema", "Cupón eliminado. Registros afectados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "eliminar el cupón");
             return 0;
         }
     }

@@ -22,7 +22,7 @@ public class OrdenItemDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "verificar la orden");
             return false;
         }
     }
@@ -38,7 +38,7 @@ public class OrdenItemDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "verificar la variante");
             return false;
         }
     }
@@ -62,7 +62,7 @@ public class OrdenItemDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "listar items de orden");
         }
         return lista;
     }
@@ -89,7 +89,7 @@ public class OrdenItemDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "registrar el item");
             return 0;
         }
     }
@@ -110,11 +110,15 @@ public class OrdenItemDAO {
             ps.setDouble(5, dto.getPrecioDescuento());
             ps.setInt(6, dto.getId());
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Informacion", "Item actualizado. Registros: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Item no encontrado");
+            }else{
+                fu.MostrarAlertas("Informacion", "Item actualizado. Registros: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "actualizar el item");
             return 0;
         }
     }
@@ -126,11 +130,15 @@ public class OrdenItemDAO {
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, id);
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Informacion", "Item eliminado. Registros afectados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Item no encontrado");
+            }else{
+                fu.MostrarAlertas("Informacion", "Item eliminado. Registros afectados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "eliminar el item");
             return 0;
         }
     }

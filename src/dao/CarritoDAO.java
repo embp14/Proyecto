@@ -106,7 +106,11 @@ public class CarritoDAO {
             ps.setTimestamp(2, dto.getCreadoEn());
             ps.setInt(3, dto.getId());
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Información", "Carrito actualizado. Registros: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Carrito no encontrado");
+            }else{
+                fu.MostrarAlertas("Información", "Carrito actualizado. Registros: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
@@ -122,7 +126,11 @@ public class CarritoDAO {
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, id);
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Información", "Carrito eliminado. Registros afectados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Carrito no encontrado");
+            }else{
+                fu.MostrarAlertas("Información", "Carrito eliminado. Registros afectados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){

@@ -22,7 +22,7 @@ public class VendedorDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "verificar el usuario");
             return false;
         }
     }
@@ -45,7 +45,7 @@ public class VendedorDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "listar vendedores");
         }
         return vendedores;
     }
@@ -69,7 +69,7 @@ public class VendedorDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "buscar vendedores");
         }
         return vendedores;
     }
@@ -97,7 +97,7 @@ public class VendedorDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "registrar el vendedor");
             return 0;
         }
     }
@@ -117,11 +117,15 @@ public class VendedorDAO {
             ps.setBigDecimal(4, dto.getCalificacionPromedio());
             ps.setInt(5, dto.getId());
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Información del sistema", "Vendedor actualizado. Registros modificados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Vendedor no encontrado");
+            }else{
+                fu.MostrarAlertas("Información del sistema", "Vendedor actualizado. Registros modificados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "actualizar el vendedor");
             return 0;
         }
     }
@@ -133,11 +137,15 @@ public class VendedorDAO {
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, id);
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Información del sistema", "Vendedor eliminado. Registros afectados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Vendedor no encontrado");
+            }else{
+                fu.MostrarAlertas("Información del sistema", "Vendedor eliminado. Registros afectados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "eliminar el vendedor");
             return 0;
         }
     }

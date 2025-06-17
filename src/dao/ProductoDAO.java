@@ -22,7 +22,7 @@ public class ProductoDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "verificar el vendedor");
             return false;
         }
     }
@@ -38,7 +38,7 @@ public class ProductoDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "verificar la categoría");
             return false;
         }
     }
@@ -63,7 +63,7 @@ public class ProductoDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "listar productos");
         }
         return productos;
     }
@@ -89,7 +89,7 @@ public class ProductoDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "buscar productos");
         }
         return productos;
     }
@@ -119,7 +119,7 @@ public class ProductoDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "registrar el producto");
             return 0;
         }
     }
@@ -141,11 +141,15 @@ public class ProductoDAO {
             ps.setBoolean(6, dto.isActivo());
             ps.setInt(7, dto.getId());
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Información del sistema", "Producto actualizado. Registros modificados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Producto no encontrado");
+            }else{
+                fu.MostrarAlertas("Información del sistema", "Producto actualizado. Registros modificados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "actualizar el producto");
             return 0;
         }
     }
@@ -157,11 +161,15 @@ public class ProductoDAO {
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, id);
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Información del sistema", "Producto eliminado. Registros afectados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Producto no encontrado");
+            }else{
+                fu.MostrarAlertas("Información del sistema", "Producto eliminado. Registros afectados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "eliminar el producto");
             return 0;
         }
     }

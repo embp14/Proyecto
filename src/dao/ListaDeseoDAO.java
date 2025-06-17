@@ -22,7 +22,7 @@ public class ListaDeseoDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "verificar el usuario");
             return false;
         }
     }
@@ -44,7 +44,7 @@ public class ListaDeseoDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "listar listas de deseos");
         }
         return lista;
     }
@@ -69,7 +69,7 @@ public class ListaDeseoDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "registrar la lista");
             return 0;
         }
     }
@@ -88,11 +88,15 @@ public class ListaDeseoDAO {
             ps.setTimestamp(3, dto.getCreadoEn());
             ps.setInt(4, dto.getId());
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Informacion", "Lista actualizada. Registros: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Lista no encontrada");
+            }else{
+                fu.MostrarAlertas("Informacion", "Lista actualizada. Registros: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "actualizar la lista");
             return 0;
         }
     }
@@ -104,11 +108,15 @@ public class ListaDeseoDAO {
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, id);
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Informacion", "Lista eliminada. Registros afectados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Lista no encontrada");
+            }else{
+                fu.MostrarAlertas("Informacion", "Lista eliminada. Registros afectados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "eliminar la lista");
             return 0;
         }
     }

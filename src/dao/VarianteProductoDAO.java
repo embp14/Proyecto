@@ -22,7 +22,7 @@ public class VarianteProductoDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "verificar el producto");
             return false;
         }
     }
@@ -45,7 +45,7 @@ public class VarianteProductoDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "listar variantes");
         }
         return lista;
     }
@@ -71,7 +71,7 @@ public class VarianteProductoDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "registrar la variante");
             return 0;
         }
     }
@@ -91,11 +91,15 @@ public class VarianteProductoDAO {
             ps.setInt(4, dto.getStock());
             ps.setInt(5, dto.getId());
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Informacion", "Variante actualizada. Registros: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Variante no encontrada");
+            }else{
+                fu.MostrarAlertas("Informacion", "Variante actualizada. Registros: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "actualizar la variante");
             return 0;
         }
     }
@@ -107,11 +111,15 @@ public class VarianteProductoDAO {
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, id);
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Informacion", "Variante eliminada. Registros afectados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Variante no encontrada");
+            }else{
+                fu.MostrarAlertas("Informacion", "Variante eliminada. Registros afectados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "eliminar la variante");
             return 0;
         }
     }

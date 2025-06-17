@@ -22,7 +22,7 @@ public class ImagenProductoDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "verificar el producto");
             return false;
         }
     }
@@ -48,7 +48,7 @@ public class ImagenProductoDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "listar imágenes");
         }
         return lista;
     }
@@ -73,7 +73,7 @@ public class ImagenProductoDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "registrar la imagen");
             return 0;
         }
     }
@@ -92,11 +92,15 @@ public class ImagenProductoDAO {
             ps.setBoolean(3, dto.isEsPrincipal());
             ps.setInt(4, dto.getId());
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Informacion", "Imagen actualizada. Registros: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Imagen no encontrada");
+            }else{
+                fu.MostrarAlertas("Informacion", "Imagen actualizada. Registros: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "actualizar la imagen");
             return 0;
         }
     }
@@ -108,11 +112,15 @@ public class ImagenProductoDAO {
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, id);
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Informacion", "Imagen eliminada. Registros afectados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Imagen no encontrada");
+            }else{
+                fu.MostrarAlertas("Informacion", "Imagen eliminada. Registros afectados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "eliminar la imagen");
             return 0;
         }
     }

@@ -22,7 +22,7 @@ public class PagoDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "verificar la orden");
             return false;
         }
     }
@@ -45,7 +45,7 @@ public class PagoDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "listar pagos");
         }
         return lista;
     }
@@ -71,7 +71,7 @@ public class PagoDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "registrar el pago");
             return 0;
         }
     }
@@ -91,11 +91,15 @@ public class PagoDAO {
             ps.setTimestamp(4, dto.getFechaPago());
             ps.setInt(5, dto.getId());
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Informacion", "Pago actualizado. Registros: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Pago no encontrado");
+            }else{
+                fu.MostrarAlertas("Informacion", "Pago actualizado. Registros: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "actualizar el pago");
             return 0;
         }
     }
@@ -107,11 +111,15 @@ public class PagoDAO {
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, id);
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Informacion", "Pago eliminado. Registros afectados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Pago no encontrado");
+            }else{
+                fu.MostrarAlertas("Informacion", "Pago eliminado. Registros afectados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "eliminar el pago");
             return 0;
         }
     }

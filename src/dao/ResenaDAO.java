@@ -22,7 +22,7 @@ public class ResenaDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "verificar el usuario");
             return false;
         }
     }
@@ -38,7 +38,7 @@ public class ResenaDAO {
             ConnBD.CerrarConexionBD();
             return existe;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "verificar el producto");
             return false;
         }
     }
@@ -62,7 +62,7 @@ public class ResenaDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "listar reseñas");
         }
         return resenas;
     }
@@ -87,7 +87,7 @@ public class ResenaDAO {
             }
             ConnBD.CerrarConexionBD();
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "buscar reseñas");
         }
         return resenas;
     }
@@ -116,7 +116,7 @@ public class ResenaDAO {
             ConnBD.CerrarConexionBD();
             return codigo;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "registrar la reseña");
             return 0;
         }
     }
@@ -137,11 +137,15 @@ public class ResenaDAO {
             ps.setTimestamp(5, dto.getFecha());
             ps.setInt(6, dto.getId());
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Información del sistema", "Reseña actualizada. Registros modificados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Reseña no encontrada");
+            }else{
+                fu.MostrarAlertas("Información del sistema", "Reseña actualizada. Registros modificados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "actualizar la reseña");
             return 0;
         }
     }
@@ -153,11 +157,15 @@ public class ResenaDAO {
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, id);
             int registros = ps.executeUpdate();
-            fu.MostrarAlertas("Información del sistema", "Reseña eliminada. Registros afectados: "+registros);
+            if(registros==0){
+                fu.datosInvalidos("Reseña no encontrada");
+            }else{
+                fu.MostrarAlertas("Información del sistema", "Reseña eliminada. Registros afectados: "+registros);
+            }
             ConnBD.CerrarConexionBD();
             return registros;
         }catch(Exception ex){
-            fu.errorSQL(ex, "procesar los datos");
+            fu.errorSQL(ex, "eliminar la reseña");
             return 0;
         }
     }
