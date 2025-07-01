@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -25,6 +26,7 @@
             <content>
                 <AnchorPane prefHeight="240.0" prefWidth="598.0" minHeight="0.0" minWidth="0.0">
                     <children>
+                        <ImageView fx:id="img_perfil" fitHeight="120.0" fitWidth="90.0" layoutX="20.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" />
                         <Label layoutX="116.0" layoutY="28.0" text="ID:" />
                         <TextField fx:id="txt_id" layoutX="160.0" layoutY="24.0" prefWidth="400.0" />
                         <Label layoutX="94.0" layoutY="64.0" text="Rol ID:" />

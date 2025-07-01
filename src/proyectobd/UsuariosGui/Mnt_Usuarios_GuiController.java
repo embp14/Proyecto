@@ -15,6 +15,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
 import javafx.stage.FileChooser;
 import java.io.File;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.AnchorPane;
@@ -29,6 +31,7 @@ public class Mnt_Usuarios_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
     @FXML private Button btn_Grabar;
     @FXML private Button btn_BuscarImagen;
+    @FXML private ImageView img_perfil;
     @FXML private TextField txt_id;
     @FXML private ComboBox<RolDTO> cmb_rol;
     @FXML private TextField txt_imagen;
@@ -103,6 +106,12 @@ public class Mnt_Usuarios_GuiController implements Initializable {
             txt_email.setText(dto.getEmail());
             txt_contrasena.setText(dto.getContrasena());
             txt_imagen.setText(dto.getImagenPerfil());
+            if(dto.getImagenPerfil() != null){
+                File f = new File(dto.getImagenPerfil());
+                if(f.exists()){
+                    img_perfil.setImage(new Image(f.toURI().toString()));
+                }
+            }
         }
     }
 
@@ -123,6 +132,7 @@ public class Mnt_Usuarios_GuiController implements Initializable {
         File f = fc.showOpenDialog(Ap_Main.getScene().getWindow());
         if(f != null){
             txt_imagen.setText(f.getAbsolutePath());
+            img_perfil.setImage(new Image(f.toURI().toString()));
         }
     }
 }
