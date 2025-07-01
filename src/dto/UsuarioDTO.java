@@ -21,6 +21,7 @@ public class UsuarioDTO {
     private String nombre;
     private String email;
     private String contrasena;
+    private String imagenPerfil;
     private Timestamp creadoEn;
 
     public int getId() {
@@ -61,6 +62,14 @@ public class UsuarioDTO {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
+    }
+
+    public String getImagenPerfil() {
+        return imagenPerfil;
+    }
+
+    public void setImagenPerfil(String imagenPerfil) {
+        this.imagenPerfil = imagenPerfil;
     }
 
     public Timestamp getCreadoEn() {

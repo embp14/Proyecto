@@ -31,7 +31,7 @@ public class UsuarioDAO {
         ObservableList<UsuarioDTO> usuarios=FXCollections.observableArrayList();
         ConectorBD ConnBD=new ConectorBD();
         ResultSet rs=null;
-        String sql="SELECT id, rol_id, nombre, email, contraseña, creado_en FROM usuarios ORDER BY nombre";
+        String sql="SELECT id, rol_id, nombre, email, contraseña, imagen_perfil, creado_en FROM usuarios ORDER BY nombre";
         try{
             Statement st=ConnBD.AbrirConexionBD().createStatement();
             rs=st.executeQuery(sql);
@@ -42,6 +42,7 @@ public class UsuarioDAO {
                 usrdto.setNombre(rs.getString("nombre"));
                 usrdto.setEmail(rs.getString("email"));
                 usrdto.setContrasena(rs.getString("contraseña"));
+                usrdto.setImagenPerfil(rs.getString("imagen_perfil"));
                 usrdto.setCreadoEn(rs.getTimestamp("creado_en"));
                 usuarios.add(usrdto);
             }
@@ -58,7 +59,7 @@ public class UsuarioDAO {
         ObservableList<UsuarioDTO> usuarios=FXCollections.observableArrayList();
         ConectorBD ConnBD=new ConectorBD();
         ResultSet rs=null;
-        String sql="SELECT id, rol_id, nombre, email, contraseña, creado_en FROM usuarios "
+        String sql="SELECT id, rol_id, nombre, email, contraseña, imagen_perfil, creado_en FROM usuarios "
                 + "WHERE nombre LIKE '%"+CriterioBusqueda+"%' OR email LIKE '%"+CriterioBusqueda+"%'"
                 + " ORDER BY nombre";
         try{
@@ -71,6 +72,7 @@ public class UsuarioDAO {
                 usrdto.setNombre(rs.getString("nombre"));
                 usrdto.setEmail(rs.getString("email"));
                 usrdto.setContrasena(rs.getString("contraseña"));
+                usrdto.setImagenPerfil(rs.getString("imagen_perfil"));
                 usrdto.setCreadoEn(rs.getTimestamp("creado_en"));
                 usuarios.add(usrdto);
             }
@@ -83,13 +85,14 @@ public class UsuarioDAO {
 
     public int InsertarUsuario(UsuarioDTO usrdto){
         try{
-            String sql="INSERT INTO usuarios(rol_id, nombre, email, contraseña) VALUES(?,?,?,?)";
+            String sql="INSERT INTO usuarios(rol_id, nombre, email, contraseña, imagen_perfil) VALUES(?,?,?,?,?)";
             ConectorBD ConnBD=new ConectorBD();
             PreparedStatement ps=ConnBD.AbrirConexionBD().prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, usrdto.getRolId());
             ps.setString(2, usrdto.getNombre());
             ps.setString(3, usrdto.getEmail());
             ps.setString(4, usrdto.getContrasena());
+            ps.setString(5, usrdto.getImagenPerfil());
             ps.executeUpdate();
             ResultSet rs=ps.getGeneratedKeys();
             int codigoInsertado=0;
@@ -107,14 +110,15 @@ public class UsuarioDAO {
 
     public int ActualizarUsuario(UsuarioDTO usrdto){
         try{
-            String sql="UPDATE usuarios SET rol_id=?, nombre=?, email=?, contraseña=? WHERE id=?";
+            String sql="UPDATE usuarios SET rol_id=?, nombre=?, email=?, contraseña=?, imagen_perfil=? WHERE id=?";
             ConectorBD ConnBD=new ConectorBD();
             PreparedStatement ps=ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, usrdto.getRolId());
             ps.setString(2, usrdto.getNombre());
             ps.setString(3, usrdto.getEmail());
             ps.setString(4, usrdto.getContrasena());
-            ps.setInt(5, usrdto.getId());
+            ps.setString(5, usrdto.getImagenPerfil());
+            ps.setInt(6, usrdto.getId());
             int registrosActualizados=ps.executeUpdate();
             fu.MostrarAlertas("Información", "Usuario actualizado. Registros modificados: "+registrosActualizados);
             ConnBD.CerrarConexionBD();
