@@ -27,7 +27,7 @@ public class Mnt_VariantesProducto_GuiController implements Initializable {
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
-    @FXML private ComboBox<Integer> cmb_producto;
+    @FXML private ComboBox<ProductoDTO> cmb_producto;
     @FXML private TextField txt_sku;
     @FXML private TextField txt_precio;
     @FXML private TextField txt_stock;
@@ -45,7 +45,7 @@ public class Mnt_VariantesProducto_GuiController implements Initializable {
         if(!actualizar){
             try{
                 VarianteProductoDTO dto = new VarianteProductoDTO();
-                dto.setProductoId(cmb_producto.getValue());
+                dto.setProductoId(cmb_producto.getValue().getId());
                 dto.setSku(txt_sku.getText());
                 dto.setPrecio(Double.parseDouble(txt_precio.getText()));
                 dto.setStock(Integer.parseInt(txt_stock.getText()));
@@ -60,7 +60,7 @@ public class Mnt_VariantesProducto_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             VarianteProductoDTO dto = (VarianteProductoDTO) stage.getUserData();
-            dto.setProductoId(cmb_producto.getValue());
+            dto.setProductoId(cmb_producto.getValue().getId());
             dto.setSku(txt_sku.getText());
             dto.setPrecio(Double.parseDouble(txt_precio.getText()));
             dto.setStock(Integer.parseInt(txt_stock.getText()));
@@ -80,11 +80,9 @@ public class Mnt_VariantesProducto_GuiController implements Initializable {
 
     private void cargarCombos(){
         try {
-            ObservableList<Integer> productos = FXCollections.observableArrayList();
+            ObservableList<ProductoDTO> productos = FXCollections.observableArrayList();
             ProductoDAO pdao = new ProductoDAO();
-            for (ProductoDTO p : pdao.ListarProductos()) {
-                productos.add(p.getId());
-            }
+            productos.addAll(pdao.ListarProductos());
             cmb_producto.setItems(productos);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
@@ -97,7 +95,9 @@ public class Mnt_VariantesProducto_GuiController implements Initializable {
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            cmb_producto.setValue(dto.getProductoId());
+            for(ProductoDTO p : cmb_producto.getItems()){
+                if(p.getId() == dto.getProductoId()){ cmb_producto.setValue(p); break; }
+            }
             txt_sku.setText(dto.getSku());
             txt_precio.setText(Double.toString(dto.getPrecio()));
             txt_stock.setText(Integer.toString(dto.getStock()));

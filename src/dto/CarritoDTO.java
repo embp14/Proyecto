@@ -15,4 +15,7 @@ public class CarritoDTO {
 
     public Timestamp getCreadoEn() { return creadoEn; }
     public void setCreadoEn(Timestamp creadoEn) { this.creadoEn = creadoEn; }
+
+    @Override
+    public String toString() { return "Carrito " + id; }
 }

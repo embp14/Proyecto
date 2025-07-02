@@ -26,8 +26,8 @@ public class Lst_Productos_GuiController implements Initializable {
     @FXML private TextField txt_Buscar;
     @FXML private TableView<ProductoDTO> tbl_Lista;
     @FXML private TableColumn<ProductoDTO, Integer> col_id;
-    @FXML private TableColumn<ProductoDTO, Integer> col_vendedor;
-    @FXML private TableColumn<ProductoDTO, Integer> col_categoria;
+    @FXML private TableColumn<ProductoDTO, String> col_vendedor;
+    @FXML private TableColumn<ProductoDTO, String> col_categoria;
     @FXML private TableColumn<ProductoDTO, String> col_titulo;
     @FXML private TableColumn<ProductoDTO, Boolean> col_activo;
 
@@ -49,8 +49,8 @@ public class Lst_Productos_GuiController implements Initializable {
             ProductoDAO dao = new ProductoDAO();
             ObservableList<ProductoDTO> lista = dao.ListarProductos();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_vendedor.setCellValueFactory(new PropertyValueFactory<>("vendedorId"));
-            col_categoria.setCellValueFactory(new PropertyValueFactory<>("categoriaId"));
+            col_vendedor.setCellValueFactory(new PropertyValueFactory<>("vendedorNombre"));
+            col_categoria.setCellValueFactory(new PropertyValueFactory<>("categoriaNombre"));
             col_titulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
             col_activo.setCellValueFactory(new PropertyValueFactory<>("activo"));
             tbl_Lista.setItems(lista);

@@ -27,7 +27,7 @@ public class Mnt_ListasDeseos_GuiController implements Initializable {
 
     @FXML private AnchorPane Ap_Main;
     @FXML private Button btn_Guardar;
-    @FXML private ComboBox<Integer> cmb_usuario;
+    @FXML private ComboBox<UsuarioDTO> cmb_usuario;
     @FXML private TextField txt_nombre;
     @FXML private DatePicker dp_creado;
 
@@ -44,7 +44,7 @@ public class Mnt_ListasDeseos_GuiController implements Initializable {
         if(!actualizar){
             try{
                 ListaDeseoDTO dto = new ListaDeseoDTO();
-                dto.setUsuarioId(cmb_usuario.getValue());
+                dto.setUsuarioId(cmb_usuario.getValue().getId());
                 dto.setNombre(txt_nombre.getText());
                 dto.setCreadoEn(Timestamp.valueOf(dp_creado.getValue().atStartOfDay()));
                 int id = dao.InsertarLista(dto);
@@ -57,7 +57,7 @@ public class Mnt_ListasDeseos_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             ListaDeseoDTO dto = (ListaDeseoDTO) stage.getUserData();
-            dto.setUsuarioId(cmb_usuario.getValue());
+            dto.setUsuarioId(cmb_usuario.getValue().getId());
             dto.setNombre(txt_nombre.getText());
             dto.setCreadoEn(Timestamp.valueOf(dp_creado.getValue().atStartOfDay()));
             try{
@@ -74,7 +74,9 @@ public class Mnt_ListasDeseos_GuiController implements Initializable {
         ListaDeseoDTO dto = (ListaDeseoDTO) stage.getUserData();
         if(dto != null){
             actualizar = true;
-            cmb_usuario.setValue(dto.getUsuarioId());
+            for(UsuarioDTO u : cmb_usuario.getItems()){
+                if(u.getId() == dto.getUsuarioId()){ cmb_usuario.setValue(u); break; }
+            }
             txt_nombre.setText(dto.getNombre());
             dp_creado.setValue(dto.getCreadoEn().toLocalDateTime().toLocalDate());
         }else{
@@ -85,11 +87,9 @@ public class Mnt_ListasDeseos_GuiController implements Initializable {
 
     private void cargarCombos(){
         try {
-            ObservableList<Integer> usuarios = FXCollections.observableArrayList();
+            ObservableList<UsuarioDTO> usuarios = FXCollections.observableArrayList();
             UsuarioDAO udao = new UsuarioDAO();
-            for (UsuarioDTO u : udao.ListarUsuarios()) {
-                usuarios.add(u.getId());
-            }
+            usuarios.addAll(udao.ListarUsuarios());
             cmb_usuario.setItems(usuarios);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());

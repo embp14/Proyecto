@@ -31,8 +31,8 @@ public class Mnt_Resenas_GuiController implements Initializable {
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
-    @FXML private ComboBox<Integer> cmb_producto;
-    @FXML private ComboBox<Integer> cmb_usuario;
+    @FXML private ComboBox<ProductoDTO> cmb_producto;
+    @FXML private ComboBox<UsuarioDTO> cmb_usuario;
     @FXML private TextField txt_rating;
     @FXML private TextField txt_comentario;
     @FXML private DatePicker dp_fecha;
@@ -51,8 +51,8 @@ public class Mnt_Resenas_GuiController implements Initializable {
         if(!actualizar){
             try{
                 ResenaDTO dto = new ResenaDTO();
-                dto.setProductoId(cmb_producto.getValue());
-                dto.setUsuarioId(cmb_usuario.getValue());
+                dto.setProductoId(cmb_producto.getValue().getId());
+                dto.setUsuarioId(cmb_usuario.getValue().getId());
                 dto.setRating(Integer.parseInt(txt_rating.getText()));
                 dto.setComentario(txt_comentario.getText());
                 dto.setFecha(Timestamp.valueOf(dp_fecha.getValue().atStartOfDay()));
@@ -67,8 +67,8 @@ public class Mnt_Resenas_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             ResenaDTO dto = (ResenaDTO) stage.getUserData();
-            dto.setProductoId(cmb_producto.getValue());
-            dto.setUsuarioId(cmb_usuario.getValue());
+            dto.setProductoId(cmb_producto.getValue().getId());
+            dto.setUsuarioId(cmb_usuario.getValue().getId());
             dto.setRating(Integer.parseInt(txt_rating.getText()));
             dto.setComentario(txt_comentario.getText());
             dto.setFecha(Timestamp.valueOf(dp_fecha.getValue().atStartOfDay()));
@@ -88,18 +88,14 @@ public class Mnt_Resenas_GuiController implements Initializable {
 
     private void cargarCombos(){
         try {
-            ObservableList<Integer> productos = FXCollections.observableArrayList();
+            ObservableList<ProductoDTO> productos = FXCollections.observableArrayList();
             ProductoDAO pdao = new ProductoDAO();
-            for (ProductoDTO p : pdao.ListarProductos()) {
-                productos.add(p.getId());
-            }
+            productos.addAll(pdao.ListarProductos());
             cmb_producto.setItems(productos);
 
-            ObservableList<Integer> usuarios = FXCollections.observableArrayList();
+            ObservableList<UsuarioDTO> usuarios = FXCollections.observableArrayList();
             UsuarioDAO udao = new UsuarioDAO();
-            for (UsuarioDTO u : udao.ListarUsuarios()) {
-                usuarios.add(u.getId());
-            }
+            usuarios.addAll(udao.ListarUsuarios());
             cmb_usuario.setItems(usuarios);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
@@ -112,8 +108,12 @@ public class Mnt_Resenas_GuiController implements Initializable {
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            cmb_producto.setValue(dto.getProductoId());
-            cmb_usuario.setValue(dto.getUsuarioId());
+            for(ProductoDTO p : cmb_producto.getItems()){
+                if(p.getId() == dto.getProductoId()){ cmb_producto.setValue(p); break; }
+            }
+            for(UsuarioDTO u : cmb_usuario.getItems()){
+                if(u.getId() == dto.getUsuarioId()){ cmb_usuario.setValue(u); break; }
+            }
             txt_rating.setText(Integer.toString(dto.getRating()));
             txt_comentario.setText(dto.getComentario());
             dp_fecha.setValue(dto.getFecha().toLocalDateTime().toLocalDate());

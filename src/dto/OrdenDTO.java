@@ -58,4 +58,9 @@ public class OrdenDTO {
     public void setFechaCreacion(Timestamp fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
+
+    @Override
+    public String toString() {
+        return "Orden " + id;
+    }
 }

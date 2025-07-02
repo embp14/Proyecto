@@ -33,4 +33,9 @@ public class DireccionDTO {
 
     public String getTelefonoContacto() { return telefonoContacto; }
     public void setTelefonoContacto(String telefonoContacto) { this.telefonoContacto = telefonoContacto; }
+
+    @Override
+    public String toString() {
+        return alias != null && !alias.isEmpty() ? alias : direccion;
+    }
 }

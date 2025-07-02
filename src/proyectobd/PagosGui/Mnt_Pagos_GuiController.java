@@ -29,7 +29,7 @@ public class Mnt_Pagos_GuiController implements Initializable {
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
-    @FXML private ComboBox<Integer> cmb_orden;
+    @FXML private ComboBox<OrdenDTO> cmb_orden;
     @FXML private TextField txt_metodo;
     @FXML private TextField txt_monto;
     @FXML private DatePicker dp_fecha;
@@ -47,7 +47,7 @@ public class Mnt_Pagos_GuiController implements Initializable {
         if(!actualizar){
             try{
                 PagoDTO dto = new PagoDTO();
-                dto.setOrdenId(cmb_orden.getValue());
+                dto.setOrdenId(cmb_orden.getValue().getId());
                 dto.setMetodoPago(txt_metodo.getText());
                 dto.setMonto(Double.parseDouble(txt_monto.getText()));
                 dto.setFechaPago(Timestamp.valueOf(dp_fecha.getValue().atStartOfDay()));
@@ -62,7 +62,7 @@ public class Mnt_Pagos_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             PagoDTO dto = (PagoDTO) stage.getUserData();
-            dto.setOrdenId(cmb_orden.getValue());
+            dto.setOrdenId(cmb_orden.getValue().getId());
             dto.setMetodoPago(txt_metodo.getText());
             dto.setMonto(Double.parseDouble(txt_monto.getText()));
             dto.setFechaPago(Timestamp.valueOf(dp_fecha.getValue().atStartOfDay()));
@@ -82,11 +82,9 @@ public class Mnt_Pagos_GuiController implements Initializable {
 
     private void cargarCombos(){
         try {
-            ObservableList<Integer> ordenes = FXCollections.observableArrayList();
+            ObservableList<OrdenDTO> ordenes = FXCollections.observableArrayList();
             OrdenDAO odao = new OrdenDAO();
-            for (OrdenDTO o : odao.ListarOrdenes()) {
-                ordenes.add(o.getId());
-            }
+            ordenes.addAll(odao.ListarOrdenes());
             cmb_orden.setItems(ordenes);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
@@ -99,7 +97,9 @@ public class Mnt_Pagos_GuiController implements Initializable {
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            cmb_orden.setValue(dto.getOrdenId());
+            for(OrdenDTO o : cmb_orden.getItems()){
+                if(o.getId() == dto.getOrdenId()){ cmb_orden.setValue(o); break; }
+            }
             txt_metodo.setText(dto.getMetodoPago());
             txt_monto.setText(Double.toString(dto.getMonto()));
             dp_fecha.setValue(dto.getFechaPago().toLocalDateTime().toLocalDate());

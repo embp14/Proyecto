@@ -31,8 +31,8 @@ public class Mnt_Envios_GuiController implements Initializable {
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
-    @FXML private ComboBox<Integer> cmb_orden;
-    @FXML private ComboBox<Integer> cmb_direccion;
+    @FXML private ComboBox<OrdenDTO> cmb_orden;
+    @FXML private ComboBox<DireccionDTO> cmb_direccion;
     @FXML private TextField txt_empresa;
     @FXML private TextField txt_tracking;
     @FXML private DatePicker dp_envio;
@@ -52,8 +52,8 @@ public class Mnt_Envios_GuiController implements Initializable {
         if(!actualizar){
             try{
                 EnvioDTO dto = new EnvioDTO();
-                dto.setOrdenId(cmb_orden.getValue());
-                dto.setDireccionId(cmb_direccion.getValue());
+                dto.setOrdenId(cmb_orden.getValue().getId());
+                dto.setDireccionId(cmb_direccion.getValue().getId());
                 dto.setEmpresaEnvio(txt_empresa.getText());
                 dto.setCodigoTracking(txt_tracking.getText());
                 dto.setFechaEnvio(Timestamp.valueOf(dp_envio.getValue().atStartOfDay()));
@@ -70,8 +70,8 @@ public class Mnt_Envios_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             EnvioDTO dto = (EnvioDTO) stage.getUserData();
-            dto.setOrdenId(cmb_orden.getValue());
-            dto.setDireccionId(cmb_direccion.getValue());
+            dto.setOrdenId(cmb_orden.getValue().getId());
+            dto.setDireccionId(cmb_direccion.getValue().getId());
             dto.setEmpresaEnvio(txt_empresa.getText());
             dto.setCodigoTracking(txt_tracking.getText());
             dto.setFechaEnvio(Timestamp.valueOf(dp_envio.getValue().atStartOfDay()));
@@ -93,18 +93,14 @@ public class Mnt_Envios_GuiController implements Initializable {
 
     private void cargarCombos(){
         try {
-            ObservableList<Integer> ordenes = FXCollections.observableArrayList();
+            ObservableList<OrdenDTO> ordenes = FXCollections.observableArrayList();
             OrdenDAO odao = new OrdenDAO();
-            for (OrdenDTO o : odao.ListarOrdenes()) {
-                ordenes.add(o.getId());
-            }
+            ordenes.addAll(odao.ListarOrdenes());
             cmb_orden.setItems(ordenes);
 
-            ObservableList<Integer> direcciones = FXCollections.observableArrayList();
+            ObservableList<DireccionDTO> direcciones = FXCollections.observableArrayList();
             DireccionDAO ddao = new DireccionDAO();
-            for (DireccionDTO d : ddao.ListarDirecciones()) {
-                direcciones.add(d.getId());
-            }
+            direcciones.addAll(ddao.ListarDirecciones());
             cmb_direccion.setItems(direcciones);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
@@ -117,8 +113,12 @@ public class Mnt_Envios_GuiController implements Initializable {
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            cmb_orden.setValue(dto.getOrdenId());
-            cmb_direccion.setValue(dto.getDireccionId());
+            for(OrdenDTO o : cmb_orden.getItems()){
+                if(o.getId() == dto.getOrdenId()){ cmb_orden.setValue(o); break; }
+            }
+            for(DireccionDTO d : cmb_direccion.getItems()){
+                if(d.getId() == dto.getDireccionId()){ cmb_direccion.setValue(d); break; }
+            }
             txt_empresa.setText(dto.getEmpresaEnvio());
             txt_tracking.setText(dto.getCodigoTracking());
             dp_envio.setValue(dto.getFechaEnvio().toLocalDateTime().toLocalDate());

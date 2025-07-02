@@ -46,7 +46,10 @@ public class ProductoDAO {
     public ObservableList<ProductoDTO> ListarProductos(){
         ObservableList<ProductoDTO> productos = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, vendedor_id, categoria_id, titulo, descripcion, creado_en, activo FROM productos ORDER BY id";
+        String sql = "SELECT p.id, p.vendedor_id, v.nombre_tienda AS vendedor_nombre, " +
+                     "p.categoria_id, c.nombre AS categoria_nombre, p.titulo, p.descripcion, p.creado_en, p.activo " +
+                     "FROM productos p JOIN vendedores v ON p.vendedor_id=v.id " +
+                     "JOIN categorias c ON p.categoria_id=c.id ORDER BY p.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -54,7 +57,9 @@ public class ProductoDAO {
                 ProductoDTO dto = new ProductoDTO();
                 dto.setId(rs.getInt("id"));
                 dto.setVendedorId(rs.getInt("vendedor_id"));
+                dto.setVendedorNombre(rs.getString("vendedor_nombre"));
                 dto.setCategoriaId(rs.getInt("categoria_id"));
+                dto.setCategoriaNombre(rs.getString("categoria_nombre"));
                 dto.setTitulo(rs.getString("titulo"));
                 dto.setDescripcion(rs.getString("descripcion"));
                 dto.setCreadoEn(rs.getTimestamp("creado_en"));
@@ -71,8 +76,10 @@ public class ProductoDAO {
     public ObservableList<ProductoDTO> BuscarProductos(String criterio){
         ObservableList<ProductoDTO> productos = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, vendedor_id, categoria_id, titulo, descripcion, creado_en, activo FROM productos " +
-                     "WHERE titulo LIKE '%"+criterio+"%' ORDER BY id";
+        String sql = "SELECT p.id, p.vendedor_id, v.nombre_tienda AS vendedor_nombre, " +
+                     "p.categoria_id, c.nombre AS categoria_nombre, p.titulo, p.descripcion, p.creado_en, p.activo " +
+                     "FROM productos p JOIN vendedores v ON p.vendedor_id=v.id " +
+                     "JOIN categorias c ON p.categoria_id=c.id WHERE p.titulo LIKE '%"+criterio+"%' ORDER BY p.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -80,7 +87,9 @@ public class ProductoDAO {
                 ProductoDTO dto = new ProductoDTO();
                 dto.setId(rs.getInt("id"));
                 dto.setVendedorId(rs.getInt("vendedor_id"));
+                dto.setVendedorNombre(rs.getString("vendedor_nombre"));
                 dto.setCategoriaId(rs.getInt("categoria_id"));
+                dto.setCategoriaNombre(rs.getString("categoria_nombre"));
                 dto.setTitulo(rs.getString("titulo"));
                 dto.setDescripcion(rs.getString("descripcion"));
                 dto.setCreadoEn(rs.getTimestamp("creado_en"));

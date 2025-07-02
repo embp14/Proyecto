@@ -3,9 +3,11 @@ package proyectobd.ProductosGui;
 import dao.ProductoDAO;
 import dao.VendedorDAO;
 import dao.CategoriaDAO;
+import dao.ImagenProductoDAO;
 import dto.ProductoDTO;
 import dto.VendedorDTO;
 import dto.CategoriaDTO;
+import dto.ImagenProductoDTO;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
@@ -15,9 +17,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.AnchorPane;
+import java.io.File;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackProducto;
 
@@ -30,8 +36,11 @@ public class Mnt_Productos_GuiController implements Initializable {
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
-    @FXML private ComboBox<Integer> cmb_vendedor;
-    @FXML private ComboBox<Integer> cmb_categoria;
+    @FXML private ComboBox<VendedorDTO> cmb_vendedor;
+    @FXML private ComboBox<CategoriaDTO> cmb_categoria;
+    @FXML private TextField txt_imagen;
+    @FXML private Button btn_BuscarImagen;
+    @FXML private ImageView img_principal;
     @FXML private TextField txt_titulo;
     @FXML private TextField txt_descripcion;
     @FXML private TextField txt_activo;
@@ -50,8 +59,8 @@ public class Mnt_Productos_GuiController implements Initializable {
         if(!actualizar){
             try{
                 ProductoDTO dto = new ProductoDTO();
-                dto.setVendedorId(cmb_vendedor.getValue());
-                dto.setCategoriaId(cmb_categoria.getValue());
+                dto.setVendedorId(cmb_vendedor.getValue().getId());
+                dto.setCategoriaId(cmb_categoria.getValue().getId());
                 dto.setTitulo(txt_titulo.getText());
                 dto.setDescripcion(txt_descripcion.getText());
                 dto.setCreadoEn(new Timestamp(System.currentTimeMillis()));
@@ -59,6 +68,7 @@ public class Mnt_Productos_GuiController implements Initializable {
                 int id = dao.InsertarProducto(dto);
                 if(id>0){
                     txt_id.setText(Integer.toString(id));
+                    guardarImagen(id);
                     btn_Grabar.setDisable(true);
                 }
             }catch(Exception ex){
@@ -67,13 +77,14 @@ public class Mnt_Productos_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             ProductoDTO dto = (ProductoDTO) stage.getUserData();
-            dto.setVendedorId(cmb_vendedor.getValue());
-            dto.setCategoriaId(cmb_categoria.getValue());
+            dto.setVendedorId(cmb_vendedor.getValue().getId());
+            dto.setCategoriaId(cmb_categoria.getValue().getId());
             dto.setTitulo(txt_titulo.getText());
             dto.setDescripcion(txt_descripcion.getText());
             dto.setActivo(Boolean.parseBoolean(txt_activo.getText()));
             try{
                 dao.ActualizarProducto(dto);
+                guardarImagen(dto.getId());
                 btn_Grabar.setDisable(true);
             }catch(Exception ex){
                 fu.MostrarAlertas("Error", ex.toString());
@@ -88,18 +99,14 @@ public class Mnt_Productos_GuiController implements Initializable {
 
     private void cargarCombos(){
         try {
-            ObservableList<Integer> vendedores = FXCollections.observableArrayList();
+            ObservableList<VendedorDTO> vendedores = FXCollections.observableArrayList();
             VendedorDAO vdao = new VendedorDAO();
-            for (VendedorDTO v : vdao.ListarVendedores()) {
-                vendedores.add(v.getId());
-            }
+            vendedores.addAll(vdao.ListarVendedores());
             cmb_vendedor.setItems(vendedores);
 
-            ObservableList<Integer> categorias = FXCollections.observableArrayList();
+            ObservableList<CategoriaDTO> categorias = FXCollections.observableArrayList();
             CategoriaDAO cdao = new CategoriaDAO();
-            for (CategoriaDTO c : cdao.ListarCategorias()) {
-                categorias.add(c.getId());
-            }
+            categorias.addAll(cdao.ListarCategorias());
             cmb_categoria.setItems(categorias);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
@@ -112,11 +119,61 @@ public class Mnt_Productos_GuiController implements Initializable {
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            cmb_vendedor.setValue(dto.getVendedorId());
-            cmb_categoria.setValue(dto.getCategoriaId());
+            for(VendedorDTO v : cmb_vendedor.getItems()){
+                if(v.getId() == dto.getVendedorId()){ cmb_vendedor.setValue(v); break; }
+            }
+            for(CategoriaDTO c : cmb_categoria.getItems()){
+                if(c.getId() == dto.getCategoriaId()){ cmb_categoria.setValue(c); break; }
+            }
             txt_titulo.setText(dto.getTitulo());
             txt_descripcion.setText(dto.getDescripcion());
             txt_activo.setText(Boolean.toString(dto.isActivo()));
+            cargarImagenPrincipal(dto.getId());
+        }
+    }
+
+    private void cargarImagenPrincipal(int productoId){
+        ImagenProductoDAO idao = new ImagenProductoDAO();
+        for(ImagenProductoDTO img : idao.ListarImagenes(productoId)){
+            if(img.isEsPrincipal()){
+                txt_imagen.setText(img.getUrl());
+                File f = new File(img.getUrl());
+                if(f.exists()){
+                    img_principal.setImage(new Image(f.toURI().toString()));
+                }
+                break;
+            }
+        }
+    }
+
+    private void guardarImagen(int productoId){
+        if(txt_imagen.getText() == null || txt_imagen.getText().isEmpty()) return;
+        ImagenProductoDAO idao = new ImagenProductoDAO();
+        ObservableList<ImagenProductoDTO> imgs = idao.ListarImagenes(productoId);
+        ImagenProductoDTO principal = null;
+        for(ImagenProductoDTO img : imgs){
+            if(img.isEsPrincipal()){ principal = img; break; }
+        }
+        if(principal == null){
+            ImagenProductoDTO dto = new ImagenProductoDTO();
+            dto.setProductoId(productoId);
+            dto.setUrl(txt_imagen.getText());
+            dto.setEsPrincipal(true);
+            idao.InsertarImagen(dto);
+        }else{
+            principal.setUrl(txt_imagen.getText());
+            principal.setEsPrincipal(true);
+            idao.ActualizarImagen(principal);
+        }
+    }
+
+    public void call_SeleccionarImagen(){
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Im\u00e1genes", "*.png", "*.jpg", "*.jpeg", "*.gif"));
+        File f = fc.showOpenDialog(Ap_Main.getScene().getWindow());
+        if(f != null){
+            txt_imagen.setText(f.getAbsolutePath());
+            img_principal.setImage(new Image(f.toURI().toString()));
         }
     }
 }
