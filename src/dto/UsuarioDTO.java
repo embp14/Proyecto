@@ -18,6 +18,7 @@ public class UsuarioDTO {
     // Tabla usuarios de la nueva base de datos
     private int id;
     private int rolId;
+    private String rolNombre;
     private String nombre;
     private String email;
     private String contrasena;
@@ -38,6 +39,14 @@ public class UsuarioDTO {
 
     public void setRolId(int rolId) {
         this.rolId = rolId;
+    }
+
+    public String getRolNombre() {
+        return rolNombre;
+    }
+
+    public void setRolNombre(String rolNombre) {
+        this.rolNombre = rolNombre;
     }
 
     public String getNombre() {

@@ -50,6 +50,10 @@ public class Mnt_Usuarios_GuiController implements Initializable {
 
     public void call_Grabar(){
         UsuarioDAO dao = new UsuarioDAO();
+        if(!emailValido(txt_email.getText())){
+            fu.datosInvalidos("Ingrese un correo electr\u00f3nico v\u00e1lido.");
+            return;
+        }
         if(!actualizar){
             try{
                 UsuarioDTO dto = new UsuarioDTO();
@@ -134,5 +138,10 @@ public class Mnt_Usuarios_GuiController implements Initializable {
             txt_imagen.setText(f.getAbsolutePath());
             img_perfil.setImage(new Image(f.toURI().toString()));
         }
+    }
+
+    private boolean emailValido(String email){
+        if(email == null) return false;
+        return email.matches("^[\\w.+\\-]+@([\\w-]+\\.)+[\\w-]{2,}$");
     }
 }

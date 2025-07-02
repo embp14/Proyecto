@@ -31,7 +31,8 @@ public class UsuarioDAO {
         ObservableList<UsuarioDTO> usuarios=FXCollections.observableArrayList();
         ConectorBD ConnBD=new ConectorBD();
         ResultSet rs=null;
-        String sql="SELECT id, rol_id, nombre, email, contraseña, imagen_perfil, creado_en FROM usuarios ORDER BY nombre";
+        String sql="SELECT u.id, u.rol_id, r.nombre AS rol_nombre, u.nombre, u.email, u.contraseña, u.imagen_perfil, u.creado_en "
+                + "FROM usuarios u JOIN roles r ON u.rol_id=r.id ORDER BY u.nombre";
         try{
             Statement st=ConnBD.AbrirConexionBD().createStatement();
             rs=st.executeQuery(sql);
@@ -39,6 +40,7 @@ public class UsuarioDAO {
                 UsuarioDTO usrdto=new UsuarioDTO();
                 usrdto.setId(rs.getInt("id"));
                 usrdto.setRolId(rs.getInt("rol_id"));
+                usrdto.setRolNombre(rs.getString("rol_nombre"));
                 usrdto.setNombre(rs.getString("nombre"));
                 usrdto.setEmail(rs.getString("email"));
                 usrdto.setContrasena(rs.getString("contraseña"));
@@ -59,9 +61,10 @@ public class UsuarioDAO {
         ObservableList<UsuarioDTO> usuarios=FXCollections.observableArrayList();
         ConectorBD ConnBD=new ConectorBD();
         ResultSet rs=null;
-        String sql="SELECT id, rol_id, nombre, email, contraseña, imagen_perfil, creado_en FROM usuarios "
-                + "WHERE nombre LIKE '%"+CriterioBusqueda+"%' OR email LIKE '%"+CriterioBusqueda+"%'"
-                + " ORDER BY nombre";
+        String sql="SELECT u.id, u.rol_id, r.nombre AS rol_nombre, u.nombre, u.email, u.contraseña, u.imagen_perfil, u.creado_en "
+                + "FROM usuarios u JOIN roles r ON u.rol_id=r.id "
+                + "WHERE u.nombre LIKE '%"+CriterioBusqueda+"%' OR u.email LIKE '%"+CriterioBusqueda+"%' "
+                + "ORDER BY u.nombre";
         try{
             Statement st=ConnBD.AbrirConexionBD().createStatement();
             rs=st.executeQuery(sql);
@@ -69,6 +72,7 @@ public class UsuarioDAO {
                 UsuarioDTO usrdto=new UsuarioDTO();
                 usrdto.setId(rs.getInt("id"));
                 usrdto.setRolId(rs.getInt("rol_id"));
+                usrdto.setRolNombre(rs.getString("rol_nombre"));
                 usrdto.setNombre(rs.getString("nombre"));
                 usrdto.setEmail(rs.getString("email"));
                 usrdto.setContrasena(rs.getString("contraseña"));

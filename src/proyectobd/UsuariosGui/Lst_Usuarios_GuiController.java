@@ -26,7 +26,7 @@ public class Lst_Usuarios_GuiController implements Initializable {
     @FXML private TextField txt_Buscar;
     @FXML private TableView<UsuarioDTO> tbl_Lista;
     @FXML private TableColumn<UsuarioDTO, Integer> col_id;
-    @FXML private TableColumn<UsuarioDTO, Integer> col_rol;
+    @FXML private TableColumn<UsuarioDTO, String> col_rol;
     @FXML private TableColumn<UsuarioDTO, String> col_nombre;
     @FXML private TableColumn<UsuarioDTO, String> col_email;
 
@@ -48,7 +48,7 @@ public class Lst_Usuarios_GuiController implements Initializable {
             UsuarioDAO dao = new UsuarioDAO();
             ObservableList<UsuarioDTO> lista = dao.ListarUsuarios();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_rol.setCellValueFactory(new PropertyValueFactory<>("rolId"));
+            col_rol.setCellValueFactory(new PropertyValueFactory<>("rolNombre"));
             col_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
             col_email.setCellValueFactory(new PropertyValueFactory<>("email"));
             tbl_Lista.setItems(lista);
