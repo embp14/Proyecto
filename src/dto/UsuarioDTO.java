@@ -89,4 +89,8 @@ public class UsuarioDTO {
         this.creadoEn = creadoEn;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

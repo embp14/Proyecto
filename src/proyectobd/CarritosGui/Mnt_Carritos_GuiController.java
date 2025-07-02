@@ -29,7 +29,7 @@ public class Mnt_Carritos_GuiController implements Initializable {
     @FXML private Button btn_Guardar;
     @FXML private Button btn_Borrar;
     @FXML private Button btn_Cerrar;
-    @FXML private ComboBox<Integer> cmb_usuario;
+    @FXML private ComboBox<UsuarioDTO> cmb_usuario;
     @FXML private DatePicker dp_creado;
 
     @Override
@@ -45,7 +45,7 @@ public class Mnt_Carritos_GuiController implements Initializable {
         if(!actualizar){
             try{
                 CarritoDTO dto = new CarritoDTO();
-                dto.setUsuarioId(cmb_usuario.getValue());
+                dto.setUsuarioId(cmb_usuario.getValue().getId());
                 dto.setCreadoEn(Timestamp.valueOf(dp_creado.getValue().atStartOfDay()));
                 int id = dao.InsertarCarrito(dto);
                 if(id>0){
@@ -57,7 +57,7 @@ public class Mnt_Carritos_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             CarritoDTO dto = (CarritoDTO) stage.getUserData();
-            dto.setUsuarioId(cmb_usuario.getValue());
+            dto.setUsuarioId(cmb_usuario.getValue().getId());
             dto.setCreadoEn(Timestamp.valueOf(dp_creado.getValue().atStartOfDay()));
             try{
                 dao.ActualizarCarrito(dto);
@@ -90,7 +90,9 @@ public class Mnt_Carritos_GuiController implements Initializable {
         CarritoDTO dto = (CarritoDTO) stage.getUserData();
         if(dto != null){
             actualizar = true;
-            cmb_usuario.setValue(dto.getUsuarioId());
+            for(UsuarioDTO u : cmb_usuario.getItems()){
+                if(u.getId() == dto.getUsuarioId()){ cmb_usuario.setValue(u); break; }
+            }
             dp_creado.setValue(dto.getCreadoEn().toLocalDateTime().toLocalDate());
         }else{
             dp_creado.setValue(java.time.LocalDate.now());
@@ -99,11 +101,9 @@ public class Mnt_Carritos_GuiController implements Initializable {
 
     private void cargarCombos(){
         try {
-            ObservableList<Integer> usuarios = FXCollections.observableArrayList();
+            ObservableList<UsuarioDTO> usuarios = FXCollections.observableArrayList();
             UsuarioDAO udao = new UsuarioDAO();
-            for (UsuarioDTO u : udao.ListarUsuarios()) {
-                usuarios.add(u.getId());
-            }
+            usuarios.addAll(udao.ListarUsuarios());
             cmb_usuario.setItems(usuarios);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());

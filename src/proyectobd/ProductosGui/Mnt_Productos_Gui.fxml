@@ -1,49 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Ap_Main" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.ProductosGui.Mnt_Productos_GuiController">
-    <children>
-        <Pane prefHeight="39.0" prefWidth="800.0" style="-fx-background-color: #5585b5;">
-            <children>
-                <Label layoutX="228.0" layoutY="2.0" text="Mantenimiento de Productos" textFill="WHITE">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Label>
-            </children>
-        </Pane>
-        <TitledPane layoutY="39.0" prefHeight="300.0" prefWidth="800.0" text="Detalles del Registro" animated="false">
-            <content>
-                <AnchorPane prefHeight="280.0" prefWidth="798.0" minHeight="0.0" minWidth="0.0">
-                    <children>
-                        <Label layoutX="170.0" layoutY="40.0" text="ID:" />
-                        <TextField fx:id="txt_id" layoutX="220.0" layoutY="36.0" prefHeight="25.0" prefWidth="400.0" />
-                        <Label layoutX="126.0" layoutY="76.0" text="Vendedor:" />
-                        <ComboBox fx:id="cmb_vendedor" layoutX="220.0" layoutY="72.0" prefHeight="25.0" prefWidth="400.0" />
-                        <Label layoutX="122.0" layoutY="112.0" text="Categoría:" />
-                        <ComboBox fx:id="cmb_categoria" layoutX="220.0" layoutY="108.0" prefHeight="25.0" prefWidth="400.0" />
-                        <Label layoutX="164.0" layoutY="148.0" text="Título:" />
-                        <TextField fx:id="txt_titulo" layoutX="220.0" layoutY="144.0" prefHeight="25.0" prefWidth="400.0" />
-                        <Label layoutX="136.0" layoutY="184.0" text="Descripción:" />
-                        <TextField fx:id="txt_descripcion" layoutX="220.0" layoutY="180.0" prefHeight="25.0" prefWidth="400.0" />
-                        <Label layoutX="170.0" layoutY="220.0" text="Activo:" />
-                        <TextField fx:id="txt_activo" layoutX="220.0" layoutY="216.0" prefHeight="25.0" prefWidth="400.0" />
-                    </children>
-                </AnchorPane>
-            </content>
-        </TitledPane>
-        <TitledPane layoutY="339.0" prefHeight="61.0" prefWidth="800.0" text="Acciones" animated="false">
-            <content>
-                <AnchorPane prefHeight="27.0" prefWidth="798.0" minHeight="0.0" minWidth="0.0">
-                    <children>
-                        <Button fx:id="btn_Grabar" layoutX="555.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Grabar" text="Grabar" />
-                        <Button fx:id="btn_Cerrar" layoutX="624.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_CerrarVentana" text="Cerrar" />
-                    </children>
-                </AnchorPane>
-            </content>
-        </TitledPane>
-    </children>
-</AnchorPane>
+<BorderPane fx:id="Ap_Main" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.ProductosGui.Mnt_Productos_GuiController">
+    <top>
+        <HBox alignment="CENTER_LEFT" prefHeight="50.0" style="-fx-background-color: #5585b5;" spacing="10.0">
+            <padding><Insets left="10.0" right="10.0"/></padding>
+            <Label text="Mantenimiento de Productos" textFill="WHITE">
+                <font><Font size="24.0"/></font>
+            </Label>
+        </HBox>
+    </top>
+    <center>
+        <VBox spacing="10.0" padding="10.0">
+            <TitledPane text="Detalles del Registro" expanded="true" animated="false" VBox.vgrow="ALWAYS">
+                <content>
+                    <HBox alignment="TOP_LEFT" spacing="10.0" padding="10.0">
+                        <ImageView fx:id="img_principal" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: black; -fx-border-width: 1; -fx-background-color: lightgray;" />
+                        <GridPane hgap="10.0" vgap="10.0">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="80.0" />
+                                <ColumnConstraints hgrow="ALWAYS" />
+                            </columnConstraints>
+                            <children>
+                                <Label text="ID:" />
+                                <TextField fx:id="txt_id" GridPane.columnIndex="1" />
+                                <Label text="Vendedor:" GridPane.rowIndex="1" />
+                                <ComboBox fx:id="cmb_vendedor" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label text="Categoría:" GridPane.rowIndex="2" />
+                                <ComboBox fx:id="cmb_categoria" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label text="Título:" GridPane.rowIndex="3" />
+                                <TextField fx:id="txt_titulo" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <Label text="Descripción:" GridPane.rowIndex="4" />
+                                <TextField fx:id="txt_descripcion" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                <Label text="Imagen:" GridPane.rowIndex="5" />
+                                <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                    <TextField fx:id="txt_imagen" HBox.hgrow="ALWAYS" />
+                                    <Button fx:id="btn_BuscarImagen" onAction="#call_SeleccionarImagen" text="..." />
+                                </HBox>
+                                <Label text="Activo:" GridPane.rowIndex="6" />
+                                <TextField fx:id="txt_activo" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                            </children>
+                        </GridPane>
+                    </HBox>
+                </content>
+            </TitledPane>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="10.0" padding="10.0">
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="btn_Grabar" onAction="#call_Grabar" text="Grabar" />
+            <Button fx:id="btn_Cerrar" onAction="#call_CerrarVentana" text="Cerrar" />
+        </HBox>
+    </bottom>
+</BorderPane>

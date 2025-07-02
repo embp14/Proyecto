@@ -29,8 +29,8 @@ public class Mnt_ListaDeseoItems_GuiController implements Initializable {
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
-    @FXML private ComboBox<Integer> cmb_lista;
-    @FXML private ComboBox<Integer> cmb_variante;
+    @FXML private ComboBox<ListaDeseoDTO> cmb_lista;
+    @FXML private ComboBox<VarianteProductoDTO> cmb_variante;
     @FXML private TextField txt_cantidad;
 
     @Override
@@ -46,8 +46,8 @@ public class Mnt_ListaDeseoItems_GuiController implements Initializable {
         if(!actualizar){
             try{
                 ListaDeseoItemDTO dto = new ListaDeseoItemDTO();
-                dto.setListaDeseosId(cmb_lista.getValue());
-                dto.setVarianteId(cmb_variante.getValue());
+                dto.setListaDeseosId(cmb_lista.getValue().getId());
+                dto.setVarianteId(cmb_variante.getValue().getId());
                 dto.setCantidad(Integer.parseInt(txt_cantidad.getText()));
                 int id = dao.InsertarItem(dto);
                 if(id>0){
@@ -60,8 +60,8 @@ public class Mnt_ListaDeseoItems_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             ListaDeseoItemDTO dto = (ListaDeseoItemDTO) stage.getUserData();
-            dto.setListaDeseosId(cmb_lista.getValue());
-            dto.setVarianteId(cmb_variante.getValue());
+            dto.setListaDeseosId(cmb_lista.getValue().getId());
+            dto.setVarianteId(cmb_variante.getValue().getId());
             dto.setCantidad(Integer.parseInt(txt_cantidad.getText()));
             try{
                 dao.ActualizarItem(dto);
@@ -79,18 +79,14 @@ public class Mnt_ListaDeseoItems_GuiController implements Initializable {
 
     private void cargarCombos(){
         try {
-            ObservableList<Integer> listas = FXCollections.observableArrayList();
+            ObservableList<ListaDeseoDTO> listas = FXCollections.observableArrayList();
             ListaDeseoDAO ldao = new ListaDeseoDAO();
-            for (ListaDeseoDTO l : ldao.ListarListas()) {
-                listas.add(l.getId());
-            }
+            listas.addAll(ldao.ListarListas());
             cmb_lista.setItems(listas);
 
-            ObservableList<Integer> variantes = FXCollections.observableArrayList();
+            ObservableList<VarianteProductoDTO> variantes = FXCollections.observableArrayList();
             VarianteProductoDAO vdao = new VarianteProductoDAO();
-            for (VarianteProductoDTO v : vdao.ListarVariantes()) {
-                variantes.add(v.getId());
-            }
+            variantes.addAll(vdao.ListarVariantes());
             cmb_variante.setItems(variantes);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
@@ -103,8 +99,12 @@ public class Mnt_ListaDeseoItems_GuiController implements Initializable {
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            cmb_lista.setValue(dto.getListaDeseosId());
-            cmb_variante.setValue(dto.getVarianteId());
+            for(ListaDeseoDTO l : cmb_lista.getItems()){
+                if(l.getId() == dto.getListaDeseosId()){ cmb_lista.setValue(l); break; }
+            }
+            for(VarianteProductoDTO v : cmb_variante.getItems()){
+                if(v.getId() == dto.getVarianteId()){ cmb_variante.setValue(v); break; }
+            }
             txt_cantidad.setText(Integer.toString(dto.getCantidad()));
         }
     }

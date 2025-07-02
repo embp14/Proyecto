@@ -29,8 +29,8 @@ public class Mnt_OrdenItems_GuiController implements Initializable {
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
-    @FXML private ComboBox<Integer> cmb_orden;
-    @FXML private ComboBox<Integer> cmb_variante;
+    @FXML private ComboBox<OrdenDTO> cmb_orden;
+    @FXML private ComboBox<VarianteProductoDTO> cmb_variante;
     @FXML private TextField txt_cantidad;
 
     @Override
@@ -46,8 +46,8 @@ public class Mnt_OrdenItems_GuiController implements Initializable {
         if(!actualizar){
             try{
                 OrdenItemDTO dto = new OrdenItemDTO();
-                dto.setOrdenId(cmb_orden.getValue());
-                dto.setVarianteId(cmb_variante.getValue());
+                dto.setOrdenId(cmb_orden.getValue().getId());
+                dto.setVarianteId(cmb_variante.getValue().getId());
                 dto.setCantidad(Integer.parseInt(txt_cantidad.getText()));
                 int id = dao.InsertarItem(dto);
                 if(id>0){
@@ -60,8 +60,8 @@ public class Mnt_OrdenItems_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             OrdenItemDTO dto = (OrdenItemDTO) stage.getUserData();
-            dto.setOrdenId(cmb_orden.getValue());
-            dto.setVarianteId(cmb_variante.getValue());
+            dto.setOrdenId(cmb_orden.getValue().getId());
+            dto.setVarianteId(cmb_variante.getValue().getId());
             dto.setCantidad(Integer.parseInt(txt_cantidad.getText()));
             try{
                 dao.ActualizarItem(dto);
@@ -79,18 +79,14 @@ public class Mnt_OrdenItems_GuiController implements Initializable {
 
     private void cargarCombos(){
         try {
-            ObservableList<Integer> ordenes = FXCollections.observableArrayList();
+            ObservableList<OrdenDTO> ordenes = FXCollections.observableArrayList();
             OrdenDAO odao = new OrdenDAO();
-            for (OrdenDTO o : odao.ListarOrdenes()) {
-                ordenes.add(o.getId());
-            }
+            ordenes.addAll(odao.ListarOrdenes());
             cmb_orden.setItems(ordenes);
 
-            ObservableList<Integer> variantes = FXCollections.observableArrayList();
+            ObservableList<VarianteProductoDTO> variantes = FXCollections.observableArrayList();
             VarianteProductoDAO vdao = new VarianteProductoDAO();
-            for (VarianteProductoDTO v : vdao.ListarVariantes()) {
-                variantes.add(v.getId());
-            }
+            variantes.addAll(vdao.ListarVariantes());
             cmb_variante.setItems(variantes);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
@@ -103,8 +99,12 @@ public class Mnt_OrdenItems_GuiController implements Initializable {
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            cmb_orden.setValue(dto.getOrdenId());
-            cmb_variante.setValue(dto.getVarianteId());
+            for(OrdenDTO o : cmb_orden.getItems()){
+                if(o.getId() == dto.getOrdenId()){ cmb_orden.setValue(o); break; }
+            }
+            for(VarianteProductoDTO v : cmb_variante.getItems()){
+                if(v.getId() == dto.getVarianteId()){ cmb_variante.setValue(v); break; }
+            }
             txt_cantidad.setText(Integer.toString(dto.getCantidad()));
         }
     }

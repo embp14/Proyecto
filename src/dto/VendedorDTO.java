@@ -48,4 +48,9 @@ public class VendedorDTO {
     public void setCalificacionPromedio(BigDecimal calificacionPromedio) {
         this.calificacionPromedio = calificacionPromedio;
     }
+
+    @Override
+    public String toString() {
+        return nombreTienda;
+    }
 }

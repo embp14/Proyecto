@@ -29,7 +29,7 @@ public class Mnt_Ofertas_GuiController implements Initializable {
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
-    @FXML private ComboBox<Integer> cmb_variante;
+    @FXML private ComboBox<VarianteProductoDTO> cmb_variante;
     @FXML private TextField txt_precio;
     @FXML private DatePicker dp_inicio;
     @FXML private DatePicker dp_fin;
@@ -47,7 +47,7 @@ public class Mnt_Ofertas_GuiController implements Initializable {
         if(!actualizar){
             try{
                 OfertaDTO dto = new OfertaDTO();
-                dto.setVarianteId(cmb_variante.getValue());
+                dto.setVarianteId(cmb_variante.getValue().getId());
                 dto.setPrecioDescuento(Double.parseDouble(txt_precio.getText()));
                 dto.setFechaInicio(Timestamp.valueOf(dp_inicio.getValue().atStartOfDay()));
                 dto.setFechaFin(Timestamp.valueOf(dp_fin.getValue().atStartOfDay()));
@@ -62,7 +62,7 @@ public class Mnt_Ofertas_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             OfertaDTO dto = (OfertaDTO) stage.getUserData();
-            dto.setVarianteId(cmb_variante.getValue());
+            dto.setVarianteId(cmb_variante.getValue().getId());
             dto.setPrecioDescuento(Double.parseDouble(txt_precio.getText()));
             dto.setFechaInicio(Timestamp.valueOf(dp_inicio.getValue().atStartOfDay()));
             dto.setFechaFin(Timestamp.valueOf(dp_fin.getValue().atStartOfDay()));
@@ -82,11 +82,9 @@ public class Mnt_Ofertas_GuiController implements Initializable {
 
     private void cargarCombos(){
         try {
-            ObservableList<Integer> variantes = FXCollections.observableArrayList();
+            ObservableList<VarianteProductoDTO> variantes = FXCollections.observableArrayList();
             VarianteProductoDAO vdao = new VarianteProductoDAO();
-            for (VarianteProductoDTO v : vdao.ListarVariantes()) {
-                variantes.add(v.getId());
-            }
+            variantes.addAll(vdao.ListarVariantes());
             cmb_variante.setItems(variantes);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
@@ -99,7 +97,9 @@ public class Mnt_Ofertas_GuiController implements Initializable {
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            cmb_variante.setValue(dto.getVarianteId());
+            for(VarianteProductoDTO v : cmb_variante.getItems()){
+                if(v.getId() == dto.getVarianteId()){ cmb_variante.setValue(v); break; }
+            }
             txt_precio.setText(Double.toString(dto.getPrecioDescuento()));
             dp_inicio.setValue(dto.getFechaInicio().toLocalDateTime().toLocalDate());
             dp_fin.setValue(dto.getFechaFin().toLocalDateTime().toLocalDate());

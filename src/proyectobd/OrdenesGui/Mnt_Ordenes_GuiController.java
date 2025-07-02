@@ -29,7 +29,7 @@ public class Mnt_Ordenes_GuiController implements Initializable {
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
-    @FXML private ComboBox<Integer> cmb_usuario;
+    @FXML private ComboBox<UsuarioDTO> cmb_usuario;
     @FXML private TextField txt_estado;
     @FXML private TextField txt_totalbruto;
     @FXML private TextField txt_totaldescuento;
@@ -49,7 +49,7 @@ public class Mnt_Ordenes_GuiController implements Initializable {
         if(!actualizar){
             try{
                 OrdenDTO dto = new OrdenDTO();
-                dto.setUsuarioId(cmb_usuario.getValue());
+                dto.setUsuarioId(cmb_usuario.getValue().getId());
                 dto.setEstado(txt_estado.getText());
                 dto.setTotalBruto(new java.math.BigDecimal(txt_totalbruto.getText()));
                 dto.setTotalDescuento(new java.math.BigDecimal(txt_totaldescuento.getText()));
@@ -65,7 +65,7 @@ public class Mnt_Ordenes_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             OrdenDTO dto = (OrdenDTO) stage.getUserData();
-            dto.setUsuarioId(cmb_usuario.getValue());
+            dto.setUsuarioId(cmb_usuario.getValue().getId());
             dto.setEstado(txt_estado.getText());
             dto.setTotalBruto(new java.math.BigDecimal(txt_totalbruto.getText()));
             dto.setTotalDescuento(new java.math.BigDecimal(txt_totaldescuento.getText()));
@@ -86,11 +86,9 @@ public class Mnt_Ordenes_GuiController implements Initializable {
 
     private void cargarCombos(){
         try {
-            ObservableList<Integer> usuarios = FXCollections.observableArrayList();
+            ObservableList<UsuarioDTO> usuarios = FXCollections.observableArrayList();
             UsuarioDAO udao = new UsuarioDAO();
-            for (UsuarioDTO u : udao.ListarUsuarios()) {
-                usuarios.add(u.getId());
-            }
+            usuarios.addAll(udao.ListarUsuarios());
             cmb_usuario.setItems(usuarios);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
@@ -103,7 +101,9 @@ public class Mnt_Ordenes_GuiController implements Initializable {
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            cmb_usuario.setValue(dto.getUsuarioId());
+            for(UsuarioDTO u : cmb_usuario.getItems()){
+                if(u.getId() == dto.getUsuarioId()){ cmb_usuario.setValue(u); break; }
+            }
             txt_estado.setText(dto.getEstado());
             txt_totalbruto.setText(dto.getTotalBruto().toString());
             txt_totaldescuento.setText(dto.getTotalDescuento().toString());

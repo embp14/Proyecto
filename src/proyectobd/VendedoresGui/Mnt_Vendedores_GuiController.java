@@ -27,7 +27,7 @@ public class Mnt_Vendedores_GuiController implements Initializable {
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
-    @FXML private ComboBox<Integer> cmb_usuario;
+    @FXML private ComboBox<UsuarioDTO> cmb_usuario;
     @FXML private TextField txt_nombre;
     @FXML private TextField txt_descripcion;
     @FXML private TextField txt_calificacion;
@@ -46,7 +46,7 @@ public class Mnt_Vendedores_GuiController implements Initializable {
         if(!actualizar){
             try{
                 VendedorDTO dto = new VendedorDTO();
-                dto.setUsuarioId(cmb_usuario.getValue());
+                dto.setUsuarioId(cmb_usuario.getValue().getId());
                 dto.setNombreTienda(txt_nombre.getText());
                 dto.setDescripcion(txt_descripcion.getText());
                 dto.setCalificacionPromedio(new java.math.BigDecimal(txt_calificacion.getText()));
@@ -61,7 +61,7 @@ public class Mnt_Vendedores_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             VendedorDTO dto = (VendedorDTO) stage.getUserData();
-            dto.setUsuarioId(cmb_usuario.getValue());
+            dto.setUsuarioId(cmb_usuario.getValue().getId());
             dto.setNombreTienda(txt_nombre.getText());
             dto.setDescripcion(txt_descripcion.getText());
             dto.setCalificacionPromedio(new java.math.BigDecimal(txt_calificacion.getText()));
@@ -85,7 +85,9 @@ public class Mnt_Vendedores_GuiController implements Initializable {
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            cmb_usuario.setValue(dto.getUsuarioId());
+            for(UsuarioDTO u : cmb_usuario.getItems()){
+                if(u.getId() == dto.getUsuarioId()){ cmb_usuario.setValue(u); break; }
+            }
             txt_nombre.setText(dto.getNombreTienda());
             txt_descripcion.setText(dto.getDescripcion());
             txt_calificacion.setText(dto.getCalificacionPromedio().toString());
@@ -94,11 +96,9 @@ public class Mnt_Vendedores_GuiController implements Initializable {
 
     private void cargarCombos(){
         try {
-            ObservableList<Integer> usuarios = FXCollections.observableArrayList();
+            ObservableList<UsuarioDTO> usuarios = FXCollections.observableArrayList();
             UsuarioDAO udao = new UsuarioDAO();
-            for (UsuarioDTO u : udao.ListarUsuarios()) {
-                usuarios.add(u.getId());
-            }
+            usuarios.addAll(udao.ListarUsuarios());
             cmb_usuario.setItems(usuarios);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());

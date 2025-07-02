@@ -29,8 +29,8 @@ public class Mnt_CarritoItems_GuiController implements Initializable {
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
-    @FXML private ComboBox<Integer> cmb_carrito;
-    @FXML private ComboBox<Integer> cmb_variante;
+    @FXML private ComboBox<CarritoDTO> cmb_carrito;
+    @FXML private ComboBox<VarianteProductoDTO> cmb_variante;
     @FXML private TextField txt_cantidad;
 
     @Override
@@ -46,8 +46,8 @@ public class Mnt_CarritoItems_GuiController implements Initializable {
         if(!actualizar){
             try{
                 CarritoItemDTO dto = new CarritoItemDTO();
-                dto.setCarritoId(cmb_carrito.getValue());
-                dto.setVarianteId(cmb_variante.getValue());
+                dto.setCarritoId(cmb_carrito.getValue().getId());
+                dto.setVarianteId(cmb_variante.getValue().getId());
                 dto.setCantidad(Integer.parseInt(txt_cantidad.getText()));
                 int id = dao.InsertarItem(dto);
                 if(id>0){
@@ -60,8 +60,8 @@ public class Mnt_CarritoItems_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             CarritoItemDTO dto = (CarritoItemDTO) stage.getUserData();
-            dto.setCarritoId(cmb_carrito.getValue());
-            dto.setVarianteId(cmb_variante.getValue());
+            dto.setCarritoId(cmb_carrito.getValue().getId());
+            dto.setVarianteId(cmb_variante.getValue().getId());
             dto.setCantidad(Integer.parseInt(txt_cantidad.getText()));
             try{
                 dao.ActualizarItem(dto);
@@ -79,18 +79,14 @@ public class Mnt_CarritoItems_GuiController implements Initializable {
 
     private void cargarCombos(){
         try {
-            ObservableList<Integer> carritos = FXCollections.observableArrayList();
+            ObservableList<CarritoDTO> carritos = FXCollections.observableArrayList();
             CarritoDAO cdao = new CarritoDAO();
-            for (CarritoDTO c : cdao.ListarCarritos()) {
-                carritos.add(c.getId());
-            }
+            carritos.addAll(cdao.ListarCarritos());
             cmb_carrito.setItems(carritos);
 
-            ObservableList<Integer> variantes = FXCollections.observableArrayList();
+            ObservableList<VarianteProductoDTO> variantes = FXCollections.observableArrayList();
             VarianteProductoDAO vdao = new VarianteProductoDAO();
-            for (VarianteProductoDTO v : vdao.ListarVariantes()) {
-                variantes.add(v.getId());
-            }
+            variantes.addAll(vdao.ListarVariantes());
             cmb_variante.setItems(variantes);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
@@ -103,8 +99,12 @@ public class Mnt_CarritoItems_GuiController implements Initializable {
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            cmb_carrito.setValue(dto.getCarritoId());
-            cmb_variante.setValue(dto.getVarianteId());
+            for(CarritoDTO c : cmb_carrito.getItems()){
+                if(c.getId() == dto.getCarritoId()){ cmb_carrito.setValue(c); break; }
+            }
+            for(VarianteProductoDTO v : cmb_variante.getItems()){
+                if(v.getId() == dto.getVarianteId()){ cmb_variante.setValue(v); break; }
+            }
             txt_cantidad.setText(Integer.toString(dto.getCantidad()));
         }
     }

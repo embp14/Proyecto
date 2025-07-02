@@ -13,4 +13,7 @@ public class CategoriaDTO {
 
     public Integer getParentId(){ return parentId; }
     public void setParentId(Integer parentId){ this.parentId = parentId; }
+
+    @Override
+    public String toString() { return nombre; }
 }

@@ -27,7 +27,7 @@ public class Mnt_ImagenesProducto_GuiController implements Initializable {
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
-    @FXML private ComboBox<Integer> cmb_producto;
+    @FXML private ComboBox<ProductoDTO> cmb_producto;
     @FXML private TextField txt_url;
     @FXML private TextField txt_principal;
 
@@ -44,7 +44,7 @@ public class Mnt_ImagenesProducto_GuiController implements Initializable {
         if(!actualizar){
             try{
                 ImagenProductoDTO dto = new ImagenProductoDTO();
-                dto.setProductoId(cmb_producto.getValue());
+                dto.setProductoId(cmb_producto.getValue().getId());
                 dto.setUrl(txt_url.getText());
                 dto.setEsPrincipal(Boolean.parseBoolean(txt_principal.getText()));
                 int id = dao.InsertarImagen(dto);
@@ -58,7 +58,7 @@ public class Mnt_ImagenesProducto_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             ImagenProductoDTO dto = (ImagenProductoDTO) stage.getUserData();
-            dto.setProductoId(cmb_producto.getValue());
+            dto.setProductoId(cmb_producto.getValue().getId());
             dto.setUrl(txt_url.getText());
             dto.setEsPrincipal(Boolean.parseBoolean(txt_principal.getText()));
             try{
@@ -77,11 +77,9 @@ public class Mnt_ImagenesProducto_GuiController implements Initializable {
 
     private void cargarCombos(){
         try {
-            ObservableList<Integer> productos = FXCollections.observableArrayList();
+            ObservableList<ProductoDTO> productos = FXCollections.observableArrayList();
             ProductoDAO pdao = new ProductoDAO();
-            for (ProductoDTO p : pdao.ListarProductos()) {
-                productos.add(p.getId());
-            }
+            productos.addAll(pdao.ListarProductos());
             cmb_producto.setItems(productos);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
@@ -94,7 +92,9 @@ public class Mnt_ImagenesProducto_GuiController implements Initializable {
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            cmb_producto.setValue(dto.getProductoId());
+            for(ProductoDTO p : cmb_producto.getItems()){
+                if(p.getId() == dto.getProductoId()){ cmb_producto.setValue(p); break; }
+            }
             txt_url.setText(dto.getUrl());
             txt_principal.setText(Boolean.toString(dto.isEsPrincipal()));
         }
