@@ -18,9 +18,11 @@ public class UsuarioDTO {
     // Tabla usuarios de la nueva base de datos
     private int id;
     private int rolId;
+    private String rolNombre;
     private String nombre;
     private String email;
     private String contrasena;
+    private String imagenPerfil;
     private Timestamp creadoEn;
 
     public int getId() {
@@ -37,6 +39,14 @@ public class UsuarioDTO {
 
     public void setRolId(int rolId) {
         this.rolId = rolId;
+    }
+
+    public String getRolNombre() {
+        return rolNombre;
+    }
+
+    public void setRolNombre(String rolNombre) {
+        this.rolNombre = rolNombre;
     }
 
     public String getNombre() {
@@ -61,6 +71,14 @@ public class UsuarioDTO {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
+    }
+
+    public String getImagenPerfil() {
+        return imagenPerfil;
+    }
+
+    public void setImagenPerfil(String imagenPerfil) {
+        this.imagenPerfil = imagenPerfil;
     }
 
     public Timestamp getCreadoEn() {

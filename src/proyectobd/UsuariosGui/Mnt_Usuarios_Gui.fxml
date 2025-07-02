@@ -6,11 +6,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Ap_Main" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.UsuariosGui.Mnt_Usuarios_GuiController">
+<AnchorPane fx:id="Ap_Main" prefHeight="480.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.UsuariosGui.Mnt_Usuarios_GuiController">
     <children>
         <Pane prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: #1e90ff;">
             <children>
@@ -21,25 +22,29 @@
                 </Label>
             </children>
         </Pane>
-        <TitledPane layoutY="39.0" prefHeight="230.0" prefWidth="600.0" text="Detalles del Registro" animated="false">
+        <TitledPane layoutY="39.0" prefHeight="300.0" prefWidth="600.0" text="Detalles del Registro" animated="false">
             <content>
-                <AnchorPane prefHeight="210.0" prefWidth="598.0" minHeight="0.0" minWidth="0.0">
+                <AnchorPane prefHeight="280.0" prefWidth="598.0" minHeight="0.0" minWidth="0.0">
                     <children>
-                        <Label layoutX="116.0" layoutY="28.0" text="ID:" />
-                        <TextField fx:id="txt_id" layoutX="160.0" layoutY="24.0" prefWidth="400.0" />
-                        <Label layoutX="94.0" layoutY="64.0" text="Rol ID:" />
-                        <ComboBox fx:id="cmb_rol" layoutX="160.0" layoutY="60.0" prefWidth="400.0" />
-                        <Label layoutX="86.0" layoutY="100.0" text="Nombre:" />
-                        <TextField fx:id="txt_nombre" layoutX="160.0" layoutY="96.0" prefWidth="400.0" />
-                        <Label layoutX="101.0" layoutY="136.0" text="Email:" />
-                        <TextField fx:id="txt_email" layoutX="160.0" layoutY="132.0" prefWidth="400.0" />
-                        <Label layoutX="62.0" layoutY="172.0" text="Contraseña:" />
-                        <PasswordField fx:id="txt_contrasena" layoutX="160.0" layoutY="168.0" prefWidth="400.0" />
+                        <ImageView fx:id="img_perfil" fitHeight="150.0" fitWidth="150.0" layoutX="20.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: black; -fx-border-width: 1; -fx-background-color: lightgray;" />
+                        <Label layoutX="190.0" layoutY="28.0" text="ID:" />
+                        <TextField fx:id="txt_id" layoutX="230.0" layoutY="24.0" prefWidth="360.0" />
+                        <Label layoutX="168.0" layoutY="64.0" text="Rol:" />
+                        <ComboBox fx:id="cmb_rol" layoutX="230.0" layoutY="60.0" prefWidth="360.0" />
+                        <Label layoutX="160.0" layoutY="100.0" text="Nombre:" />
+                        <TextField fx:id="txt_nombre" layoutX="230.0" layoutY="96.0" prefWidth="360.0" />
+                        <Label layoutX="175.0" layoutY="136.0" text="Email:" />
+                        <TextField fx:id="txt_email" layoutX="230.0" layoutY="132.0" prefWidth="360.0" />
+                        <Label layoutX="136.0" layoutY="172.0" text="Contraseña:" />
+                        <PasswordField fx:id="txt_contrasena" layoutX="230.0" layoutY="168.0" prefWidth="360.0" />
+                        <Label layoutX="157.0" layoutY="204.0" text="Imagen:" />
+                        <TextField fx:id="txt_imagen" layoutX="230.0" layoutY="200.0" prefWidth="330.0" />
+                        <Button fx:id="btn_BuscarImagen" layoutX="560.0" layoutY="200.0" mnemonicParsing="false" onAction="#call_SeleccionarImagen" text="..." />
                     </children>
                 </AnchorPane>
             </content>
         </TitledPane>
-        <TitledPane layoutY="269.0" prefHeight="61.0" prefWidth="600.0" text="Acciones" animated="false">
+        <TitledPane layoutY="339.0" prefHeight="61.0" prefWidth="600.0" text="Acciones" animated="false">
             <content>
                 <AnchorPane prefHeight="27.0" prefWidth="598.0" minHeight="0.0" minWidth="0.0">
                     <children>

@@ -13,6 +13,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
+import javafx.stage.FileChooser;
+import java.io.File;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.AnchorPane;
@@ -26,8 +30,11 @@ public class Mnt_Usuarios_GuiController implements Initializable {
     @FXML private AnchorPane Ap_Main;
     @FXML private Button btn_Cerrar;
     @FXML private Button btn_Grabar;
+    @FXML private Button btn_BuscarImagen;
+    @FXML private ImageView img_perfil;
     @FXML private TextField txt_id;
-    @FXML private ComboBox<Integer> cmb_rol;
+    @FXML private ComboBox<RolDTO> cmb_rol;
+    @FXML private TextField txt_imagen;
     @FXML private TextField txt_nombre;
     @FXML private TextField txt_email;
     @FXML private PasswordField txt_contrasena;
@@ -43,13 +50,18 @@ public class Mnt_Usuarios_GuiController implements Initializable {
 
     public void call_Grabar(){
         UsuarioDAO dao = new UsuarioDAO();
+        if(!emailValido(txt_email.getText())){
+            fu.datosInvalidos("Ingrese un correo electr\u00f3nico v\u00e1lido.");
+            return;
+        }
         if(!actualizar){
             try{
                 UsuarioDTO dto = new UsuarioDTO();
-                dto.setRolId(cmb_rol.getValue());
+                dto.setRolId(cmb_rol.getValue().getId());
                 dto.setNombre(txt_nombre.getText());
                 dto.setEmail(txt_email.getText());
                 dto.setContrasena(txt_contrasena.getText());
+                dto.setImagenPerfil(txt_imagen.getText());
                 int id = dao.InsertarUsuario(dto);
                 if(id>0){
                     txt_id.setText(Integer.toString(id));
@@ -61,10 +73,11 @@ public class Mnt_Usuarios_GuiController implements Initializable {
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             UsuarioDTO dto = (UsuarioDTO) stage.getUserData();
-            dto.setRolId(cmb_rol.getValue());
+            dto.setRolId(cmb_rol.getValue().getId());
             dto.setNombre(txt_nombre.getText());
             dto.setEmail(txt_email.getText());
             dto.setContrasena(txt_contrasena.getText());
+            dto.setImagenPerfil(txt_imagen.getText());
             try{
                 int reg = dao.ActualizarUsuario(dto);
                 if(reg>0){
@@ -87,23 +100,48 @@ public class Mnt_Usuarios_GuiController implements Initializable {
         if(dto != null){
             actualizar = true;
             txt_id.setText(Integer.toString(dto.getId()));
-            cmb_rol.setValue(dto.getRolId());
+            for (RolDTO r : cmb_rol.getItems()) {
+                if(r.getId() == dto.getRolId()) {
+                    cmb_rol.setValue(r);
+                    break;
+                }
+            }
             txt_nombre.setText(dto.getNombre());
             txt_email.setText(dto.getEmail());
             txt_contrasena.setText(dto.getContrasena());
+            txt_imagen.setText(dto.getImagenPerfil());
+            if(dto.getImagenPerfil() != null){
+                File f = new File(dto.getImagenPerfil());
+                if(f.exists()){
+                    img_perfil.setImage(new Image(f.toURI().toString()));
+                }
+            }
         }
     }
 
     private void cargarCombos(){
         try {
-            ObservableList<Integer> roles = FXCollections.observableArrayList();
+            ObservableList<RolDTO> roles = FXCollections.observableArrayList();
             RolDAO rdao = new RolDAO();
-            for (RolDTO r : rdao.ListarRoles()) {
-                roles.add(r.getId());
-            }
+            roles.addAll(rdao.ListarRoles());
             cmb_rol.setItems(roles);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
         }
+    }
+
+    public void call_SeleccionarImagen(){
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Im\u00e1genes", "*.png", "*.jpg", "*.jpeg", "*.gif"));
+        File f = fc.showOpenDialog(Ap_Main.getScene().getWindow());
+        if(f != null){
+            txt_imagen.setText(f.getAbsolutePath());
+            img_perfil.setImage(new Image(f.toURI().toString()));
+        }
+    }
+
+    private boolean emailValido(String email){
+        if(email == null) return false;
+        return email.matches("^[\\w.+\\-]+@([\\w-]+\\.)+[\\w-]{2,}$");
     }
 }
