@@ -6,7 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="Ap_Main" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.ProductosGui.Mnt_Productos_GuiController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.ProductosGui.Mnt_Productos_GuiController">
+    <children>
+<BorderPane fx:id="Ap_Main" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
     <top>
         <HBox alignment="CENTER_LEFT" prefHeight="50.0" style="-fx-background-color: #5585b5;" spacing="10.0">
             <padding><Insets left="10.0" right="10.0"/></padding>
@@ -59,3 +61,5 @@
         </HBox>
     </bottom>
 </BorderPane>
+    </children>
+</AnchorPane>
