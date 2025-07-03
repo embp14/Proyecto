@@ -16,7 +16,11 @@ public class BaseFeedback {
     // Compatibilidad con llamadas existentes
     public void MostrarAlertas(String titulo, String mensaje){
         if(titulo.toLowerCase().startsWith("error")){
-            mostrar(Alert.AlertType.ERROR, "Error", "Ocurrió un problema. Por favor intente nuevamente.");
+            if(mensaje == null || mensaje.isEmpty()){
+                mostrar(Alert.AlertType.ERROR, "Error", "Ocurrió un problema. Por favor intente nuevamente.");
+            }else{
+                mostrar(Alert.AlertType.ERROR, "Error", mensaje);
+            }
         }else{
             mostrar(Alert.AlertType.INFORMATION, titulo, mensaje);
         }
