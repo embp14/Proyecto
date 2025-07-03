@@ -4,7 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.CuponesGui.Lst_Cupones_GuiController">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.CuponesGui.Lst_Cupones_GuiController">
+   <children>
+      <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
    <top>
       <VBox>
          <HBox alignment="CENTER" prefHeight="60.0">
@@ -71,4 +73,6 @@
          </HBox>
       </VBox>
    </bottom>
-</BorderPane>
+      </BorderPane>
+   </children>
+</AnchorPane>
