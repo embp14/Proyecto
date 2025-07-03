@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextFormatter;
 import javafx.stage.FileChooser;
 import java.io.File;
 import javafx.scene.image.Image;
@@ -46,12 +47,21 @@ public class Mnt_Usuarios_GuiController implements Initializable {
             CargarDatos();
             txt_id.setDisable(true);
         });
+        txt_nombre.setTextFormatter(new TextFormatter<>(change -> {
+            return change.getControlNewText().matches("[\\p{L} ]*") ? change : null;
+        }));
     }
 
     public void call_Grabar(){
         UsuarioDAO dao = new UsuarioDAO();
+        if(!nombreValido(txt_nombre.getText())){
+            fu.datosInvalidos("El campo 'Nombre' solo debe contener letras.");
+            txt_nombre.requestFocus();
+            return;
+        }
         if(!emailValido(txt_email.getText())){
-            fu.datosInvalidos("Ingrese un correo electr\u00f3nico v\u00e1lido.");
+            fu.datosInvalidos("El campo 'Email' no es v\u00e1lido.");
+            txt_email.requestFocus();
             return;
         }
         if(!actualizar){
@@ -143,5 +153,10 @@ public class Mnt_Usuarios_GuiController implements Initializable {
     private boolean emailValido(String email){
         if(email == null) return false;
         return email.matches("^[\\w.+\\-]+@([\\w-]+\\.)+[\\w-]{2,}$");
+    }
+
+    private boolean nombreValido(String nombre){
+        if(nombre == null) return false;
+        return nombre.matches("[\\p{L} ]+");
     }
 }

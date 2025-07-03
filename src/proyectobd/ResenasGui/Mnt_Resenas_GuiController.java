@@ -33,7 +33,7 @@ public class Mnt_Resenas_GuiController implements Initializable {
     @FXML private TextField txt_id;
     @FXML private ComboBox<ProductoDTO> cmb_producto;
     @FXML private ComboBox<UsuarioDTO> cmb_usuario;
-    @FXML private TextField txt_rating;
+    @FXML private ComboBox<Integer> cmb_rating;
     @FXML private TextField txt_comentario;
     @FXML private DatePicker dp_fecha;
 
@@ -48,12 +48,40 @@ public class Mnt_Resenas_GuiController implements Initializable {
 
     public void call_Grabar(){
         ResenaDAO dao = new ResenaDAO();
+
+        if(cmb_producto.getValue() == null){
+            fu.datosInvalidos("Seleccione un producto válido.");
+            cmb_producto.requestFocus();
+            return;
+        }
+        if(cmb_usuario.getValue() == null){
+            fu.datosInvalidos("Seleccione un usuario válido.");
+            cmb_usuario.requestFocus();
+            return;
+        }
+        Integer rating = cmb_rating.getValue();
+        if(rating == null){
+            fu.datosInvalidos("Seleccione un rating válido.");
+            cmb_rating.requestFocus();
+            return;
+        }
+        if(dp_fecha.getValue() == null){
+            fu.datosInvalidos("Seleccione una fecha válida.");
+            dp_fecha.requestFocus();
+            return;
+        }
+        if(dp_fecha.getValue().isBefore(java.time.LocalDate.now())){
+            fu.datosInvalidos("La fecha no puede ser anterior a hoy.");
+            dp_fecha.requestFocus();
+            return;
+        }
+
         if(!actualizar){
             try{
                 ResenaDTO dto = new ResenaDTO();
                 dto.setProductoId(cmb_producto.getValue().getId());
                 dto.setUsuarioId(cmb_usuario.getValue().getId());
-                dto.setRating(Integer.parseInt(txt_rating.getText()));
+                dto.setRating(rating);
                 dto.setComentario(txt_comentario.getText());
                 dto.setFecha(Timestamp.valueOf(dp_fecha.getValue().atStartOfDay()));
                 int id = dao.InsertarResena(dto);
@@ -69,7 +97,7 @@ public class Mnt_Resenas_GuiController implements Initializable {
             ResenaDTO dto = (ResenaDTO) stage.getUserData();
             dto.setProductoId(cmb_producto.getValue().getId());
             dto.setUsuarioId(cmb_usuario.getValue().getId());
-            dto.setRating(Integer.parseInt(txt_rating.getText()));
+            dto.setRating(rating);
             dto.setComentario(txt_comentario.getText());
             dto.setFecha(Timestamp.valueOf(dp_fecha.getValue().atStartOfDay()));
             try{
@@ -97,6 +125,10 @@ public class Mnt_Resenas_GuiController implements Initializable {
             UsuarioDAO udao = new UsuarioDAO();
             usuarios.addAll(udao.ListarUsuarios());
             cmb_usuario.setItems(usuarios);
+
+            ObservableList<Integer> ratings = FXCollections.observableArrayList();
+            for(int i=1;i<=5;i++) ratings.add(i);
+            cmb_rating.setItems(ratings);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
         }
@@ -114,11 +146,17 @@ public class Mnt_Resenas_GuiController implements Initializable {
             for(UsuarioDTO u : cmb_usuario.getItems()){
                 if(u.getId() == dto.getUsuarioId()){ cmb_usuario.setValue(u); break; }
             }
-            txt_rating.setText(Integer.toString(dto.getRating()));
+            if(!cmb_rating.getItems().contains(dto.getRating())){
+                cmb_rating.getItems().add(dto.getRating());
+            }
+            cmb_rating.setValue(dto.getRating());
             txt_comentario.setText(dto.getComentario());
             dp_fecha.setValue(dto.getFecha().toLocalDateTime().toLocalDate());
         }else{
             dp_fecha.setValue(java.time.LocalDate.now());
+            if(!cmb_rating.getItems().isEmpty()){
+                cmb_rating.getSelectionModel().selectFirst();
+            }
         }
     }
 }
