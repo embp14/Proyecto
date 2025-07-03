@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.CarritosGui.Lst_Carritos_GuiController">
    <children>
-      <Pane prefHeight="39.0" prefWidth="800.0" style="-fx-background-color: #5585b5;">
+      <Pane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" prefHeight="39.0" prefWidth="800.0" style="-fx-background-color: #5585b5;">
          <children>
             <Label layoutX="314.0" layoutY="3.0" text="Lista de Carritos" textFill="WHITE">
                <font>
@@ -15,9 +15,9 @@
             </Label>
          </children>
       </Pane>
-      <TitledPane layoutY="39.0" prefHeight="87.0" prefWidth="800.0" text="Filtros" animated="false">
+      <TitledPane layoutY="39.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="39.0" prefHeight="87.0" prefWidth="800.0" text="Filtros" animated="false">
         <content>
-          <AnchorPane prefHeight="180.0" prefWidth="200.0">
+          <AnchorPane prefHeight="180.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" prefWidth="200.0">
                <children>
                   <Label layoutX="29.0" layoutY="22.0" text="Buscar:" />
                   <TextField fx:id="txt_Buscar" layoutX="75.0" layoutY="18.0" prefHeight="25.0" prefWidth="624.0" />
@@ -25,11 +25,11 @@
             </AnchorPane>
         </content>
       </TitledPane>
-      <TitledPane layoutY="126.0" prefHeight="407.0" prefWidth="800.0" text="Registros" animated="false">
+      <TitledPane layoutY="126.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="126.0" AnchorPane.bottomAnchor="67.0" prefHeight="407.0" prefWidth="800.0" text="Registros" animated="false">
         <content>
-          <AnchorPane prefHeight="180.0" prefWidth="200.0">
+          <AnchorPane prefHeight="180.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="tbl_Lista" layoutX="14.0" layoutY="14.0" prefHeight="354.0" prefWidth="769.0">
+                  <TableView fx:id="tbl_Lista" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="col_id" prefWidth="75.0" text="ID" />
                       <TableColumn fx:id="col_usuario" prefWidth="75.0" text="Usuario" />
@@ -43,7 +43,7 @@
             </AnchorPane>
         </content>
       </TitledPane>
-      <TitledPane layoutY="533.0" prefHeight="67.0" prefWidth="800.0" text="Acciones" animated="false">
+      <TitledPane layoutY="533.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" prefHeight="67.0" prefWidth="800.0" text="Acciones" animated="false">
         <content>
           <AnchorPane prefHeight="27.0" prefWidth="479.0">
                <children>

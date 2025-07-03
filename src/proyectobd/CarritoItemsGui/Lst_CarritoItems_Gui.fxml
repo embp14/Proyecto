@@ -6,14 +6,14 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.CarritoItemsGui.Lst_CarritoItems_GuiController">
    <children>
-      <Pane prefHeight="39.0" prefWidth="800.0" style="-fx-background-color: #5585b5;">
+      <Pane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" prefHeight="39.0" prefWidth="800.0" style="-fx-background-color: #5585b5;">
          <children>
             <Label layoutX="300.0" layoutY="3.0" text="Items de Carrito" textFill="WHITE">
                <font><Font size="24.0" /></font>
             </Label>
          </children>
       </Pane>
-      <TitledPane layoutY="39.0" prefHeight="87.0" prefWidth="800.0" text="Filtros" animated="false">
+      <TitledPane layoutY="39.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="39.0" prefHeight="87.0" prefWidth="800.0" text="Filtros" animated="false">
         <content>
           <AnchorPane>
                <children>
@@ -23,11 +23,11 @@
             </AnchorPane>
         </content>
       </TitledPane>
-      <TitledPane layoutY="126.0" prefHeight="407.0" prefWidth="800.0" text="Registros" animated="false">
+      <TitledPane layoutY="126.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="126.0" AnchorPane.bottomAnchor="67.0" prefHeight="407.0" prefWidth="800.0" text="Registros" animated="false">
         <content>
           <AnchorPane>
                <children>
-                  <TableView fx:id="tbl_Lista" layoutX="14.0" layoutY="14.0" prefHeight="354.0" prefWidth="769.0">
+                  <TableView fx:id="tbl_Lista" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="col_id" prefWidth="50.0" text="ID" />
                       <TableColumn fx:id="col_carrito" prefWidth="75.0" text="Carrito" />
@@ -40,7 +40,7 @@
             </AnchorPane>
         </content>
       </TitledPane>
-      <TitledPane layoutY="533.0" prefHeight="67.0" prefWidth="800.0" text="Acciones" animated="false">
+      <TitledPane layoutY="533.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" prefHeight="67.0" prefWidth="800.0" text="Acciones" animated="false">
         <content>
           <AnchorPane>
                <children>
