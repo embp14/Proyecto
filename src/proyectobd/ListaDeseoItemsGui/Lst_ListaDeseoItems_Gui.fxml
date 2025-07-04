@@ -7,7 +7,7 @@
 
 <AnchorPane styleClass="main-pane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.ListaDeseoItemsGui.Lst_ListaDeseoItems_GuiController">
    <stylesheets>
-      <URL value="/proyectobd/styles/app.css" />
+      <URL value="@/proyectobd/styles/app.css" />
    </stylesheets>
    <children>
       <Pane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" prefHeight="39.0" prefWidth="800.0" styleClass="header-section">
