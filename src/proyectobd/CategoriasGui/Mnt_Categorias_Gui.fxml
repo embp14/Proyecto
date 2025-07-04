@@ -9,11 +9,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.CategoriasGui.Mnt_Categorias_GuiController">
+<AnchorPane styleClass="main-pane" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.CategoriasGui.Mnt_Categorias_GuiController">
+   <stylesheets>
+      <URL value="/proyectobd/styles/app.css" />
+   </stylesheets>
    <children>
-      <Pane prefHeight="39.0" prefWidth="400.0" style="-fx-background-color: #5585b5;">
+      <Pane prefHeight="39.0" prefWidth="400.0" styleClass="header-section">
          <children>
-            <Label layoutX="80.0" layoutY="3.0" text="Mantenimiento Categorías" textFill="WHITE">
+            <Label layoutX="80.0" layoutY="3.0" text="Mantenimiento Categorías" styleClass="header-title">
                <font>
                   <Font size="20.0" />
                </font>
