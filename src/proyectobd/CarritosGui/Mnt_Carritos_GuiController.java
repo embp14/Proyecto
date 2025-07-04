@@ -42,6 +42,7 @@ public class Mnt_Carritos_GuiController implements Initializable {
 
     public void call_Guardar(){
         CarritoDAO dao = new CarritoDAO();
+        if(!validarDatos()) return;
         if(!actualizar){
             try{
                 CarritoDTO dto = new CarritoDTO();
@@ -66,6 +67,20 @@ public class Mnt_Carritos_GuiController implements Initializable {
                 fu.MostrarAlertas("Error", ex.toString());
             }
         }
+    }
+
+    private boolean validarDatos(){
+        if(cmb_usuario.getValue() == null){
+            fu.datosInvalidos("Usuario: seleccione un valor v\u00e1lido.");
+            cmb_usuario.requestFocus();
+            return false;
+        }
+        if(dp_creado.getValue() == null){
+            fu.datosInvalidos("Fecha Creado: seleccione una fecha.");
+            dp_creado.requestFocus();
+            return false;
+        }
+        return true;
     }
 
     public void call_Borrar(){
