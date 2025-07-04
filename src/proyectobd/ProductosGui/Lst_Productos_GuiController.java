@@ -55,7 +55,7 @@ public class Lst_Productos_GuiController implements Initializable {
             col_activo.setCellValueFactory(new PropertyValueFactory<>("activo"));
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.MostrarAlertas("Error", "No se pudo cargar la lista de productos: " + ex.getMessage());
         }
     }
 
@@ -75,7 +75,7 @@ public class Lst_Productos_GuiController implements Initializable {
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.MostrarAlertas("Error", "No se pudo buscar productos: " + ex.getMessage());
         }
     }
 
@@ -88,7 +88,7 @@ public class Lst_Productos_GuiController implements Initializable {
             stage.showAndWait();
             call_CargarDatos();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.MostrarAlertas("Error", "No se pudo abrir el formulario de productos: " + ex.getMessage());
         }
     }
 
@@ -107,7 +107,7 @@ public class Lst_Productos_GuiController implements Initializable {
             stage.showAndWait();
             call_CargarDatos();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.MostrarAlertas("Error", "No se pudo abrir el formulario de productos: " + ex.getMessage());
         }
     }
 
@@ -122,7 +122,7 @@ public class Lst_Productos_GuiController implements Initializable {
             dao.EliminarProducto(dto.getId());
             call_CargarDatos();
         }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.MostrarAlertas("Error", "No se pudo borrar el producto: " + ex.getMessage());
         }
     }
 }

@@ -61,8 +61,14 @@ public class Lst_ImagenesProducto_GuiController implements Initializable {
         try{
             ImagenProductoDAO dao = new ImagenProductoDAO();
             int id = 0;
-            if(!txt_Buscar.getText().isEmpty()){
-                id = Integer.parseInt(txt_Buscar.getText());
+            String filtro = txt_Buscar.getText().trim();
+            if(!filtro.isEmpty()){
+                if(filtro.matches("\\d+")){
+                    id = Integer.parseInt(filtro);
+                }else{
+                    fu.datosInvalidos("Ingrese un ID num\u00e9rico");
+                    return;
+                }
             }
             ObservableList<ImagenProductoDTO> lista = dao.ListarImagenes(id);
             tbl_Lista.setItems(lista);

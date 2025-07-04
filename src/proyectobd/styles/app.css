@@ -1,5 +1,5 @@
 .header-pane {
-    -fx-background-color: linear-gradient(to right, #5585b5, #66a1d2);
+    -fx-background-color: linear-gradient(to right, #5a7390, #6a82a0);
     -fx-padding: 10 0 10 0;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .action-button {
-    -fx-background-color: #5585b5;
+    -fx-background-color: #5a7390;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 5;
@@ -31,7 +31,7 @@
 }
 
 .table-view .table-row-cell:filled:selected {
-    -fx-background-color: #66a1d2;
+    -fx-background-color: #6a82a0;
 }
 
 .titled-pane > .title {
@@ -47,7 +47,7 @@
 }
 
 .header-section {
-    -fx-background-color: linear-gradient(to bottom, #2c3e50, #34495e);
+    -fx-background-color: linear-gradient(to bottom, #5a7390, #6a82a0);
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);
 }
 

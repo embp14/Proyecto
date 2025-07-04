@@ -28,11 +28,13 @@ public class ProyectoBD extends Application {
     @Override
     public void start(Stage stageMenuPrincipal) throws Exception {
         //Cargamos la interface principal de nuestra aplicación:
-        Parent root=FXMLLoader.load(getClass().getResource("ParametrosGenerales/MenuPrincipal.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ParametrosGenerales/MenuPrincipal.fxml"));
         // Establecemos el título de la ventana
         stageMenuPrincipal.setTitle("Proyecto Programación con Bases de Datos");
         //Establecemos la escena que se mostrará en el escenario
-        stageMenuPrincipal.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("styles/app.css").toExternalForm());
+        stageMenuPrincipal.setScene(scene);
         //Mostramos el escenario
         stageMenuPrincipal.show();
        

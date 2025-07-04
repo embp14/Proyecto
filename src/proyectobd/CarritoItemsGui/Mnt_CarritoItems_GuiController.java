@@ -43,6 +43,7 @@ public class Mnt_CarritoItems_GuiController implements Initializable {
 
     public void call_Grabar(){
         CarritoItemDAO dao = new CarritoItemDAO();
+        if(!validarDatos()) return;
         if(!actualizar){
             try{
                 CarritoItemDTO dto = new CarritoItemDTO();
@@ -70,6 +71,32 @@ public class Mnt_CarritoItems_GuiController implements Initializable {
                 fu.MostrarAlertas("Error", ex.toString());
             }
         }
+    }
+
+    private boolean validarDatos(){
+        if(cmb_carrito.getValue()==null){
+            fu.datosInvalidos("Carrito: seleccione un valor v\u00e1lido.");
+            cmb_carrito.requestFocus();
+            return false;
+        }
+        if(cmb_variante.getValue()==null){
+            fu.datosInvalidos("Variante: seleccione un valor v\u00e1lido.");
+            cmb_variante.requestFocus();
+            return false;
+        }
+        try{
+            int cant = Integer.parseInt(txt_cantidad.getText());
+            if(cant <= 0){
+                fu.datosInvalidos("Cantidad: ingrese un n\u00famero positivo.");
+                txt_cantidad.requestFocus();
+                return false;
+            }
+        }catch(Exception ex){
+            fu.datosInvalidos("Cantidad: ingrese un n\u00famero v\u00e1lido.");
+            txt_cantidad.requestFocus();
+            return false;
+        }
+        return true;
     }
 
     public void call_CerrarVentana(){

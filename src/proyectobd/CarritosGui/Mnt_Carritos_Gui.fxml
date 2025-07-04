@@ -5,11 +5,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.CarritosGui.Mnt_Carritos_GuiController">
+<AnchorPane styleClass="main-pane" prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.CarritosGui.Mnt_Carritos_GuiController">
+   <stylesheets>
+      <URL value="/proyectobd/styles/app.css" />
+   </stylesheets>
    <children>
-      <Pane prefHeight="39.0" prefWidth="400.0" style="-fx-background-color: #5585b5;">
+      <Pane prefHeight="39.0" prefWidth="400.0" styleClass="header-section">
          <children>
-            <Label layoutX="124.0" layoutY="7.0" text="Carrito" textFill="WHITE">
+            <Label layoutX="124.0" layoutY="7.0" text="Carrito" styleClass="header-title">
                <font>
                   <Font size="18.0" />
                </font>

@@ -72,7 +72,7 @@ public class Mnt_Productos_GuiController implements Initializable {
                     btn_Grabar.setDisable(true);
                 }
             }catch(Exception ex){
-                fu.MostrarAlertas("Error", ex.toString());
+                fu.MostrarAlertas("Error", "No se pudo registrar el producto: " + ex.getMessage());
             }
         }else{
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
@@ -87,7 +87,7 @@ public class Mnt_Productos_GuiController implements Initializable {
                 guardarImagen(dto.getId());
                 btn_Grabar.setDisable(true);
             }catch(Exception ex){
-                fu.MostrarAlertas("Error", ex.toString());
+                fu.MostrarAlertas("Error", "No se pudo actualizar el producto: " + ex.getMessage());
             }
         }
     }
@@ -109,7 +109,7 @@ public class Mnt_Productos_GuiController implements Initializable {
             categorias.addAll(cdao.ListarCategorias());
             cmb_categoria.setItems(categorias);
         } catch (Exception ex) {
-            fu.MostrarAlertas("Error", ex.toString());
+            fu.MostrarAlertas("Error", "No se pudieron cargar los cat\u00e1logos: " + ex.getMessage());
         }
     }
 

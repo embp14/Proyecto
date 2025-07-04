@@ -43,6 +43,7 @@ public class Mnt_Direcciones_GuiController implements Initializable {
 
     public void call_Guardar(){
         DireccionDAO dao = new DireccionDAO();
+        if(!validarDatos()) return;
         if(!actualizar){
             try{
                 DireccionDTO dto = new DireccionDTO();
@@ -77,6 +78,40 @@ public class Mnt_Direcciones_GuiController implements Initializable {
                 fu.MostrarAlertas("Error", ex.toString());
             }
         }
+    }
+
+    private boolean validarDatos(){
+        if(cmb_usuario.getValue() == null){
+            fu.datosInvalidos("Usuario: seleccione un valor v\u00e1lido.");
+            cmb_usuario.requestFocus();
+            return false;
+        }
+        if(txt_alias.getText().trim().isEmpty()){
+            fu.datosInvalidos("Alias: ingrese un texto.");
+            txt_alias.requestFocus();
+            return false;
+        }
+        if(txt_direccion.getText().trim().isEmpty()){
+            fu.datosInvalidos("Direcci\u00f3n: ingrese un texto.");
+            txt_direccion.requestFocus();
+            return false;
+        }
+        if(txt_ciudad.getText().trim().isEmpty()){
+            fu.datosInvalidos("Ciudad: ingrese un texto.");
+            txt_ciudad.requestFocus();
+            return false;
+        }
+        if(txt_provincia.getText().trim().isEmpty()){
+            fu.datosInvalidos("Provincia: ingrese un texto.");
+            txt_provincia.requestFocus();
+            return false;
+        }
+        if(txt_postal.getText().trim().isEmpty()){
+            fu.datosInvalidos("C\u00f3digo Postal: ingrese un texto.");
+            txt_postal.requestFocus();
+            return false;
+        }
+        return true;
     }
 
     private void cargarDatos(){
