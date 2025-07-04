@@ -57,9 +57,17 @@ public class Lst_OrdenItems_GuiController implements Initializable {
     }
 
     public void call_Buscar(){
-        int id = 0;
-        try{ id = Integer.parseInt(txt_Buscar.getText()); }catch(Exception e){}
-        call_CargarDatos(id);
+        String filtro = txt_Buscar.getText().trim();
+        if(filtro.isEmpty()){
+            call_CargarDatos(0);
+            return;
+        }
+        if(filtro.matches("\\d+")){
+            int id = Integer.parseInt(filtro);
+            call_CargarDatos(id);
+        }else{
+            fu.datosInvalidos("Ingrese un ID num\u00e9rico");
+        }
     }
 
     public void call_NuevoRegistro(){

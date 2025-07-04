@@ -4,7 +4,9 @@ import dao.CuponDAO;
 import dto.CuponDTO;
 import java.net.URL;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.UUID;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -34,11 +36,13 @@ public class Mnt_Cupones_GuiController implements Initializable {
         Platform.runLater(() -> {
             cargarDatos();
             txt_id.setDisable(true);
+            txt_codigo.setDisable(true);
         });
     }
 
     public void call_Grabar(){
         CuponDAO dao = new CuponDAO();
+        if(!validarDatos()) return;
         if(!actualizar){
             try{
                 CuponDTO dto = new CuponDTO();
@@ -86,7 +90,52 @@ public class Mnt_Cupones_GuiController implements Initializable {
             dp_expira.setValue(dto.getFechaExpiracion().toLocalDateTime().toLocalDate());
             txt_uso.setText(Integer.toString(dto.getUsoMaximo()));
         }else{
-            dp_expira.setValue(java.time.LocalDate.now());
+            dp_expira.setValue(LocalDate.now());
+            txt_codigo.setText(generarCodigo());
         }
+    }
+
+    private String generarCodigo(){
+        return "CPN-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+    }
+
+    private boolean validarDatos(){
+        int descuento;
+        int uso;
+        if(dp_expira.getValue() == null){
+            fu.datosInvalidos("Fecha Expiración: seleccione una fecha válida.");
+            dp_expira.requestFocus();
+            return false;
+        }
+        if(dp_expira.getValue().isBefore(LocalDate.now())){
+            fu.datosInvalidos("Fecha Expiración: no puede ser anterior a la fecha actual.");
+            dp_expira.requestFocus();
+            return false;
+        }
+        try{
+            descuento = Integer.parseInt(txt_descuento.getText());
+            if(descuento < 0 || descuento > 100){
+                fu.datosInvalidos("Descuento %: debe ser un número entre 0 y 100.");
+                txt_descuento.requestFocus();
+                return false;
+            }
+        }catch(Exception ex){
+            fu.datosInvalidos("Descuento %: ingrese un número válido.");
+            txt_descuento.requestFocus();
+            return false;
+        }
+        try{
+            uso = Integer.parseInt(txt_uso.getText());
+            if(uso < 0){
+                fu.datosInvalidos("Uso Máximo: no puede ser negativo.");
+                txt_uso.requestFocus();
+                return false;
+            }
+        }catch(Exception ex){
+            fu.datosInvalidos("Uso Máximo: ingrese un número válido.");
+            txt_uso.requestFocus();
+            return false;
+        }
+        return true;
     }
 }

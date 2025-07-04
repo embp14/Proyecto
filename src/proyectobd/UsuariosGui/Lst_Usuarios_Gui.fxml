@@ -10,11 +10,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.UsuariosGui.Lst_Usuarios_GuiController">
+<AnchorPane styleClass="main-pane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.UsuariosGui.Lst_Usuarios_GuiController">
+   <stylesheets>
+      <URL value="/proyectobd/styles/app.css" />
+   </stylesheets>
    <children>
-      <Pane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" prefHeight="39.0" prefWidth="800.0" style="-fx-background-color: #1e90ff;">
+      <Pane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" prefHeight="39.0" prefWidth="800.0" styleClass="header-section">
          <children>
-            <Label layoutX="330.0" layoutY="3.0" text="Lista de Usuarios" textFill="WHITE">
+            <Label layoutX="330.0" layoutY="3.0" text="Lista de Usuarios" styleClass="header-title">
                <font>
                   <Font name="Arial Black" size="24.0" />
                </font>

@@ -4,6 +4,7 @@ import dao.OrdenDAO;
 import dao.UsuarioDAO;
 import dto.OrdenDTO;
 import dto.UsuarioDTO;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
@@ -30,7 +31,7 @@ public class Mnt_Ordenes_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
     @FXML private ComboBox<UsuarioDTO> cmb_usuario;
-    @FXML private TextField txt_estado;
+    @FXML private ComboBox<String> cmb_estado;
     @FXML private TextField txt_totalbruto;
     @FXML private TextField txt_totaldescuento;
     @FXML private DatePicker dp_fecha;
@@ -46,13 +47,50 @@ public class Mnt_Ordenes_GuiController implements Initializable {
 
     public void call_Grabar(){
         OrdenDAO dao = new OrdenDAO();
+        if(cmb_usuario.getValue() == null){
+            fu.datosInvalidos("Seleccione un usuario válido.");
+            cmb_usuario.requestFocus();
+            return;
+        }
+        if(cmb_estado.getValue() == null){
+            fu.datosInvalidos("Seleccione un estado válido.");
+            cmb_estado.requestFocus();
+            return;
+        }
+        BigDecimal totalBruto;
+        BigDecimal totalDescuento;
+        try{
+            totalBruto = parseDecimal(txt_totalbruto.getText());
+            if(totalBruto.compareTo(BigDecimal.ZERO) < 0){
+                fu.datosInvalidos("El campo 'Total Bruto' no puede ser negativo.");
+                txt_totalbruto.requestFocus();
+                return;
+            }
+        }catch(Exception ex){
+            fu.datosInvalidos("El campo 'Total Bruto' es inválido.");
+            txt_totalbruto.requestFocus();
+            return;
+        }
+        try{
+            totalDescuento = parseDecimal(txt_totaldescuento.getText());
+            if(totalDescuento.compareTo(BigDecimal.ZERO) < 0 ||
+               totalDescuento.compareTo(new BigDecimal("100")) > 0){
+                fu.datosInvalidos("El campo 'Total Descuento' debe estar entre 0 y 100.");
+                txt_totaldescuento.requestFocus();
+                return;
+            }
+        }catch(Exception ex){
+            fu.datosInvalidos("El campo 'Total Descuento' es inválido.");
+            txt_totaldescuento.requestFocus();
+            return;
+        }
         if(!actualizar){
             try{
                 OrdenDTO dto = new OrdenDTO();
                 dto.setUsuarioId(cmb_usuario.getValue().getId());
-                dto.setEstado(txt_estado.getText());
-                dto.setTotalBruto(new java.math.BigDecimal(txt_totalbruto.getText()));
-                dto.setTotalDescuento(new java.math.BigDecimal(txt_totaldescuento.getText()));
+                dto.setEstado(cmb_estado.getValue());
+                dto.setTotalBruto(totalBruto);
+                dto.setTotalDescuento(totalDescuento);
                 dto.setFechaCreacion(Timestamp.valueOf(dp_fecha.getValue().atStartOfDay()));
                 int id = dao.InsertarOrden(dto);
                 if(id>0){
@@ -66,9 +104,9 @@ public class Mnt_Ordenes_GuiController implements Initializable {
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             OrdenDTO dto = (OrdenDTO) stage.getUserData();
             dto.setUsuarioId(cmb_usuario.getValue().getId());
-            dto.setEstado(txt_estado.getText());
-            dto.setTotalBruto(new java.math.BigDecimal(txt_totalbruto.getText()));
-            dto.setTotalDescuento(new java.math.BigDecimal(txt_totaldescuento.getText()));
+            dto.setEstado(cmb_estado.getValue());
+            dto.setTotalBruto(totalBruto);
+            dto.setTotalDescuento(totalDescuento);
             dto.setFechaCreacion(Timestamp.valueOf(dp_fecha.getValue().atStartOfDay()));
             try{
                 dao.ActualizarOrden(dto);
@@ -90,6 +128,15 @@ public class Mnt_Ordenes_GuiController implements Initializable {
             UsuarioDAO udao = new UsuarioDAO();
             usuarios.addAll(udao.ListarUsuarios());
             cmb_usuario.setItems(usuarios);
+
+            ObservableList<String> estados = FXCollections.observableArrayList(
+                "Pendiente",
+                "Procesada",
+                "Enviada",
+                "Entregada",
+                "Cancelada"
+            );
+            cmb_estado.setItems(estados);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
         }
@@ -104,12 +151,23 @@ public class Mnt_Ordenes_GuiController implements Initializable {
             for(UsuarioDTO u : cmb_usuario.getItems()){
                 if(u.getId() == dto.getUsuarioId()){ cmb_usuario.setValue(u); break; }
             }
-            txt_estado.setText(dto.getEstado());
+            if(!cmb_estado.getItems().contains(dto.getEstado())){
+                cmb_estado.getItems().add(dto.getEstado());
+            }
+            cmb_estado.setValue(dto.getEstado());
             txt_totalbruto.setText(dto.getTotalBruto().toString());
             txt_totaldescuento.setText(dto.getTotalDescuento().toString());
             dp_fecha.setValue(dto.getFechaCreacion().toLocalDateTime().toLocalDate());
         }else{
             dp_fecha.setValue(java.time.LocalDate.now());
+            if(!cmb_estado.getItems().isEmpty()){
+                cmb_estado.getSelectionModel().selectFirst();
+            }
         }
+    }
+
+    private BigDecimal parseDecimal(String text) throws NumberFormatException {
+        if(text == null) throw new NumberFormatException();
+        return new BigDecimal(text.replace(',', '.'));
     }
 }

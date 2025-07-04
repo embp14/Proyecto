@@ -10,11 +10,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.OrdenesGui.Lst_Ordenes_GuiController">
+<AnchorPane styleClass="main-pane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.OrdenesGui.Lst_Ordenes_GuiController">
+   <stylesheets>
+      <URL value="/proyectobd/styles/app.css" />
+   </stylesheets>
    <children>
-      <Pane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" prefHeight="39.0" prefWidth="800.0" style="-fx-background-color: #2ecc71;">
+      <Pane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" prefHeight="39.0" prefWidth="800.0" styleClass="header-section">
          <children>
-            <Label layoutX="328.0" layoutY="3.0" text="Lista de Ordenes" textFill="WHITE">
+            <Label layoutX="328.0" layoutY="3.0" text="Lista de Ordenes" styleClass="header-title">
                <font>
                   <Font name="Courier New" size="24.0" />
                </font>

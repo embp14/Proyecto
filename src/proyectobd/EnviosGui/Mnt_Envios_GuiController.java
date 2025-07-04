@@ -49,6 +49,7 @@ public class Mnt_Envios_GuiController implements Initializable {
 
     public void call_Grabar(){
         EnvioDAO dao = new EnvioDAO();
+        if(!validarDatos()) return;
         if(!actualizar){
             try{
                 EnvioDTO dto = new EnvioDTO();
@@ -84,6 +85,35 @@ public class Mnt_Envios_GuiController implements Initializable {
                 fu.MostrarAlertas("Error", ex.toString());
             }
         }
+    }
+
+    private boolean validarDatos(){
+        if(cmb_orden.getValue() == null){
+            fu.datosInvalidos("Orden: seleccione un valor v\u00e1lido.");
+            cmb_orden.requestFocus();
+            return false;
+        }
+        if(cmb_direccion.getValue() == null){
+            fu.datosInvalidos("Direcci\u00f3n: seleccione un valor v\u00e1lido.");
+            cmb_direccion.requestFocus();
+            return false;
+        }
+        if(dp_envio.getValue() == null){
+            fu.datosInvalidos("Fecha Envio: seleccione una fecha.");
+            dp_envio.requestFocus();
+            return false;
+        }
+        if(dp_estimada.getValue() == null){
+            fu.datosInvalidos("Fecha Estimada: seleccione una fecha.");
+            dp_estimada.requestFocus();
+            return false;
+        }
+        if(dp_entrega.getValue() == null){
+            fu.datosInvalidos("Fecha Entrega: seleccione una fecha.");
+            dp_entrega.requestFocus();
+            return false;
+        }
+        return true;
     }
 
     public void call_CerrarVentana(){
