@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import java.net.URL?>
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.DatePicker?>
@@ -7,7 +8,7 @@
 
 <AnchorPane styleClass="main-pane" prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.ListasDeseosGui.Mnt_ListasDeseos_GuiController">
    <stylesheets>
-      <URL value="/proyectobd/styles/app.css" />
+      <URL value="@/proyectobd/styles/app.css" />
    </stylesheets>
    <children>
       <Pane prefHeight="39.0" prefWidth="400.0" styleClass="header-section">

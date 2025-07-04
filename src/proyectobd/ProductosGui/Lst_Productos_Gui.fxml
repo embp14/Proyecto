@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import java.net.URL?>
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
 
 <AnchorPane styleClass="main-pane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.ProductosGui.Lst_Productos_GuiController">
    <stylesheets>
-      <URL value="/proyectobd/styles/app.css" />
+      <URL value="@/proyectobd/styles/app.css" />
    </stylesheets>
    <children>
       <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
