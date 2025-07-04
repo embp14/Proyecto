@@ -127,8 +127,4 @@ public class Lst_Resenas_GuiController implements Initializable {
         }
     }
 
-    public void call_Limpiar(){
-        txt_Buscar.clear();
-        call_Buscar();
-    }
 }

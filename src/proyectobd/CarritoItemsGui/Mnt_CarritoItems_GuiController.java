@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackCarritoItem;
 
@@ -25,7 +25,7 @@ public class Mnt_CarritoItems_GuiController implements Initializable {
     FeedbackCarritoItem fu = new FeedbackCarritoItem();
     private boolean actualizar = false;
 
-    @FXML private AnchorPane Ap_Main;
+    @FXML private BorderPane Ap_Main;
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;

@@ -13,15 +13,16 @@
       <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
    <top>
       <VBox>
-         <HBox alignment="CENTER" prefHeight="60.0" styleClass="header-section">
-            <padding>
-               <Insets left="10.0" right="10.0" />
-            </padding>
-            <Label text="Panel de Gestión de Ofertas Promocionales" styleClass="header-title">
-               <font>
-                  <Font size="24.0" />
-               </font>
+         <HBox alignment="CENTER_LEFT" prefHeight="50.0" styleClass="header-section" spacing="10.0">
+            <padding><Insets left="10.0" right="10.0"/></padding>
+            <Label text="Lista de Ofertas" styleClass="header-title">
+               <font><Font size="24.0"/></font>
             </Label>
+         </HBox>
+         <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <padding><Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/></padding>
+            <Label text="Variante ID:"/>
+            <TextField fx:id="txt_Buscar" HBox.hgrow="ALWAYS" />
          </HBox>
          <Separator />
       </VBox>
@@ -33,26 +34,7 @@
             <Insets bottom="10.0" left="15.0" right="15.0" top="10.0"/>
          </padding>
 
-         <VBox>
-            <Label text="Filtros de Búsqueda">
-            </Label>
-            <HBox alignment="CENTER_LEFT" spacing="15.0">
-               <padding>
-                  <Insets bottom="15.0" left="10.0" right="10.0" top="15.0"/>
-               </padding>
-               <Label text="Variante ID:">
-               </Label>
-               <TextField fx:id="txt_Buscar" prefWidth="300.0" promptText="Buscar..."/>
-               <Button text="Buscar" onAction="#call_Buscar"/>
-               <Button fx:id="btn_Limpiar" onAction="#call_Limpiar" text="Limpiar"/>
-            </HBox>
-         </VBox>
-
          <VBox VBox.vgrow="ALWAYS">
-            <HBox alignment="CENTER_LEFT" spacing="10.0">
-               <Label text="Lista de Ofertas">
-               </Label>
-            </HBox>
             <TableView fx:id="tbl_Lista" VBox.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="col_id" prefWidth="50.0" text="ID"/>
