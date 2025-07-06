@@ -16,7 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.DatePicker;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackCarrito;
 
@@ -25,7 +25,7 @@ public class Mnt_Carritos_GuiController implements Initializable {
     FeedbackCarrito fu = new FeedbackCarrito();
     private boolean actualizar = false;
 
-    @FXML private AnchorPane Ap_Main;
+    @FXML private BorderPane Ap_Main;
     @FXML private Button btn_Guardar;
     @FXML private Button btn_Borrar;
     @FXML private Button btn_Cerrar;
