@@ -25,7 +25,7 @@ public class Mnt_Pagos_GuiController implements Initializable {
     FeedbackPago fu = new FeedbackPago();
     private boolean actualizar = false;
 
-    @FXML private AnchorPane Ap_Main;
+    @FXML private BorderPane Ap_Main;
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;

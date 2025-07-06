@@ -18,7 +18,7 @@ public class Mnt_Roles_GuiController implements Initializable {
     FeedbackRol fu = new FeedbackRol();
     private boolean actualizar = false;
 
-    @FXML private AnchorPane Ap_Main;
+    @FXML private BorderPane Ap_Main;
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Borrar;
     @FXML private Button btn_Cerrar;

@@ -27,7 +27,7 @@ public class Mnt_Envios_GuiController implements Initializable {
     FeedbackEnvio fu = new FeedbackEnvio();
     private boolean actualizar = false;
 
-    @FXML private AnchorPane Ap_Main;
+    @FXML private BorderPane Ap_Main;
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;

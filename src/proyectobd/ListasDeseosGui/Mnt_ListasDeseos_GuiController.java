@@ -25,7 +25,7 @@ public class Mnt_ListasDeseos_GuiController implements Initializable {
     FeedbackListaDeseo fu = new FeedbackListaDeseo();
     private boolean actualizar = false;
 
-    @FXML private AnchorPane Ap_Main;
+    @FXML private BorderPane Ap_Main;
     @FXML private Button btn_Guardar;
     @FXML private ComboBox<UsuarioDTO> cmb_usuario;
     @FXML private TextField txt_nombre;

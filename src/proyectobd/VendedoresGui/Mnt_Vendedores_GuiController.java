@@ -23,7 +23,7 @@ public class Mnt_Vendedores_GuiController implements Initializable {
     FeedbackVendedor fu = new FeedbackVendedor();
     private boolean actualizar = false;
 
-    @FXML private AnchorPane Ap_Main;
+    @FXML private BorderPane Ap_Main;
     @FXML private Button btn_Grabar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
