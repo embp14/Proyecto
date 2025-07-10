@@ -17,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackListaDeseo;
 
@@ -25,7 +26,7 @@ public class Mnt_ListasDeseos_GuiController implements Initializable {
     FeedbackListaDeseo fu = new FeedbackListaDeseo();
     private boolean actualizar = false;
 
-    @FXML private AnchorPane Ap_Main;
+    @FXML private BorderPane Ap_Main;
     @FXML private Button btn_Guardar;
     @FXML private ComboBox<UsuarioDTO> cmb_usuario;
     @FXML private TextField txt_nombre;
