@@ -34,7 +34,7 @@
                   <Label text="URL:" GridPane.rowIndex="2" />
                   <TextField fx:id="txt_url" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label text="Principal:" GridPane.rowIndex="3" />
-                  <TextField fx:id="txt_principal" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <CheckBox fx:id="chk_principal" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
             </GridPane>
          </center>

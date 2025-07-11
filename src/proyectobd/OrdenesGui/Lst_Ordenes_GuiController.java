@@ -15,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackOrden;
 
@@ -49,11 +50,16 @@ public class Lst_Ordenes_GuiController implements Initializable {
             OrdenDAO dao = new OrdenDAO();
             ObservableList<OrdenDTO> lista = dao.ListarOrdenes();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_usuario.setCellValueFactory(new PropertyValueFactory<>("usuarioNombre"));
+            col_usuario.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getUsuarioId() + ")"));
             col_estado.setCellValueFactory(new PropertyValueFactory<>("estado"));
             col_total.setCellValueFactory(new PropertyValueFactory<>("totalBruto"));
             col_fecha.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
             tbl_Lista.setItems(lista);
+            col_usuario.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getUsuarioId() + ")"));
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
         }

@@ -16,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import java.sql.Timestamp;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackEnvio;
 
@@ -56,14 +57,24 @@ public class Lst_Envios_GuiController implements Initializable {
                 lista.removeIf(e -> e.getOrdenId() != ordenId);
             }
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_orden.setCellValueFactory(new PropertyValueFactory<>("usuarioNombre"));
-            col_direccion.setCellValueFactory(new PropertyValueFactory<>("direccionNombre"));
+            col_orden.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getOrdenId() + ")"));
+            col_direccion.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getDireccionNombre() + " (" + data.getValue().getDireccionId() + ")"));
             col_empresa.setCellValueFactory(new PropertyValueFactory<>("empresaEnvio"));
             col_tracking.setCellValueFactory(new PropertyValueFactory<>("codigoTracking"));
             col_envio.setCellValueFactory(new PropertyValueFactory<>("fechaEnvio"));
             col_estimada.setCellValueFactory(new PropertyValueFactory<>("fechaEntregaEstimada"));
             col_entrega.setCellValueFactory(new PropertyValueFactory<>("fechaEntregaReal"));
             tbl_Lista.setItems(lista);
+            col_orden.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getOrdenId() + ")"));
+            col_direccion.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getDireccionNombre() + " (" + data.getValue().getDireccionId() + ")"));
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
         }

@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.CheckBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.AnchorPane;
@@ -30,13 +31,18 @@ public class Mnt_ImagenesProducto_GuiController implements Initializable {
     @FXML private TextField txt_id;
     @FXML private ComboBox<ProductoDTO> cmb_producto;
     @FXML private TextField txt_url;
-    @FXML private TextField txt_principal;
+    @FXML private CheckBox chk_principal;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             cargarCombos();
             cargarDatos();
+            cmb_producto.valueProperty().addListener((o,oldV,newV)->{
+                if(!actualizar && newV!=null){
+                    chk_principal.setSelected(!existePrincipal(newV.getId()));
+                }
+            });
         });
     }
 
@@ -47,7 +53,12 @@ public class Mnt_ImagenesProducto_GuiController implements Initializable {
                 ImagenProductoDTO dto = new ImagenProductoDTO();
                 dto.setProductoId(cmb_producto.getValue().getId());
                 dto.setUrl(txt_url.getText());
-                dto.setEsPrincipal(Boolean.parseBoolean(txt_principal.getText()));
+                boolean principal = chk_principal.isSelected();
+                if(!existePrincipal(cmb_producto.getValue().getId())){
+                    principal = true;
+                    chk_principal.setSelected(true);
+                }
+                dto.setEsPrincipal(principal);
                 int id = dao.InsertarImagen(dto);
                 if(id>0){
                     txt_id.setText(Integer.toString(id));
@@ -61,7 +72,7 @@ public class Mnt_ImagenesProducto_GuiController implements Initializable {
             ImagenProductoDTO dto = (ImagenProductoDTO) stage.getUserData();
             dto.setProductoId(cmb_producto.getValue().getId());
             dto.setUrl(txt_url.getText());
-            dto.setEsPrincipal(Boolean.parseBoolean(txt_principal.getText()));
+            dto.setEsPrincipal(chk_principal.isSelected());
             try{
                 dao.ActualizarImagen(dto);
                 btn_Grabar.setDisable(true);
@@ -97,7 +108,15 @@ public class Mnt_ImagenesProducto_GuiController implements Initializable {
                 if(p.getId() == dto.getProductoId()){ cmb_producto.setValue(p); break; }
             }
             txt_url.setText(dto.getUrl());
-            txt_principal.setText(Boolean.toString(dto.isEsPrincipal()));
+            chk_principal.setSelected(dto.isEsPrincipal());
         }
+    }
+
+    private boolean existePrincipal(int productoId){
+        ImagenProductoDAO dao = new ImagenProductoDAO();
+        for(ImagenProductoDTO img : dao.ListarImagenes(productoId)){
+            if(img.isEsPrincipal()) return true;
+        }
+        return false;
     }
 }

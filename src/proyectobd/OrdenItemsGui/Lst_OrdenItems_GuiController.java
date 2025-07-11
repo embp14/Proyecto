@@ -15,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackOrdenItem;
 
@@ -48,7 +49,10 @@ public class Lst_OrdenItems_GuiController implements Initializable {
             ObservableList<OrdenItemDTO> lista = dao.ListarItems(idCarrito);
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             col_orden.setCellValueFactory(new PropertyValueFactory<>("ordenId"));
-            col_variante.setCellValueFactory(new PropertyValueFactory<>("varianteSku"));
+            col_variante.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getVarianteSku() + " - " + data.getValue().getProductoNombre() +
+                        " (" + data.getValue().getVarianteId() + ")"));
             col_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

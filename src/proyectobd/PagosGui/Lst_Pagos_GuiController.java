@@ -15,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackPago;
 
@@ -48,11 +49,16 @@ public class Lst_Pagos_GuiController implements Initializable {
             PagoDAO dao = new PagoDAO();
             ObservableList<PagoDTO> lista = dao.ListarPagos();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_orden.setCellValueFactory(new PropertyValueFactory<>("usuarioNombre"));
+            col_orden.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getOrdenId() + ")"));
             col_metodo.setCellValueFactory(new PropertyValueFactory<>("metodoPago"));
             col_monto.setCellValueFactory(new PropertyValueFactory<>("monto"));
             col_fecha.setCellValueFactory(new PropertyValueFactory<>("fechaPago"));
             tbl_Lista.setItems(lista);
+            col_orden.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getOrdenId() + ")"));
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
         }
