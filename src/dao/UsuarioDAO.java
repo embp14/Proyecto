@@ -133,6 +133,36 @@ public class UsuarioDAO {
         }
     }
 
+    // Obtiene un usuario por su ID
+    public UsuarioDTO ObtenerUsuarioPorId(int id){
+        ConectorBD ConnBD = new ConectorBD();
+        String sql = "SELECT u.id, u.rol_id, r.nombre AS rol_nombre, u.nombre, u.email, " +
+                     "u.contrase\u00f1a, u.imagen_perfil, u.creado_en " +
+                     "FROM usuarios u JOIN roles r ON u.rol_id=r.id WHERE u.id=?";
+        try{
+            PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            UsuarioDTO dto = null;
+            if(rs.next()){
+                dto = new UsuarioDTO();
+                dto.setId(rs.getInt("id"));
+                dto.setRolId(rs.getInt("rol_id"));
+                dto.setRolNombre(rs.getString("rol_nombre"));
+                dto.setNombre(rs.getString("nombre"));
+                dto.setEmail(rs.getString("email"));
+                dto.setContrasena(rs.getString("contrase\u00f1a"));
+                dto.setImagenPerfil(rs.getString("imagen_perfil"));
+                dto.setCreadoEn(rs.getTimestamp("creado_en"));
+            }
+            ConnBD.CerrarConexionBD();
+            return dto;
+        }catch(Exception ex){
+            fu.errorSQL(ex, "obtener usuario");
+            return null;
+        }
+    }
+
     public int EliminarUsuario(int id){
         try{
             String sql = "DELETE FROM usuarios WHERE id=?";

@@ -4,6 +4,7 @@ public class VarianteProductoDTO {
     private int id;
     private int productoId;
     private String sku;
+    private String productoNombre;
     private double precio;
     private int stock;
 
@@ -16,6 +17,9 @@ public class VarianteProductoDTO {
     public String getSku() { return sku; }
     public void setSku(String sku) { this.sku = sku; }
 
+    public String getProductoNombre() { return productoNombre; }
+    public void setProductoNombre(String productoNombre) { this.productoNombre = productoNombre; }
+
     public double getPrecio() { return precio; }
     public void setPrecio(double precio) { this.precio = precio; }
 
@@ -23,5 +27,5 @@ public class VarianteProductoDTO {
     public void setStock(int stock) { this.stock = stock; }
 
     @Override
-    public String toString() { return sku; }
+    public String toString() { return sku + " - " + (productoNombre != null ? productoNombre : ""); }
 }

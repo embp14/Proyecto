@@ -76,6 +76,11 @@ public class Mnt_Resenas_GuiController implements Initializable {
             dp_fecha.requestFocus();
             return;
         }
+        if(contieneOfensivo(txt_comentario.getText())){
+            fu.datosInvalidos("Comentario contiene lenguaje ofensivo");
+            txt_comentario.requestFocus();
+            return;
+        }
 
         if(!actualizar){
             try{
@@ -159,5 +164,15 @@ public class Mnt_Resenas_GuiController implements Initializable {
                 cmb_rating.getSelectionModel().selectFirst();
             }
         }
+    }
+
+    private boolean contieneOfensivo(String comentario){
+        if(comentario == null) return false;
+        String lower = comentario.toLowerCase();
+        String[] malas = {"tonto","idiota","malo"};
+        for(String m: malas){
+            if(lower.contains(m)) return true;
+        }
+        return false;
     }
 }

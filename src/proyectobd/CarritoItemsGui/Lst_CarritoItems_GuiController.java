@@ -27,7 +27,7 @@ public class Lst_CarritoItems_GuiController implements Initializable {
     @FXML private TableView<CarritoItemDTO> tbl_Lista;
     @FXML private TableColumn<CarritoItemDTO, Integer> col_id;
     @FXML private TableColumn<CarritoItemDTO, Integer> col_carrito;
-    @FXML private TableColumn<CarritoItemDTO, Integer> col_variante;
+    @FXML private TableColumn<CarritoItemDTO, String> col_variante;
     @FXML private TableColumn<CarritoItemDTO, Integer> col_cantidad;
 
     FeedbackCarritoItem fu = new FeedbackCarritoItem();
@@ -48,9 +48,16 @@ public class Lst_CarritoItems_GuiController implements Initializable {
             ObservableList<CarritoItemDTO> lista = dao.ListarItems(idCarrito);
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             col_carrito.setCellValueFactory(new PropertyValueFactory<>("carritoId"));
-            col_variante.setCellValueFactory(new PropertyValueFactory<>("varianteId"));
+            col_variante.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getVarianteSku() + " - " + data.getValue().getProductoNombre() +
+                        " (" + data.getValue().getVarianteId() + ")"));
             col_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
             tbl_Lista.setItems(lista);
+            col_variante.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getVarianteSku() + " - " + data.getValue().getProductoNombre() +
+                        " (" + data.getValue().getVarianteId() + ")"));
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
         }

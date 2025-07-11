@@ -46,7 +46,15 @@ public class ListaDeseoItemDAO {
     public ObservableList<ListaDeseoItemDTO> ListarItems(int listaId){
         ObservableList<ListaDeseoItemDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, lista_deseos_id, variante_id, cantidad FROM lista_deseos_items WHERE lista_deseos_id="+listaId+" ORDER BY id";
+        String sql = "SELECT li.id, li.lista_deseos_id, li.variante_id, v.sku AS variante_sku, " +
+                     "p.titulo AS producto_nombre, li.cantidad " +
+                     "FROM lista_deseos_items li " +
+                     "JOIN variantes_producto v ON li.variante_id=v.id " +
+                     "JOIN productos p ON v.producto_id=p.id ";
+        if(listaId>0){
+            sql += "WHERE li.lista_deseos_id="+listaId+" ";
+        }
+        sql += "ORDER BY li.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -55,6 +63,8 @@ public class ListaDeseoItemDAO {
                 dto.setId(rs.getInt("id"));
                 dto.setListaDeseosId(rs.getInt("lista_deseos_id"));
                 dto.setVarianteId(rs.getInt("variante_id"));
+                dto.setVarianteSku(rs.getString("variante_sku"));
+                dto.setProductoNombre(rs.getString("producto_nombre"));
                 dto.setCantidad(rs.getInt("cantidad"));
                 lista.add(dto);
             }

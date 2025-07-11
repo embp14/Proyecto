@@ -3,6 +3,7 @@ package dto;
 public class DireccionDTO {
     private int id;
     private int usuarioId;
+    private String usuarioNombre;
     private String alias;
     private String direccion;
     private String ciudad;
@@ -15,6 +16,9 @@ public class DireccionDTO {
 
     public int getUsuarioId() { return usuarioId; }
     public void setUsuarioId(int usuarioId) { this.usuarioId = usuarioId; }
+
+    public String getUsuarioNombre() { return usuarioNombre; }
+    public void setUsuarioNombre(String usuarioNombre) { this.usuarioNombre = usuarioNombre; }
 
     public String getAlias() { return alias; }
     public void setAlias(String alias) { this.alias = alias; }

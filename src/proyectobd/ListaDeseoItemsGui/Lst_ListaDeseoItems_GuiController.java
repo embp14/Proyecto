@@ -27,7 +27,7 @@ public class Lst_ListaDeseoItems_GuiController implements Initializable {
     @FXML private TableView<ListaDeseoItemDTO> tbl_Lista;
     @FXML private TableColumn<ListaDeseoItemDTO, Integer> col_id;
     @FXML private TableColumn<ListaDeseoItemDTO, Integer> col_lista;
-    @FXML private TableColumn<ListaDeseoItemDTO, Integer> col_variante;
+    @FXML private TableColumn<ListaDeseoItemDTO, String> col_variante;
     @FXML private TableColumn<ListaDeseoItemDTO, Integer> col_cantidad;
 
     FeedbackListaDeseoItem fu = new FeedbackListaDeseoItem();
@@ -48,9 +48,16 @@ public class Lst_ListaDeseoItems_GuiController implements Initializable {
             ObservableList<ListaDeseoItemDTO> lista = dao.ListarItems(idLista);
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             col_lista.setCellValueFactory(new PropertyValueFactory<>("listaDeseosId"));
-            col_variante.setCellValueFactory(new PropertyValueFactory<>("varianteId"));
+            col_variante.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getVarianteSku() + " - " + data.getValue().getProductoNombre() +
+                        " (" + data.getValue().getVarianteId() + ")"));
             col_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
             tbl_Lista.setItems(lista);
+            col_variante.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getVarianteSku() + " - " + data.getValue().getProductoNombre() +
+                        " (" + data.getValue().getVarianteId() + ")"));
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
         }

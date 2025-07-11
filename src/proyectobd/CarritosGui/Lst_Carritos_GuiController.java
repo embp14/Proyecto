@@ -26,7 +26,7 @@ public class Lst_Carritos_GuiController implements Initializable {
     @FXML private TextField txt_Buscar;
     @FXML private TableView<CarritoDTO> tbl_Lista;
     @FXML private TableColumn<CarritoDTO, Integer> col_id;
-    @FXML private TableColumn<CarritoDTO, Integer> col_usuario;
+    @FXML private TableColumn<CarritoDTO, String> col_usuario;
     @FXML private TableColumn<CarritoDTO, String> col_creado;
 
     FeedbackCarrito fu = new FeedbackCarrito();
@@ -47,9 +47,14 @@ public class Lst_Carritos_GuiController implements Initializable {
             CarritoDAO dao = new CarritoDAO();
             ObservableList<CarritoDTO> lista = dao.ListarCarritos();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_usuario.setCellValueFactory(new PropertyValueFactory<>("usuarioId"));
+            col_usuario.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getUsuarioId() + ")"));
             col_creado.setCellValueFactory(new PropertyValueFactory<>("creadoEn"));
             tbl_Lista.setItems(lista);
+            col_usuario.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getUsuarioId() + ")"));
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
         }

@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 public class VendedorDTO {
     private int id;
     private int usuarioId;
+    private String usuarioNombre;
     private String nombreTienda;
     private String descripcion;
     private BigDecimal calificacionPromedio;
@@ -23,6 +24,14 @@ public class VendedorDTO {
 
     public void setUsuarioId(int usuarioId) {
         this.usuarioId = usuarioId;
+    }
+
+    public String getUsuarioNombre() {
+        return usuarioNombre;
+    }
+
+    public void setUsuarioNombre(String usuarioNombre) {
+        this.usuarioNombre = usuarioNombre;
     }
 
     public String getNombreTienda() {
