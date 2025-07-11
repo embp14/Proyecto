@@ -30,7 +30,7 @@
                <children>
                   <ImageView fx:id="img_perfil" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-color: black; -fx-border-width: 1; -fx-background-color: lightgray;" />
                   <Label text="ID:" GridPane.columnIndex="1" />
-                  <TextField fx:id="txt_id" GridPane.columnIndex="2" />
+                  <TextField fx:id="txt_id" GridPane.columnIndex="2" editable="false" />
                   <Label text="Rol:" GridPane.rowIndex="1" GridPane.columnIndex="1" />
                   <ComboBox fx:id="cmb_rol" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <Label text="Nombre:" GridPane.rowIndex="2" GridPane.columnIndex="1" />

@@ -74,9 +74,6 @@ public class Lst_Direcciones_GuiController implements Initializable {
                 }
             }
             tbl_Lista.setItems(lista);
-            col_usuario.setCellValueFactory(data ->
-                    new javafx.beans.property.ReadOnlyStringWrapper(
-                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getUsuarioId() + ")"));
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
         }

@@ -54,10 +54,6 @@ public class Lst_ListaDeseoItems_GuiController implements Initializable {
                         " (" + data.getValue().getVarianteId() + ")"));
             col_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
             tbl_Lista.setItems(lista);
-            col_variante.setCellValueFactory(data ->
-                    new javafx.beans.property.ReadOnlyStringWrapper(
-                        data.getValue().getVarianteSku() + " - " + data.getValue().getProductoNombre() +
-                        " (" + data.getValue().getVarianteId() + ")"));
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
         }

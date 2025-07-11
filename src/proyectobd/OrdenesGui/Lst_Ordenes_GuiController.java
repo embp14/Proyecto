@@ -57,9 +57,6 @@ public class Lst_Ordenes_GuiController implements Initializable {
             col_total.setCellValueFactory(new PropertyValueFactory<>("totalBruto"));
             col_fecha.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
             tbl_Lista.setItems(lista);
-            col_usuario.setCellValueFactory(data ->
-                    new javafx.beans.property.ReadOnlyStringWrapper(
-                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getUsuarioId() + ")"));
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
         }

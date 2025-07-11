@@ -54,9 +54,6 @@ public class Lst_ListasDeseos_GuiController implements Initializable {
             col_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
             col_creado.setCellValueFactory(new PropertyValueFactory<>("creadoEn"));
             tbl_Lista.setItems(lista);
-            col_usuario.setCellValueFactory(data ->
-                    new javafx.beans.property.ReadOnlyStringWrapper(
-                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getUsuarioId() + ")"));
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
         }

@@ -40,7 +40,7 @@
                             </columnConstraints>
                             <children>
                                 <Label text="ID:" />
-                                <TextField fx:id="txt_id" GridPane.columnIndex="1" />
+                                <TextField fx:id="txt_id" GridPane.columnIndex="1" editable="false" />
                                 <Label text="Vendedor:" GridPane.rowIndex="1" />
                                 <ComboBox fx:id="cmb_vendedor" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                 <Label text="Categoría:" GridPane.rowIndex="2" />
