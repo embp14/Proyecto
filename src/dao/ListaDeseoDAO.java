@@ -30,7 +30,8 @@ public class ListaDeseoDAO {
     public ObservableList<ListaDeseoDTO> ListarListas(){
         ObservableList<ListaDeseoDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, usuario_id, nombre, creado_en FROM listas_deseos ORDER BY id";
+        String sql = "SELECT l.id, l.usuario_id, u.nombre AS usuario_nombre, l.nombre, l.creado_en " +
+                     "FROM listas_deseos l JOIN usuarios u ON l.usuario_id=u.id ORDER BY l.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -38,6 +39,7 @@ public class ListaDeseoDAO {
                 ListaDeseoDTO dto = new ListaDeseoDTO();
                 dto.setId(rs.getInt("id"));
                 dto.setUsuarioId(rs.getInt("usuario_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
                 dto.setNombre(rs.getString("nombre"));
                 dto.setCreadoEn(rs.getTimestamp("creado_en"));
                 lista.add(dto);

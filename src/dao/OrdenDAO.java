@@ -30,7 +30,8 @@ public class OrdenDAO {
     public ObservableList<OrdenDTO> ListarOrdenes(){
         ObservableList<OrdenDTO> ordenes = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, usuario_id, estado, total_bruto, total_descuento, fecha_creacion FROM ordenes ORDER BY id";
+        String sql = "SELECT o.id, o.usuario_id, u.nombre AS usuario_nombre, o.estado, o.total_bruto, o.total_descuento, o.fecha_creacion " +
+                     "FROM ordenes o JOIN usuarios u ON o.usuario_id=u.id ORDER BY o.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -38,6 +39,7 @@ public class OrdenDAO {
                 OrdenDTO dto = new OrdenDTO();
                 dto.setId(rs.getInt("id"));
                 dto.setUsuarioId(rs.getInt("usuario_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
                 dto.setEstado(rs.getString("estado"));
                 dto.setTotalBruto(rs.getBigDecimal("total_bruto"));
                 dto.setTotalDescuento(rs.getBigDecimal("total_descuento"));
@@ -54,8 +56,9 @@ public class OrdenDAO {
     public ObservableList<OrdenDTO> BuscarOrdenes(String criterio){
         ObservableList<OrdenDTO> ordenes = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, usuario_id, estado, total_bruto, total_descuento, fecha_creacion FROM ordenes " +
-                     "WHERE estado LIKE '%"+criterio+"%' ORDER BY id";
+        String sql = "SELECT o.id, o.usuario_id, u.nombre AS usuario_nombre, o.estado, o.total_bruto, o.total_descuento, o.fecha_creacion " +
+                     "FROM ordenes o JOIN usuarios u ON o.usuario_id=u.id " +
+                     "WHERE o.estado LIKE '%"+criterio+"%' ORDER BY o.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -63,6 +66,7 @@ public class OrdenDAO {
                 OrdenDTO dto = new OrdenDTO();
                 dto.setId(rs.getInt("id"));
                 dto.setUsuarioId(rs.getInt("usuario_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
                 dto.setEstado(rs.getString("estado"));
                 dto.setTotalBruto(rs.getBigDecimal("total_bruto"));
                 dto.setTotalDescuento(rs.getBigDecimal("total_descuento"));

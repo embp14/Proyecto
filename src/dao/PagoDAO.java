@@ -30,7 +30,8 @@ public class PagoDAO {
     public ObservableList<PagoDTO> ListarPagos(){
         ObservableList<PagoDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, orden_id, metodo_pago, monto, fecha_pago FROM pagos ORDER BY id";
+        String sql = "SELECT p.id, p.orden_id, u.nombre AS usuario_nombre, p.metodo_pago, p.monto, p.fecha_pago " +
+                     "FROM pagos p JOIN ordenes o ON p.orden_id=o.id JOIN usuarios u ON o.usuario_id=u.id ORDER BY p.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -38,6 +39,7 @@ public class PagoDAO {
                 PagoDTO dto = new PagoDTO();
                 dto.setId(rs.getInt("id"));
                 dto.setOrdenId(rs.getInt("orden_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
                 dto.setMetodoPago(rs.getString("metodo_pago"));
                 dto.setMonto(rs.getDouble("monto"));
                 dto.setFechaPago(rs.getTimestamp("fecha_pago"));

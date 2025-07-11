@@ -29,8 +29,8 @@ public class Mnt_Direcciones_GuiController implements Initializable {
     @FXML private ComboBox<UsuarioDTO> cmb_usuario;
     @FXML private TextField txt_alias;
     @FXML private TextField txt_direccion;
-    @FXML private TextField txt_ciudad;
-    @FXML private TextField txt_provincia;
+    @FXML private ComboBox<String> cmb_ciudad;
+    @FXML private ComboBox<String> cmb_provincia;
     @FXML private TextField txt_postal;
     @FXML private TextField txt_telefono;
 
@@ -51,8 +51,8 @@ public class Mnt_Direcciones_GuiController implements Initializable {
                 dto.setUsuarioId(cmb_usuario.getValue().getId());
                 dto.setAlias(txt_alias.getText());
                 dto.setDireccion(txt_direccion.getText());
-                dto.setCiudad(txt_ciudad.getText());
-                dto.setProvincia(txt_provincia.getText());
+                dto.setCiudad(cmb_ciudad.getValue());
+                dto.setProvincia(cmb_provincia.getValue());
                 dto.setCodigoPostal(txt_postal.getText());
                 dto.setTelefonoContacto(txt_telefono.getText());
                 int id = dao.InsertarDireccion(dto);
@@ -68,8 +68,8 @@ public class Mnt_Direcciones_GuiController implements Initializable {
             dto.setUsuarioId(cmb_usuario.getValue().getId());
             dto.setAlias(txt_alias.getText());
             dto.setDireccion(txt_direccion.getText());
-            dto.setCiudad(txt_ciudad.getText());
-            dto.setProvincia(txt_provincia.getText());
+            dto.setCiudad(cmb_ciudad.getValue());
+            dto.setProvincia(cmb_provincia.getValue());
             dto.setCodigoPostal(txt_postal.getText());
             dto.setTelefonoContacto(txt_telefono.getText());
             try{
@@ -97,14 +97,14 @@ public class Mnt_Direcciones_GuiController implements Initializable {
             txt_direccion.requestFocus();
             return false;
         }
-        if(txt_ciudad.getText().trim().isEmpty()){
-            fu.datosInvalidos("Ciudad: ingrese un texto.");
-            txt_ciudad.requestFocus();
+        if(cmb_ciudad.getValue() == null){
+            fu.datosInvalidos("Ciudad: seleccione un valor.");
+            cmb_ciudad.requestFocus();
             return false;
         }
-        if(txt_provincia.getText().trim().isEmpty()){
-            fu.datosInvalidos("Provincia: ingrese un texto.");
-            txt_provincia.requestFocus();
+        if(cmb_provincia.getValue() == null){
+            fu.datosInvalidos("Provincia: seleccione un valor.");
+            cmb_provincia.requestFocus();
             return false;
         }
         if(txt_postal.getText().trim().isEmpty()){
@@ -125,8 +125,8 @@ public class Mnt_Direcciones_GuiController implements Initializable {
             }
             txt_alias.setText(dto.getAlias());
             txt_direccion.setText(dto.getDireccion());
-            txt_ciudad.setText(dto.getCiudad());
-            txt_provincia.setText(dto.getProvincia());
+            cmb_ciudad.setValue(dto.getCiudad());
+            cmb_provincia.setValue(dto.getProvincia());
             txt_postal.setText(dto.getCodigoPostal());
             txt_telefono.setText(dto.getTelefonoContacto());
         }
@@ -138,6 +138,21 @@ public class Mnt_Direcciones_GuiController implements Initializable {
             UsuarioDAO udao = new UsuarioDAO();
             usuarios.addAll(udao.ListarUsuarios());
             cmb_usuario.setItems(usuarios);
+
+            ObservableList<String> provincias = FXCollections.observableArrayList(
+                    "Azuay", "Bolívar", "Cañar", "Carchi", "Chimborazo",
+                    "Cotopaxi", "El Oro", "Esmeraldas", "Galápagos", "Guayas",
+                    "Imbabura", "Loja", "Los Ríos", "Manabí", "Morona Santiago",
+                    "Napo", "Orellana", "Pastaza", "Pichincha", "Santa Elena",
+                    "Santo Domingo", "Sucumbíos", "Tungurahua", "Zamora Chinchipe"
+            );
+            cmb_provincia.setItems(provincias);
+
+            ObservableList<String> ciudades = FXCollections.observableArrayList(
+                    "Quito", "Guayaquil", "Cuenca", "Ambato", "Manta",
+                    "Portoviejo", "Loja", "Machala", "Esmeraldas", "Santo Domingo"
+            );
+            cmb_ciudad.setItems(ciudades);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
         }
