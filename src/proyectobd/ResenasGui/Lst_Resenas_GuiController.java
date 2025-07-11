@@ -27,8 +27,8 @@ public class Lst_Resenas_GuiController implements Initializable {
     @FXML private TextField txt_Buscar;
     @FXML private TableView<ResenaDTO> tbl_Lista;
     @FXML private TableColumn<ResenaDTO, Integer> col_id;
-    @FXML private TableColumn<ResenaDTO, Integer> col_producto;
-    @FXML private TableColumn<ResenaDTO, Integer> col_usuario;
+    @FXML private TableColumn<ResenaDTO, String> col_producto;
+    @FXML private TableColumn<ResenaDTO, String> col_usuario;
     @FXML private TableColumn<ResenaDTO, Integer> col_rating;
     @FXML private TableColumn<ResenaDTO, Timestamp> col_fecha;
 
