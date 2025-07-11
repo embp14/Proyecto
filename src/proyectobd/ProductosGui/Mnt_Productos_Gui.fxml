@@ -55,7 +55,7 @@
                                     <Button fx:id="btn_BuscarImagen" onAction="#call_SeleccionarImagen" text="..." />
                                 </HBox>
                                 <Label text="Activo:" GridPane.rowIndex="6" />
-                                <TextField fx:id="txt_activo" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                <ComboBox fx:id="cmb_activo" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                             </children>
                         </GridPane>
                     </HBox>

@@ -45,6 +45,9 @@ public class Mnt_Envios_GuiController implements Initializable {
         Platform.runLater(() -> {
             cargarCombos();
             cargarDatos();
+            cmb_empresa.valueProperty().addListener((o,oldV,newV)->{
+                if(!actualizar) txt_tracking.setText(generarTracking(newV));
+            });
         });
     }
 
@@ -162,11 +165,13 @@ public class Mnt_Envios_GuiController implements Initializable {
             dp_envio.setValue(java.time.LocalDate.now());
             dp_estimada.setValue(java.time.LocalDate.now());
             dp_entrega.setValue(java.time.LocalDate.now());
-            txt_tracking.setText(generarTracking());
+            txt_tracking.setText(generarTracking(cmb_empresa.getValue()));
         }
     }
 
-    private String generarTracking(){
-        return "TRK" + System.currentTimeMillis();
+    private String generarTracking(String empresa){
+        if(empresa == null) empresa = "GEN";
+        String pref = empresa.substring(0, Math.min(3, empresa.length())).toUpperCase();
+        return pref + System.currentTimeMillis();
     }
 }
