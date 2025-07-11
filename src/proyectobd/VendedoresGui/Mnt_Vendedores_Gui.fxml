@@ -32,7 +32,7 @@
                   <Label text="Usuario ID:" GridPane.rowIndex="1" />
                   <ComboBox fx:id="cmb_usuario" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Nombre Tienda:" GridPane.rowIndex="2" />
-                  <TextField fx:id="txt_nombre" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ComboBox fx:id="cmb_tienda" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label text="Descripción:" GridPane.rowIndex="3" />
                   <TextField fx:id="txt_descripcion" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label text="Calificación:" GridPane.rowIndex="4" />
