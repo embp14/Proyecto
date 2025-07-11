@@ -36,6 +36,7 @@ public class Lst_OrdenItems_GuiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txt_Buscar.textProperty().addListener((obs, oldV, newV) -> { call_Buscar(); });
+        call_Buscar();
     }
 
     public void call_CerrarVentana(){
