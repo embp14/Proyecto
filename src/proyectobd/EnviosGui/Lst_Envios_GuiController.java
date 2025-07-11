@@ -69,12 +69,6 @@ public class Lst_Envios_GuiController implements Initializable {
             col_estimada.setCellValueFactory(new PropertyValueFactory<>("fechaEntregaEstimada"));
             col_entrega.setCellValueFactory(new PropertyValueFactory<>("fechaEntregaReal"));
             tbl_Lista.setItems(lista);
-            col_orden.setCellValueFactory(data ->
-                    new javafx.beans.property.ReadOnlyStringWrapper(
-                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getOrdenId() + ")"));
-            col_direccion.setCellValueFactory(data ->
-                    new javafx.beans.property.ReadOnlyStringWrapper(
-                        data.getValue().getDireccionNombre() + " (" + data.getValue().getDireccionId() + ")"));
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
         }

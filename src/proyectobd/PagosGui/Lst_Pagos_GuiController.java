@@ -57,9 +57,6 @@ public class Lst_Pagos_GuiController implements Initializable {
             col_monto.setCellValueFactory(new PropertyValueFactory<>("monto"));
             col_fecha.setCellValueFactory(new PropertyValueFactory<>("fechaPago"));
             tbl_Lista.setItems(lista);
-            col_orden.setCellValueFactory(data ->
-                    new javafx.beans.property.ReadOnlyStringWrapper(
-                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getOrdenId() + ")"));
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
         }
