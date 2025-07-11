@@ -15,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackImagenProducto;
 
@@ -48,7 +49,10 @@ public class Lst_ImagenesProducto_GuiController implements Initializable {
             ImagenProductoDAO dao = new ImagenProductoDAO();
             ObservableList<ImagenProductoDTO> lista = dao.ListarImagenes(0);
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_producto.setCellValueFactory(new PropertyValueFactory<>("productoId"));
+            col_producto.setCellValueFactory(data ->
+                    new ReadOnlyStringWrapper(
+                        data.getValue().getProductoNombre() +
+                        " - ID " + data.getValue().getProductoId()));
             col_url.setCellValueFactory(new PropertyValueFactory<>("url"));
             col_principal.setCellValueFactory(new PropertyValueFactory<>("esPrincipal"));
             tbl_Lista.setItems(lista);

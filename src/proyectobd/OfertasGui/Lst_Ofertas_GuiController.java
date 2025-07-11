@@ -16,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import java.sql.Timestamp;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackOferta;
 
@@ -50,7 +51,11 @@ public class Lst_Ofertas_GuiController implements Initializable {
             OfertaDAO dao = new OfertaDAO();
             ObservableList<OfertaDTO> lista = dao.ListarOfertas();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_variante.setCellValueFactory(new PropertyValueFactory<>("varianteId"));
+            col_variante.setCellValueFactory(data ->
+                    new ReadOnlyStringWrapper(
+                        data.getValue().getVarianteSku() + " - " +
+                        data.getValue().getProductoNombre() +
+                        " - ID " + data.getValue().getVarianteId()));
             col_precio.setCellValueFactory(new PropertyValueFactory<>("precioDescuento"));
             col_inicio.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
             col_fin.setCellValueFactory(new PropertyValueFactory<>("fechaFin"));

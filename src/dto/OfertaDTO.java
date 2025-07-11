@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 public class OfertaDTO {
     private int id;
     private int varianteId;
+    private String varianteSku;
+    private String productoNombre;
     private double precioDescuento;
     private Timestamp fechaInicio;
     private Timestamp fechaFin;
@@ -14,6 +16,12 @@ public class OfertaDTO {
 
     public int getVarianteId() { return varianteId; }
     public void setVarianteId(int varianteId) { this.varianteId = varianteId; }
+
+    public String getVarianteSku() { return varianteSku; }
+    public void setVarianteSku(String varianteSku) { this.varianteSku = varianteSku; }
+
+    public String getProductoNombre() { return productoNombre; }
+    public void setProductoNombre(String productoNombre) { this.productoNombre = productoNombre; }
 
     public double getPrecioDescuento() { return precioDescuento; }
     public void setPrecioDescuento(double precioDescuento) { this.precioDescuento = precioDescuento; }

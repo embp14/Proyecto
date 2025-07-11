@@ -30,11 +30,12 @@ public class ImagenProductoDAO {
     public ObservableList<ImagenProductoDTO> ListarImagenes(int productoId){
         ObservableList<ImagenProductoDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, producto_id, url, es_principal FROM imagenes_producto";
+        String sql = "SELECT ip.id, ip.producto_id, p.titulo AS producto_nombre, ip.url, ip.es_principal " +
+                     "FROM imagenes_producto ip JOIN productos p ON ip.producto_id=p.id";
         if(productoId > 0){
-            sql += " WHERE producto_id=" + productoId;
+            sql += " WHERE ip.producto_id=" + productoId;
         }
-        sql += " ORDER BY id";
+        sql += " ORDER BY ip.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -42,6 +43,7 @@ public class ImagenProductoDAO {
                 ImagenProductoDTO dto = new ImagenProductoDTO();
                 dto.setId(rs.getInt("id"));
                 dto.setProductoId(rs.getInt("producto_id"));
+                dto.setProductoNombre(rs.getString("producto_nombre"));
                 dto.setUrl(rs.getString("url"));
                 dto.setEsPrincipal(rs.getBoolean("es_principal"));
                 lista.add(dto);
