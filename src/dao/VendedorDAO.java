@@ -30,7 +30,9 @@ public class VendedorDAO {
     public ObservableList<VendedorDTO> ListarVendedores(){
         ObservableList<VendedorDTO> vendedores = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, usuario_id, nombre_tienda, descripcion, calificacion_promedio FROM vendedores ORDER BY id";
+        String sql = "SELECT v.id, v.usuario_id, u.nombre AS usuario_nombre, " +
+                     "v.nombre_tienda, v.descripcion, v.calificacion_promedio " +
+                     "FROM vendedores v JOIN usuarios u ON v.usuario_id=u.id ORDER BY v.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -38,6 +40,7 @@ public class VendedorDAO {
                 VendedorDTO dto = new VendedorDTO();
                 dto.setId(rs.getInt("id"));
                 dto.setUsuarioId(rs.getInt("usuario_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
                 dto.setNombreTienda(rs.getString("nombre_tienda"));
                 dto.setDescripcion(rs.getString("descripcion"));
                 dto.setCalificacionPromedio(rs.getBigDecimal("calificacion_promedio"));
@@ -53,8 +56,10 @@ public class VendedorDAO {
     public ObservableList<VendedorDTO> BuscarVendedores(String criterio){
         ObservableList<VendedorDTO> vendedores = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, usuario_id, nombre_tienda, descripcion, calificacion_promedio FROM vendedores " +
-                     "WHERE nombre_tienda LIKE '%"+criterio+"%' ORDER BY id";
+        String sql = "SELECT v.id, v.usuario_id, u.nombre AS usuario_nombre, " +
+                     "v.nombre_tienda, v.descripcion, v.calificacion_promedio " +
+                     "FROM vendedores v JOIN usuarios u ON v.usuario_id=u.id " +
+                     "WHERE v.nombre_tienda LIKE '%"+criterio+"%' ORDER BY v.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -62,6 +67,7 @@ public class VendedorDAO {
                 VendedorDTO dto = new VendedorDTO();
                 dto.setId(rs.getInt("id"));
                 dto.setUsuarioId(rs.getInt("usuario_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
                 dto.setNombreTienda(rs.getString("nombre_tienda"));
                 dto.setDescripcion(rs.getString("descripcion"));
                 dto.setCalificacionPromedio(rs.getBigDecimal("calificacion_promedio"));

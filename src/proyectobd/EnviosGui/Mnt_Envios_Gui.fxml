@@ -28,13 +28,13 @@
                </columnConstraints>
                <children>
                   <Label text="ID:" />
-                  <TextField fx:id="txt_id" GridPane.columnIndex="1" />
+                  <TextField fx:id="txt_id" GridPane.columnIndex="1" editable="false" />
                   <Label text="Orden:" GridPane.rowIndex="1" />
                   <ComboBox fx:id="cmb_orden" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Dirección:" GridPane.rowIndex="2" />
                   <ComboBox fx:id="cmb_direccion" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label text="Empresa:" GridPane.rowIndex="3" />
-                  <TextField fx:id="txt_empresa" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="cmb_empresa" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label text="Tracking:" GridPane.rowIndex="4" />
                   <TextField fx:id="txt_tracking" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label text="Fecha Envio:" GridPane.rowIndex="5" />

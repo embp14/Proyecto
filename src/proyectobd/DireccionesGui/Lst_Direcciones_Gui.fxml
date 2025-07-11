@@ -33,7 +33,7 @@
                <TableView fx:id="tbl_Lista" VBox.vgrow="ALWAYS">
                   <columns>
                      <TableColumn fx:id="col_id" prefWidth="50.0" text="ID"/>
-                     <TableColumn fx:id="col_usuario" prefWidth="50.0" text="Usr"/>
+                     <TableColumn fx:id="col_usuario" prefWidth="150.0" text="Usuario"/>
                      <TableColumn fx:id="col_ciudad" prefWidth="100.0" text="Ciudad"/>
                      <TableColumn fx:id="col_provincia" prefWidth="100.0" text="Provincia"/>
                   </columns>

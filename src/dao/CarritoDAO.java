@@ -30,7 +30,8 @@ public class CarritoDAO {
     public ObservableList<CarritoDTO> ListarCarritos(){
         ObservableList<CarritoDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, usuario_id, creado_en FROM carritos ORDER BY id";
+        String sql = "SELECT c.id, c.usuario_id, u.nombre AS usuario_nombre, c.creado_en " +
+                     "FROM carritos c JOIN usuarios u ON c.usuario_id=u.id ORDER BY c.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -38,6 +39,7 @@ public class CarritoDAO {
                 CarritoDTO dto = new CarritoDTO();
                 dto.setId(rs.getInt("id"));
                 dto.setUsuarioId(rs.getInt("usuario_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
                 dto.setCreadoEn(rs.getTimestamp("creado_en"));
                 lista.add(dto);
             }
@@ -51,7 +53,10 @@ public class CarritoDAO {
     public ObservableList<CarritoDTO> BuscarCarritos(String criterio){
         ObservableList<CarritoDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, usuario_id, creado_en FROM carritos WHERE usuario_id LIKE '%"+criterio+"%' ORDER BY id";
+        String sql = "SELECT c.id, c.usuario_id, u.nombre AS usuario_nombre, c.creado_en " +
+                     "FROM carritos c JOIN usuarios u ON c.usuario_id=u.id " +
+                     "WHERE u.nombre LIKE '%"+criterio+"%' OR c.usuario_id LIKE '%"+criterio+"%' " +
+                     "ORDER BY c.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -59,6 +64,7 @@ public class CarritoDAO {
                 CarritoDTO dto = new CarritoDTO();
                 dto.setId(rs.getInt("id"));
                 dto.setUsuarioId(rs.getInt("usuario_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
                 dto.setCreadoEn(rs.getTimestamp("creado_en"));
                 lista.add(dto);
             }

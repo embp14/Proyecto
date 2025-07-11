@@ -27,7 +27,7 @@ public class Lst_OrdenItems_GuiController implements Initializable {
     @FXML private TableView<OrdenItemDTO> tbl_Lista;
     @FXML private TableColumn<OrdenItemDTO, Integer> col_id;
     @FXML private TableColumn<OrdenItemDTO, Integer> col_orden;
-    @FXML private TableColumn<OrdenItemDTO, Integer> col_variante;
+    @FXML private TableColumn<OrdenItemDTO, String> col_variante;
     @FXML private TableColumn<OrdenItemDTO, Integer> col_cantidad;
 
     FeedbackOrdenItem fu = new FeedbackOrdenItem();
@@ -48,7 +48,7 @@ public class Lst_OrdenItems_GuiController implements Initializable {
             ObservableList<OrdenItemDTO> lista = dao.ListarItems(idCarrito);
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             col_orden.setCellValueFactory(new PropertyValueFactory<>("ordenId"));
-            col_variante.setCellValueFactory(new PropertyValueFactory<>("varianteId"));
+            col_variante.setCellValueFactory(new PropertyValueFactory<>("varianteSku"));
             col_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

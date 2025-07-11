@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 public class PagoDTO {
     private int id;
     private int ordenId;
+    private String usuarioNombre;
     private String metodoPago;
     private double monto;
     private Timestamp fechaPago;
@@ -14,6 +15,9 @@ public class PagoDTO {
 
     public int getOrdenId() { return ordenId; }
     public void setOrdenId(int ordenId) { this.ordenId = ordenId; }
+
+    public String getUsuarioNombre() { return usuarioNombre; }
+    public void setUsuarioNombre(String usuarioNombre) { this.usuarioNombre = usuarioNombre; }
 
     public String getMetodoPago() { return metodoPago; }
     public void setMetodoPago(String metodoPago) { this.metodoPago = metodoPago; }

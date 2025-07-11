@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 public class OrdenDTO {
     private int id;
     private int usuarioId;
+    private String usuarioNombre;
     private String estado;
     private BigDecimal totalBruto;
     private BigDecimal totalDescuento;
@@ -25,6 +26,14 @@ public class OrdenDTO {
 
     public void setUsuarioId(int usuarioId) {
         this.usuarioId = usuarioId;
+    }
+
+    public String getUsuarioNombre() {
+        return usuarioNombre;
+    }
+
+    public void setUsuarioNombre(String usuarioNombre) {
+        this.usuarioNombre = usuarioNombre;
     }
 
     public String getEstado() {

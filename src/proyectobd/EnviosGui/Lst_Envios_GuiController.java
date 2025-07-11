@@ -27,8 +27,8 @@ public class Lst_Envios_GuiController implements Initializable {
     @FXML private TextField txt_Buscar;
     @FXML private TableView<EnvioDTO> tbl_Lista;
     @FXML private TableColumn<EnvioDTO, Integer> col_id;
-    @FXML private TableColumn<EnvioDTO, Integer> col_orden;
-    @FXML private TableColumn<EnvioDTO, Integer> col_direccion;
+    @FXML private TableColumn<EnvioDTO, String> col_orden;
+    @FXML private TableColumn<EnvioDTO, String> col_direccion;
     @FXML private TableColumn<EnvioDTO, String> col_empresa;
     @FXML private TableColumn<EnvioDTO, String> col_tracking;
     @FXML private TableColumn<EnvioDTO, Timestamp> col_envio;
@@ -56,8 +56,8 @@ public class Lst_Envios_GuiController implements Initializable {
                 lista.removeIf(e -> e.getOrdenId() != ordenId);
             }
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_orden.setCellValueFactory(new PropertyValueFactory<>("ordenId"));
-            col_direccion.setCellValueFactory(new PropertyValueFactory<>("direccionId"));
+            col_orden.setCellValueFactory(new PropertyValueFactory<>("usuarioNombre"));
+            col_direccion.setCellValueFactory(new PropertyValueFactory<>("direccionNombre"));
             col_empresa.setCellValueFactory(new PropertyValueFactory<>("empresaEnvio"));
             col_tracking.setCellValueFactory(new PropertyValueFactory<>("codigoTracking"));
             col_envio.setCellValueFactory(new PropertyValueFactory<>("fechaEnvio"));

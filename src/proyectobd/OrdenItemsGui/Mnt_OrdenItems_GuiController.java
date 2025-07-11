@@ -44,6 +44,7 @@ public class Mnt_OrdenItems_GuiController implements Initializable {
 
     public void call_Grabar(){
         OrdenItemDAO dao = new OrdenItemDAO();
+        if(!validarDatos()) return;
         if(!actualizar){
             try{
                 OrdenItemDTO dto = new OrdenItemDTO();
@@ -108,5 +109,23 @@ public class Mnt_OrdenItems_GuiController implements Initializable {
             }
             txt_cantidad.setText(Integer.toString(dto.getCantidad()));
         }
+    }
+
+    private boolean validarDatos(){
+        if(cmb_orden.getValue()==null || cmb_variante.getValue()==null){
+            fu.datosInvalidos("Seleccione orden y variante válidas");
+            return false;
+        }
+        try{
+            int c = Integer.parseInt(txt_cantidad.getText());
+            if(c <= 0){
+                fu.datosInvalidos("Cantidad debe ser positiva");
+                return false;
+            }
+        }catch(Exception e){
+            fu.datosInvalidos("Cantidad inválida");
+            return false;
+        }
+        return true;
     }
 }

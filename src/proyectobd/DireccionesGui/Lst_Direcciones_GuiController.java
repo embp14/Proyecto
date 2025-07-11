@@ -26,7 +26,7 @@ public class Lst_Direcciones_GuiController implements Initializable {
     @FXML private TextField txt_Buscar;
     @FXML private TableView<DireccionDTO> tbl_Lista;
     @FXML private TableColumn<DireccionDTO, Integer> col_id;
-    @FXML private TableColumn<DireccionDTO, Integer> col_usuario;
+    @FXML private TableColumn<DireccionDTO, String> col_usuario;
     @FXML private TableColumn<DireccionDTO, String> col_ciudad;
     @FXML private TableColumn<DireccionDTO, String> col_provincia;
 
@@ -48,7 +48,9 @@ public class Lst_Direcciones_GuiController implements Initializable {
             DireccionDAO dao = new DireccionDAO();
             ObservableList<DireccionDTO> lista = dao.ListarDirecciones();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_usuario.setCellValueFactory(new PropertyValueFactory<>("usuarioId"));
+            col_usuario.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getUsuarioId() + ")"));
             col_ciudad.setCellValueFactory(new PropertyValueFactory<>("ciudad"));
             col_provincia.setCellValueFactory(new PropertyValueFactory<>("provincia"));
             tbl_Lista.setItems(lista);
@@ -72,6 +74,9 @@ public class Lst_Direcciones_GuiController implements Initializable {
                 }
             }
             tbl_Lista.setItems(lista);
+            col_usuario.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getUsuarioId() + ")"));
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());
         }

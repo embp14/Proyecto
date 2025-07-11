@@ -46,7 +46,15 @@ public class CarritoItemDAO {
     public ObservableList<CarritoItemDTO> ListarItems(int carritoId){
         ObservableList<CarritoItemDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, carrito_id, variante_id, cantidad FROM carrito_items WHERE carrito_id="+carritoId+" ORDER BY id";
+        String sql = "SELECT ci.id, ci.carrito_id, ci.variante_id, v.sku AS variante_sku, " +
+                     "p.titulo AS producto_nombre, ci.cantidad " +
+                     "FROM carrito_items ci " +
+                     "JOIN variantes_producto v ON ci.variante_id=v.id " +
+                     "JOIN productos p ON v.producto_id=p.id ";
+        if(carritoId>0){
+            sql += "WHERE ci.carrito_id="+carritoId+" ";
+        }
+        sql += "ORDER BY ci.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -55,6 +63,8 @@ public class CarritoItemDAO {
                 dto.setId(rs.getInt("id"));
                 dto.setCarritoId(rs.getInt("carrito_id"));
                 dto.setVarianteId(rs.getInt("variante_id"));
+                dto.setVarianteSku(rs.getString("variante_sku"));
+                dto.setProductoNombre(rs.getString("producto_nombre"));
                 dto.setCantidad(rs.getInt("cantidad"));
                 lista.add(dto);
             }
