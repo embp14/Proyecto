@@ -1,18 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import java.net.URL?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="Ap_MenuPrincipal" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.ParametrosGenerales.MenuPrincipalController">
+<AnchorPane styleClass="main-pane" id="AnchorPane" fx:id="Ap_MenuPrincipal" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.ParametrosGenerales.MenuPrincipalController">
+   <stylesheets>
+      <URL value="@/proyectobd/styles/app.css" />
+   </stylesheets>
    <children>
-      <MenuBar>
+      <Pane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" prefHeight="50.0" styleClass="header-section">
+         <children>
+            <Label layoutX="14.0" layoutY="10.0" text="Menú Principal" styleClass="header-title">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" styleClass="header-section">
         <menus>
-          <Menu mnemonicParsing="false" text="Administracion">
+          <Menu mnemonicParsing="false" text="Sistema">
             <items>
               <MenuItem fx:id="mni_ProbarConexionBD" mnemonicParsing="false" onAction="#call_ProbarConexionBD" text="Probar Conexión BD" />
-                  <MenuItem fx:id="mni_Usuarios" mnemonicParsing="false" onAction="#call_ListarUsuarios" text="Usuarios" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Usuarios">
+            <items>
+              <MenuItem fx:id="mni_Roles" mnemonicParsing="false" onAction="#call_ListarRoles" text="Roles" />
+              <MenuItem fx:id="mni_Usuarios" mnemonicParsing="false" onAction="#call_ListarUsuarios" text="Usuarios" />
+              <MenuItem fx:id="mni_Vendedores" mnemonicParsing="false" onAction="#call_ListarVendedores" text="Vendedores" />
+              <MenuItem fx:id="mni_Direcciones" mnemonicParsing="false" onAction="#call_ListarDirecciones" text="Direcciones" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Productos">
+            <items>
+              <MenuItem fx:id="mni_Productos" mnemonicParsing="false" onAction="#call_ListarProductos" text="Productos" />
+              <MenuItem fx:id="mni_Categorias" mnemonicParsing="false" onAction="#call_ListarCategorias" text="Categorías" />
+              <MenuItem fx:id="mni_Variantes" mnemonicParsing="false" onAction="#call_ListarVariantes" text="Variantes" />
+              <MenuItem fx:id="mni_Imagenes" mnemonicParsing="false" onAction="#call_ListarImagenes" text="Imágenes" />
+              <MenuItem fx:id="mni_Ofertas" mnemonicParsing="false" onAction="#call_ListarOfertas" text="Ofertas" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Promociones">
+            <items>
+              <MenuItem fx:id="mni_Cupones" mnemonicParsing="false" onAction="#call_ListarCupones" text="Cupones" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Carritos">
+            <items>
+              <MenuItem fx:id="mni_Carritos" mnemonicParsing="false" onAction="#call_ListarCarritos" text="Carritos" />
+              <MenuItem fx:id="mni_CarritoItems" mnemonicParsing="false" onAction="#call_ListarCarritoItems" text="Items Carrito" />
+              <MenuItem fx:id="mni_ListasDeseos" mnemonicParsing="false" onAction="#call_ListarListasDeseos" text="Listas Deseos" />
+              <MenuItem fx:id="mni_ListaItems" mnemonicParsing="false" onAction="#call_ListarListaItems" text="Items Lista" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Órdenes">
+            <items>
+              <MenuItem fx:id="mni_Ordenes" mnemonicParsing="false" onAction="#call_ListarOrdenes" text="Órdenes" />
+              <MenuItem fx:id="mni_OrdenItems" mnemonicParsing="false" onAction="#call_ListarOrdenItems" text="Items Orden" />
+              <MenuItem fx:id="mni_Pagos" mnemonicParsing="false" onAction="#call_ListarPagos" text="Pagos" />
+              <MenuItem fx:id="mni_Envios" mnemonicParsing="false" onAction="#call_ListarEnvios" text="Envios" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Reseñas">
+            <items>
+              <MenuItem fx:id="mni_Resenas" mnemonicParsing="false" onAction="#call_ListarResenas" text="Reseñas" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">

@@ -15,104 +15,82 @@ import java.sql.Timestamp;
 public class UsuarioDTO {
     // Se define un atributo privado por cada campo de la tabla
     // Debe escoger un tipo de dato equivalente al tipo de dato de la tabla
-    private int idUsuario;
-    private String Nombre;
-    private String Apellido;
-    private String Login;
-    private String Password;
-    private String Email;
-    private boolean Inactivo;
-    private String Crea;
-    private Timestamp FechaCrea;
-    private String Modifica;
-    private Timestamp FechaModifica;
+    // Tabla usuarios de la nueva base de datos
+    private int id;
+    private int rolId;
+    private String rolNombre;
+    private String nombre;
+    private String email;
+    private String contrasena;
+    private String imagenPerfil;
+    private Timestamp creadoEn;
 
-    public int getIdUsuario() {
-        return idUsuario;
+    public int getId() {
+        return id;
     }
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getRolId() {
+        return rolId;
+    }
+
+    public void setRolId(int rolId) {
+        this.rolId = rolId;
+    }
+
+    public String getRolNombre() {
+        return rolNombre;
+    }
+
+    public void setRolNombre(String rolNombre) {
+        this.rolNombre = rolNombre;
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
-    }
-
-    public String getApellido() {
-        return Apellido;
-    }
-
-    public void setApellido(String Apellido) {
-        this.Apellido = Apellido;
-    }
-
-    public String getLogin() {
-        return Login;
-    }
-
-    public void setLogin(String Login) {
-        this.Login = Login;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String Password) {
-        this.Password = Password;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
-    public void setEmail(String Email) {
-        this.Email = Email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public boolean isInactivo() {
-        return Inactivo;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setInactivo(boolean Inactivo) {
-        this.Inactivo = Inactivo;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
-    public String getCrea() {
-        return Crea;
+    public String getImagenPerfil() {
+        return imagenPerfil;
     }
 
-    public void setCrea(String Crea) {
-        this.Crea = Crea;
+    public void setImagenPerfil(String imagenPerfil) {
+        this.imagenPerfil = imagenPerfil;
     }
 
-    public Timestamp getFechaCrea() {
-        return FechaCrea;
+    public Timestamp getCreadoEn() {
+        return creadoEn;
     }
 
-    public void setFechaCrea(Timestamp FechaCrea) {
-        this.FechaCrea = FechaCrea;
+    public void setCreadoEn(Timestamp creadoEn) {
+        this.creadoEn = creadoEn;
     }
 
-    public String getModifica() {
-        return Modifica;
+    @Override
+    public String toString() {
+        return nombre;
     }
-
-    public void setModifica(String Modifica) {
-        this.Modifica = Modifica;
-    }
-
-    public Timestamp getFechaModifica() {
-        return FechaModifica;
-    }
-
-    public void setFechaModifica(Timestamp FechaModifica) {
-        this.FechaModifica = FechaModifica;
-    }
-
 }
