@@ -53,7 +53,7 @@ public class Lst_OrdenItems_GuiController implements Initializable {
             col_variante.setCellValueFactory(data ->
                     new javafx.beans.property.ReadOnlyStringWrapper(
                         data.getValue().getVarianteSku() + " - " + data.getValue().getProductoNombre() +
-                        " (" + data.getValue().getVarianteId() + ")"));
+                        " - ID " + data.getValue().getVarianteId()));
             col_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

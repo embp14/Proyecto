@@ -50,7 +50,7 @@ public class Lst_Vendedores_GuiController implements Initializable {
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             col_usuario.setCellValueFactory(data ->
                     new javafx.beans.property.ReadOnlyStringWrapper(
-                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getUsuarioId() + ")"));
+                        data.getValue().getUsuarioNombre() + " - ID " + data.getValue().getUsuarioId()));
             col_nombre.setCellValueFactory(new PropertyValueFactory<>("nombreTienda"));
             col_calificacion.setCellValueFactory(new PropertyValueFactory<>("calificacionPromedio"));
             tbl_Lista.setItems(lista);

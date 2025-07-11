@@ -49,7 +49,10 @@ public class Lst_VariantesProducto_GuiController implements Initializable {
             VarianteProductoDAO dao = new VarianteProductoDAO();
             ObservableList<VarianteProductoDTO> lista = dao.ListarVariantes();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_producto.setCellValueFactory(new PropertyValueFactory<>("productoId"));
+            col_producto.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getProductoNombre() +
+                        " - ID " + data.getValue().getProductoId()));
             col_sku.setCellValueFactory(new PropertyValueFactory<>("sku"));
             col_precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
             col_stock.setCellValueFactory(new PropertyValueFactory<>("stock"));

@@ -50,7 +50,7 @@ public class Lst_Direcciones_GuiController implements Initializable {
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             col_usuario.setCellValueFactory(data ->
                     new javafx.beans.property.ReadOnlyStringWrapper(
-                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getUsuarioId() + ")"));
+                        data.getValue().getUsuarioNombre() + " - ID " + data.getValue().getUsuarioId()));
             col_ciudad.setCellValueFactory(new PropertyValueFactory<>("ciudad"));
             col_provincia.setCellValueFactory(new PropertyValueFactory<>("provincia"));
             tbl_Lista.setItems(lista);
