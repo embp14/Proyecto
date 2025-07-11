@@ -30,7 +30,8 @@ public class CategoriaDAO {
     public ObservableList<CategoriaDTO> ListarCategorias(){
         ObservableList<CategoriaDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, nombre, parent_id FROM categorias ORDER BY id";
+        String sql = "SELECT c.id, c.nombre, c.parent_id, p.nombre AS parent_nombre " +
+                     "FROM categorias c LEFT JOIN categorias p ON c.parent_id=p.id ORDER BY c.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -40,6 +41,7 @@ public class CategoriaDAO {
                 dto.setNombre(rs.getString("nombre"));
                 int pid = rs.getInt("parent_id");
                 if(rs.wasNull()) dto.setParentId(null); else dto.setParentId(pid);
+                dto.setParentNombre(rs.getString("parent_nombre"));
                 lista.add(dto);
             }
             ConnBD.CerrarConexionBD();
@@ -52,7 +54,9 @@ public class CategoriaDAO {
     public ObservableList<CategoriaDTO> BuscarCategorias(String criterio){
         ObservableList<CategoriaDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, nombre, parent_id FROM categorias WHERE nombre LIKE '%"+criterio+"%' ORDER BY id";
+        String sql = "SELECT c.id, c.nombre, c.parent_id, p.nombre AS parent_nombre " +
+                     "FROM categorias c LEFT JOIN categorias p ON c.parent_id=p.id " +
+                     "WHERE c.nombre LIKE '%"+criterio+"%' ORDER BY c.id"; 
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -62,6 +66,7 @@ public class CategoriaDAO {
                 dto.setNombre(rs.getString("nombre"));
                 int pid = rs.getInt("parent_id");
                 if(rs.wasNull()) dto.setParentId(null); else dto.setParentId(pid);
+                dto.setParentNombre(rs.getString("parent_nombre"));
                 lista.add(dto);
             }
             ConnBD.CerrarConexionBD();

@@ -15,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackOrden;
 
@@ -26,7 +27,7 @@ public class Lst_Ordenes_GuiController implements Initializable {
     @FXML private TextField txt_Buscar;
     @FXML private TableView<OrdenDTO> tbl_Lista;
     @FXML private TableColumn<OrdenDTO, Integer> col_id;
-    @FXML private TableColumn<OrdenDTO, Integer> col_usuario;
+    @FXML private TableColumn<OrdenDTO, String> col_usuario;
     @FXML private TableColumn<OrdenDTO, String> col_estado;
     @FXML private TableColumn<OrdenDTO, Number> col_total;
     @FXML private TableColumn<OrdenDTO, String> col_fecha;
@@ -49,7 +50,9 @@ public class Lst_Ordenes_GuiController implements Initializable {
             OrdenDAO dao = new OrdenDAO();
             ObservableList<OrdenDTO> lista = dao.ListarOrdenes();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_usuario.setCellValueFactory(new PropertyValueFactory<>("usuarioId"));
+            col_usuario.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getUsuarioId() + ")"));
             col_estado.setCellValueFactory(new PropertyValueFactory<>("estado"));
             col_total.setCellValueFactory(new PropertyValueFactory<>("totalBruto"));
             col_fecha.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));

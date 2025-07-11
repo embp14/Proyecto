@@ -34,7 +34,7 @@ public class Mnt_Envios_GuiController implements Initializable {
     @FXML private TextField txt_id;
     @FXML private ComboBox<OrdenDTO> cmb_orden;
     @FXML private ComboBox<DireccionDTO> cmb_direccion;
-    @FXML private TextField txt_empresa;
+    @FXML private ComboBox<String> cmb_empresa;
     @FXML private TextField txt_tracking;
     @FXML private DatePicker dp_envio;
     @FXML private DatePicker dp_estimada;
@@ -45,6 +45,9 @@ public class Mnt_Envios_GuiController implements Initializable {
         Platform.runLater(() -> {
             cargarCombos();
             cargarDatos();
+            cmb_empresa.valueProperty().addListener((o,oldV,newV)->{
+                if(!actualizar) txt_tracking.setText(generarTracking(newV));
+            });
         });
     }
 
@@ -56,7 +59,7 @@ public class Mnt_Envios_GuiController implements Initializable {
                 EnvioDTO dto = new EnvioDTO();
                 dto.setOrdenId(cmb_orden.getValue().getId());
                 dto.setDireccionId(cmb_direccion.getValue().getId());
-                dto.setEmpresaEnvio(txt_empresa.getText());
+                dto.setEmpresaEnvio(cmb_empresa.getValue());
                 dto.setCodigoTracking(txt_tracking.getText());
                 dto.setFechaEnvio(Timestamp.valueOf(dp_envio.getValue().atStartOfDay()));
                 dto.setFechaEntregaEstimada(Timestamp.valueOf(dp_estimada.getValue().atStartOfDay()));
@@ -74,7 +77,7 @@ public class Mnt_Envios_GuiController implements Initializable {
             EnvioDTO dto = (EnvioDTO) stage.getUserData();
             dto.setOrdenId(cmb_orden.getValue().getId());
             dto.setDireccionId(cmb_direccion.getValue().getId());
-            dto.setEmpresaEnvio(txt_empresa.getText());
+            dto.setEmpresaEnvio(cmb_empresa.getValue());
             dto.setCodigoTracking(txt_tracking.getText());
             dto.setFechaEnvio(Timestamp.valueOf(dp_envio.getValue().atStartOfDay()));
             dto.setFechaEntregaEstimada(Timestamp.valueOf(dp_estimada.getValue().atStartOfDay()));
@@ -133,6 +136,9 @@ public class Mnt_Envios_GuiController implements Initializable {
             DireccionDAO ddao = new DireccionDAO();
             direcciones.addAll(ddao.ListarDirecciones());
             cmb_direccion.setItems(direcciones);
+
+            ObservableList<String> empresas = FXCollections.observableArrayList("Servientrega", "Tramaco", "Correos Ecuador");
+            cmb_empresa.setItems(empresas);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
         }
@@ -150,7 +156,7 @@ public class Mnt_Envios_GuiController implements Initializable {
             for(DireccionDTO d : cmb_direccion.getItems()){
                 if(d.getId() == dto.getDireccionId()){ cmb_direccion.setValue(d); break; }
             }
-            txt_empresa.setText(dto.getEmpresaEnvio());
+            cmb_empresa.setValue(dto.getEmpresaEnvio());
             txt_tracking.setText(dto.getCodigoTracking());
             dp_envio.setValue(dto.getFechaEnvio().toLocalDateTime().toLocalDate());
             dp_estimada.setValue(dto.getFechaEntregaEstimada().toLocalDateTime().toLocalDate());
@@ -159,6 +165,13 @@ public class Mnt_Envios_GuiController implements Initializable {
             dp_envio.setValue(java.time.LocalDate.now());
             dp_estimada.setValue(java.time.LocalDate.now());
             dp_entrega.setValue(java.time.LocalDate.now());
+            txt_tracking.setText(generarTracking(cmb_empresa.getValue()));
         }
+    }
+
+    private String generarTracking(String empresa){
+        if(empresa == null) empresa = "GEN";
+        String pref = empresa.substring(0, Math.min(3, empresa.length())).toUpperCase();
+        return pref + System.currentTimeMillis();
     }
 }

@@ -27,7 +27,7 @@ public class Lst_CarritoItems_GuiController implements Initializable {
     @FXML private TableView<CarritoItemDTO> tbl_Lista;
     @FXML private TableColumn<CarritoItemDTO, Integer> col_id;
     @FXML private TableColumn<CarritoItemDTO, Integer> col_carrito;
-    @FXML private TableColumn<CarritoItemDTO, Integer> col_variante;
+    @FXML private TableColumn<CarritoItemDTO, String> col_variante;
     @FXML private TableColumn<CarritoItemDTO, Integer> col_cantidad;
 
     FeedbackCarritoItem fu = new FeedbackCarritoItem();
@@ -35,6 +35,7 @@ public class Lst_CarritoItems_GuiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txt_Buscar.textProperty().addListener((obs, oldV, newV) -> { call_Buscar(); });
+        call_Buscar();
     }
 
     public void call_CerrarVentana(){
@@ -48,7 +49,10 @@ public class Lst_CarritoItems_GuiController implements Initializable {
             ObservableList<CarritoItemDTO> lista = dao.ListarItems(idCarrito);
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             col_carrito.setCellValueFactory(new PropertyValueFactory<>("carritoId"));
-            col_variante.setCellValueFactory(new PropertyValueFactory<>("varianteId"));
+            col_variante.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getVarianteSku() + " - " + data.getValue().getProductoNombre() +
+                        " (" + data.getValue().getVarianteId() + ")"));
             col_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

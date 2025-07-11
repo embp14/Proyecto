@@ -43,7 +43,7 @@ public class Mnt_Productos_GuiController implements Initializable {
     @FXML private ImageView img_principal;
     @FXML private TextField txt_titulo;
     @FXML private TextField txt_descripcion;
-    @FXML private TextField txt_activo;
+    @FXML private ComboBox<String> cmb_activo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -56,6 +56,7 @@ public class Mnt_Productos_GuiController implements Initializable {
 
     public void call_Grabar(){
         ProductoDAO dao = new ProductoDAO();
+        if(!validarDatos()) return;
         if(!actualizar){
             try{
                 ProductoDTO dto = new ProductoDTO();
@@ -64,7 +65,7 @@ public class Mnt_Productos_GuiController implements Initializable {
                 dto.setTitulo(txt_titulo.getText());
                 dto.setDescripcion(txt_descripcion.getText());
                 dto.setCreadoEn(new Timestamp(System.currentTimeMillis()));
-                dto.setActivo(Boolean.parseBoolean(txt_activo.getText()));
+                dto.setActivo("Activo".equals(cmb_activo.getValue()));
                 int id = dao.InsertarProducto(dto);
                 if(id>0){
                     txt_id.setText(Integer.toString(id));
@@ -81,7 +82,7 @@ public class Mnt_Productos_GuiController implements Initializable {
             dto.setCategoriaId(cmb_categoria.getValue().getId());
             dto.setTitulo(txt_titulo.getText());
             dto.setDescripcion(txt_descripcion.getText());
-            dto.setActivo(Boolean.parseBoolean(txt_activo.getText()));
+            dto.setActivo("Activo".equals(cmb_activo.getValue()));
             try{
                 dao.ActualizarProducto(dto);
                 guardarImagen(dto.getId());
@@ -108,6 +109,10 @@ public class Mnt_Productos_GuiController implements Initializable {
             CategoriaDAO cdao = new CategoriaDAO();
             categorias.addAll(cdao.ListarCategorias());
             cmb_categoria.setItems(categorias);
+
+            ObservableList<String> estados = FXCollections.observableArrayList("Activo", "Inactivo");
+            cmb_activo.setItems(estados);
+            cmb_activo.getSelectionModel().selectFirst();
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", "No se pudieron cargar los cat\u00e1logos: " + ex.getMessage());
         }
@@ -127,7 +132,7 @@ public class Mnt_Productos_GuiController implements Initializable {
             }
             txt_titulo.setText(dto.getTitulo());
             txt_descripcion.setText(dto.getDescripcion());
-            txt_activo.setText(Boolean.toString(dto.isActivo()));
+            cmb_activo.setValue(dto.isActivo() ? "Activo" : "Inactivo");
             cargarImagenPrincipal(dto.getId());
         }
     }
@@ -175,5 +180,25 @@ public class Mnt_Productos_GuiController implements Initializable {
             txt_imagen.setText(f.getAbsolutePath());
             img_principal.setImage(new Image(f.toURI().toString()));
         }
+    }
+
+    private boolean validarDatos(){
+        if(cmb_vendedor.getValue()==null){
+            fu.datosInvalidos("Seleccione un vendedor v\u00e1lido");
+            return false;
+        }
+        if(cmb_categoria.getValue()==null){
+            fu.datosInvalidos("Seleccione una categor\u00eda v\u00e1lida");
+            return false;
+        }
+        if(txt_titulo.getText().trim().isEmpty()){
+            fu.datosInvalidos("El t\u00edtulo es obligatorio");
+            return false;
+        }
+        if(txt_descripcion.getText().trim().isEmpty()){
+            fu.datosInvalidos("La descripci\u00f3n es obligatoria");
+            return false;
+        }
+        return true;
     }
 }

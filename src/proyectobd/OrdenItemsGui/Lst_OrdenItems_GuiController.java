@@ -15,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackOrdenItem;
 
@@ -27,7 +28,7 @@ public class Lst_OrdenItems_GuiController implements Initializable {
     @FXML private TableView<OrdenItemDTO> tbl_Lista;
     @FXML private TableColumn<OrdenItemDTO, Integer> col_id;
     @FXML private TableColumn<OrdenItemDTO, Integer> col_orden;
-    @FXML private TableColumn<OrdenItemDTO, Integer> col_variante;
+    @FXML private TableColumn<OrdenItemDTO, String> col_variante;
     @FXML private TableColumn<OrdenItemDTO, Integer> col_cantidad;
 
     FeedbackOrdenItem fu = new FeedbackOrdenItem();
@@ -35,6 +36,7 @@ public class Lst_OrdenItems_GuiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txt_Buscar.textProperty().addListener((obs, oldV, newV) -> { call_Buscar(); });
+        call_Buscar();
     }
 
     public void call_CerrarVentana(){
@@ -48,7 +50,10 @@ public class Lst_OrdenItems_GuiController implements Initializable {
             ObservableList<OrdenItemDTO> lista = dao.ListarItems(idCarrito);
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             col_orden.setCellValueFactory(new PropertyValueFactory<>("ordenId"));
-            col_variante.setCellValueFactory(new PropertyValueFactory<>("varianteId"));
+            col_variante.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getVarianteSku() + " - " + data.getValue().getProductoNombre() +
+                        " (" + data.getValue().getVarianteId() + ")"));
             col_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

@@ -26,7 +26,7 @@ public class Lst_Vendedores_GuiController implements Initializable {
     @FXML private TextField txt_Buscar;
     @FXML private TableView<VendedorDTO> tbl_Lista;
     @FXML private TableColumn<VendedorDTO, Integer> col_id;
-    @FXML private TableColumn<VendedorDTO, Integer> col_usuario;
+    @FXML private TableColumn<VendedorDTO, String> col_usuario;
     @FXML private TableColumn<VendedorDTO, String> col_nombre;
     @FXML private TableColumn<VendedorDTO, Number> col_calificacion;
 
@@ -48,7 +48,9 @@ public class Lst_Vendedores_GuiController implements Initializable {
             VendedorDAO dao = new VendedorDAO();
             ObservableList<VendedorDTO> lista = dao.ListarVendedores();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_usuario.setCellValueFactory(new PropertyValueFactory<>("usuarioId"));
+            col_usuario.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getUsuarioId() + ")"));
             col_nombre.setCellValueFactory(new PropertyValueFactory<>("nombreTienda"));
             col_calificacion.setCellValueFactory(new PropertyValueFactory<>("calificacionPromedio"));
             tbl_Lista.setItems(lista);

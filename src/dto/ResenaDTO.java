@@ -6,6 +6,8 @@ public class ResenaDTO {
     private int id;
     private int productoId;
     private int usuarioId;
+    private String usuarioNombre;
+    private String productoNombre;
     private int rating;
     private String comentario;
     private Timestamp fecha;
@@ -32,6 +34,22 @@ public class ResenaDTO {
 
     public void setUsuarioId(int usuarioId) {
         this.usuarioId = usuarioId;
+    }
+
+    public String getUsuarioNombre() {
+        return usuarioNombre;
+    }
+
+    public void setUsuarioNombre(String usuarioNombre) {
+        this.usuarioNombre = usuarioNombre;
+    }
+
+    public String getProductoNombre() {
+        return productoNombre;
+    }
+
+    public void setProductoNombre(String productoNombre) {
+        this.productoNombre = productoNombre;
     }
 
     public int getRating() {

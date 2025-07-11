@@ -38,6 +38,8 @@ public class Mnt_VariantesProducto_GuiController implements Initializable {
         Platform.runLater(() -> {
             cargarCombos();
             cargarDatos();
+            txt_id.setDisable(true);
+            txt_sku.setDisable(true);
         });
     }
 
@@ -47,7 +49,7 @@ public class Mnt_VariantesProducto_GuiController implements Initializable {
             try{
                 VarianteProductoDTO dto = new VarianteProductoDTO();
                 dto.setProductoId(cmb_producto.getValue().getId());
-                dto.setSku(txt_sku.getText());
+                dto.setSku(generarSku());
                 dto.setPrecio(Double.parseDouble(txt_precio.getText()));
                 dto.setStock(Integer.parseInt(txt_stock.getText()));
                 int id = dao.InsertarVariante(dto);
@@ -102,6 +104,12 @@ public class Mnt_VariantesProducto_GuiController implements Initializable {
             txt_sku.setText(dto.getSku());
             txt_precio.setText(Double.toString(dto.getPrecio()));
             txt_stock.setText(Integer.toString(dto.getStock()));
+        } else {
+            txt_sku.setText(generarSku());
         }
+    }
+
+    private String generarSku(){
+        return "SKU" + System.currentTimeMillis();
     }
 }

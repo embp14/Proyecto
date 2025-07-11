@@ -34,9 +34,9 @@
                   <Label text="Dirección:" GridPane.rowIndex="2" />
                   <TextField fx:id="txt_direccion" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label text="Ciudad:" GridPane.rowIndex="3" />
-                  <TextField fx:id="txt_ciudad" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="cmb_ciudad" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label text="Provincia:" GridPane.rowIndex="4" />
-                  <TextField fx:id="txt_provincia" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="cmb_provincia" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label text="Código Postal:" GridPane.rowIndex="5" />
                   <TextField fx:id="txt_postal" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label text="Teléfono:" GridPane.rowIndex="6" />

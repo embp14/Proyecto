@@ -44,6 +44,7 @@ public class Mnt_ListaDeseoItems_GuiController implements Initializable {
 
     public void call_Grabar(){
         ListaDeseoItemDAO dao = new ListaDeseoItemDAO();
+        if(!validarDatos()) return;
         if(!actualizar){
             try{
                 ListaDeseoItemDTO dto = new ListaDeseoItemDTO();
@@ -108,5 +109,27 @@ public class Mnt_ListaDeseoItems_GuiController implements Initializable {
             }
             txt_cantidad.setText(Integer.toString(dto.getCantidad()));
         }
+    }
+
+    private boolean validarDatos(){
+        if(cmb_lista.getValue()==null){
+            fu.datosInvalidos("Lista: seleccione un valor v\u00e1lido.");
+            return false;
+        }
+        if(cmb_variante.getValue()==null){
+            fu.datosInvalidos("Variante: seleccione un valor v\u00e1lido.");
+            return false;
+        }
+        try{
+            int c = Integer.parseInt(txt_cantidad.getText());
+            if(c <= 0){
+                fu.datosInvalidos("Cantidad debe ser positiva");
+                return false;
+            }
+        }catch(Exception e){
+            fu.datosInvalidos("Cantidad inv\u00e1lida");
+            return false;
+        }
+        return true;
     }
 }

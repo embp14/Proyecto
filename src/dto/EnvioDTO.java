@@ -6,6 +6,8 @@ public class EnvioDTO {
     private int id;
     private int ordenId;
     private int direccionId;
+    private String usuarioNombre;
+    private String direccionNombre;
     private String empresaEnvio;
     private String codigoTracking;
     private Timestamp fechaEnvio;
@@ -20,6 +22,12 @@ public class EnvioDTO {
 
     public int getDireccionId() { return direccionId; }
     public void setDireccionId(int direccionId) { this.direccionId = direccionId; }
+
+    public String getUsuarioNombre() { return usuarioNombre; }
+    public void setUsuarioNombre(String usuarioNombre) { this.usuarioNombre = usuarioNombre; }
+
+    public String getDireccionNombre() { return direccionNombre; }
+    public void setDireccionNombre(String direccionNombre) { this.direccionNombre = direccionNombre; }
 
     public String getEmpresaEnvio() { return empresaEnvio; }
     public void setEmpresaEnvio(String empresaEnvio) { this.empresaEnvio = empresaEnvio; }

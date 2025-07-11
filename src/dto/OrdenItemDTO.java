@@ -4,6 +4,8 @@ public class OrdenItemDTO {
     private int id;
     private int ordenId;
     private int varianteId;
+    private String varianteSku;
+    private String productoNombre;
     private int cantidad;
     private double precioUnitario;
     private double precioDescuento;
@@ -16,6 +18,12 @@ public class OrdenItemDTO {
 
     public int getVarianteId() { return varianteId; }
     public void setVarianteId(int varianteId) { this.varianteId = varianteId; }
+
+    public String getVarianteSku() { return varianteSku; }
+    public void setVarianteSku(String varianteSku) { this.varianteSku = varianteSku; }
+
+    public String getProductoNombre() { return productoNombre; }
+    public void setProductoNombre(String productoNombre) { this.productoNombre = productoNombre; }
 
     public int getCantidad() { return cantidad; }
     public void setCantidad(int cantidad) { this.cantidad = cantidad; }

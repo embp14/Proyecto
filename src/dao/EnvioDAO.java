@@ -46,7 +46,10 @@ public class EnvioDAO {
     public ObservableList<EnvioDTO> ListarEnvios(){
         ObservableList<EnvioDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT * FROM envios ORDER BY id";
+        String sql = "SELECT e.id, e.orden_id, e.direccion_id, u.nombre AS usuario_nombre, d.nombre AS direccion_nombre, " +
+                     "e.empresa_envio, e.codigo_tracking, e.fecha_envio, e.fecha_entrega_estimada, e.fecha_entrega_real " +
+                     "FROM envios e JOIN ordenes o ON e.orden_id=o.id JOIN usuarios u ON o.usuario_id=u.id " +
+                     "JOIN direcciones d ON e.direccion_id=d.id ORDER BY e.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -55,6 +58,8 @@ public class EnvioDAO {
                 dto.setId(rs.getInt("id"));
                 dto.setOrdenId(rs.getInt("orden_id"));
                 dto.setDireccionId(rs.getInt("direccion_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
+                dto.setDireccionNombre(rs.getString("direccion_nombre"));
                 dto.setEmpresaEnvio(rs.getString("empresa_envio"));
                 dto.setCodigoTracking(rs.getString("codigo_tracking"));
                 dto.setFechaEnvio(rs.getTimestamp("fecha_envio"));

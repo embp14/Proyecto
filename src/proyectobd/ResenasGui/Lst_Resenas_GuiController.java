@@ -27,8 +27,8 @@ public class Lst_Resenas_GuiController implements Initializable {
     @FXML private TextField txt_Buscar;
     @FXML private TableView<ResenaDTO> tbl_Lista;
     @FXML private TableColumn<ResenaDTO, Integer> col_id;
-    @FXML private TableColumn<ResenaDTO, Integer> col_producto;
-    @FXML private TableColumn<ResenaDTO, Integer> col_usuario;
+    @FXML private TableColumn<ResenaDTO, String> col_producto;
+    @FXML private TableColumn<ResenaDTO, String> col_usuario;
     @FXML private TableColumn<ResenaDTO, Integer> col_rating;
     @FXML private TableColumn<ResenaDTO, Timestamp> col_fecha;
 
@@ -50,8 +50,12 @@ public class Lst_Resenas_GuiController implements Initializable {
             ResenaDAO dao = new ResenaDAO();
             ObservableList<ResenaDTO> lista = dao.ListarResenas();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_producto.setCellValueFactory(new PropertyValueFactory<>("productoId"));
-            col_usuario.setCellValueFactory(new PropertyValueFactory<>("usuarioId"));
+            col_producto.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getProductoNombre() + " (" + data.getValue().getProductoId() + ")"));
+            col_usuario.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getUsuarioId() + ")"));
             col_rating.setCellValueFactory(new PropertyValueFactory<>("rating"));
             col_fecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
             tbl_Lista.setItems(lista);

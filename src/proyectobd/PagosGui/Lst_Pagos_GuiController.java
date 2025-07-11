@@ -15,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackPago;
 
@@ -26,9 +27,9 @@ public class Lst_Pagos_GuiController implements Initializable {
     @FXML private TextField txt_Buscar;
     @FXML private TableView<PagoDTO> tbl_Lista;
     @FXML private TableColumn<PagoDTO, Integer> col_id;
-    @FXML private TableColumn<PagoDTO, Integer> col_orden;
-    @FXML private TableColumn<PagoDTO, Integer> col_metodo;
-    @FXML private TableColumn<PagoDTO, Integer> col_monto;
+    @FXML private TableColumn<PagoDTO, String> col_orden;
+    @FXML private TableColumn<PagoDTO, String> col_metodo;
+    @FXML private TableColumn<PagoDTO, Double> col_monto;
     @FXML private TableColumn<PagoDTO, String> col_fecha;
 
     FeedbackPago fu = new FeedbackPago();
@@ -36,6 +37,7 @@ public class Lst_Pagos_GuiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txt_Buscar.textProperty().addListener((obs, oldV, newV) -> { call_Buscar(); });
+        call_Buscar();
     }
 
     public void call_CerrarVentana(){
@@ -48,7 +50,9 @@ public class Lst_Pagos_GuiController implements Initializable {
             PagoDAO dao = new PagoDAO();
             ObservableList<PagoDTO> lista = dao.ListarPagos();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_orden.setCellValueFactory(new PropertyValueFactory<>("ordenId"));
+            col_orden.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getOrdenId() + ")"));
             col_metodo.setCellValueFactory(new PropertyValueFactory<>("metodoPago"));
             col_monto.setCellValueFactory(new PropertyValueFactory<>("monto"));
             col_fecha.setCellValueFactory(new PropertyValueFactory<>("fechaPago"));

@@ -30,7 +30,8 @@ public class VarianteProductoDAO {
     public ObservableList<VarianteProductoDTO> ListarVariantes(){
         ObservableList<VarianteProductoDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, producto_id, sku, precio, stock FROM variantes_producto ORDER BY id";
+        String sql = "SELECT v.id, v.producto_id, v.sku, p.titulo AS producto_nombre, v.precio, v.stock " +
+                     "FROM variantes_producto v JOIN productos p ON v.producto_id=p.id ORDER BY v.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -39,6 +40,7 @@ public class VarianteProductoDAO {
                 dto.setId(rs.getInt("id"));
                 dto.setProductoId(rs.getInt("producto_id"));
                 dto.setSku(rs.getString("sku"));
+                dto.setProductoNombre(rs.getString("producto_nombre"));
                 dto.setPrecio(rs.getDouble("precio"));
                 dto.setStock(rs.getInt("stock"));
                 lista.add(dto);

@@ -27,7 +27,7 @@ public class Lst_Categorias_GuiController implements Initializable {
     @FXML private TableView<CategoriaDTO> tbl_Lista;
     @FXML private TableColumn<CategoriaDTO, Integer> col_id;
     @FXML private TableColumn<CategoriaDTO, String> col_nombre;
-    @FXML private TableColumn<CategoriaDTO, Integer> col_parent;
+    @FXML private TableColumn<CategoriaDTO, String> col_parent;
 
     FeedbackCategoria fu = new FeedbackCategoria();
 
@@ -48,7 +48,10 @@ public class Lst_Categorias_GuiController implements Initializable {
             ObservableList<CategoriaDTO> lista = dao.ListarCategorias();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             col_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-            col_parent.setCellValueFactory(new PropertyValueFactory<>("parentId"));
+            col_parent.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getParentNombre() == null ? "" :
+                        data.getValue().getParentNombre() + " (" + data.getValue().getParentId() + ")"));
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());

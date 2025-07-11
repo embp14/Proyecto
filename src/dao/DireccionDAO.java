@@ -30,7 +30,9 @@ public class DireccionDAO {
     public ObservableList<DireccionDTO> ListarDirecciones(){
         ObservableList<DireccionDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT * FROM direcciones ORDER BY id";
+        String sql = "SELECT d.*, u.nombre AS usuario_nombre " +
+                     "FROM direcciones d JOIN usuarios u ON d.usuario_id=u.id " +
+                     "ORDER BY d.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -38,6 +40,7 @@ public class DireccionDAO {
                 DireccionDTO dto = new DireccionDTO();
                 dto.setId(rs.getInt("id"));
                 dto.setUsuarioId(rs.getInt("usuario_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
                 dto.setAlias(rs.getString("alias"));
                 dto.setDireccion(rs.getString("direccion"));
                 dto.setCiudad(rs.getString("ciudad"));
@@ -56,7 +59,9 @@ public class DireccionDAO {
     public ObservableList<DireccionDTO> BuscarDirecciones(String criterio){
         ObservableList<DireccionDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT * FROM direcciones WHERE ciudad LIKE '%"+criterio+"%' ORDER BY id";
+        String sql = "SELECT d.*, u.nombre AS usuario_nombre " +
+                     "FROM direcciones d JOIN usuarios u ON d.usuario_id=u.id " +
+                     "WHERE d.ciudad LIKE '%"+criterio+"%' ORDER BY d.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -64,6 +69,7 @@ public class DireccionDAO {
                 DireccionDTO dto = new DireccionDTO();
                 dto.setId(rs.getInt("id"));
                 dto.setUsuarioId(rs.getInt("usuario_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
                 dto.setAlias(rs.getString("alias"));
                 dto.setDireccion(rs.getString("direccion"));
                 dto.setCiudad(rs.getString("ciudad"));

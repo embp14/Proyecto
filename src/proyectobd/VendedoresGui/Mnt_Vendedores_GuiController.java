@@ -29,7 +29,7 @@ public class Mnt_Vendedores_GuiController implements Initializable {
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
     @FXML private ComboBox<UsuarioDTO> cmb_usuario;
-    @FXML private TextField txt_nombre;
+    @FXML private ComboBox<String> cmb_tienda;
     @FXML private TextField txt_descripcion;
     @FXML private TextField txt_calificacion;
 
@@ -48,7 +48,7 @@ public class Mnt_Vendedores_GuiController implements Initializable {
             try{
                 VendedorDTO dto = new VendedorDTO();
                 dto.setUsuarioId(cmb_usuario.getValue().getId());
-                dto.setNombreTienda(txt_nombre.getText());
+                dto.setNombreTienda(cmb_tienda.getValue());
                 dto.setDescripcion(txt_descripcion.getText());
                 dto.setCalificacionPromedio(new java.math.BigDecimal(txt_calificacion.getText()));
                 int id = dao.InsertarVendedor(dto);
@@ -63,7 +63,7 @@ public class Mnt_Vendedores_GuiController implements Initializable {
             Stage stage = (Stage) Ap_Main.getScene().getWindow();
             VendedorDTO dto = (VendedorDTO) stage.getUserData();
             dto.setUsuarioId(cmb_usuario.getValue().getId());
-            dto.setNombreTienda(txt_nombre.getText());
+            dto.setNombreTienda(cmb_tienda.getValue());
             dto.setDescripcion(txt_descripcion.getText());
             dto.setCalificacionPromedio(new java.math.BigDecimal(txt_calificacion.getText()));
             try{
@@ -89,7 +89,7 @@ public class Mnt_Vendedores_GuiController implements Initializable {
             for(UsuarioDTO u : cmb_usuario.getItems()){
                 if(u.getId() == dto.getUsuarioId()){ cmb_usuario.setValue(u); break; }
             }
-            txt_nombre.setText(dto.getNombreTienda());
+            cmb_tienda.setValue(dto.getNombreTienda());
             txt_descripcion.setText(dto.getDescripcion());
             txt_calificacion.setText(dto.getCalificacionPromedio().toString());
         }
@@ -101,6 +101,10 @@ public class Mnt_Vendedores_GuiController implements Initializable {
             UsuarioDAO udao = new UsuarioDAO();
             usuarios.addAll(udao.ListarUsuarios());
             cmb_usuario.setItems(usuarios);
+
+            ObservableList<String> tiendas = FXCollections.observableArrayList(
+                "Tienda Quito", "Tienda Guayaquil", "Tienda Cuenca", "Tienda Loja");
+            cmb_tienda.setItems(tiendas);
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
         }

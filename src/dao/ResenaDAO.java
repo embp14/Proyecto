@@ -46,7 +46,8 @@ public class ResenaDAO {
     public ObservableList<ResenaDTO> ListarResenas(){
         ObservableList<ResenaDTO> resenas = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, producto_id, usuario_id, rating, comentario, fecha FROM reseñas ORDER BY id";
+        String sql = "SELECT r.id, r.producto_id, p.titulo AS producto_nombre, r.usuario_id, u.nombre AS usuario_nombre, r.rating, r.comentario, r.fecha " +
+                     "FROM reseñas r JOIN productos p ON r.producto_id=p.id JOIN usuarios u ON r.usuario_id=u.id ORDER BY r.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -54,7 +55,9 @@ public class ResenaDAO {
                 ResenaDTO dto = new ResenaDTO();
                 dto.setId(rs.getInt("id"));
                 dto.setProductoId(rs.getInt("producto_id"));
+                dto.setProductoNombre(rs.getString("producto_nombre"));
                 dto.setUsuarioId(rs.getInt("usuario_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
                 dto.setRating(rs.getInt("rating"));
                 dto.setComentario(rs.getString("comentario"));
                 dto.setFecha(rs.getTimestamp("fecha"));
@@ -70,8 +73,9 @@ public class ResenaDAO {
     public ObservableList<ResenaDTO> BuscarResenas(String criterio){
         ObservableList<ResenaDTO> resenas = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, producto_id, usuario_id, rating, comentario, fecha FROM reseñas " +
-                     "WHERE comentario LIKE '%"+criterio+"%' ORDER BY id";
+        String sql = "SELECT r.id, r.producto_id, p.titulo AS producto_nombre, r.usuario_id, u.nombre AS usuario_nombre, r.rating, r.comentario, r.fecha " +
+                     "FROM reseñas r JOIN productos p ON r.producto_id=p.id JOIN usuarios u ON r.usuario_id=u.id " +
+                     "WHERE r.comentario LIKE '%"+criterio+"%' ORDER BY r.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -79,7 +83,9 @@ public class ResenaDAO {
                 ResenaDTO dto = new ResenaDTO();
                 dto.setId(rs.getInt("id"));
                 dto.setProductoId(rs.getInt("producto_id"));
+                dto.setProductoNombre(rs.getString("producto_nombre"));
                 dto.setUsuarioId(rs.getInt("usuario_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
                 dto.setRating(rs.getInt("rating"));
                 dto.setComentario(rs.getString("comentario"));
                 dto.setFecha(rs.getTimestamp("fecha"));

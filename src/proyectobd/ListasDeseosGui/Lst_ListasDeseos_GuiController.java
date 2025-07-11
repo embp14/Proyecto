@@ -26,7 +26,7 @@ public class Lst_ListasDeseos_GuiController implements Initializable {
     @FXML private TextField txt_Buscar;
     @FXML private TableView<ListaDeseoDTO> tbl_Lista;
     @FXML private TableColumn<ListaDeseoDTO, Integer> col_id;
-    @FXML private TableColumn<ListaDeseoDTO, Integer> col_usuario;
+    @FXML private TableColumn<ListaDeseoDTO, String> col_usuario;
     @FXML private TableColumn<ListaDeseoDTO, String> col_nombre;
     @FXML private TableColumn<ListaDeseoDTO, String> col_creado;
 
@@ -48,7 +48,9 @@ public class Lst_ListasDeseos_GuiController implements Initializable {
             ListaDeseoDAO dao = new ListaDeseoDAO();
             ObservableList<ListaDeseoDTO> lista = dao.ListarListas();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_usuario.setCellValueFactory(new PropertyValueFactory<>("usuarioId"));
+            col_usuario.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getUsuarioId() + ")"));
             col_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
             col_creado.setCellValueFactory(new PropertyValueFactory<>("creadoEn"));
             tbl_Lista.setItems(lista);

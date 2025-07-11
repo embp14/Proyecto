@@ -4,6 +4,7 @@ public class CategoriaDTO {
     private int id;
     private String nombre;
     private Integer parentId;
+    private String parentNombre;
 
     public int getId(){ return id; }
     public void setId(int id){ this.id = id; }
@@ -13,6 +14,9 @@ public class CategoriaDTO {
 
     public Integer getParentId(){ return parentId; }
     public void setParentId(Integer parentId){ this.parentId = parentId; }
+
+    public String getParentNombre() { return parentNombre; }
+    public void setParentNombre(String parentNombre) { this.parentNombre = parentNombre; }
 
     @Override
     public String toString() { return nombre; }
