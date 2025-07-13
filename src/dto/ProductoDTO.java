@@ -41,5 +41,5 @@ public class ProductoDTO {
     public void setActivo(boolean activo) { this.activo = activo; }
 
     @Override
-    public String toString() { return titulo; }
+    public String toString() { return titulo + " - ID " + id; }
 }

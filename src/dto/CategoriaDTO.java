@@ -19,5 +19,5 @@ public class CategoriaDTO {
     public void setParentNombre(String parentNombre) { this.parentNombre = parentNombre; }
 
     @Override
-    public String toString() { return nombre; }
+    public String toString() { return nombre + " - ID " + id; }
 }

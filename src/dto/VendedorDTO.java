@@ -60,6 +60,6 @@ public class VendedorDTO {
 
     @Override
     public String toString() {
-        return nombreTienda;
+        return nombreTienda + " - ID " + id;
     }
 }

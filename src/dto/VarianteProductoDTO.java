@@ -27,5 +27,5 @@ public class VarianteProductoDTO {
     public void setStock(int stock) { this.stock = stock; }
 
     @Override
-    public String toString() { return sku + " - " + (productoNombre != null ? productoNombre : ""); }
+    public String toString() { return sku + " - " + (productoNombre != null ? productoNombre : "") + " - ID " + id; }
 }
