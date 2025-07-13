@@ -27,7 +27,7 @@ public class Lst_OrdenItems_GuiController implements Initializable {
     @FXML private TextField txt_Buscar;
     @FXML private TableView<OrdenItemDTO> tbl_Lista;
     @FXML private TableColumn<OrdenItemDTO, Integer> col_id;
-    @FXML private TableColumn<OrdenItemDTO, Integer> col_orden;
+    @FXML private TableColumn<OrdenItemDTO, String> col_orden;
     @FXML private TableColumn<OrdenItemDTO, String> col_variante;
     @FXML private TableColumn<OrdenItemDTO, Integer> col_cantidad;
 
@@ -49,7 +49,10 @@ public class Lst_OrdenItems_GuiController implements Initializable {
             OrdenItemDAO dao = new OrdenItemDAO();
             ObservableList<OrdenItemDTO> lista = dao.ListarItems(idCarrito);
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_orden.setCellValueFactory(new PropertyValueFactory<>("ordenId"));
+            col_orden.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() +
+                        " - ID " + data.getValue().getOrdenId()));
             col_variante.setCellValueFactory(data ->
                     new javafx.beans.property.ReadOnlyStringWrapper(
                         data.getValue().getVarianteSku() + " - " + data.getValue().getProductoNombre() +

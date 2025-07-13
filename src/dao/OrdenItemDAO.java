@@ -46,9 +46,13 @@ public class OrdenItemDAO {
     public ObservableList<OrdenItemDTO> ListarItems(int ordenId){
         ObservableList<OrdenItemDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT oi.id, oi.orden_id, oi.variante_id, v.sku AS variante_sku, p.titulo AS producto_nombre, " +
-                     "oi.cantidad, oi.precio_unitario, oi.precio_descuento " +
-                     "FROM orden_items oi JOIN variantes_producto v ON oi.variante_id=v.id " +
+        String sql = "SELECT oi.id, oi.orden_id, u.nombre AS usuario_nombre, oi.variante_id, " +
+                     "v.sku AS variante_sku, p.titulo AS producto_nombre, oi.cantidad, " +
+                     "oi.precio_unitario, oi.precio_descuento " +
+                     "FROM orden_items oi " +
+                     "JOIN ordenes o ON oi.orden_id=o.id " +
+                     "JOIN usuarios u ON o.usuario_id=u.id " +
+                     "JOIN variantes_producto v ON oi.variante_id=v.id " +
                      "JOIN productos p ON v.producto_id=p.id WHERE oi.orden_id="+ordenId+" ORDER BY oi.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
@@ -57,6 +61,7 @@ public class OrdenItemDAO {
                 OrdenItemDTO dto = new OrdenItemDTO();
                 dto.setId(rs.getInt("id"));
                 dto.setOrdenId(rs.getInt("orden_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
                 dto.setVarianteId(rs.getInt("variante_id"));
                 dto.setVarianteSku(rs.getString("variante_sku"));
                 dto.setProductoNombre(rs.getString("producto_nombre"));
