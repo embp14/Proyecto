@@ -28,7 +28,7 @@ public class Lst_Ofertas_GuiController implements Initializable {
     @FXML private TextField txt_Buscar;
     @FXML private TableView<OfertaDTO> tbl_Lista;
     @FXML private TableColumn<OfertaDTO, Integer> col_id;
-    @FXML private TableColumn<OfertaDTO, Integer> col_variante;
+    @FXML private TableColumn<OfertaDTO, String> col_variante;
     @FXML private TableColumn<OfertaDTO, Double> col_precio;
     @FXML private TableColumn<OfertaDTO, Timestamp> col_inicio;
     @FXML private TableColumn<OfertaDTO, Timestamp> col_fin;

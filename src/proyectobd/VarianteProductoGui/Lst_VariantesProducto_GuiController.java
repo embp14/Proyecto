@@ -26,7 +26,7 @@ public class Lst_VariantesProducto_GuiController implements Initializable {
     @FXML private TextField txt_Buscar;
     @FXML private TableView<VarianteProductoDTO> tbl_Lista;
     @FXML private TableColumn<VarianteProductoDTO, Integer> col_id;
-    @FXML private TableColumn<VarianteProductoDTO, Integer> col_producto;
+    @FXML private TableColumn<VarianteProductoDTO, String> col_producto;
     @FXML private TableColumn<VarianteProductoDTO, String> col_sku;
     @FXML private TableColumn<VarianteProductoDTO, Double> col_precio;
     @FXML private TableColumn<VarianteProductoDTO, Integer> col_stock;

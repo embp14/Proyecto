@@ -27,7 +27,7 @@ public class Lst_ImagenesProducto_GuiController implements Initializable {
     @FXML private TextField txt_Buscar;
     @FXML private TableView<ImagenProductoDTO> tbl_Lista;
     @FXML private TableColumn<ImagenProductoDTO, Integer> col_id;
-    @FXML private TableColumn<ImagenProductoDTO, Integer> col_producto;
+    @FXML private TableColumn<ImagenProductoDTO, String> col_producto;
     @FXML private TableColumn<ImagenProductoDTO, String> col_url;
     @FXML private TableColumn<ImagenProductoDTO, Boolean> col_principal;
 
