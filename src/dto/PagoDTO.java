@@ -30,6 +30,7 @@ public class PagoDTO {
 
     @Override
     public String toString() {
-        return metodoPago + " - ID " + id;
+        String metodo = metodoPago != null ? metodoPago : "";
+        return metodo + " - ID " + id;
     }
 }

@@ -32,8 +32,8 @@ public class CarritoItemDTO {
 
     @Override
     public String toString() {
-        return varianteSku + " - " +
-               (productoNombre != null ? productoNombre : "") +
-               " - ID " + id;
+        String sku = varianteSku != null ? varianteSku : "";
+        String nombre = productoNombre != null ? productoNombre : "";
+        return sku + " - " + nombre + " - ID " + id;
     }
 }

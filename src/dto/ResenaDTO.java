@@ -78,6 +78,8 @@ public class ResenaDTO {
 
     @Override
     public String toString() {
-        return usuarioNombre + " - " + productoNombre + " - ID " + id;
+        String user = usuarioNombre != null ? usuarioNombre : "";
+        String prod = productoNombre != null ? productoNombre : "";
+        return user + " - " + prod + " - ID " + id;
     }
 }

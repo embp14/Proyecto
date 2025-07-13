@@ -26,6 +26,7 @@ public class CuponDTO {
 
     @Override
     public String toString() {
-        return codigo + " - ID " + id;
+        String code = codigo != null ? codigo : "";
+        return code + " - ID " + id;
     }
 }

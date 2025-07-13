@@ -40,7 +40,12 @@ public class DireccionDTO {
 
     @Override
     public String toString() {
-        String texto = alias != null && !alias.isEmpty() ? alias : direccion;
+        String texto;
+        if(alias != null && !alias.isEmpty()) {
+            texto = alias;
+        } else {
+            texto = direccion != null ? direccion : "";
+        }
         return texto + " - ID " + id;
     }
 }

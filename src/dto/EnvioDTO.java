@@ -46,6 +46,7 @@ public class EnvioDTO {
 
     @Override
     public String toString() {
-        return codigoTracking + " - ID " + id;
+        String track = codigoTracking != null ? codigoTracking : "";
+        return track + " - ID " + id;
     }
 }

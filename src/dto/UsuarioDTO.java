@@ -91,6 +91,7 @@ public class UsuarioDTO {
 
     @Override
     public String toString() {
-        return nombre + " - ID " + id;
+        String texto = nombre != null ? nombre : "";
+        return texto + " - ID " + id;
     }
 }

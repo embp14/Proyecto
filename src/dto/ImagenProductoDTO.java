@@ -24,6 +24,7 @@ public class ImagenProductoDTO {
 
     @Override
     public String toString() {
-        return url + " - ID " + id;
+        String texto = url != null ? url : "";
+        return texto + " - ID " + id;
     }
 }

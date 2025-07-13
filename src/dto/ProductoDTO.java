@@ -41,5 +41,8 @@ public class ProductoDTO {
     public void setActivo(boolean activo) { this.activo = activo; }
 
     @Override
-    public String toString() { return titulo + " - ID " + id; }
+    public String toString() {
+        String texto = titulo != null ? titulo : "";
+        return texto + " - ID " + id;
+    }
 }

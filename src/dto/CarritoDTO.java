@@ -21,5 +21,8 @@ public class CarritoDTO {
     public void setCreadoEn(Timestamp creadoEn) { this.creadoEn = creadoEn; }
 
     @Override
-    public String toString() { return usuarioNombre + " - ID " + id; }
+    public String toString() {
+        String nombre = usuarioNombre != null ? usuarioNombre : "";
+        return nombre + " - ID " + id;
+    }
 }
