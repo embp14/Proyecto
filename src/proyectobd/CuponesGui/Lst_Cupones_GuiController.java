@@ -16,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import java.sql.Timestamp;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackCupon;
 
@@ -49,7 +50,10 @@ public class Lst_Cupones_GuiController implements Initializable {
             CuponDAO dao = new CuponDAO();
             ObservableList<CuponDTO> lista = dao.ListarCupones();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_codigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+            col_codigo.setCellValueFactory(data ->
+                    new ReadOnlyStringWrapper(
+                        data.getValue().getCodigo() +
+                        " - ID " + data.getValue().getId()));
             col_descuento.setCellValueFactory(new PropertyValueFactory<>("descuentoPct"));
             col_expira.setCellValueFactory(new PropertyValueFactory<>("fechaExpiracion"));
             tbl_Lista.setItems(lista);

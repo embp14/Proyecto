@@ -23,4 +23,9 @@ public class CuponDTO {
 
     public int getUsoMaximo() { return usoMaximo; }
     public void setUsoMaximo(int usoMaximo) { this.usoMaximo = usoMaximo; }
+
+    @Override
+    public String toString() {
+        return codigo + " - ID " + id;
+    }
 }

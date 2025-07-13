@@ -33,4 +33,9 @@ public class OrdenItemDTO {
 
     public double getPrecioDescuento() { return precioDescuento; }
     public void setPrecioDescuento(double precioDescuento) { this.precioDescuento = precioDescuento; }
+
+    @Override
+    public String toString() {
+        return varianteSku + " - " + (productoNombre != null ? productoNombre : "") + " - ID " + id;
+    }
 }

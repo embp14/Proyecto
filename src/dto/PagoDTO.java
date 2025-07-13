@@ -27,4 +27,9 @@ public class PagoDTO {
 
     public Timestamp getFechaPago() { return fechaPago; }
     public void setFechaPago(Timestamp fechaPago) { this.fechaPago = fechaPago; }
+
+    @Override
+    public String toString() {
+        return metodoPago + " - ID " + id;
+    }
 }
