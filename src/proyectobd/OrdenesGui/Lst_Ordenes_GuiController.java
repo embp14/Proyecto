@@ -52,7 +52,7 @@ public class Lst_Ordenes_GuiController implements Initializable {
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             col_usuario.setCellValueFactory(data ->
                     new javafx.beans.property.ReadOnlyStringWrapper(
-                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getUsuarioId() + ")"));
+                        data.getValue().getUsuarioNombre() + " - ID " + data.getValue().getUsuarioId()));
             col_estado.setCellValueFactory(new PropertyValueFactory<>("estado"));
             col_total.setCellValueFactory(new PropertyValueFactory<>("totalBruto"));
             col_fecha.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));

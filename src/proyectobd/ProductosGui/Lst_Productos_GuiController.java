@@ -49,8 +49,14 @@ public class Lst_Productos_GuiController implements Initializable {
             ProductoDAO dao = new ProductoDAO();
             ObservableList<ProductoDTO> lista = dao.ListarProductos();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_vendedor.setCellValueFactory(new PropertyValueFactory<>("vendedorNombre"));
-            col_categoria.setCellValueFactory(new PropertyValueFactory<>("categoriaNombre"));
+            col_vendedor.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getVendedorNombre() +
+                        " - ID " + data.getValue().getVendedorId()));
+            col_categoria.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getCategoriaNombre() +
+                        " - ID " + data.getValue().getCategoriaId()));
             col_titulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
             col_activo.setCellValueFactory(new PropertyValueFactory<>("activo"));
             tbl_Lista.setItems(lista);

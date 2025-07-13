@@ -25,5 +25,8 @@ public class ListaDeseoDTO {
     public void setCreadoEn(Timestamp creadoEn) { this.creadoEn = creadoEn; }
 
     @Override
-    public String toString() { return nombre; }
+    public String toString() {
+        String texto = nombre != null ? nombre : "";
+        return texto + " - ID " + id;
+    }
 }

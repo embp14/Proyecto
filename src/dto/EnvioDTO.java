@@ -43,4 +43,10 @@ public class EnvioDTO {
 
     public Timestamp getFechaEntregaReal() { return fechaEntregaReal; }
     public void setFechaEntregaReal(Timestamp fechaEntregaReal) { this.fechaEntregaReal = fechaEntregaReal; }
+
+    @Override
+    public String toString() {
+        String track = codigoTracking != null ? codigoTracking : "";
+        return track + " - ID " + id;
+    }
 }

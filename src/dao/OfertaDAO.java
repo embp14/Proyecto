@@ -30,7 +30,10 @@ public class OfertaDAO {
     public ObservableList<OfertaDTO> ListarOfertas(){
         ObservableList<OfertaDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, variante_id, precio_descuento, fecha_inicio, fecha_fin FROM ofertas ORDER BY id";
+        String sql = "SELECT o.id, o.variante_id, v.sku AS variante_sku, p.titulo AS producto_nombre, " +
+                     "o.precio_descuento, o.fecha_inicio, o.fecha_fin " +
+                     "FROM ofertas o JOIN variantes_producto v ON o.variante_id=v.id " +
+                     "JOIN productos p ON v.producto_id=p.id ORDER BY o.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -38,6 +41,8 @@ public class OfertaDAO {
                 OfertaDTO dto = new OfertaDTO();
                 dto.setId(rs.getInt("id"));
                 dto.setVarianteId(rs.getInt("variante_id"));
+                dto.setVarianteSku(rs.getString("variante_sku"));
+                dto.setProductoNombre(rs.getString("producto_nombre"));
                 dto.setPrecioDescuento(rs.getDouble("precio_descuento"));
                 dto.setFechaInicio(rs.getTimestamp("fecha_inicio"));
                 dto.setFechaFin(rs.getTimestamp("fecha_fin"));

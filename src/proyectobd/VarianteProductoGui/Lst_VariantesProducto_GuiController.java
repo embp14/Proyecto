@@ -26,7 +26,7 @@ public class Lst_VariantesProducto_GuiController implements Initializable {
     @FXML private TextField txt_Buscar;
     @FXML private TableView<VarianteProductoDTO> tbl_Lista;
     @FXML private TableColumn<VarianteProductoDTO, Integer> col_id;
-    @FXML private TableColumn<VarianteProductoDTO, Integer> col_producto;
+    @FXML private TableColumn<VarianteProductoDTO, String> col_producto;
     @FXML private TableColumn<VarianteProductoDTO, String> col_sku;
     @FXML private TableColumn<VarianteProductoDTO, Double> col_precio;
     @FXML private TableColumn<VarianteProductoDTO, Integer> col_stock;
@@ -49,7 +49,10 @@ public class Lst_VariantesProducto_GuiController implements Initializable {
             VarianteProductoDAO dao = new VarianteProductoDAO();
             ObservableList<VarianteProductoDTO> lista = dao.ListarVariantes();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_producto.setCellValueFactory(new PropertyValueFactory<>("productoId"));
+            col_producto.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getProductoNombre() +
+                        " - ID " + data.getValue().getProductoId()));
             col_sku.setCellValueFactory(new PropertyValueFactory<>("sku"));
             col_precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
             col_stock.setCellValueFactory(new PropertyValueFactory<>("stock"));

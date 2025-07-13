@@ -59,10 +59,10 @@ public class Lst_Envios_GuiController implements Initializable {
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             col_orden.setCellValueFactory(data ->
                     new javafx.beans.property.ReadOnlyStringWrapper(
-                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getOrdenId() + ")"));
+                        data.getValue().getUsuarioNombre() + " - ID " + data.getValue().getOrdenId()));
             col_direccion.setCellValueFactory(data ->
                     new javafx.beans.property.ReadOnlyStringWrapper(
-                        data.getValue().getDireccionNombre() + " (" + data.getValue().getDireccionId() + ")"));
+                        data.getValue().getDireccionNombre() + " - ID " + data.getValue().getDireccionId()));
             col_empresa.setCellValueFactory(new PropertyValueFactory<>("empresaEnvio"));
             col_tracking.setCellValueFactory(new PropertyValueFactory<>("codigoTracking"));
             col_envio.setCellValueFactory(new PropertyValueFactory<>("fechaEnvio"));

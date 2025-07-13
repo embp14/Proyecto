@@ -51,7 +51,7 @@ public class Lst_Categorias_GuiController implements Initializable {
             col_parent.setCellValueFactory(data ->
                     new javafx.beans.property.ReadOnlyStringWrapper(
                         data.getValue().getParentNombre() == null ? "" :
-                        data.getValue().getParentNombre() + " (" + data.getValue().getParentId() + ")"));
+                        data.getValue().getParentNombre() + " - ID " + data.getValue().getParentId()));
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());

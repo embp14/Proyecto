@@ -15,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackRol;
 
@@ -46,7 +47,10 @@ public class Lst_Roles_GuiController implements Initializable {
             RolDAO dao = new RolDAO();
             ObservableList<RolDTO> lista = dao.ListarRoles();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+            col_nombre.setCellValueFactory(data ->
+                    new ReadOnlyStringWrapper(
+                        data.getValue().getNombre() +
+                        " - ID " + data.getValue().getId()));
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());

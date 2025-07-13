@@ -48,8 +48,14 @@ public class Lst_Usuarios_GuiController implements Initializable {
             UsuarioDAO dao = new UsuarioDAO();
             ObservableList<UsuarioDTO> lista = dao.ListarUsuarios();
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_rol.setCellValueFactory(new PropertyValueFactory<>("rolNombre"));
-            col_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+            col_rol.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getRolNombre() +
+                        " - ID " + data.getValue().getRolId()));
+            col_nombre.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getNombre() +
+                        " - ID " + data.getValue().getId()));
             col_email.setCellValueFactory(new PropertyValueFactory<>("email"));
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

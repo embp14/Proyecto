@@ -22,6 +22,7 @@ public class RolDTO {
 
     @Override
     public String toString() {
-        return nombre;
+        String texto = nombre != null ? nombre : "";
+        return texto + " - ID " + id;
     }
 }

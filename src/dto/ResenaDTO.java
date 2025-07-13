@@ -75,4 +75,11 @@ public class ResenaDTO {
     public void setFecha(Timestamp fecha) {
         this.fecha = fecha;
     }
+
+    @Override
+    public String toString() {
+        String user = usuarioNombre != null ? usuarioNombre : "";
+        String prod = productoNombre != null ? productoNombre : "";
+        return user + " - " + prod + " - ID " + id;
+    }
 }

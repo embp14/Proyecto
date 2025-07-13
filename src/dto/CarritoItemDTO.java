@@ -3,6 +3,7 @@ package dto;
 public class CarritoItemDTO {
     private int id;
     private int carritoId;
+    private String usuarioNombre;
     private int varianteId;
     private String varianteSku;
     private String productoNombre;
@@ -13,6 +14,9 @@ public class CarritoItemDTO {
 
     public int getCarritoId() { return carritoId; }
     public void setCarritoId(int carritoId) { this.carritoId = carritoId; }
+
+    public String getUsuarioNombre() { return usuarioNombre; }
+    public void setUsuarioNombre(String usuarioNombre) { this.usuarioNombre = usuarioNombre; }
 
     public int getVarianteId() { return varianteId; }
     public void setVarianteId(int varianteId) { this.varianteId = varianteId; }
@@ -25,4 +29,11 @@ public class CarritoItemDTO {
 
     public int getCantidad() { return cantidad; }
     public void setCantidad(int cantidad) { this.cantidad = cantidad; }
+
+    @Override
+    public String toString() {
+        String sku = varianteSku != null ? varianteSku : "";
+        String nombre = productoNombre != null ? productoNombre : "";
+        return sku + " - " + nombre + " - ID " + id;
+    }
 }

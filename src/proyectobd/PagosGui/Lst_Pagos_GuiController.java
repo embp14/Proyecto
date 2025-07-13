@@ -52,7 +52,7 @@ public class Lst_Pagos_GuiController implements Initializable {
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             col_orden.setCellValueFactory(data ->
                     new javafx.beans.property.ReadOnlyStringWrapper(
-                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getOrdenId() + ")"));
+                        data.getValue().getUsuarioNombre() + " - ID " + data.getValue().getOrdenId()));
             col_metodo.setCellValueFactory(new PropertyValueFactory<>("metodoPago"));
             col_monto.setCellValueFactory(new PropertyValueFactory<>("monto"));
             col_fecha.setCellValueFactory(new PropertyValueFactory<>("fechaPago"));

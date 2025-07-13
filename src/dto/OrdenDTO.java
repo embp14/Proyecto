@@ -70,6 +70,7 @@ public class OrdenDTO {
 
     @Override
     public String toString() {
-        return "Orden " + id;
+        String nombre = usuarioNombre != null ? usuarioNombre : "";
+        return nombre + " - ID " + id;
     }
 }

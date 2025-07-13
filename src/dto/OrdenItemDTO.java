@@ -3,6 +3,7 @@ package dto;
 public class OrdenItemDTO {
     private int id;
     private int ordenId;
+    private String usuarioNombre;
     private int varianteId;
     private String varianteSku;
     private String productoNombre;
@@ -15,6 +16,9 @@ public class OrdenItemDTO {
 
     public int getOrdenId() { return ordenId; }
     public void setOrdenId(int ordenId) { this.ordenId = ordenId; }
+
+    public String getUsuarioNombre() { return usuarioNombre; }
+    public void setUsuarioNombre(String usuarioNombre) { this.usuarioNombre = usuarioNombre; }
 
     public int getVarianteId() { return varianteId; }
     public void setVarianteId(int varianteId) { this.varianteId = varianteId; }
@@ -33,4 +37,11 @@ public class OrdenItemDTO {
 
     public double getPrecioDescuento() { return precioDescuento; }
     public void setPrecioDescuento(double precioDescuento) { this.precioDescuento = precioDescuento; }
+
+    @Override
+    public String toString() {
+        String sku = varianteSku != null ? varianteSku : "";
+        String nombre = productoNombre != null ? productoNombre : "";
+        return sku + " - " + nombre + " - ID " + id;
+    }
 }

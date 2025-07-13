@@ -52,10 +52,10 @@ public class Lst_Resenas_GuiController implements Initializable {
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             col_producto.setCellValueFactory(data ->
                     new javafx.beans.property.ReadOnlyStringWrapper(
-                        data.getValue().getProductoNombre() + " (" + data.getValue().getProductoId() + ")"));
+                        data.getValue().getProductoNombre() + " - ID " + data.getValue().getProductoId()));
             col_usuario.setCellValueFactory(data ->
                     new javafx.beans.property.ReadOnlyStringWrapper(
-                        data.getValue().getUsuarioNombre() + " (" + data.getValue().getUsuarioId() + ")"));
+                        data.getValue().getUsuarioNombre() + " - ID " + data.getValue().getUsuarioId()));
             col_rating.setCellValueFactory(new PropertyValueFactory<>("rating"));
             col_fecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
             tbl_Lista.setItems(lista);
