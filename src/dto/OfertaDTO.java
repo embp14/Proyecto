@@ -31,4 +31,11 @@ public class OfertaDTO {
 
     public Timestamp getFechaFin() { return fechaFin; }
     public void setFechaFin(Timestamp fechaFin) { this.fechaFin = fechaFin; }
+
+    @Override
+    public String toString() {
+        return varianteSku + " - " +
+               (productoNombre != null ? productoNombre : "") +
+               " - ID " + id;
+    }
 }

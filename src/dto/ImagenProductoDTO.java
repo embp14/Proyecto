@@ -21,4 +21,9 @@ public class ImagenProductoDTO {
 
     public boolean isEsPrincipal() { return esPrincipal; }
     public void setEsPrincipal(boolean esPrincipal) { this.esPrincipal = esPrincipal; }
+
+    @Override
+    public String toString() {
+        return url + " - ID " + id;
+    }
 }

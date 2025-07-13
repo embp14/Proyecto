@@ -25,4 +25,11 @@ public class ListaDeseoItemDTO {
 
     public int getCantidad() { return cantidad; }
     public void setCantidad(int cantidad) { this.cantidad = cantidad; }
+
+    @Override
+    public String toString() {
+        return varianteSku + " - " +
+               (productoNombre != null ? productoNombre : "") +
+               " - ID " + id;
+    }
 }
