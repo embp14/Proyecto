@@ -61,8 +61,8 @@ public class Mnt_Usuarios_GuiController implements Initializable {
             txt_nombre.requestFocus();
             return;
         }
-        if(TextFilter.contieneOfensas(txt_nombre.getText())){
-            fu.datosInvalidos("El campo 'Nombre' contiene palabras ofensivas.");
+        if(TextFilter.contieneLenguajeInapropiado(txt_nombre.getText())){
+            fu.datosInvalidos("El campo 'Nombre' contiene lenguaje inapropiado.");
             txt_nombre.requestFocus();
             return;
         }
@@ -71,8 +71,8 @@ public class Mnt_Usuarios_GuiController implements Initializable {
             txt_email.requestFocus();
             return;
         }
-        if(TextFilter.contieneOfensas(txt_email.getText())){
-            fu.datosInvalidos("El campo 'Email' contiene palabras ofensivas.");
+        if(TextFilter.contieneLenguajeInapropiado(txt_email.getText())){
+            fu.datosInvalidos("El campo 'Email' contiene lenguaje inapropiado.");
             txt_email.requestFocus();
             return;
         }

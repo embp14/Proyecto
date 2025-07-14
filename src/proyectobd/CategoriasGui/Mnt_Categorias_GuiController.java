@@ -17,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackCategoria;
+import proyectobd.ParametrosGenerales.TextFilter;
 
 public class Mnt_Categorias_GuiController implements Initializable {
 
@@ -46,6 +47,11 @@ public class Mnt_Categorias_GuiController implements Initializable {
         CategoriaDAO dao = new CategoriaDAO();
         if(!nombreValido(txt_nombre.getText())){
             fu.datosInvalidos("El campo 'Nombre' solo debe contener letras.");
+            txt_nombre.requestFocus();
+            return;
+        }
+        if(TextFilter.contieneLenguajeInapropiado(txt_nombre.getText())){
+            fu.datosInvalidos("Nombre: contiene lenguaje inapropiado.");
             txt_nombre.requestFocus();
             return;
         }

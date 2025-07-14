@@ -22,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackResena;
+import proyectobd.ParametrosGenerales.TextFilter;
 
 public class Mnt_Resenas_GuiController implements Initializable {
 
@@ -76,8 +77,8 @@ public class Mnt_Resenas_GuiController implements Initializable {
             dp_fecha.requestFocus();
             return;
         }
-        if(contieneOfensivo(txt_comentario.getText())){
-            fu.datosInvalidos("Comentario contiene lenguaje ofensivo");
+        if(TextFilter.contieneLenguajeInapropiado(txt_comentario.getText())){
+            fu.datosInvalidos("Comentario contiene lenguaje inapropiado");
             txt_comentario.requestFocus();
             return;
         }
@@ -166,13 +167,4 @@ public class Mnt_Resenas_GuiController implements Initializable {
         }
     }
 
-    private boolean contieneOfensivo(String comentario){
-        if(comentario == null) return false;
-        String lower = comentario.toLowerCase();
-        String[] malas = {"tonto","idiota","malo"};
-        for(String m: malas){
-            if(lower.contains(m)) return true;
-        }
-        return false;
-    }
 }

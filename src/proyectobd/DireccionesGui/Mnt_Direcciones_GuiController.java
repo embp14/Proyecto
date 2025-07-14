@@ -99,8 +99,8 @@ public class Mnt_Direcciones_GuiController implements Initializable {
             txt_alias.requestFocus();
             return false;
         }
-        if(TextFilter.contieneOfensas(txt_alias.getText())){
-            fu.datosInvalidos("Alias: contiene palabras ofensivas.");
+        if(TextFilter.contieneLenguajeInapropiado(txt_alias.getText())){
+            fu.datosInvalidos("Alias: contiene lenguaje inapropiado.");
             txt_alias.requestFocus();
             return false;
         }

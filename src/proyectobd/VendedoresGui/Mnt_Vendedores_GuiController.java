@@ -129,8 +129,8 @@ public class Mnt_Vendedores_GuiController implements Initializable {
             txt_descripcion.requestFocus();
             return false;
         }
-        if(TextFilter.contieneOfensas(desc)){
-            fu.datosInvalidos("Descripci\u00f3n contiene palabras ofensivas.");
+        if(TextFilter.contieneLenguajeInapropiado(desc)){
+            fu.datosInvalidos("Descripci\u00f3n contiene lenguaje inapropiado.");
             txt_descripcion.requestFocus();
             return false;
         }
