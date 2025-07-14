@@ -29,6 +29,7 @@ public class Mnt_Direcciones_GuiController implements Initializable {
 
     @FXML private BorderPane Ap_Main;
     @FXML private Button btn_Guardar;
+    @FXML private Button btn_Cerrar;
     @FXML private ComboBox<UsuarioDTO> cmb_usuario;
     @FXML private TextField txt_alias;
     @FXML private TextField txt_direccion;
@@ -153,6 +154,11 @@ public class Mnt_Direcciones_GuiController implements Initializable {
         if(t.isEmpty()) return false;
         // Landlines: 0[2-7]XXXXXXX (9 digits), Mobiles: 09XXXXXXXX (10 digits)
         return t.matches("09\\d{8}") || t.matches("0[2-7]\\d{7}");
+    }
+
+    public void call_CerrarVentana(){
+        Stage stage = (Stage) btn_Cerrar.getScene().getWindow();
+        stage.close();
     }
 
     private void cargarDatos(){

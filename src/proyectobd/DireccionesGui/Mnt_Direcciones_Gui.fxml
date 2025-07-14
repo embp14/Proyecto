@@ -49,6 +49,7 @@
                <padding><Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/></padding>
                <Region HBox.hgrow="ALWAYS" />
                <Button fx:id="btn_Guardar" onAction="#call_Guardar" text="Guardar" />
+               <Button fx:id="btn_Cerrar" onAction="#call_CerrarVentana" text="Cerrar" />
             </HBox>
          </bottom>
       </BorderPane>
