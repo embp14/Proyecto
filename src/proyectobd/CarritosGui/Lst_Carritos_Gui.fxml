@@ -48,7 +48,6 @@
                   <Region HBox.hgrow="ALWAYS"/>
                   <Button fx:id="btn_Nuevo" onAction="#call_NuevoRegistro" text="Nuevo"/>
                   <Button fx:id="btn_Editar" onAction="#call_Editar" text="Editar"/>
-                  <Button fx:id="btn_Borrar" onAction="#call_Borrar" text="Borrar"/>
                   <Button fx:id="btn_Cerrar" onAction="#call_CerrarVentana" text="Cerrar"/>
                </HBox>
             </VBox>
