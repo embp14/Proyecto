@@ -127,6 +127,16 @@ public class Mnt_Direcciones_GuiController implements Initializable {
             txt_postal.requestFocus();
             return false;
         }
+        if(txt_telefono.getText().trim().isEmpty()){
+            fu.datosInvalidos("Tel\u00e9fono: ingrese un valor.");
+            txt_telefono.requestFocus();
+            return false;
+        }
+        if(!telefonoEcuadorValido(txt_telefono.getText())){
+            fu.datosInvalidos("Tel\u00e9fono: formato ecuatoriano inv\u00e1lido.");
+            txt_telefono.requestFocus();
+            return false;
+        }
         return true;
     }
 
@@ -135,6 +145,14 @@ public class Mnt_Direcciones_GuiController implements Initializable {
         String trimmed = cp.trim();
         if(trimmed.isEmpty()) return false;
         return trimmed.matches("\\d{5,6}");
+    }
+
+    private boolean telefonoEcuadorValido(String num){
+        if(num == null) return false;
+        String t = num.trim();
+        if(t.isEmpty()) return false;
+        // Landlines: 0[2-7]XXXXXXX (9 digits), Mobiles: 09XXXXXXXX (10 digits)
+        return t.matches("09\\d{8}") || t.matches("0[2-7]\\d{7}");
     }
 
     private void cargarDatos(){
