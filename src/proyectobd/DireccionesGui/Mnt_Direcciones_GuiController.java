@@ -168,19 +168,60 @@ public class Mnt_Direcciones_GuiController implements Initializable {
     private void initUbicaciones(){
         if(!locationData.isEmpty()) return;
 
-        locationData.put("Pichincha", java.util.Arrays.asList(
-                "Cayambe", "Mejía", "Sangolquí", "San Rafael"));
-        locationData.put("Guayas", java.util.Arrays.asList(
-                "Guayaquil", "Samborondón", "Daule", "Nobol"));
+        // Provinces and cantons based on the official listing. Parishes are
+        // omitted as requested.
+
         locationData.put("Azuay", java.util.Arrays.asList(
-                "Cuenca", "Giron", "Gualaceo", "Chordeleg"));
-        locationData.put("Manabí", java.util.Arrays.asList(
-                "Portoviejo", "Manta", "Chone", "Pedernales"));
-        locationData.put("Tungurahua", java.util.Arrays.asList(
-                "Ambato", "Baños", "Pelileo", "Patate"));
+                "Cuenca", "Girón", "Gualaceo", "Nabón", "Paute", "Pucará",
+                "San Fernando", "Santa Isabel", "Sigsig", "Oña", "Chordeleg",
+                "El Pan", "Sevilla de Oro", "Guachapala",
+                "Camilo Ponce Enríquez"));
+
+        locationData.put("Bolívar", java.util.Arrays.asList(
+                "Guaranda", "Chillanes", "Chimbo", "Echeandía", "San Miguel",
+                "Caluma", "Las Naves"));
+
+        locationData.put("Cañar", java.util.Arrays.asList(
+                "Azogues", "Biblián", "Cañar", "La Troncal", "El Tambo",
+                "Déleg", "Suscal"));
+
+        locationData.put("Carchi", java.util.Arrays.asList(
+                "Tulcán", "Bolívar", "Espejo", "Mira", "Montúfar",
+                "San Pedro de Huaca"));
+
+        locationData.put("Cotopaxi", java.util.Arrays.asList(
+                "Latacunga", "La Maná", "Pangua", "Pujilí", "Salcedo",
+                "Saquisilí", "Sigchos"));
+
         locationData.put("Chimborazo", java.util.Arrays.asList(
-                "Riobamba", "Guano", "Colta", "Chambo"));
+                "Riobamba", "Alausí", "Colta", "Chambo", "Chunchi",
+                "Guamote", "Guano", "Pallatanga", "Penipe", "Cumandá"));
+
+        locationData.put("El Oro", java.util.Arrays.asList(
+                "Machala", "Arenillas", "Atahualpa", "Balsas", "Chilla",
+                "El Guabo", "Huaquillas", "Marcabelí", "Pasaje", "Piñas",
+                "Portovelo", "Santa Rosa", "Zaruma", "Las Lajas"));
+
+        locationData.put("Esmeraldas", java.util.Arrays.asList(
+                "Esmeraldas", "Eloy Alfaro", "Muisne", "Quinindé",
+                "San Lorenzo", "Atacames", "Rioverde", "La Concordia"));
+
+        locationData.put("Guayas", java.util.Arrays.asList(
+                "Guayaquil", "Alfredo Baquerizo Moreno (Juján)", "Balao",
+                "Balzar", "Colimes", "Daule", "Durán", "El Empalme",
+                "El Triunfo", "Milagro", "Naranjal", "Naranjito",
+                "Palestina", "Pedro Carbo", "Samborondón", "Santa Lucía",
+                "Salitre (Urbina Jado)", "San Jacinto de Yaguachi", "Playas",
+                "Simón Bolívar", "Coronel Marcelino Maridueña",
+                "Lomas de Sargentillo", "Nobol", "General Antonio Elizalde",
+                "Isidro Ayora"));
+
+        locationData.put("Imbabura", java.util.Arrays.asList(
+                "Ibarra", "Antonio Ante", "Cotacachi", "Otavalo",
+                "Pimampiro", "San Miguel de Urcuquí"));
+
         locationData.put("Loja", java.util.Arrays.asList(
-                "Loja", "Vilcabamba", "Catamayo", "Cariamanga"));
+                "Loja", "Calvas", "Catamayo", "Celica", "Chaguarpamba",
+                "Espíndola"));
     }
 }
