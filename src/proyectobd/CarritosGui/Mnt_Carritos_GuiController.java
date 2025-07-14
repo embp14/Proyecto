@@ -11,7 +11,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,7 +26,6 @@ public class Mnt_Carritos_GuiController implements Initializable {
 
     @FXML private BorderPane Ap_Main;
     @FXML private Button btn_Guardar;
-    @FXML private Button btn_Borrar;
     @FXML private Button btn_Cerrar;
     @FXML private ComboBox<UsuarioDTO> cmb_usuario;
     @FXML private DatePicker dp_creado;
@@ -83,22 +81,6 @@ public class Mnt_Carritos_GuiController implements Initializable {
         return true;
     }
 
-    public void call_Borrar(){
-        try{
-            Stage stage = (Stage) Ap_Main.getScene().getWindow();
-            CarritoDTO dto = (CarritoDTO) stage.getUserData();
-            if(dto == null){
-                fu.MostrarAlertas("Información", "No hay registro para borrar");
-                return;
-            }
-            CarritoDAO dao = new CarritoDAO();
-            dao.EliminarCarrito(dto.getId());
-            btn_Guardar.setDisable(true);
-            btn_Borrar.setDisable(true);
-        }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
-        }
-    }
 
     private void cargarDatos(){
         Stage stage = (Stage) Ap_Main.getScene().getWindow();
