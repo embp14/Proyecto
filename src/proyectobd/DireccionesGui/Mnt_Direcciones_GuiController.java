@@ -122,7 +122,19 @@ public class Mnt_Direcciones_GuiController implements Initializable {
             txt_postal.requestFocus();
             return false;
         }
+        if(!codigoPostalValido(txt_postal.getText())){
+            fu.datosInvalidos("C\u00f3digo Postal: formato inv\u00e1lido. Use solo d\u00edgitos.");
+            txt_postal.requestFocus();
+            return false;
+        }
         return true;
+    }
+
+    private boolean codigoPostalValido(String cp){
+        if(cp == null) return false;
+        String trimmed = cp.trim();
+        if(trimmed.isEmpty()) return false;
+        return trimmed.matches("\\d{5,6}");
     }
 
     private void cargarDatos(){
