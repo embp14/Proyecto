@@ -193,7 +193,32 @@ public class Mnt_Direcciones_GuiController implements Initializable {
         guayas.put("Guayaquil", java.util.Arrays.asList("Guayaquil", "Samborondón"));
         guayas.put("Daule", java.util.Arrays.asList("Daule", "Nobol"));
 
+        java.util.Map<String, List<String>> azuay = new HashMap<>();
+        azuay.put("Cuenca", java.util.Arrays.asList("Cuenca", "Giron"));
+        azuay.put("Gualaceo", java.util.Arrays.asList("Gualaceo", "Chordeleg"));
+
+        java.util.Map<String, List<String>> manabi = new HashMap<>();
+        manabi.put("Portoviejo", java.util.Arrays.asList("Portoviejo", "Manta"));
+        manabi.put("Chone", java.util.Arrays.asList("Chone", "Pedernales"));
+
+        java.util.Map<String, List<String>> tungurahua = new HashMap<>();
+        tungurahua.put("Ambato", java.util.Arrays.asList("Ambato", "Baños"));
+        tungurahua.put("Pelileo", java.util.Arrays.asList("Pelileo", "Patate"));
+
+        java.util.Map<String, List<String>> chimborazo = new HashMap<>();
+        chimborazo.put("Riobamba", java.util.Arrays.asList("Riobamba", "Guano"));
+        chimborazo.put("Colta", java.util.Arrays.asList("Colta", "Chambo"));
+
+        java.util.Map<String, List<String>> loja = new HashMap<>();
+        loja.put("Loja", java.util.Arrays.asList("Loja", "Vilcabamba"));
+        loja.put("Catamayo", java.util.Arrays.asList("Catamayo", "Cariamanga"));
+
         locationData.put("Pichincha", pichincha);
         locationData.put("Guayas", guayas);
+        locationData.put("Azuay", azuay);
+        locationData.put("Manabí", manabi);
+        locationData.put("Tungurahua", tungurahua);
+        locationData.put("Chimborazo", chimborazo);
+        locationData.put("Loja", loja);
     }
 }
