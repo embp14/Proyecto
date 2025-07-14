@@ -71,6 +71,11 @@ public class Mnt_Usuarios_GuiController implements Initializable {
             txt_email.requestFocus();
             return;
         }
+        if(TextFilter.contieneOfensas(txt_email.getText())){
+            fu.datosInvalidos("El campo 'Email' contiene palabras ofensivas.");
+            txt_email.requestFocus();
+            return;
+        }
         if(!actualizar){
             try{
                 UsuarioDTO dto = new UsuarioDTO();
