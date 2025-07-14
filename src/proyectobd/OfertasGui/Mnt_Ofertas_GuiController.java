@@ -7,6 +7,7 @@ import dto.VarianteProductoDTO;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
+import java.time.LocalDate;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,11 +41,17 @@ public class Mnt_Ofertas_GuiController implements Initializable {
         Platform.runLater(() -> {
             cargarCombos();
             cargarDatos();
+            txt_id.setDisable(true);
+            if(!actualizar){
+                dp_inicio.setValue(LocalDate.now());
+                dp_fin.setValue(LocalDate.now());
+            }
         });
     }
 
     public void call_Grabar(){
         OfertaDAO dao = new OfertaDAO();
+        if(!validarDatos()) return;
         if(!actualizar){
             try{
                 OfertaDTO dto = new OfertaDTO();
@@ -105,5 +112,41 @@ public class Mnt_Ofertas_GuiController implements Initializable {
             dp_inicio.setValue(dto.getFechaInicio().toLocalDateTime().toLocalDate());
             dp_fin.setValue(dto.getFechaFin().toLocalDateTime().toLocalDate());
         }
+    }
+
+    private boolean validarDatos(){
+        if(cmb_variante.getValue() == null){
+            fu.datosInvalidos("Variante: seleccione un valor v\u00e1lido.");
+            cmb_variante.requestFocus();
+            return false;
+        }
+        try{
+            double p = Double.parseDouble(txt_precio.getText());
+            if(p < 0){
+                fu.datosInvalidos("Descuento: no puede ser negativo.");
+                txt_precio.requestFocus();
+                return false;
+            }
+        }catch(Exception ex){
+            fu.datosInvalidos("Descuento: ingrese un n\u00famero v\u00e1lido.");
+            txt_precio.requestFocus();
+            return false;
+        }
+        if(dp_inicio.getValue() == null){
+            fu.datosInvalidos("Inicio: seleccione una fecha.");
+            dp_inicio.requestFocus();
+            return false;
+        }
+        if(dp_fin.getValue() == null){
+            fu.datosInvalidos("Fin: seleccione una fecha.");
+            dp_fin.requestFocus();
+            return false;
+        }
+        if(dp_fin.getValue().isBefore(dp_inicio.getValue())){
+            fu.datosInvalidos("Fin: debe ser igual o posterior al inicio.");
+            dp_fin.requestFocus();
+            return false;
+        }
+        return true;
     }
 }
