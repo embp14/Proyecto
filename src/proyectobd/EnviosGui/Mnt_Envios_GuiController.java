@@ -22,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackEnvio;
+import proyectobd.ParametrosGenerales.TextFilter;
 
 public class Mnt_Envios_GuiController implements Initializable {
 
@@ -115,6 +116,16 @@ public class Mnt_Envios_GuiController implements Initializable {
         if(dp_entrega.getValue() == null){
             fu.datosInvalidos("Fecha Entrega: seleccione una fecha.");
             dp_entrega.requestFocus();
+            return false;
+        }
+        if(txt_tracking.getText().trim().isEmpty()){
+            fu.datosInvalidos("Tracking: ingrese un texto.");
+            txt_tracking.requestFocus();
+            return false;
+        }
+        if(TextFilter.contieneLenguajeInapropiado(txt_tracking.getText())){
+            fu.datosInvalidos("Tracking: contiene lenguaje inapropiado.");
+            txt_tracking.requestFocus();
             return false;
         }
         return true;

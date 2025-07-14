@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackRol;
+import proyectobd.ParametrosGenerales.TextFilter;
 
 public class Mnt_Roles_GuiController implements Initializable {
 
@@ -36,6 +37,7 @@ public class Mnt_Roles_GuiController implements Initializable {
 
     public void call_Grabar(){
         RolDAO dao = new RolDAO();
+        if(!validarDatos()) return;
         if(!actualizar){
             try{
                 RolDTO dto = new RolDTO();
@@ -59,6 +61,20 @@ public class Mnt_Roles_GuiController implements Initializable {
                 fu.MostrarAlertas("Error", ex.toString());
             }
         }
+    }
+
+    private boolean validarDatos(){
+        if(txt_nombre.getText().trim().isEmpty()){
+            fu.datosInvalidos("Nombre: ingrese un texto.");
+            txt_nombre.requestFocus();
+            return false;
+        }
+        if(TextFilter.contieneLenguajeInapropiado(txt_nombre.getText())){
+            fu.datosInvalidos("Nombre: contiene lenguaje inapropiado.");
+            txt_nombre.requestFocus();
+            return false;
+        }
+        return true;
     }
 
     public void call_Borrar(){

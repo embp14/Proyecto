@@ -26,6 +26,7 @@ import javafx.scene.layout.BorderPane;
 import java.io.File;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackProducto;
+import proyectobd.ParametrosGenerales.TextFilter;
 
 public class Mnt_Productos_GuiController implements Initializable {
 
@@ -195,8 +196,16 @@ public class Mnt_Productos_GuiController implements Initializable {
             fu.datosInvalidos("El t\u00edtulo es obligatorio");
             return false;
         }
+        if(TextFilter.contieneLenguajeInapropiado(txt_titulo.getText())){
+            fu.datosInvalidos("T\u00edtulo contiene lenguaje inapropiado");
+            return false;
+        }
         if(txt_descripcion.getText().trim().isEmpty()){
             fu.datosInvalidos("La descripci\u00f3n es obligatoria");
+            return false;
+        }
+        if(TextFilter.contieneLenguajeInapropiado(txt_descripcion.getText())){
+            fu.datosInvalidos("Descripci\u00f3n contiene lenguaje inapropiado");
             return false;
         }
         return true;

@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackImagenProducto;
+import proyectobd.ParametrosGenerales.TextFilter;
 
 public class Mnt_ImagenesProducto_GuiController implements Initializable {
 
@@ -48,6 +49,7 @@ public class Mnt_ImagenesProducto_GuiController implements Initializable {
 
     public void call_Grabar(){
         ImagenProductoDAO dao = new ImagenProductoDAO();
+        if(!validarDatos()) return;
         if(!actualizar){
             try{
                 ImagenProductoDTO dto = new ImagenProductoDTO();
@@ -110,6 +112,25 @@ public class Mnt_ImagenesProducto_GuiController implements Initializable {
             txt_url.setText(dto.getUrl());
             chk_principal.setSelected(dto.isEsPrincipal());
         }
+    }
+
+    private boolean validarDatos(){
+        if(cmb_producto.getValue() == null){
+            fu.datosInvalidos("Producto: seleccione un valor v\u00e1lido.");
+            cmb_producto.requestFocus();
+            return false;
+        }
+        if(txt_url.getText().trim().isEmpty()){
+            fu.datosInvalidos("URL: ingrese un texto.");
+            txt_url.requestFocus();
+            return false;
+        }
+        if(TextFilter.contieneLenguajeInapropiado(txt_url.getText())){
+            fu.datosInvalidos("URL contiene lenguaje inapropiado.");
+            txt_url.requestFocus();
+            return false;
+        }
+        return true;
     }
 
     private boolean existePrincipal(int productoId){

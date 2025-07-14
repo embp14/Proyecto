@@ -20,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackListaDeseo;
+import proyectobd.ParametrosGenerales.TextFilter;
 
 public class Mnt_ListasDeseos_GuiController implements Initializable {
 
@@ -42,6 +43,7 @@ public class Mnt_ListasDeseos_GuiController implements Initializable {
 
     public void call_Guardar(){
         ListaDeseoDAO dao = new ListaDeseoDAO();
+        if(!validarDatos()) return;
         if(!actualizar){
             try{
                 ListaDeseoDTO dto = new ListaDeseoDTO();
@@ -68,6 +70,30 @@ public class Mnt_ListasDeseos_GuiController implements Initializable {
                 fu.MostrarAlertas("Error", ex.toString());
             }
         }
+    }
+
+    private boolean validarDatos(){
+        if(cmb_usuario.getValue() == null){
+            fu.datosInvalidos("Usuario: seleccione un valor v\u00e1lido.");
+            cmb_usuario.requestFocus();
+            return false;
+        }
+        if(txt_nombre.getText().trim().isEmpty()){
+            fu.datosInvalidos("Nombre: ingrese un texto.");
+            txt_nombre.requestFocus();
+            return false;
+        }
+        if(TextFilter.contieneLenguajeInapropiado(txt_nombre.getText())){
+            fu.datosInvalidos("Nombre: contiene lenguaje inapropiado.");
+            txt_nombre.requestFocus();
+            return false;
+        }
+        if(dp_creado.getValue() == null){
+            fu.datosInvalidos("Fecha: seleccione una fecha.");
+            dp_creado.requestFocus();
+            return false;
+        }
+        return true;
     }
 
     private void cargarDatos(){
