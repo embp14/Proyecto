@@ -52,7 +52,11 @@ public class BaseFeedback {
                 msg += "Violación de integridad de datos.";
             }
         }else{
-            msg += "Por favor revise los datos.";
+            if(ex.getMessage() != null && !ex.getMessage().isEmpty()){
+                msg += ex.getMessage();
+            }else{
+                msg += "Por favor revise los datos.";
+            }
         }
         mostrar(Alert.AlertType.ERROR, "Error", msg);
     }
