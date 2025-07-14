@@ -3,6 +3,7 @@ package dto;
 public class ListaDeseoItemDTO {
     private int id;
     private int listaDeseosId;
+    private String listaNombre;
     private int varianteId;
     private String varianteSku;
     private String productoNombre;
@@ -13,6 +14,9 @@ public class ListaDeseoItemDTO {
 
     public int getListaDeseosId() { return listaDeseosId; }
     public void setListaDeseosId(int listaDeseosId) { this.listaDeseosId = listaDeseosId; }
+
+    public String getListaNombre() { return listaNombre; }
+    public void setListaNombre(String listaNombre) { this.listaNombre = listaNombre; }
 
     public int getVarianteId() { return varianteId; }
     public void setVarianteId(int varianteId) { this.varianteId = varianteId; }
