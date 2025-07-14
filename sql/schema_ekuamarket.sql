@@ -205,6 +205,7 @@ CREATE TABLE IF NOT EXISTS `lista_deseos_items` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `lista_deseos_id` INT NOT NULL,
   `variante_id` INT NOT NULL,
+  `cantidad` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `lista_deseos_id` (`lista_deseos_id` ASC),
   INDEX `variante_id` (`variante_id` ASC),
