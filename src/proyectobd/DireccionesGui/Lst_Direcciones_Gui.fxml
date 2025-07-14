@@ -34,7 +34,6 @@
                   <columns>
                      <TableColumn fx:id="col_id" prefWidth="50.0" text="ID"/>
                      <TableColumn fx:id="col_usuario" prefWidth="150.0" text="Usuario"/>
-                     <TableColumn fx:id="col_ciudad" prefWidth="100.0" text="Ciudad"/>
                      <TableColumn fx:id="col_canton" prefWidth="100.0" text="Cantón"/>
                      <TableColumn fx:id="col_provincia" prefWidth="100.0" text="Provincia"/>
                   </columns>

@@ -27,7 +27,6 @@ public class Lst_Direcciones_GuiController implements Initializable {
     @FXML private TableView<DireccionDTO> tbl_Lista;
     @FXML private TableColumn<DireccionDTO, Integer> col_id;
     @FXML private TableColumn<DireccionDTO, String> col_usuario;
-    @FXML private TableColumn<DireccionDTO, String> col_ciudad;
     @FXML private TableColumn<DireccionDTO, String> col_canton;
     @FXML private TableColumn<DireccionDTO, String> col_provincia;
 
@@ -52,7 +51,6 @@ public class Lst_Direcciones_GuiController implements Initializable {
             col_usuario.setCellValueFactory(data ->
                     new javafx.beans.property.ReadOnlyStringWrapper(
                         data.getValue().getUsuarioNombre() + " - ID " + data.getValue().getUsuarioId()));
-            col_ciudad.setCellValueFactory(new PropertyValueFactory<>("ciudad"));
             col_canton.setCellValueFactory(new PropertyValueFactory<>("canton"));
             col_provincia.setCellValueFactory(new PropertyValueFactory<>("provincia"));
             tbl_Lista.setItems(lista);

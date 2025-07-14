@@ -14,7 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackDireccion;
@@ -26,14 +25,13 @@ public class Mnt_Direcciones_GuiController implements Initializable {
 
     FeedbackDireccion fu = new FeedbackDireccion();
     private boolean actualizar = false;
-    private final java.util.Map<String, java.util.Map<String, List<String>>> locationData = new HashMap<>();
+    private final java.util.Map<String, List<String>> locationData = new HashMap<>();
 
     @FXML private BorderPane Ap_Main;
     @FXML private Button btn_Guardar;
     @FXML private ComboBox<UsuarioDTO> cmb_usuario;
     @FXML private TextField txt_alias;
     @FXML private TextField txt_direccion;
-    @FXML private ComboBox<String> cmb_ciudad;
     @FXML private ComboBox<String> cmb_canton;
     @FXML private ComboBox<String> cmb_provincia;
     @FXML private TextField txt_postal;
@@ -56,7 +54,7 @@ public class Mnt_Direcciones_GuiController implements Initializable {
                 dto.setUsuarioId(cmb_usuario.getValue().getId());
                 dto.setAlias(txt_alias.getText());
                 dto.setDireccion(txt_direccion.getText());
-                dto.setCiudad(cmb_ciudad.getValue());
+                dto.setCiudad(cmb_canton.getValue());
                 dto.setCanton(cmb_canton.getValue());
                 dto.setProvincia(cmb_provincia.getValue());
                 dto.setCodigoPostal(txt_postal.getText());
@@ -74,7 +72,7 @@ public class Mnt_Direcciones_GuiController implements Initializable {
             dto.setUsuarioId(cmb_usuario.getValue().getId());
             dto.setAlias(txt_alias.getText());
             dto.setDireccion(txt_direccion.getText());
-            dto.setCiudad(cmb_ciudad.getValue());
+            dto.setCiudad(cmb_canton.getValue());
             dto.setCanton(cmb_canton.getValue());
             dto.setProvincia(cmb_provincia.getValue());
             dto.setCodigoPostal(txt_postal.getText());
@@ -109,11 +107,6 @@ public class Mnt_Direcciones_GuiController implements Initializable {
             txt_direccion.requestFocus();
             return false;
         }
-        if(cmb_ciudad.getValue() == null){
-            fu.datosInvalidos("Ciudad: seleccione un valor.");
-            cmb_ciudad.requestFocus();
-            return false;
-        }
         if(cmb_canton.getValue() == null){
             fu.datosInvalidos("Cant\u00f3n: seleccione un valor.");
             cmb_canton.requestFocus();
@@ -143,7 +136,6 @@ public class Mnt_Direcciones_GuiController implements Initializable {
             txt_alias.setText(dto.getAlias());
             txt_direccion.setText(dto.getDireccion());
             cmb_provincia.setValue(dto.getProvincia());
-            cmb_ciudad.setValue(dto.getCiudad());
             cmb_canton.setValue(dto.getCanton());
             txt_postal.setText(dto.getCodigoPostal());
             txt_telefono.setText(dto.getTelefonoContacto());
@@ -163,17 +155,7 @@ public class Mnt_Direcciones_GuiController implements Initializable {
 
             cmb_provincia.valueProperty().addListener((obs, oldV, newV) -> {
                 if(newV != null){
-                    java.util.Map<String, List<String>> ciudades = locationData.get(newV);
-                    cmb_ciudad.setItems(FXCollections.observableArrayList(ciudades.keySet()));
-                    cmb_ciudad.getSelectionModel().clearSelection();
-                    cmb_canton.getItems().clear();
-                }
-            });
-
-            cmb_ciudad.valueProperty().addListener((obs, oldV, newV) -> {
-                String provincia = cmb_provincia.getValue();
-                if(provincia != null && newV != null){
-                    List<String> cantones = locationData.get(provincia).get(newV);
+                    List<String> cantones = locationData.get(newV);
                     cmb_canton.setItems(FXCollections.observableArrayList(cantones));
                     cmb_canton.getSelectionModel().clearSelection();
                 }
@@ -185,40 +167,20 @@ public class Mnt_Direcciones_GuiController implements Initializable {
 
     private void initUbicaciones(){
         if(!locationData.isEmpty()) return;
-        java.util.Map<String, List<String>> pichincha = new HashMap<>();
-        pichincha.put("Quito", java.util.Arrays.asList("Cayambe", "Mejía"));
-        pichincha.put("Rumiñahui", java.util.Arrays.asList("Sangolquí", "San Rafael"));
 
-        java.util.Map<String, List<String>> guayas = new HashMap<>();
-        guayas.put("Guayaquil", java.util.Arrays.asList("Guayaquil", "Samborondón"));
-        guayas.put("Daule", java.util.Arrays.asList("Daule", "Nobol"));
-
-        java.util.Map<String, List<String>> azuay = new HashMap<>();
-        azuay.put("Cuenca", java.util.Arrays.asList("Cuenca", "Giron"));
-        azuay.put("Gualaceo", java.util.Arrays.asList("Gualaceo", "Chordeleg"));
-
-        java.util.Map<String, List<String>> manabi = new HashMap<>();
-        manabi.put("Portoviejo", java.util.Arrays.asList("Portoviejo", "Manta"));
-        manabi.put("Chone", java.util.Arrays.asList("Chone", "Pedernales"));
-
-        java.util.Map<String, List<String>> tungurahua = new HashMap<>();
-        tungurahua.put("Ambato", java.util.Arrays.asList("Ambato", "Baños"));
-        tungurahua.put("Pelileo", java.util.Arrays.asList("Pelileo", "Patate"));
-
-        java.util.Map<String, List<String>> chimborazo = new HashMap<>();
-        chimborazo.put("Riobamba", java.util.Arrays.asList("Riobamba", "Guano"));
-        chimborazo.put("Colta", java.util.Arrays.asList("Colta", "Chambo"));
-
-        java.util.Map<String, List<String>> loja = new HashMap<>();
-        loja.put("Loja", java.util.Arrays.asList("Loja", "Vilcabamba"));
-        loja.put("Catamayo", java.util.Arrays.asList("Catamayo", "Cariamanga"));
-
-        locationData.put("Pichincha", pichincha);
-        locationData.put("Guayas", guayas);
-        locationData.put("Azuay", azuay);
-        locationData.put("Manabí", manabi);
-        locationData.put("Tungurahua", tungurahua);
-        locationData.put("Chimborazo", chimborazo);
-        locationData.put("Loja", loja);
+        locationData.put("Pichincha", java.util.Arrays.asList(
+                "Cayambe", "Mejía", "Sangolquí", "San Rafael"));
+        locationData.put("Guayas", java.util.Arrays.asList(
+                "Guayaquil", "Samborondón", "Daule", "Nobol"));
+        locationData.put("Azuay", java.util.Arrays.asList(
+                "Cuenca", "Giron", "Gualaceo", "Chordeleg"));
+        locationData.put("Manabí", java.util.Arrays.asList(
+                "Portoviejo", "Manta", "Chone", "Pedernales"));
+        locationData.put("Tungurahua", java.util.Arrays.asList(
+                "Ambato", "Baños", "Pelileo", "Patate"));
+        locationData.put("Chimborazo", java.util.Arrays.asList(
+                "Riobamba", "Guano", "Colta", "Chambo"));
+        locationData.put("Loja", java.util.Arrays.asList(
+                "Loja", "Vilcabamba", "Catamayo", "Cariamanga"));
     }
 }
