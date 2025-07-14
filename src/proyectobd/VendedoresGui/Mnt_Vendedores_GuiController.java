@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackVendedor;
+import proyectobd.ParametrosGenerales.TextFilter;
 
 public class Mnt_Vendedores_GuiController implements Initializable {
 
@@ -44,6 +45,7 @@ public class Mnt_Vendedores_GuiController implements Initializable {
 
     public void call_Grabar(){
         VendedorDAO dao = new VendedorDAO();
+        if(!validarDatos()) return;
         if(!actualizar){
             try{
                 VendedorDTO dto = new VendedorDTO();
@@ -108,5 +110,47 @@ public class Mnt_Vendedores_GuiController implements Initializable {
         } catch (Exception ex) {
             fu.MostrarAlertas("Error", ex.toString());
         }
+    }
+
+    private boolean validarDatos(){
+        if(cmb_usuario.getValue() == null){
+            fu.datosInvalidos("Usuario: seleccione un valor.");
+            cmb_usuario.requestFocus();
+            return false;
+        }
+        if(cmb_tienda.getValue() == null){
+            fu.datosInvalidos("Tienda: seleccione un valor.");
+            cmb_tienda.requestFocus();
+            return false;
+        }
+        String desc = txt_descripcion.getText().trim();
+        if(desc.isEmpty()){
+            fu.datosInvalidos("Descripci\u00f3n: ingrese un texto.");
+            txt_descripcion.requestFocus();
+            return false;
+        }
+        if(TextFilter.contieneOfensas(desc)){
+            fu.datosInvalidos("Descripci\u00f3n contiene palabras ofensivas.");
+            txt_descripcion.requestFocus();
+            return false;
+        }
+        if(txt_calificacion.getText().trim().isEmpty()){
+            fu.datosInvalidos("Calificaci\u00f3n: ingrese un valor.");
+            txt_calificacion.requestFocus();
+            return false;
+        }
+        try{
+            java.math.BigDecimal val = new java.math.BigDecimal(txt_calificacion.getText());
+            if(val.compareTo(java.math.BigDecimal.ZERO) < 0 || val.compareTo(new java.math.BigDecimal("5")) > 0){
+                fu.datosInvalidos("Calificaci\u00f3n: debe estar entre 0 y 5.");
+                txt_calificacion.requestFocus();
+                return false;
+            }
+        }catch(NumberFormatException ex){
+            fu.datosInvalidos("Calificaci\u00f3n: valor num\u00e9rico inv\u00e1lido.");
+            txt_calificacion.requestFocus();
+            return false;
+        }
+        return true;
     }
 }

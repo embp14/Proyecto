@@ -24,6 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackUsuario;
+import proyectobd.ParametrosGenerales.TextFilter;
 
 public class Mnt_Usuarios_GuiController implements Initializable {
     FeedbackUsuario fu = new FeedbackUsuario();
@@ -57,6 +58,11 @@ public class Mnt_Usuarios_GuiController implements Initializable {
         UsuarioDAO dao = new UsuarioDAO();
         if(!nombreValido(txt_nombre.getText())){
             fu.datosInvalidos("El campo 'Nombre' solo debe contener letras.");
+            txt_nombre.requestFocus();
+            return;
+        }
+        if(TextFilter.contieneOfensas(txt_nombre.getText())){
+            fu.datosInvalidos("El campo 'Nombre' contiene palabras ofensivas.");
             txt_nombre.requestFocus();
             return;
         }

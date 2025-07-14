@@ -44,6 +44,7 @@ public class DireccionDAO {
                 dto.setAlias(rs.getString("alias"));
                 dto.setDireccion(rs.getString("direccion"));
                 dto.setCiudad(rs.getString("ciudad"));
+                dto.setCanton(rs.getString("canton"));
                 dto.setProvincia(rs.getString("provincia"));
                 dto.setCodigoPostal(rs.getString("codigo_postal"));
                 dto.setTelefonoContacto(rs.getString("telefono_contacto"));
@@ -73,6 +74,7 @@ public class DireccionDAO {
                 dto.setAlias(rs.getString("alias"));
                 dto.setDireccion(rs.getString("direccion"));
                 dto.setCiudad(rs.getString("ciudad"));
+                dto.setCanton(rs.getString("canton"));
                 dto.setProvincia(rs.getString("provincia"));
                 dto.setCodigoPostal(rs.getString("codigo_postal"));
                 dto.setTelefonoContacto(rs.getString("telefono_contacto"));
@@ -91,16 +93,17 @@ public class DireccionDAO {
                 fu.datosInvalidos("El usuario no existe");
                 return 0;
             }
-            String sql = "INSERT INTO direcciones(usuario_id, alias, direccion, ciudad, provincia, codigo_postal, telefono_contacto) VALUES(?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO direcciones(usuario_id, alias, direccion, ciudad, canton, provincia, codigo_postal, telefono_contacto) VALUES(?,?,?,?,?,?,?,?)";
             ConectorBD ConnBD = new ConectorBD();
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, dto.getUsuarioId());
             ps.setString(2, dto.getAlias());
             ps.setString(3, dto.getDireccion());
             ps.setString(4, dto.getCiudad());
-            ps.setString(5, dto.getProvincia());
-            ps.setString(6, dto.getCodigoPostal());
-            ps.setString(7, dto.getTelefonoContacto());
+            ps.setString(5, dto.getCanton());
+            ps.setString(6, dto.getProvincia());
+            ps.setString(7, dto.getCodigoPostal());
+            ps.setString(8, dto.getTelefonoContacto());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             int codigo = 0;
@@ -120,17 +123,18 @@ public class DireccionDAO {
                 fu.datosInvalidos("El usuario no existe");
                 return 0;
             }
-            String sql = "UPDATE direcciones SET usuario_id=?, alias=?, direccion=?, ciudad=?, provincia=?, codigo_postal=?, telefono_contacto=? WHERE id=?";
+            String sql = "UPDATE direcciones SET usuario_id=?, alias=?, direccion=?, ciudad=?, canton=?, provincia=?, codigo_postal=?, telefono_contacto=? WHERE id=?";
             ConectorBD ConnBD = new ConectorBD();
             PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, dto.getUsuarioId());
             ps.setString(2, dto.getAlias());
             ps.setString(3, dto.getDireccion());
             ps.setString(4, dto.getCiudad());
-            ps.setString(5, dto.getProvincia());
-            ps.setString(6, dto.getCodigoPostal());
-            ps.setString(7, dto.getTelefonoContacto());
-            ps.setInt(8, dto.getId());
+            ps.setString(5, dto.getCanton());
+            ps.setString(6, dto.getProvincia());
+            ps.setString(7, dto.getCodigoPostal());
+            ps.setString(8, dto.getTelefonoContacto());
+            ps.setInt(9, dto.getId());
             int registros = ps.executeUpdate();
             if(registros==0){
                 fu.datosInvalidos("Dirección no encontrada");
