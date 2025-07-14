@@ -33,16 +33,14 @@
                   <TextField fx:id="txt_alias" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Dirección:" GridPane.rowIndex="2" />
                   <TextField fx:id="txt_direccion" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label text="Ciudad:" GridPane.rowIndex="3" />
-                  <ComboBox fx:id="cmb_ciudad" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label text="Provincia:" GridPane.rowIndex="4" />
-                  <ComboBox fx:id="cmb_provincia" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Label text="Cantón:" GridPane.rowIndex="5" />
-                  <ComboBox fx:id="cmb_canton" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Label text="Código Postal:" GridPane.rowIndex="6" />
-                  <TextField fx:id="txt_postal" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <Label text="Teléfono:" GridPane.rowIndex="7" />
-                  <TextField fx:id="txt_telefono" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Label text="Provincia:" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="cmb_provincia" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="Cantón:" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="cmb_canton" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label text="Código Postal:" GridPane.rowIndex="5" />
+                  <TextField fx:id="txt_postal" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label text="Teléfono:" GridPane.rowIndex="6" />
+                  <TextField fx:id="txt_telefono" GridPane.columnIndex="1" GridPane.rowIndex="6" />
               </children>
            </GridPane>
          </center>
@@ -51,6 +49,7 @@
                <padding><Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/></padding>
                <Region HBox.hgrow="ALWAYS" />
                <Button fx:id="btn_Guardar" onAction="#call_Guardar" text="Guardar" />
+               <Button fx:id="btn_Cerrar" onAction="#call_CerrarVentana" text="Cerrar" />
             </HBox>
          </bottom>
       </BorderPane>
