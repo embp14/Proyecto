@@ -45,6 +45,7 @@ public class Mnt_VariantesProducto_GuiController implements Initializable {
 
     public void call_Grabar(){
         VarianteProductoDAO dao = new VarianteProductoDAO();
+        if(!validarDatos()) return;
         if(!actualizar){
             try{
                 VarianteProductoDTO dto = new VarianteProductoDTO();
@@ -111,5 +112,38 @@ public class Mnt_VariantesProducto_GuiController implements Initializable {
 
     private String generarSku(){
         return "SKU" + System.currentTimeMillis();
+    }
+
+    private boolean validarDatos(){
+        if(cmb_producto.getValue() == null){
+            fu.datosInvalidos("Producto: seleccione un valor v\u00e1lido.");
+            cmb_producto.requestFocus();
+            return false;
+        }
+        try{
+            double p = Double.parseDouble(txt_precio.getText());
+            if(p < 0){
+                fu.datosInvalidos("Precio: no puede ser negativo.");
+                txt_precio.requestFocus();
+                return false;
+            }
+        }catch(Exception ex){
+            fu.datosInvalidos("Precio: ingrese un n\u00famero v\u00e1lido.");
+            txt_precio.requestFocus();
+            return false;
+        }
+        try{
+            int s = Integer.parseInt(txt_stock.getText());
+            if(s < 0){
+                fu.datosInvalidos("Stock: no puede ser negativo.");
+                txt_stock.requestFocus();
+                return false;
+            }
+        }catch(Exception ex){
+            fu.datosInvalidos("Stock: ingrese un n\u00famero v\u00e1lido.");
+            txt_stock.requestFocus();
+            return false;
+        }
+        return true;
     }
 }
