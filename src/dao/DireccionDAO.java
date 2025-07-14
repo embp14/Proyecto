@@ -4,12 +4,22 @@ import dto.DireccionDTO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import proyectobd.ParametrosGenerales.FeedbackVendedor; // use generic feedback
 
 public class DireccionDAO {
     FeedbackVendedor fu = new FeedbackVendedor();
+
+    private boolean tieneColumna(Connection conn, String tabla, String columna){
+        try(ResultSet rs = conn.getMetaData().getColumns(null, null, tabla, columna)){
+            return rs.next();
+        }catch(Exception ex){
+            return false;
+        }
+    }
 
     private boolean existeUsuario(int usuarioId){
         ConectorBD ConnBD = new ConectorBD();
@@ -34,7 +44,9 @@ public class DireccionDAO {
                      "FROM direcciones d JOIN usuarios u ON d.usuario_id=u.id " +
                      "ORDER BY d.id";
         try{
-            Statement st = ConnBD.AbrirConexionBD().createStatement();
+            Connection cn = ConnBD.AbrirConexionBD();
+            boolean hasCanton = tieneColumna(cn, "direcciones", "canton");
+            Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
                 DireccionDTO dto = new DireccionDTO();
@@ -44,6 +56,7 @@ public class DireccionDAO {
                 dto.setAlias(rs.getString("alias"));
                 dto.setDireccion(rs.getString("direccion"));
                 dto.setCiudad(rs.getString("ciudad"));
+                if(hasCanton) dto.setCanton(rs.getString("canton"));
                 dto.setProvincia(rs.getString("provincia"));
                 dto.setCodigoPostal(rs.getString("codigo_postal"));
                 dto.setTelefonoContacto(rs.getString("telefono_contacto"));
@@ -63,7 +76,9 @@ public class DireccionDAO {
                      "FROM direcciones d JOIN usuarios u ON d.usuario_id=u.id " +
                      "WHERE d.ciudad LIKE '%"+criterio+"%' ORDER BY d.id";
         try{
-            Statement st = ConnBD.AbrirConexionBD().createStatement();
+            Connection cn = ConnBD.AbrirConexionBD();
+            boolean hasCanton = tieneColumna(cn, "direcciones", "canton");
+            Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
                 DireccionDTO dto = new DireccionDTO();
@@ -73,6 +88,7 @@ public class DireccionDAO {
                 dto.setAlias(rs.getString("alias"));
                 dto.setDireccion(rs.getString("direccion"));
                 dto.setCiudad(rs.getString("ciudad"));
+                if(hasCanton) dto.setCanton(rs.getString("canton"));
                 dto.setProvincia(rs.getString("provincia"));
                 dto.setCodigoPostal(rs.getString("codigo_postal"));
                 dto.setTelefonoContacto(rs.getString("telefono_contacto"));
@@ -91,16 +107,27 @@ public class DireccionDAO {
                 fu.datosInvalidos("El usuario no existe");
                 return 0;
             }
-            String sql = "INSERT INTO direcciones(usuario_id, alias, direccion, ciudad, provincia, codigo_postal, telefono_contacto) VALUES(?,?,?,?,?,?,?)";
             ConectorBD ConnBD = new ConectorBD();
-            PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            Connection cn = ConnBD.AbrirConexionBD();
+            boolean hasCanton = tieneColumna(cn, "direcciones", "canton");
+            String sql;
+            if(hasCanton){
+                sql = "INSERT INTO direcciones(usuario_id, alias, direccion, ciudad, canton, provincia, codigo_postal, telefono_contacto) VALUES(?,?,?,?,?,?,?,?)";
+            }else{
+                sql = "INSERT INTO direcciones(usuario_id, alias, direccion, ciudad, provincia, codigo_postal, telefono_contacto) VALUES(?,?,?,?,?,?,?)";
+            }
+            PreparedStatement ps = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, dto.getUsuarioId());
             ps.setString(2, dto.getAlias());
             ps.setString(3, dto.getDireccion());
             ps.setString(4, dto.getCiudad());
-            ps.setString(5, dto.getProvincia());
-            ps.setString(6, dto.getCodigoPostal());
-            ps.setString(7, dto.getTelefonoContacto());
+            int idx = 5;
+            if(hasCanton){
+                ps.setString(idx++, dto.getCanton());
+            }
+            ps.setString(idx++, dto.getProvincia());
+            ps.setString(idx++, dto.getCodigoPostal());
+            ps.setString(idx++, dto.getTelefonoContacto());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             int codigo = 0;
@@ -120,17 +147,28 @@ public class DireccionDAO {
                 fu.datosInvalidos("El usuario no existe");
                 return 0;
             }
-            String sql = "UPDATE direcciones SET usuario_id=?, alias=?, direccion=?, ciudad=?, provincia=?, codigo_postal=?, telefono_contacto=? WHERE id=?";
             ConectorBD ConnBD = new ConectorBD();
-            PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
+            Connection cn = ConnBD.AbrirConexionBD();
+            boolean hasCanton = tieneColumna(cn, "direcciones", "canton");
+            String sql;
+            if(hasCanton){
+                sql = "UPDATE direcciones SET usuario_id=?, alias=?, direccion=?, ciudad=?, canton=?, provincia=?, codigo_postal=?, telefono_contacto=? WHERE id=?";
+            }else{
+                sql = "UPDATE direcciones SET usuario_id=?, alias=?, direccion=?, ciudad=?, provincia=?, codigo_postal=?, telefono_contacto=? WHERE id=?";
+            }
+            PreparedStatement ps = cn.prepareStatement(sql);
             ps.setInt(1, dto.getUsuarioId());
             ps.setString(2, dto.getAlias());
             ps.setString(3, dto.getDireccion());
             ps.setString(4, dto.getCiudad());
-            ps.setString(5, dto.getProvincia());
-            ps.setString(6, dto.getCodigoPostal());
-            ps.setString(7, dto.getTelefonoContacto());
-            ps.setInt(8, dto.getId());
+            int idx = 5;
+            if(hasCanton){
+                ps.setString(idx++, dto.getCanton());
+            }
+            ps.setString(idx++, dto.getProvincia());
+            ps.setString(idx++, dto.getCodigoPostal());
+            ps.setString(idx++, dto.getTelefonoContacto());
+            ps.setInt(idx, dto.getId());
             int registros = ps.executeUpdate();
             if(registros==0){
                 fu.datosInvalidos("Dirección no encontrada");

@@ -7,6 +7,7 @@ public class DireccionDTO {
     private String alias;
     private String direccion;
     private String ciudad;
+    private String canton;
     private String provincia;
     private String codigoPostal;
     private String telefonoContacto;
@@ -28,6 +29,9 @@ public class DireccionDTO {
 
     public String getCiudad() { return ciudad; }
     public void setCiudad(String ciudad) { this.ciudad = ciudad; }
+
+    public String getCanton() { return canton; }
+    public void setCanton(String canton) { this.canton = canton; }
 
     public String getProvincia() { return provincia; }
     public void setProvincia(String provincia) { this.provincia = provincia; }

@@ -24,6 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackUsuario;
+import proyectobd.ParametrosGenerales.TextFilter;
 
 public class Mnt_Usuarios_GuiController implements Initializable {
     FeedbackUsuario fu = new FeedbackUsuario();
@@ -60,8 +61,18 @@ public class Mnt_Usuarios_GuiController implements Initializable {
             txt_nombre.requestFocus();
             return;
         }
+        if(TextFilter.contieneOfensas(txt_nombre.getText())){
+            fu.datosInvalidos("El campo 'Nombre' contiene palabras ofensivas.");
+            txt_nombre.requestFocus();
+            return;
+        }
         if(!emailValido(txt_email.getText())){
             fu.datosInvalidos("El campo 'Email' no es v\u00e1lido.");
+            txt_email.requestFocus();
+            return;
+        }
+        if(TextFilter.contieneOfensas(txt_email.getText())){
+            fu.datosInvalidos("El campo 'Email' contiene palabras ofensivas.");
             txt_email.requestFocus();
             return;
         }

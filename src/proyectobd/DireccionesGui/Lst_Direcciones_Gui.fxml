@@ -35,6 +35,7 @@
                      <TableColumn fx:id="col_id" prefWidth="50.0" text="ID"/>
                      <TableColumn fx:id="col_usuario" prefWidth="150.0" text="Usuario"/>
                      <TableColumn fx:id="col_ciudad" prefWidth="100.0" text="Ciudad"/>
+                     <TableColumn fx:id="col_canton" prefWidth="100.0" text="Cantón"/>
                      <TableColumn fx:id="col_provincia" prefWidth="100.0" text="Provincia"/>
                   </columns>
                   <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
@@ -49,8 +50,8 @@
                   <Region HBox.hgrow="ALWAYS"/>
                   <Button fx:id="btn_Nuevo" onAction="#call_NuevoRegistro" text="Nuevo"/>
                   <Button fx:id="btn_Editar" onAction="#call_Editar" text="Editar"/>
-                  <Button fx:id="btn_Borrar" onAction="#call_Borrar" text="Borrar"/>
                   <Button fx:id="btn_Cerrar" onAction="#call_CerrarVentana" text="Cerrar"/>
+                  <Button fx:id="btn_Borrar" onAction="#call_Borrar" text="Borrar"/>
                </HBox>
             </VBox>
          </bottom>

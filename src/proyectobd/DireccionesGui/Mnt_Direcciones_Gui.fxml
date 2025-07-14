@@ -37,12 +37,14 @@
                   <ComboBox fx:id="cmb_ciudad" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label text="Provincia:" GridPane.rowIndex="4" />
                   <ComboBox fx:id="cmb_provincia" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Label text="Código Postal:" GridPane.rowIndex="5" />
-                  <TextField fx:id="txt_postal" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Label text="Teléfono:" GridPane.rowIndex="6" />
-                  <TextField fx:id="txt_telefono" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-               </children>
-            </GridPane>
+                  <Label text="Cantón:" GridPane.rowIndex="5" />
+                  <ComboBox fx:id="cmb_canton" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label text="Código Postal:" GridPane.rowIndex="6" />
+                  <TextField fx:id="txt_postal" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label text="Teléfono:" GridPane.rowIndex="7" />
+                  <TextField fx:id="txt_telefono" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+              </children>
+           </GridPane>
          </center>
          <bottom>
             <HBox alignment="CENTER_RIGHT" spacing="10.0">
