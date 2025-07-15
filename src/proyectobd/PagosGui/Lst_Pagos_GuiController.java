@@ -37,7 +37,8 @@ public class Lst_Pagos_GuiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         txt_Buscar.textProperty().addListener((obs, oldV, newV) -> { call_Buscar(); });
-        call_Buscar();
+        // Load all records and configure table columns on startup
+        call_CargarDatos();
     }
 
     public void call_CerrarVentana(){
