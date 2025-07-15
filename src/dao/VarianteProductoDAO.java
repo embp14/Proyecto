@@ -4,21 +4,12 @@ import dto.VarianteProductoDTO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.Connection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import proyectobd.ParametrosGenerales.FeedbackProducto;
 
 public class VarianteProductoDAO {
     FeedbackProducto fu = new FeedbackProducto();
-
-    private boolean tieneColumna(Connection conn, String tabla, String columna){
-        try(ResultSet rs = conn.getMetaData().getColumns(null, null, tabla, columna)){
-            return rs.next();
-        }catch(Exception ex){
-            return false;
-        }
-    }
 
     private boolean existeProducto(int id){
         ConectorBD ConnBD = new ConectorBD();
@@ -39,14 +30,10 @@ public class VarianteProductoDAO {
     public ObservableList<VarianteProductoDTO> ListarVariantes(){
         ObservableList<VarianteProductoDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
+        String sql = "SELECT v.id, v.producto_id, v.sku, p.titulo AS producto_nombre, v.precio, v.stock " +
+                     "FROM variantes_producto v JOIN productos p ON v.producto_id=p.id ORDER BY v.id";
         try{
-            Connection cn = ConnBD.AbrirConexionBD();
-            boolean hasNombre = tieneColumna(cn, "variantes_producto", "nombre");
-            String sql = "SELECT v.id, v.producto_id, v.sku, p.titulo AS producto_nombre, ";
-            if(hasNombre) sql += "v.nombre, ";
-            sql += "v.precio, v.stock FROM variantes_producto v JOIN productos p ON v.producto_id=p.id ORDER BY v.id";
-
-            Statement st = cn.createStatement();
+            Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
                 VarianteProductoDTO dto = new VarianteProductoDTO();
@@ -54,7 +41,6 @@ public class VarianteProductoDAO {
                 dto.setProductoId(rs.getInt("producto_id"));
                 dto.setSku(rs.getString("sku"));
                 dto.setProductoNombre(rs.getString("producto_nombre"));
-                if(hasNombre) dto.setNombre(rs.getString("nombre"));
                 dto.setPrecio(rs.getDouble("precio"));
                 dto.setStock(rs.getInt("stock"));
                 lista.add(dto);
@@ -72,24 +58,13 @@ public class VarianteProductoDAO {
                 fu.datosInvalidos("Producto inexistente");
                 return 0;
             }
+            String sql = "INSERT INTO variantes_producto(producto_id, sku, precio, stock) VALUES(?,?,?,?)";
             ConectorBD ConnBD = new ConectorBD();
-            Connection cn = ConnBD.AbrirConexionBD();
-            boolean hasNombre = tieneColumna(cn, "variantes_producto", "nombre");
-            String sql;
-            if(hasNombre){
-                sql = "INSERT INTO variantes_producto(producto_id, sku, nombre, precio, stock) VALUES(?,?,?,?,?)";
-            }else{
-                sql = "INSERT INTO variantes_producto(producto_id, sku, precio, stock) VALUES(?,?,?,?)";
-            }
-            PreparedStatement ps = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, dto.getProductoId());
             ps.setString(2, dto.getSku());
-            int idx = 3;
-            if(hasNombre){
-                ps.setString(idx++, dto.getNombre());
-            }
-            ps.setDouble(idx++, dto.getPrecio());
-            ps.setInt(idx++, dto.getStock());
+            ps.setDouble(3, dto.getPrecio());
+            ps.setInt(4, dto.getStock());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             int codigo = 0;
@@ -109,25 +84,14 @@ public class VarianteProductoDAO {
                 fu.datosInvalidos("Producto inexistente");
                 return 0;
             }
+            String sql = "UPDATE variantes_producto SET producto_id=?, sku=?, precio=?, stock=? WHERE id=?";
             ConectorBD ConnBD = new ConectorBD();
-            Connection cn = ConnBD.AbrirConexionBD();
-            boolean hasNombre = tieneColumna(cn, "variantes_producto", "nombre");
-            String sql;
-            if(hasNombre){
-                sql = "UPDATE variantes_producto SET producto_id=?, sku=?, nombre=?, precio=?, stock=? WHERE id=?";
-            }else{
-                sql = "UPDATE variantes_producto SET producto_id=?, sku=?, precio=?, stock=? WHERE id=?";
-            }
-            PreparedStatement ps = cn.prepareStatement(sql);
+            PreparedStatement ps = ConnBD.AbrirConexionBD().prepareStatement(sql);
             ps.setInt(1, dto.getProductoId());
             ps.setString(2, dto.getSku());
-            int idx = 3;
-            if(hasNombre){
-                ps.setString(idx++, dto.getNombre());
-            }
-            ps.setDouble(idx++, dto.getPrecio());
-            ps.setInt(idx++, dto.getStock());
-            ps.setInt(idx, dto.getId());
+            ps.setDouble(3, dto.getPrecio());
+            ps.setInt(4, dto.getStock());
+            ps.setInt(5, dto.getId());
             int registros = ps.executeUpdate();
             if(registros==0){
                 fu.datosInvalidos("Variante no encontrada");

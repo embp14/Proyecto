@@ -32,14 +32,12 @@
                   <Label text="Producto:" GridPane.rowIndex="1" />
                   <ComboBox fx:id="cmb_producto" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="SKU:" GridPane.rowIndex="2" />
-                  <TextField fx:id="txt_sku" GridPane.columnIndex="1" GridPane.rowIndex="2" editable="false" />
-                  <Label text="Nombre:" GridPane.rowIndex="3" />
-                  <TextField fx:id="txt_nombre" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label text="Precio:" GridPane.rowIndex="4" />
-                  <TextField fx:id="txt_precio" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Label text="Stock:" GridPane.rowIndex="5" />
-                  <TextField fx:id="txt_stock" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-              </children>
+                  <TextField fx:id="txt_sku" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text="Precio:" GridPane.rowIndex="3" />
+                  <TextField fx:id="txt_precio" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="Stock:" GridPane.rowIndex="4" />
+                  <TextField fx:id="txt_stock" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               </children>
             </GridPane>
          </center>
          <bottom>

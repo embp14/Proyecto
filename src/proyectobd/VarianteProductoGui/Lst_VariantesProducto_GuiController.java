@@ -28,7 +28,6 @@ public class Lst_VariantesProducto_GuiController implements Initializable {
     @FXML private TableColumn<VarianteProductoDTO, Integer> col_id;
     @FXML private TableColumn<VarianteProductoDTO, String> col_producto;
     @FXML private TableColumn<VarianteProductoDTO, String> col_sku;
-    @FXML private TableColumn<VarianteProductoDTO, String> col_nombre;
     @FXML private TableColumn<VarianteProductoDTO, Double> col_precio;
     @FXML private TableColumn<VarianteProductoDTO, Integer> col_stock;
 
@@ -55,7 +54,6 @@ public class Lst_VariantesProducto_GuiController implements Initializable {
                         data.getValue().getProductoNombre() +
                         " - ID " + data.getValue().getProductoId()));
             col_sku.setCellValueFactory(new PropertyValueFactory<>("sku"));
-            col_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
             col_precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
             col_stock.setCellValueFactory(new PropertyValueFactory<>("stock"));
             tbl_Lista.setItems(lista);

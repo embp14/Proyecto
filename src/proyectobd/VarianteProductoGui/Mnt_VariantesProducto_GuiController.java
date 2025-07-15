@@ -30,7 +30,6 @@ public class Mnt_VariantesProducto_GuiController implements Initializable {
     @FXML private TextField txt_id;
     @FXML private ComboBox<ProductoDTO> cmb_producto;
     @FXML private TextField txt_sku;
-    @FXML private TextField txt_nombre;
     @FXML private TextField txt_precio;
     @FXML private TextField txt_stock;
 
@@ -40,7 +39,6 @@ public class Mnt_VariantesProducto_GuiController implements Initializable {
             cargarCombos();
             cargarDatos();
             txt_id.setDisable(true);
-            txt_sku.setDisable(true);
         });
     }
 
@@ -51,8 +49,7 @@ public class Mnt_VariantesProducto_GuiController implements Initializable {
             try{
                 VarianteProductoDTO dto = new VarianteProductoDTO();
                 dto.setProductoId(cmb_producto.getValue().getId());
-                dto.setSku(generarSku());
-                dto.setNombre(txt_nombre.getText());
+                dto.setSku(txt_sku.getText());
                 dto.setPrecio(Double.parseDouble(txt_precio.getText()));
                 dto.setStock(Integer.parseInt(txt_stock.getText()));
                 int id = dao.InsertarVariante(dto);
@@ -68,7 +65,6 @@ public class Mnt_VariantesProducto_GuiController implements Initializable {
             VarianteProductoDTO dto = (VarianteProductoDTO) stage.getUserData();
             dto.setProductoId(cmb_producto.getValue().getId());
             dto.setSku(txt_sku.getText());
-            dto.setNombre(txt_nombre.getText());
             dto.setPrecio(Double.parseDouble(txt_precio.getText()));
             dto.setStock(Integer.parseInt(txt_stock.getText()));
             try{
@@ -106,12 +102,10 @@ public class Mnt_VariantesProducto_GuiController implements Initializable {
                 if(p.getId() == dto.getProductoId()){ cmb_producto.setValue(p); break; }
             }
             txt_sku.setText(dto.getSku());
-            txt_nombre.setText(dto.getNombre());
             txt_precio.setText(Double.toString(dto.getPrecio()));
             txt_stock.setText(Integer.toString(dto.getStock()));
         } else {
             txt_sku.setText(generarSku());
-            txt_nombre.clear();
         }
     }
 
@@ -123,11 +117,6 @@ public class Mnt_VariantesProducto_GuiController implements Initializable {
         if(cmb_producto.getValue() == null){
             fu.datosInvalidos("Producto: seleccione un valor v\u00e1lido.");
             cmb_producto.requestFocus();
-            return false;
-        }
-        if(txt_nombre.getText().trim().isEmpty()){
-            fu.datosInvalidos("Nombre: ingrese un valor v\u00e1lido.");
-            txt_nombre.requestFocus();
             return false;
         }
         try{
