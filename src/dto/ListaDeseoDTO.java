@@ -26,7 +26,12 @@ public class ListaDeseoDTO {
 
     @Override
     public String toString() {
-        String texto = nombre != null ? nombre : "";
-        return texto + " - ID " + id;
+        StringBuilder sb = new StringBuilder();
+        sb.append(id).append(' ');
+        sb.append(usuarioId).append(' ');
+        if(usuarioNombre != null) sb.append(usuarioNombre).append(' ');
+        if(nombre != null) sb.append(nombre).append(' ');
+        if(creadoEn != null) sb.append(creadoEn).append(' ');
+        return sb.toString().trim();
     }
 }

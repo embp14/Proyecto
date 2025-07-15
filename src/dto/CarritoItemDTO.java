@@ -32,8 +32,14 @@ public class CarritoItemDTO {
 
     @Override
     public String toString() {
-        String sku = varianteSku != null ? varianteSku : "";
-        String nombre = productoNombre != null ? productoNombre : "";
-        return sku + " - " + nombre + " - ID " + id;
+        StringBuilder sb = new StringBuilder();
+        sb.append(id).append(' ');
+        sb.append(carritoId).append(' ');
+        if(usuarioNombre != null) sb.append(usuarioNombre).append(' ');
+        sb.append(varianteId).append(' ');
+        if(varianteSku != null) sb.append(varianteSku).append(' ');
+        if(productoNombre != null) sb.append(productoNombre).append(' ');
+        sb.append(cantidad);
+        return sb.toString().trim();
     }
 }

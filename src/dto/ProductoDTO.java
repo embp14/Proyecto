@@ -42,7 +42,16 @@ public class ProductoDTO {
 
     @Override
     public String toString() {
-        String texto = titulo != null ? titulo : "";
-        return texto + " - ID " + id;
+        StringBuilder sb = new StringBuilder();
+        sb.append(id).append(' ');
+        sb.append(vendedorId).append(' ');
+        sb.append(categoriaId).append(' ');
+        if(vendedorNombre != null) sb.append(vendedorNombre).append(' ');
+        if(categoriaNombre != null) sb.append(categoriaNombre).append(' ');
+        if(titulo != null) sb.append(titulo).append(' ');
+        if(descripcion != null) sb.append(descripcion).append(' ');
+        if(creadoEn != null) sb.append(creadoEn).append(' ');
+        sb.append(activo);
+        return sb.toString().trim();
     }
 }

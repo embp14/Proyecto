@@ -59,9 +59,8 @@ public class VendedorDAO {
         String sql = "SELECT v.id, v.usuario_id, u.nombre AS usuario_nombre, " +
                      "v.nombre_tienda, v.descripcion, v.calificacion_promedio " +
                      "FROM vendedores v JOIN usuarios u ON v.usuario_id=u.id " +
-                     "WHERE v.nombre_tienda LIKE '%"+criterio+"%' " +
-                     "OR u.nombre LIKE '%"+criterio+"%' " +
-                     "OR CAST(v.id AS CHAR) LIKE '%"+criterio+"%' ORDER BY v.id";
+                     "WHERE CONCAT_WS(' ', v.id, v.usuario_id, u.nombre, v.nombre_tienda, v.descripcion, v.calificacion_promedio) " +
+                     "LIKE '%"+criterio+"%' ORDER BY v.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);

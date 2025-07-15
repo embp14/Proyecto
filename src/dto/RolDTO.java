@@ -22,7 +22,9 @@ public class RolDTO {
 
     @Override
     public String toString() {
-        String texto = nombre != null ? nombre : "";
-        return texto + " - ID " + id;
+        StringBuilder sb = new StringBuilder();
+        sb.append(id).append(' ');
+        if(nombre != null) sb.append(nombre).append(' ');
+        return sb.toString().trim();
     }
 }

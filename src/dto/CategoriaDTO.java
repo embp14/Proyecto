@@ -20,7 +20,11 @@ public class CategoriaDTO {
 
     @Override
     public String toString() {
-        String texto = nombre != null ? nombre : "";
-        return texto + " - ID " + id;
+        StringBuilder sb = new StringBuilder();
+        sb.append(id).append(' ');
+        if(nombre != null) sb.append(nombre).append(' ');
+        if(parentId != null) sb.append(parentId).append(' ');
+        if(parentNombre != null) sb.append(parentNombre).append(' ');
+        return sb.toString().trim();
     }
 }

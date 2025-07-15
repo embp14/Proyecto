@@ -24,7 +24,12 @@ public class ImagenProductoDTO {
 
     @Override
     public String toString() {
-        String texto = url != null ? url : "";
-        return texto + " - ID " + id;
+        StringBuilder sb = new StringBuilder();
+        sb.append(id).append(' ');
+        sb.append(productoId).append(' ');
+        if(productoNombre != null) sb.append(productoNombre).append(' ');
+        if(url != null) sb.append(url).append(' ');
+        sb.append(esPrincipal);
+        return sb.toString().trim();
     }
 }

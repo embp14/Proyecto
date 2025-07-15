@@ -46,7 +46,17 @@ public class EnvioDTO {
 
     @Override
     public String toString() {
-        String track = codigoTracking != null ? codigoTracking : "";
-        return track + " - ID " + id;
+        StringBuilder sb = new StringBuilder();
+        sb.append(id).append(' ');
+        sb.append(ordenId).append(' ');
+        sb.append(direccionId).append(' ');
+        if(usuarioNombre != null) sb.append(usuarioNombre).append(' ');
+        if(direccionNombre != null) sb.append(direccionNombre).append(' ');
+        if(empresaEnvio != null) sb.append(empresaEnvio).append(' ');
+        if(codigoTracking != null) sb.append(codigoTracking).append(' ');
+        if(fechaEnvio != null) sb.append(fechaEnvio).append(' ');
+        if(fechaEntregaEstimada != null) sb.append(fechaEntregaEstimada).append(' ');
+        if(fechaEntregaReal != null) sb.append(fechaEntregaReal).append(' ');
+        return sb.toString().trim();
     }
 }
