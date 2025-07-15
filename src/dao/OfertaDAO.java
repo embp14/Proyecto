@@ -55,6 +55,36 @@ public class OfertaDAO {
         return lista;
     }
 
+    public ObservableList<OfertaDTO> BuscarOfertas(String criterio){
+        ObservableList<OfertaDTO> lista = FXCollections.observableArrayList();
+        ConectorBD ConnBD = new ConectorBD();
+        String sql = "SELECT o.id, o.variante_id, v.sku AS variante_sku, p.titulo AS producto_nombre, " +
+                     "o.precio_descuento, o.fecha_inicio, o.fecha_fin " +
+                     "FROM ofertas o JOIN variantes_producto v ON o.variante_id=v.id " +
+                     "JOIN productos p ON v.producto_id=p.id " +
+                     "WHERE CONCAT_WS(' ', o.id, o.variante_id, v.sku, p.titulo, o.precio_descuento, o.fecha_inicio, o.fecha_fin) " +
+                     "LIKE '%"+criterio+"%' ORDER BY o.id";
+        try{
+            Statement st = ConnBD.AbrirConexionBD().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                OfertaDTO dto = new OfertaDTO();
+                dto.setId(rs.getInt("id"));
+                dto.setVarianteId(rs.getInt("variante_id"));
+                dto.setVarianteSku(rs.getString("variante_sku"));
+                dto.setProductoNombre(rs.getString("producto_nombre"));
+                dto.setPrecioDescuento(rs.getDouble("precio_descuento"));
+                dto.setFechaInicio(rs.getTimestamp("fecha_inicio"));
+                dto.setFechaFin(rs.getTimestamp("fecha_fin"));
+                lista.add(dto);
+            }
+            ConnBD.CerrarConexionBD();
+        }catch(Exception ex){
+            fu.errorSQL(ex, "buscar ofertas");
+        }
+        return lista;
+    }
+
     public int InsertarOferta(OfertaDTO dto){
         try{
             if(!existeVariante(dto.getVarianteId())){

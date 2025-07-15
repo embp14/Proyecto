@@ -64,15 +64,15 @@ public class Lst_ImagenesProducto_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             ImagenProductoDAO dao = new ImagenProductoDAO();
-            ObservableList<ImagenProductoDTO> lista = dao.ListarImagenes(0);
-            String filtro = txt_Buscar.getText().trim().toLowerCase();
-            if(!filtro.isEmpty()){
-                if(filtro.matches("\\d+")){
-                    int id = Integer.parseInt(filtro);
-                    lista.removeIf(i -> i.getId() != id && i.getProductoId() != id);
-                }else{
-                    lista.removeIf(i -> !i.toString().toLowerCase().contains(filtro));
-                }
+            String filtro = txt_Buscar.getText().trim();
+            ObservableList<ImagenProductoDTO> lista;
+            if(filtro.isEmpty()){
+                lista = dao.ListarImagenes(0);
+            }else if(filtro.matches("\\d+")){
+                int id = Integer.parseInt(filtro);
+                lista = dao.ListarImagenes(id);
+            }else{
+                lista = dao.BuscarImagenes(filtro);
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

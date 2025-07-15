@@ -67,15 +67,15 @@ public class Lst_OrdenItems_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             OrdenItemDAO dao = new OrdenItemDAO();
-            ObservableList<OrdenItemDTO> lista = dao.ListarItems(0);
-            String filtro = txt_Buscar.getText().trim().toLowerCase();
-            if(!filtro.isEmpty()){
-                if(filtro.matches("\\d+")){
-                    int id = Integer.parseInt(filtro);
-                    lista.removeIf(i -> i.getId() != id && i.getOrdenId() != id);
-                }else{
-                    lista.removeIf(i -> !i.toString().toLowerCase().contains(filtro));
-                }
+            String filtro = txt_Buscar.getText().trim();
+            ObservableList<OrdenItemDTO> lista;
+            if(filtro.isEmpty()){
+                lista = dao.ListarItems(0);
+            }else if(filtro.matches("\\d+")){
+                int id = Integer.parseInt(filtro);
+                lista = dao.ListarItems(id);
+            }else{
+                lista = dao.BuscarItems(filtro);
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

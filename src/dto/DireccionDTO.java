@@ -44,17 +44,12 @@ public class DireccionDTO {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(id).append(' ');
-        sb.append(usuarioId).append(' ');
-        if(usuarioNombre != null) sb.append(usuarioNombre).append(' ');
-        if(alias != null) sb.append(alias).append(' ');
-        if(direccion != null) sb.append(direccion).append(' ');
-        if(ciudad != null) sb.append(ciudad).append(' ');
-        if(canton != null) sb.append(canton).append(' ');
-        if(provincia != null) sb.append(provincia).append(' ');
-        if(codigoPostal != null) sb.append(codigoPostal).append(' ');
-        if(telefonoContacto != null) sb.append(telefonoContacto).append(' ');
-        return sb.toString().trim();
+        String texto;
+        if(alias != null && !alias.isEmpty()) {
+            texto = alias;
+        } else {
+            texto = direccion != null ? direccion : "";
+        }
+        return texto + " - ID " + id;
     }
 }

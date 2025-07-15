@@ -70,14 +70,7 @@ public class OrdenDTO {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(id).append(' ');
-        sb.append(usuarioId).append(' ');
-        if(usuarioNombre != null) sb.append(usuarioNombre).append(' ');
-        if(estado != null) sb.append(estado).append(' ');
-        if(totalBruto != null) sb.append(totalBruto).append(' ');
-        if(totalDescuento != null) sb.append(totalDescuento).append(' ');
-        if(fechaCreacion != null) sb.append(fechaCreacion).append(' ');
-        return sb.toString().trim();
+        String nombre = usuarioNombre != null ? usuarioNombre : "";
+        return nombre + " - ID " + id;
     }
 }

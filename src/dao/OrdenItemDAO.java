@@ -81,6 +81,42 @@ public class OrdenItemDAO {
         return lista;
     }
 
+    public ObservableList<OrdenItemDTO> BuscarItems(String criterio){
+        ObservableList<OrdenItemDTO> lista = FXCollections.observableArrayList();
+        ConectorBD ConnBD = new ConectorBD();
+        String sql = "SELECT oi.id, oi.orden_id, u.nombre AS usuario_nombre, oi.variante_id, " +
+                     "v.sku AS variante_sku, p.titulo AS producto_nombre, oi.cantidad, " +
+                     "oi.precio_unitario, oi.precio_descuento " +
+                     "FROM orden_items oi " +
+                     "JOIN ordenes o ON oi.orden_id=o.id " +
+                     "JOIN usuarios u ON o.usuario_id=u.id " +
+                     "JOIN variantes_producto v ON oi.variante_id=v.id " +
+                     "JOIN productos p ON v.producto_id=p.id " +
+                     "WHERE CONCAT_WS(' ', oi.id, oi.orden_id, u.nombre, oi.variante_id, v.sku, p.titulo, oi.cantidad, oi.precio_unitario, oi.precio_descuento) " +
+                     "LIKE '%"+criterio+"%' ORDER BY oi.id";
+        try{
+            Statement st = ConnBD.AbrirConexionBD().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                OrdenItemDTO dto = new OrdenItemDTO();
+                dto.setId(rs.getInt("id"));
+                dto.setOrdenId(rs.getInt("orden_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
+                dto.setVarianteId(rs.getInt("variante_id"));
+                dto.setVarianteSku(rs.getString("variante_sku"));
+                dto.setProductoNombre(rs.getString("producto_nombre"));
+                dto.setCantidad(rs.getInt("cantidad"));
+                dto.setPrecioUnitario(rs.getDouble("precio_unitario"));
+                dto.setPrecioDescuento(rs.getDouble("precio_descuento"));
+                lista.add(dto);
+            }
+            ConnBD.CerrarConexionBD();
+        }catch(Exception ex){
+            fu.errorSQL(ex, "buscar items de orden");
+        }
+        return lista;
+    }
+
     public int InsertarItem(OrdenItemDTO dto){
         try{
             if(!existeOrden(dto.getOrdenId()) || !existeVariante(dto.getVarianteId())){

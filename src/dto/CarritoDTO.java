@@ -22,11 +22,7 @@ public class CarritoDTO {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(id).append(' ');
-        sb.append(usuarioId).append(' ');
-        if(usuarioNombre != null) sb.append(usuarioNombre).append(' ');
-        if(creadoEn != null) sb.append(creadoEn).append(' ');
-        return sb.toString().trim();
+        String nombre = usuarioNombre != null ? usuarioNombre : "";
+        return nombre + " - ID " + id;
     }
 }

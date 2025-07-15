@@ -77,15 +77,16 @@ public class Lst_Envios_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             EnvioDAO dao = new EnvioDAO();
-            ObservableList<EnvioDTO> lista = dao.ListarEnvios();
-            String filtro = txt_Buscar.getText().trim().toLowerCase();
-            if(!filtro.isEmpty()){
-                if(filtro.matches("\\d+")){
-                    int id = Integer.parseInt(filtro);
-                    lista.removeIf(e -> e.getId() != id);
-                }else{
-                    lista.removeIf(e -> !e.toString().toLowerCase().contains(filtro));
-                }
+            String filtro = txt_Buscar.getText().trim();
+            ObservableList<EnvioDTO> lista;
+            if(filtro.isEmpty()){
+                lista = dao.ListarEnvios();
+            }else if(filtro.matches("\\d+")){
+                lista = dao.ListarEnvios();
+                int id = Integer.parseInt(filtro);
+                lista.removeIf(e -> e.getId() != id);
+            }else{
+                lista = dao.BuscarEnvios(filtro);
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

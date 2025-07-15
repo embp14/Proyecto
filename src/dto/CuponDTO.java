@@ -26,12 +26,7 @@ public class CuponDTO {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(id).append(' ');
-        if(codigo != null) sb.append(codigo).append(' ');
-        sb.append(descuentoPct).append(' ');
-        if(fechaExpiracion != null) sb.append(fechaExpiracion).append(' ');
-        sb.append(usoMaximo);
-        return sb.toString().trim();
+        String code = codigo != null ? codigo : "";
+        return code + " - ID " + id;
     }
 }

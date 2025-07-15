@@ -91,15 +91,7 @@ public class UsuarioDTO {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(id).append(' ');
-        sb.append(rolId).append(' ');
-        if(rolNombre != null) sb.append(rolNombre).append(' ');
-        if(nombre != null) sb.append(nombre).append(' ');
-        if(email != null) sb.append(email).append(' ');
-        if(contrasena != null) sb.append(contrasena).append(' ');
-        if(imagenPerfil != null) sb.append(imagenPerfil).append(' ');
-        if(creadoEn != null) sb.append(creadoEn).append(' ');
-        return sb.toString().trim();
+        String texto = nombre != null ? nombre : "";
+        return texto + " - ID " + id;
     }
 }

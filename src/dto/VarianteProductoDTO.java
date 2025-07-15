@@ -28,13 +28,7 @@ public class VarianteProductoDTO {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(id).append(' ');
-        sb.append(productoId).append(' ');
-        if(sku != null) sb.append(sku).append(' ');
-        if(productoNombre != null) sb.append(productoNombre).append(' ');
-        sb.append(precio).append(' ');
-        sb.append(stock);
-        return sb.toString().trim();
+        String codigo = sku != null ? sku : "";
+        return codigo + " - ID " + id;
     }
 }

@@ -66,15 +66,16 @@ public class Lst_Pagos_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             PagoDAO dao = new PagoDAO();
-            ObservableList<PagoDTO> lista = dao.ListarPagos();
-            String filtro = txt_Buscar.getText().trim().toLowerCase();
-            if(!filtro.isEmpty()){
-                if(filtro.matches("\\d+")){
-                    int id = Integer.parseInt(filtro);
-                    lista.removeIf(p -> p.getId() != id);
-                }else{
-                    lista.removeIf(p -> !p.toString().toLowerCase().contains(filtro));
-                }
+            String filtro = txt_Buscar.getText().trim();
+            ObservableList<PagoDTO> lista;
+            if(filtro.isEmpty()){
+                lista = dao.ListarPagos();
+            }else if(filtro.matches("\\d+")){
+                lista = dao.ListarPagos();
+                int id = Integer.parseInt(filtro);
+                lista.removeIf(p -> p.getId() != id);
+            }else{
+                lista = dao.BuscarPagos(filtro);
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

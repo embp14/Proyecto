@@ -60,13 +60,7 @@ public class VendedorDTO {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(id).append(' ');
-        sb.append(usuarioId).append(' ');
-        if(usuarioNombre != null) sb.append(usuarioNombre).append(' ');
-        if(nombreTienda != null) sb.append(nombreTienda).append(' ');
-        if(descripcion != null) sb.append(descripcion).append(' ');
-        if(calificacionPromedio != null) sb.append(calificacionPromedio).append(' ');
-        return sb.toString().trim();
+        String texto = nombreTienda != null ? nombreTienda : "";
+        return texto + " - ID " + id;
     }
 }

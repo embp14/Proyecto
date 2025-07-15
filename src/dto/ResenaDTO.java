@@ -78,15 +78,8 @@ public class ResenaDTO {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(id).append(' ');
-        sb.append(productoId).append(' ');
-        if(productoNombre != null) sb.append(productoNombre).append(' ');
-        sb.append(usuarioId).append(' ');
-        if(usuarioNombre != null) sb.append(usuarioNombre).append(' ');
-        sb.append(rating).append(' ');
-        if(comentario != null) sb.append(comentario).append(' ');
-        if(fecha != null) sb.append(fecha).append(' ');
-        return sb.toString().trim();
+        String user = usuarioNombre != null ? usuarioNombre : "";
+        String prod = productoNombre != null ? productoNombre : "";
+        return user + " - " + prod + " - ID " + id;
     }
 }

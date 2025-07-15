@@ -52,6 +52,33 @@ public class VarianteProductoDAO {
         return lista;
     }
 
+    public ObservableList<VarianteProductoDTO> BuscarVariantes(String criterio){
+        ObservableList<VarianteProductoDTO> lista = FXCollections.observableArrayList();
+        ConectorBD ConnBD = new ConectorBD();
+        String sql = "SELECT v.id, v.producto_id, v.sku, p.titulo AS producto_nombre, v.precio, v.stock " +
+                     "FROM variantes_producto v JOIN productos p ON v.producto_id=p.id " +
+                     "WHERE CONCAT_WS(' ', v.id, v.producto_id, v.sku, p.titulo, v.precio, v.stock) " +
+                     "LIKE '%"+criterio+"%' ORDER BY v.id";
+        try{
+            Statement st = ConnBD.AbrirConexionBD().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                VarianteProductoDTO dto = new VarianteProductoDTO();
+                dto.setId(rs.getInt("id"));
+                dto.setProductoId(rs.getInt("producto_id"));
+                dto.setSku(rs.getString("sku"));
+                dto.setProductoNombre(rs.getString("producto_nombre"));
+                dto.setPrecio(rs.getDouble("precio"));
+                dto.setStock(rs.getInt("stock"));
+                lista.add(dto);
+            }
+            ConnBD.CerrarConexionBD();
+        }catch(Exception ex){
+            fu.errorSQL(ex, "buscar variantes");
+        }
+        return lista;
+    }
+
     public int InsertarVariante(VarianteProductoDTO dto){
         try{
             if(!existeProducto(dto.getProductoId())){

@@ -30,13 +30,7 @@ public class PagoDTO {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(id).append(' ');
-        sb.append(ordenId).append(' ');
-        if(usuarioNombre != null) sb.append(usuarioNombre).append(' ');
-        if(metodoPago != null) sb.append(metodoPago).append(' ');
-        sb.append(monto).append(' ');
-        if(fechaPago != null) sb.append(fechaPago).append(' ');
-        return sb.toString().trim();
+        String metodo = metodoPago != null ? metodoPago : "";
+        return metodo + " - ID " + id;
     }
 }
