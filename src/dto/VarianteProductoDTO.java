@@ -29,7 +29,6 @@ public class VarianteProductoDTO {
     @Override
     public String toString() {
         String codigo = sku != null ? sku : "";
-        String nombre = productoNombre != null ? productoNombre : "";
-        return codigo + " - " + nombre + " - ID " + id;
+        return codigo + " - ID " + id;
     }
 }

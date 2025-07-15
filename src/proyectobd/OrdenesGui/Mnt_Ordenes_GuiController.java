@@ -131,11 +131,12 @@ public class Mnt_Ordenes_GuiController implements Initializable {
             cmb_usuario.setItems(usuarios);
 
             ObservableList<String> estados = FXCollections.observableArrayList(
-                "Pendiente",
-                "Procesada",
-                "Enviada",
-                "Entregada",
-                "Cancelada"
+                "pendiente",
+                "pagada",
+                "enviado",
+                "entregado",
+                "cancelada",
+                "enviada"
             );
             cmb_estado.setItems(estados);
         } catch (Exception ex) {

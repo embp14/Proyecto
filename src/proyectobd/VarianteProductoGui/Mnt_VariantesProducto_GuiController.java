@@ -39,7 +39,6 @@ public class Mnt_VariantesProducto_GuiController implements Initializable {
             cargarCombos();
             cargarDatos();
             txt_id.setDisable(true);
-            txt_sku.setDisable(true);
         });
     }
 
@@ -50,7 +49,7 @@ public class Mnt_VariantesProducto_GuiController implements Initializable {
             try{
                 VarianteProductoDTO dto = new VarianteProductoDTO();
                 dto.setProductoId(cmb_producto.getValue().getId());
-                dto.setSku(generarSku());
+                dto.setSku(txt_sku.getText());
                 dto.setPrecio(Double.parseDouble(txt_precio.getText()));
                 dto.setStock(Integer.parseInt(txt_stock.getText()));
                 int id = dao.InsertarVariante(dto);

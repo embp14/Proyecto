@@ -1,5 +1,6 @@
 .header-pane {
-    -fx-background-color: linear-gradient(to right, #5a7390, #6a82a0);
+    /* Further lighten the header gradient so the title text pops */
+    -fx-background-color: linear-gradient(to right, #d0e1f2, #e2edf8);
     -fx-padding: 10 0 10 0;
 }
 
@@ -47,7 +48,8 @@
 }
 
 .header-section {
-    -fx-background-color: linear-gradient(to bottom, #5a7390, #6a82a0);
+    /* Match the lighter header gradient for consistency */
+    -fx-background-color: linear-gradient(to bottom, #d0e1f2, #e2edf8);
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);
 }
 
