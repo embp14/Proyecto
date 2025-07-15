@@ -4,6 +4,7 @@ public class VarianteProductoDTO {
     private int id;
     private int productoId;
     private String sku;
+    private String nombre;
     private String productoNombre;
     private double precio;
     private int stock;
@@ -17,6 +18,9 @@ public class VarianteProductoDTO {
     public String getSku() { return sku; }
     public void setSku(String sku) { this.sku = sku; }
 
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
     public String getProductoNombre() { return productoNombre; }
     public void setProductoNombre(String productoNombre) { this.productoNombre = productoNombre; }
 
@@ -29,7 +33,9 @@ public class VarianteProductoDTO {
     @Override
     public String toString() {
         String codigo = sku != null ? sku : "";
-        String nombre = productoNombre != null ? productoNombre : "";
-        return codigo + " - " + nombre + " - ID " + id;
+        String nomVar = nombre != null ? nombre : "";
+        String prod = productoNombre != null ? productoNombre : "";
+        String detalle = !nomVar.isEmpty() ? nomVar + " - " : "";
+        return codigo + " - " + detalle + prod + " - ID " + id;
     }
 }
