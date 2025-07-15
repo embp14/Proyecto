@@ -53,7 +53,11 @@ public class OrdenItemDAO {
                      "JOIN ordenes o ON oi.orden_id=o.id " +
                      "JOIN usuarios u ON o.usuario_id=u.id " +
                      "JOIN variantes_producto v ON oi.variante_id=v.id " +
-                     "JOIN productos p ON v.producto_id=p.id WHERE oi.orden_id="+ordenId+" ORDER BY oi.id";
+                     "JOIN productos p ON v.producto_id=p.id";
+        if(ordenId > 0){
+            sql += " WHERE oi.orden_id=" + ordenId;
+        }
+        sql += " ORDER BY oi.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);
