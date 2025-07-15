@@ -35,6 +35,19 @@ public class Lst_OrdenItems_GuiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Initialize table column bindings so results populate correctly
+        col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        col_orden.setCellValueFactory(data ->
+                new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() +
+                        " - ID " + data.getValue().getOrdenId()));
+        col_variante.setCellValueFactory(data ->
+                new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getVarianteSku() + " - " +
+                        data.getValue().getProductoNombre() +
+                        " - ID " + data.getValue().getVarianteId()));
+        col_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+
         txt_Buscar.textProperty().addListener((obs, oldV, newV) -> { call_Buscar(); });
         call_Buscar();
     }

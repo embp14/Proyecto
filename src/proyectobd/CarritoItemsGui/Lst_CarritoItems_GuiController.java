@@ -34,6 +34,19 @@ public class Lst_CarritoItems_GuiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Set up the table columns once when the view is created
+        col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        col_carrito.setCellValueFactory(data ->
+                new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() +
+                        " - ID " + data.getValue().getCarritoId()));
+        col_variante.setCellValueFactory(data ->
+                new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getVarianteSku() + " - " +
+                        data.getValue().getProductoNombre() +
+                        " - ID " + data.getValue().getVarianteId()));
+        col_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+
         txt_Buscar.textProperty().addListener((obs, oldV, newV) -> { call_Buscar(); });
         call_Buscar();
     }

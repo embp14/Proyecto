@@ -34,6 +34,19 @@ public class Lst_ListaDeseoItems_GuiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Configure table columns up front so search results display correctly
+        col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        col_lista.setCellValueFactory(data ->
+                new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getListaNombre() + " - ID " +
+                        data.getValue().getListaDeseosId()));
+        col_variante.setCellValueFactory(data ->
+                new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getVarianteSku() + " - " +
+                        data.getValue().getProductoNombre() +
+                        " - ID " + data.getValue().getVarianteId()));
+        col_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+
         txt_Buscar.textProperty().addListener((obs, oldV, newV) -> { call_Buscar(); });
         call_Buscar();
     }
