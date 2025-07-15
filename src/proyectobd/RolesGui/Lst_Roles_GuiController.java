@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.stage.Stage;
@@ -24,7 +23,6 @@ public class Lst_Roles_GuiController implements Initializable {
     @FXML private Button btn_Nuevo;
     @FXML private Button btn_Editar;
     @FXML private Button btn_Borrar;
-    @FXML private TextField txt_Buscar;
     @FXML private TableView<RolDTO> tbl_Lista;
     @FXML private TableColumn<RolDTO, Integer> col_id;
     @FXML private TableColumn<RolDTO, String> col_nombre;
@@ -33,7 +31,6 @@ public class Lst_Roles_GuiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        txt_Buscar.textProperty().addListener((obs, oldV, newV) -> { call_Buscar(); });
         call_CargarDatos();
     }
 
@@ -57,25 +54,6 @@ public class Lst_Roles_GuiController implements Initializable {
         }
     }
 
-    public void call_Buscar(){
-        try{
-            RolDAO dao = new RolDAO();
-            String filtro = txt_Buscar.getText().trim();
-            ObservableList<RolDTO> lista;
-            if(filtro.isEmpty()){
-                lista = dao.ListarRoles();
-            }else if(filtro.matches("\\d+")){
-                lista = dao.ListarRoles();
-                int id = Integer.parseInt(filtro);
-                lista.removeIf(r -> r.getId() != id);
-            }else{
-                lista = dao.BuscarRoles(filtro);
-            }
-            tbl_Lista.setItems(lista);
-        }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
-        }
-    }
 
     public void call_NuevoRegistro(){
         try{

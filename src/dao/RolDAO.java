@@ -31,27 +31,6 @@ public class RolDAO {
         return roles;
     }
 
-    public ObservableList<RolDTO> BuscarRoles(String criterio){
-        ObservableList<RolDTO> roles = FXCollections.observableArrayList();
-        ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, nombre FROM roles WHERE nombre LIKE '%"+criterio+"%' " +
-                     "OR CAST(id AS CHAR) LIKE '%"+criterio+"%' ORDER BY id";
-        try{
-            Statement st = ConnBD.AbrirConexionBD().createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while(rs.next()){
-                RolDTO dto = new RolDTO();
-                dto.setId(rs.getInt("id"));
-                dto.setNombre(rs.getString("nombre"));
-                roles.add(dto);
-            }
-            ConnBD.CerrarConexionBD();
-        }catch(Exception ex){
-            fu.errorSQL(ex, "buscar roles");
-        }
-        return roles;
-    }
-
     public int InsertarRol(RolDTO dto){
         try{
             String sql = "INSERT INTO roles(nombre) VALUES(?)";
