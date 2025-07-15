@@ -75,7 +75,10 @@ public class ResenaDAO {
         ConectorBD ConnBD = new ConectorBD();
         String sql = "SELECT r.id, r.producto_id, p.titulo AS producto_nombre, r.usuario_id, u.nombre AS usuario_nombre, r.rating, r.comentario, r.fecha " +
                      "FROM reseñas r JOIN productos p ON r.producto_id=p.id JOIN usuarios u ON r.usuario_id=u.id " +
-                     "WHERE r.comentario LIKE '%"+criterio+"%' ORDER BY r.id";
+                     "WHERE r.comentario LIKE '%"+criterio+"%' " +
+                     "OR p.titulo LIKE '%"+criterio+"%' " +
+                     "OR u.nombre LIKE '%"+criterio+"%' " +
+                     "OR CAST(r.id AS CHAR) LIKE '%"+criterio+"%' ORDER BY r.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);

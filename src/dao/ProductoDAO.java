@@ -79,7 +79,8 @@ public class ProductoDAO {
         String sql = "SELECT p.id, p.vendedor_id, v.nombre_tienda AS vendedor_nombre, " +
                      "p.categoria_id, c.nombre AS categoria_nombre, p.titulo, p.descripcion, p.creado_en, p.activo " +
                      "FROM productos p JOIN vendedores v ON p.vendedor_id=v.id " +
-                     "JOIN categorias c ON p.categoria_id=c.id WHERE p.titulo LIKE '%"+criterio+"%' ORDER BY p.id";
+                     "JOIN categorias c ON p.categoria_id=c.id WHERE p.titulo LIKE '%"+criterio+"%' " +
+                     "OR CAST(p.id AS CHAR) LIKE '%"+criterio+"%' ORDER BY p.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);

@@ -75,16 +75,21 @@ public class Lst_Envios_GuiController implements Initializable {
     }
 
     public void call_Buscar(){
-        String filtro = txt_Buscar.getText().trim();
-        if(filtro.isEmpty()){
-            call_CargarDatos(0);
-            return;
-        }
-        if(filtro.matches("\\d+")){
-            int id = Integer.parseInt(filtro);
-            call_CargarDatos(id);
-        }else{
-            fu.datosInvalidos("Ingrese un ID num\u00e9rico");
+        try{
+            EnvioDAO dao = new EnvioDAO();
+            ObservableList<EnvioDTO> lista = dao.ListarEnvios();
+            String filtro = txt_Buscar.getText().trim().toLowerCase();
+            if(!filtro.isEmpty()){
+                if(filtro.matches("\\d+")){
+                    int id = Integer.parseInt(filtro);
+                    lista.removeIf(e -> e.getId() != id);
+                }else{
+                    lista.removeIf(e -> !e.toString().toLowerCase().contains(filtro));
+                }
+            }
+            tbl_Lista.setItems(lista);
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
         }
     }
 

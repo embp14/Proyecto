@@ -38,7 +38,8 @@ public class CuponDAO {
         ObservableList<CuponDTO> cupones = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
         String sql = "SELECT id, codigo, descuento_pct, fecha_expiracion, uso_maximo FROM cupones " +
-                     "WHERE codigo LIKE '%"+criterio+"%' ORDER BY id";
+                     "WHERE codigo LIKE '%"+criterio+"%' " +
+                     "OR CAST(id AS CHAR) LIKE '%"+criterio+"%' ORDER BY id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);

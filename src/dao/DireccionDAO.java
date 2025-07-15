@@ -74,7 +74,9 @@ public class DireccionDAO {
         ConectorBD ConnBD = new ConectorBD();
         String sql = "SELECT d.*, u.nombre AS usuario_nombre " +
                      "FROM direcciones d JOIN usuarios u ON d.usuario_id=u.id " +
-                     "WHERE d.ciudad LIKE '%"+criterio+"%' ORDER BY d.id";
+                     "WHERE d.ciudad LIKE '%"+criterio+"%' " +
+                     "OR d.alias LIKE '%"+criterio+"%' " +
+                     "OR CAST(d.id AS CHAR) LIKE '%"+criterio+"%' ORDER BY d.id";
         try{
             Connection cn = ConnBD.AbrirConexionBD();
             boolean hasCanton = tieneColumna(cn, "direcciones", "canton");

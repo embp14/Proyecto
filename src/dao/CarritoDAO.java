@@ -55,7 +55,9 @@ public class CarritoDAO {
         ConectorBD ConnBD = new ConectorBD();
         String sql = "SELECT c.id, c.usuario_id, u.nombre AS usuario_nombre, c.creado_en " +
                      "FROM carritos c JOIN usuarios u ON c.usuario_id=u.id " +
-                     "WHERE u.nombre LIKE '%"+criterio+"%' OR c.usuario_id LIKE '%"+criterio+"%' " +
+                     "WHERE u.nombre LIKE '%"+criterio+"%' " +
+                     "OR c.usuario_id LIKE '%"+criterio+"%' " +
+                     "OR CAST(c.id AS CHAR) LIKE '%"+criterio+"%' " +
                      "ORDER BY c.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();

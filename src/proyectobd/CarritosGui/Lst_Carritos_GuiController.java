@@ -59,16 +59,16 @@ public class Lst_Carritos_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             CarritoDAO dao = new CarritoDAO();
-            ObservableList<CarritoDTO> lista = dao.ListarCarritos();
             String filtro = txt_Buscar.getText().trim();
-            if(!filtro.isEmpty()){
-                if(filtro.matches("\\d+")){
-                    int id = Integer.parseInt(filtro);
-                    lista.removeIf(c -> c.getId() != id);
-                }else{
-                    fu.datosInvalidos("Ingrese un ID num\u00e9rico");
-                    return;
-                }
+            ObservableList<CarritoDTO> lista;
+            if(filtro.isEmpty()){
+                lista = dao.ListarCarritos();
+            }else if(filtro.matches("\\d+")){
+                lista = dao.ListarCarritos();
+                int id = Integer.parseInt(filtro);
+                lista.removeIf(c -> c.getId() != id);
+            }else{
+                lista = dao.BuscarCarritos(filtro);
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

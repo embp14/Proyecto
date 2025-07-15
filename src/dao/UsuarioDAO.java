@@ -63,7 +63,9 @@ public class UsuarioDAO {
         ResultSet rs=null;
         String sql="SELECT u.id, u.rol_id, r.nombre AS rol_nombre, u.nombre, u.email, u.contraseña, u.imagen_perfil, u.creado_en "
                 + "FROM usuarios u JOIN roles r ON u.rol_id=r.id "
-                + "WHERE u.nombre LIKE '%"+CriterioBusqueda+"%' OR u.email LIKE '%"+CriterioBusqueda+"%' "
+                + "WHERE u.nombre LIKE '%"+CriterioBusqueda+"%' "
+                + "OR u.email LIKE '%"+CriterioBusqueda+"%' "
+                + "OR CAST(u.id AS CHAR) LIKE '%"+CriterioBusqueda+"%' "
                 + "ORDER BY u.nombre";
         try{
             Statement st=ConnBD.AbrirConexionBD().createStatement();

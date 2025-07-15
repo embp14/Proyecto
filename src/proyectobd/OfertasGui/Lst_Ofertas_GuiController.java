@@ -69,14 +69,13 @@ public class Lst_Ofertas_GuiController implements Initializable {
         try{
             OfertaDAO dao = new OfertaDAO();
             ObservableList<OfertaDTO> lista = dao.ListarOfertas();
-            String filtro = txt_Buscar.getText().trim();
+            String filtro = txt_Buscar.getText().trim().toLowerCase();
             if(!filtro.isEmpty()){
                 if(filtro.matches("\\d+")){
                     int id = Integer.parseInt(filtro);
                     lista.removeIf(o -> o.getId() != id);
                 }else{
-                    fu.datosInvalidos("Ingrese un ID num\u00e9rico");
-                    return;
+                    lista.removeIf(o -> !o.toString().toLowerCase().contains(filtro));
                 }
             }
             tbl_Lista.setItems(lista);

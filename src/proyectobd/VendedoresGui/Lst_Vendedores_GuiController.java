@@ -62,16 +62,16 @@ public class Lst_Vendedores_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             VendedorDAO dao = new VendedorDAO();
-            ObservableList<VendedorDTO> lista = dao.ListarVendedores();
             String filtro = txt_Buscar.getText().trim();
-            if(!filtro.isEmpty()){
-                if(filtro.matches("\\d+")){
-                    int id = Integer.parseInt(filtro);
-                    lista.removeIf(v -> v.getId() != id);
-                }else{
-                    fu.datosInvalidos("Ingrese un ID num\u00e9rico");
-                    return;
-                }
+            ObservableList<VendedorDTO> lista;
+            if(filtro.isEmpty()){
+                lista = dao.ListarVendedores();
+            }else if(filtro.matches("\\d+")){
+                lista = dao.ListarVendedores();
+                int id = Integer.parseInt(filtro);
+                lista.removeIf(v -> v.getId() != id);
+            }else{
+                lista = dao.BuscarVendedores(filtro);
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

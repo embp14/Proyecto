@@ -67,16 +67,16 @@ public class Lst_Resenas_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             ResenaDAO dao = new ResenaDAO();
-            ObservableList<ResenaDTO> lista = dao.ListarResenas();
             String filtro = txt_Buscar.getText().trim();
-            if(!filtro.isEmpty()){
-                if(filtro.matches("\\d+")){
-                    int id = Integer.parseInt(filtro);
-                    lista.removeIf(r -> r.getId() != id);
-                }else{
-                    fu.datosInvalidos("Ingrese un ID num\u00e9rico");
-                    return;
-                }
+            ObservableList<ResenaDTO> lista;
+            if(filtro.isEmpty()){
+                lista = dao.ListarResenas();
+            }else if(filtro.matches("\\d+")){
+                lista = dao.ListarResenas();
+                int id = Integer.parseInt(filtro);
+                lista.removeIf(r -> r.getId() != id);
+            }else{
+                lista = dao.BuscarResenas(filtro);
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

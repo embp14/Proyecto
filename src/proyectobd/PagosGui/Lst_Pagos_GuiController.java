@@ -67,14 +67,13 @@ public class Lst_Pagos_GuiController implements Initializable {
         try{
             PagoDAO dao = new PagoDAO();
             ObservableList<PagoDTO> lista = dao.ListarPagos();
-            String filtro = txt_Buscar.getText().trim();
+            String filtro = txt_Buscar.getText().trim().toLowerCase();
             if(!filtro.isEmpty()){
                 if(filtro.matches("\\d+")){
                     int id = Integer.parseInt(filtro);
                     lista.removeIf(p -> p.getId() != id);
                 }else{
-                    fu.datosInvalidos("Ingrese un ID num\u00e9rico");
-                    return;
+                    lista.removeIf(p -> !p.toString().toLowerCase().contains(filtro));
                 }
             }
             tbl_Lista.setItems(lista);

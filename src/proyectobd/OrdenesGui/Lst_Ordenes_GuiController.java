@@ -65,16 +65,16 @@ public class Lst_Ordenes_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             OrdenDAO dao = new OrdenDAO();
-            ObservableList<OrdenDTO> lista = dao.ListarOrdenes();
             String filtro = txt_Buscar.getText().trim();
-            if(!filtro.isEmpty()){
-                if(filtro.matches("\\d+")){
-                    int id = Integer.parseInt(filtro);
-                    lista.removeIf(o -> o.getId() != id);
-                }else{
-                    fu.datosInvalidos("Ingrese un ID num\u00e9rico");
-                    return;
-                }
+            ObservableList<OrdenDTO> lista;
+            if(filtro.isEmpty()){
+                lista = dao.ListarOrdenes();
+            }else if(filtro.matches("\\d+")){
+                lista = dao.ListarOrdenes();
+                int id = Integer.parseInt(filtro);
+                lista.removeIf(o -> o.getId() != id);
+            }else{
+                lista = dao.BuscarOrdenes(filtro);
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

@@ -63,14 +63,13 @@ public class Lst_ListasDeseos_GuiController implements Initializable {
         try{
             ListaDeseoDAO dao = new ListaDeseoDAO();
             ObservableList<ListaDeseoDTO> lista = dao.ListarListas();
-            String filtro = txt_Buscar.getText().trim();
+            String filtro = txt_Buscar.getText().trim().toLowerCase();
             if(!filtro.isEmpty()){
                 if(filtro.matches("\\d+")){
                     int id = Integer.parseInt(filtro);
                     lista.removeIf(l -> l.getId() != id);
                 }else{
-                    fu.datosInvalidos("Ingrese un ID num\u00e9rico");
-                    return;
+                    lista.removeIf(l -> !l.toString().toLowerCase().contains(filtro));
                 }
             }
             tbl_Lista.setItems(lista);
