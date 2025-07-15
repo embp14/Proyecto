@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import proyectobd.ParametrosGenerales.FeedbackRol;
@@ -22,7 +21,6 @@ public class Mnt_Roles_GuiController implements Initializable {
 
     @FXML private BorderPane Ap_Main;
     @FXML private Button btn_Grabar;
-    @FXML private Button btn_Borrar;
     @FXML private Button btn_Cerrar;
     @FXML private TextField txt_id;
     @FXML private TextField txt_nombre;
@@ -77,20 +75,6 @@ public class Mnt_Roles_GuiController implements Initializable {
         return true;
     }
 
-    public void call_Borrar(){
-        try{
-            if(txt_id.getText().isEmpty()){
-                fu.MostrarAlertas("Información", "No hay registro para borrar");
-                return;
-            }
-            RolDAO dao = new RolDAO();
-            dao.EliminarRol(Integer.parseInt(txt_id.getText()));
-            btn_Grabar.setDisable(true);
-            btn_Borrar.setDisable(true);
-        }catch(Exception ex){
-            fu.MostrarAlertas("Error", ex.toString());
-        }
-    }
 
     public void call_CerrarVentana(){
         Stage stage = (Stage) btn_Cerrar.getScene().getWindow();

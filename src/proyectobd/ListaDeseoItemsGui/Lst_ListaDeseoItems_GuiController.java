@@ -26,7 +26,7 @@ public class Lst_ListaDeseoItems_GuiController implements Initializable {
     @FXML private TextField txt_Buscar;
     @FXML private TableView<ListaDeseoItemDTO> tbl_Lista;
     @FXML private TableColumn<ListaDeseoItemDTO, Integer> col_id;
-    @FXML private TableColumn<ListaDeseoItemDTO, Integer> col_lista;
+    @FXML private TableColumn<ListaDeseoItemDTO, String> col_lista;
     @FXML private TableColumn<ListaDeseoItemDTO, String> col_variante;
     @FXML private TableColumn<ListaDeseoItemDTO, Integer> col_cantidad;
 
@@ -48,7 +48,9 @@ public class Lst_ListaDeseoItems_GuiController implements Initializable {
             ListaDeseoItemDAO dao = new ListaDeseoItemDAO();
             ObservableList<ListaDeseoItemDTO> lista = dao.ListarItems(idLista);
             col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_lista.setCellValueFactory(new PropertyValueFactory<>("listaDeseosId"));
+            col_lista.setCellValueFactory(data ->
+                    new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getListaNombre() + " - ID " + data.getValue().getListaDeseosId()));
             col_variante.setCellValueFactory(data ->
                     new javafx.beans.property.ReadOnlyStringWrapper(
                         data.getValue().getVarianteSku() + " - " + data.getValue().getProductoNombre() +

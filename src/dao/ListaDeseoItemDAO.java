@@ -46,9 +46,11 @@ public class ListaDeseoItemDAO {
     public ObservableList<ListaDeseoItemDTO> ListarItems(int listaId){
         ObservableList<ListaDeseoItemDTO> lista = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT li.id, li.lista_deseos_id, li.variante_id, v.sku AS variante_sku, " +
+        String sql = "SELECT li.id, li.lista_deseos_id, l.nombre AS lista_nombre, " +
+                     "li.variante_id, v.sku AS variante_sku, " +
                      "p.titulo AS producto_nombre, li.cantidad " +
                      "FROM lista_deseos_items li " +
+                     "JOIN listas_deseos l ON li.lista_deseos_id=l.id " +
                      "JOIN variantes_producto v ON li.variante_id=v.id " +
                      "JOIN productos p ON v.producto_id=p.id ";
         if(listaId>0){
@@ -62,6 +64,7 @@ public class ListaDeseoItemDAO {
                 ListaDeseoItemDTO dto = new ListaDeseoItemDTO();
                 dto.setId(rs.getInt("id"));
                 dto.setListaDeseosId(rs.getInt("lista_deseos_id"));
+                dto.setListaNombre(rs.getString("lista_nombre"));
                 dto.setVarianteId(rs.getInt("variante_id"));
                 dto.setVarianteSku(rs.getString("variante_sku"));
                 dto.setProductoNombre(rs.getString("producto_nombre"));
