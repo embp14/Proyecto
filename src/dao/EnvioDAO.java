@@ -74,6 +74,39 @@ public class EnvioDAO {
         return lista;
     }
 
+    public ObservableList<EnvioDTO> BuscarEnvios(String criterio){
+        ObservableList<EnvioDTO> lista = FXCollections.observableArrayList();
+        ConectorBD ConnBD = new ConectorBD();
+        String sql = "SELECT e.id, e.orden_id, e.direccion_id, u.nombre AS usuario_nombre, d.alias AS direccion_nombre, " +
+                     "e.empresa_envio, e.codigo_tracking, e.fecha_envio, e.fecha_entrega_estimada, e.fecha_entrega_real " +
+                     "FROM envios e JOIN ordenes o ON e.orden_id=o.id JOIN usuarios u ON o.usuario_id=u.id " +
+                     "JOIN direcciones d ON e.direccion_id=d.id " +
+                     "WHERE CONCAT_WS(' ', e.id, e.orden_id, e.direccion_id, u.nombre, d.alias, e.empresa_envio, e.codigo_tracking, e.fecha_envio, e.fecha_entrega_estimada, e.fecha_entrega_real) " +
+                     "LIKE '%"+criterio+"%' ORDER BY e.id";
+        try{
+            Statement st = ConnBD.AbrirConexionBD().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                EnvioDTO dto = new EnvioDTO();
+                dto.setId(rs.getInt("id"));
+                dto.setOrdenId(rs.getInt("orden_id"));
+                dto.setDireccionId(rs.getInt("direccion_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
+                dto.setDireccionNombre(rs.getString("direccion_nombre"));
+                dto.setEmpresaEnvio(rs.getString("empresa_envio"));
+                dto.setCodigoTracking(rs.getString("codigo_tracking"));
+                dto.setFechaEnvio(rs.getTimestamp("fecha_envio"));
+                dto.setFechaEntregaEstimada(rs.getTimestamp("fecha_entrega_estimada"));
+                dto.setFechaEntregaReal(rs.getTimestamp("fecha_entrega_real"));
+                lista.add(dto);
+            }
+            ConnBD.CerrarConexionBD();
+        }catch(Exception ex){
+            fu.errorSQL(ex, "buscar envíos");
+        }
+        return lista;
+    }
+
     public int InsertarEnvio(EnvioDTO dto){
         try{
             if(!existeOrden(dto.getOrdenId()) || !existeDireccion(dto.getDireccionId())){

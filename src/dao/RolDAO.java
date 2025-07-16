@@ -34,7 +34,8 @@ public class RolDAO {
     public ObservableList<RolDTO> BuscarRoles(String criterio){
         ObservableList<RolDTO> roles = FXCollections.observableArrayList();
         ConectorBD ConnBD = new ConectorBD();
-        String sql = "SELECT id, nombre FROM roles WHERE nombre LIKE '%"+criterio+"%' ORDER BY id";
+        String sql = "SELECT id, nombre FROM roles " +
+                     "WHERE CONCAT_WS(' ', id, nombre) LIKE '%"+criterio+"%' ORDER BY id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);

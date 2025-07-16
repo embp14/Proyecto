@@ -35,6 +35,19 @@ public class Lst_OrdenItems_GuiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Initialize table column bindings so results populate correctly
+        col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        col_orden.setCellValueFactory(data ->
+                new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getUsuarioNombre() +
+                        " - ID " + data.getValue().getOrdenId()));
+        col_variante.setCellValueFactory(data ->
+                new javafx.beans.property.ReadOnlyStringWrapper(
+                        data.getValue().getVarianteSku() + " - " +
+                        data.getValue().getProductoNombre() +
+                        " - ID " + data.getValue().getVarianteId()));
+        col_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+
         txt_Buscar.textProperty().addListener((obs, oldV, newV) -> { call_Buscar(); });
         call_Buscar();
     }
@@ -65,16 +78,21 @@ public class Lst_OrdenItems_GuiController implements Initializable {
     }
 
     public void call_Buscar(){
-        String filtro = txt_Buscar.getText().trim();
-        if(filtro.isEmpty()){
-            call_CargarDatos(0);
-            return;
-        }
-        if(filtro.matches("\\d+")){
-            int id = Integer.parseInt(filtro);
-            call_CargarDatos(id);
-        }else{
-            fu.datosInvalidos("Ingrese un ID num\u00e9rico");
+        try{
+            OrdenItemDAO dao = new OrdenItemDAO();
+            String filtro = txt_Buscar.getText().trim();
+            ObservableList<OrdenItemDTO> lista;
+            if(filtro.isEmpty()){
+                lista = dao.ListarItems(0);
+            }else if(filtro.matches("\\d+")){
+                int id = Integer.parseInt(filtro);
+                lista = dao.ListarItems(id);
+            }else{
+                lista = dao.BuscarItems(filtro);
+            }
+            tbl_Lista.setItems(lista);
+        }catch(Exception ex){
+            fu.MostrarAlertas("Error", ex.toString());
         }
     }
 

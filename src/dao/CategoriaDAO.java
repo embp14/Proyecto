@@ -56,7 +56,8 @@ public class CategoriaDAO {
         ConectorBD ConnBD = new ConectorBD();
         String sql = "SELECT c.id, c.nombre, c.parent_id, p.nombre AS parent_nombre " +
                      "FROM categorias c LEFT JOIN categorias p ON c.parent_id=p.id " +
-                     "WHERE c.nombre LIKE '%"+criterio+"%' ORDER BY c.id"; 
+                     "WHERE CONCAT_WS(' ', c.id, c.nombre, c.parent_id, p.nombre) " +
+                     "LIKE '%"+criterio+"%' ORDER BY c.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);

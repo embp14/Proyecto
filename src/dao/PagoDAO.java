@@ -52,6 +52,33 @@ public class PagoDAO {
         return lista;
     }
 
+    public ObservableList<PagoDTO> BuscarPagos(String criterio){
+        ObservableList<PagoDTO> lista = FXCollections.observableArrayList();
+        ConectorBD ConnBD = new ConectorBD();
+        String sql = "SELECT p.id, p.orden_id, u.nombre AS usuario_nombre, p.metodo_pago, p.monto, p.fecha_pago " +
+                     "FROM pagos p JOIN ordenes o ON p.orden_id=o.id JOIN usuarios u ON o.usuario_id=u.id " +
+                     "WHERE CONCAT_WS(' ', p.id, p.orden_id, u.nombre, p.metodo_pago, p.monto, p.fecha_pago) " +
+                     "LIKE '%"+criterio+"%' ORDER BY p.id";
+        try{
+            Statement st = ConnBD.AbrirConexionBD().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                PagoDTO dto = new PagoDTO();
+                dto.setId(rs.getInt("id"));
+                dto.setOrdenId(rs.getInt("orden_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
+                dto.setMetodoPago(rs.getString("metodo_pago"));
+                dto.setMonto(rs.getDouble("monto"));
+                dto.setFechaPago(rs.getTimestamp("fecha_pago"));
+                lista.add(dto);
+            }
+            ConnBD.CerrarConexionBD();
+        }catch(Exception ex){
+            fu.errorSQL(ex, "buscar pagos");
+        }
+        return lista;
+    }
+
     public int InsertarPago(PagoDTO dto){
         try{
             if(!existeOrden(dto.getOrdenId())){

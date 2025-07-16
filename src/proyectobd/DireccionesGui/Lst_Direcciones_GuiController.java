@@ -62,16 +62,16 @@ public class Lst_Direcciones_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             DireccionDAO dao = new DireccionDAO();
-            ObservableList<DireccionDTO> lista = dao.ListarDirecciones();
             String filtro = txt_Buscar.getText().trim();
-            if(!filtro.isEmpty()){
-                if(filtro.matches("\\d+")){
-                    int id = Integer.parseInt(filtro);
-                    lista.removeIf(d -> d.getId() != id);
-                }else{
-                    fu.datosInvalidos("Ingrese un ID num\u00e9rico");
-                    return;
-                }
+            ObservableList<DireccionDTO> lista;
+            if(filtro.isEmpty()){
+                lista = dao.ListarDirecciones();
+            }else if(filtro.matches("\\d+")){
+                lista = dao.ListarDirecciones();
+                int id = Integer.parseInt(filtro);
+                lista.removeIf(d -> d.getId() != id);
+            }else{
+                lista = dao.BuscarDirecciones(filtro);
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

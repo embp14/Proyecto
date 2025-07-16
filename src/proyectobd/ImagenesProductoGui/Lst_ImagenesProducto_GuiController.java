@@ -64,17 +64,16 @@ public class Lst_ImagenesProducto_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             ImagenProductoDAO dao = new ImagenProductoDAO();
-            int id = 0;
             String filtro = txt_Buscar.getText().trim();
-            if(!filtro.isEmpty()){
-                if(filtro.matches("\\d+")){
-                    id = Integer.parseInt(filtro);
-                }else{
-                    fu.datosInvalidos("Ingrese un ID num\u00e9rico");
-                    return;
-                }
+            ObservableList<ImagenProductoDTO> lista;
+            if(filtro.isEmpty()){
+                lista = dao.ListarImagenes(0);
+            }else if(filtro.matches("\\d+")){
+                int id = Integer.parseInt(filtro);
+                lista = dao.ListarImagenes(id);
+            }else{
+                lista = dao.BuscarImagenes(filtro);
             }
-            ObservableList<ImagenProductoDTO> lista = dao.ListarImagenes(id);
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
             fu.MostrarAlertas("Error", ex.toString());

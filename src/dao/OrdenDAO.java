@@ -58,7 +58,8 @@ public class OrdenDAO {
         ConectorBD ConnBD = new ConectorBD();
         String sql = "SELECT o.id, o.usuario_id, u.nombre AS usuario_nombre, o.estado, o.total_bruto, o.total_descuento, o.fecha_creacion " +
                      "FROM ordenes o JOIN usuarios u ON o.usuario_id=u.id " +
-                     "WHERE o.estado LIKE '%"+criterio+"%' ORDER BY o.id";
+                     "WHERE CONCAT_WS(' ', o.id, o.usuario_id, u.nombre, o.estado, o.total_bruto, o.total_descuento, o.fecha_creacion) " +
+                     "LIKE '%"+criterio+"%' ORDER BY o.id";
         try{
             Statement st = ConnBD.AbrirConexionBD().createStatement();
             ResultSet rs = st.executeQuery(sql);

@@ -65,16 +65,16 @@ public class Lst_Cupones_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             CuponDAO dao = new CuponDAO();
-            ObservableList<CuponDTO> lista = dao.ListarCupones();
             String filtro = txt_Buscar.getText().trim();
-            if(!filtro.isEmpty()){
-                if(filtro.matches("\\d+")){
-                    int id = Integer.parseInt(filtro);
-                    lista.removeIf(c -> c.getId() != id);
-                }else{
-                    fu.datosInvalidos("Ingrese un ID num\u00e9rico");
-                    return;
-                }
+            ObservableList<CuponDTO> lista;
+            if(filtro.isEmpty()){
+                lista = dao.ListarCupones();
+            }else if(filtro.matches("\\d+")){
+                lista = dao.ListarCupones();
+                int id = Integer.parseInt(filtro);
+                lista.removeIf(c -> c.getId() != id);
+            }else{
+                lista = dao.BuscarCupones(filtro);
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

@@ -61,16 +61,16 @@ public class Lst_Categorias_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             CategoriaDAO dao = new CategoriaDAO();
-            ObservableList<CategoriaDTO> lista = dao.ListarCategorias();
             String filtro = txt_Buscar.getText().trim();
-            if(!filtro.isEmpty()){
-                if(filtro.matches("\\d+")){
-                    int id = Integer.parseInt(filtro);
-                    lista.removeIf(c -> c.getId() != id);
-                }else{
-                    fu.datosInvalidos("Ingrese un ID num\u00e9rico");
-                    return;
-                }
+            ObservableList<CategoriaDTO> lista;
+            if(filtro.isEmpty()){
+                lista = dao.ListarCategorias();
+            }else if(filtro.matches("\\d+")){
+                lista = dao.ListarCategorias();
+                int id = Integer.parseInt(filtro);
+                lista.removeIf(c -> c.getId() != id);
+            }else{
+                lista = dao.BuscarCategorias(filtro);
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

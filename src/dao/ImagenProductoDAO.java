@@ -55,6 +55,32 @@ public class ImagenProductoDAO {
         return lista;
     }
 
+    public ObservableList<ImagenProductoDTO> BuscarImagenes(String criterio){
+        ObservableList<ImagenProductoDTO> lista = FXCollections.observableArrayList();
+        ConectorBD ConnBD = new ConectorBD();
+        String sql = "SELECT ip.id, ip.producto_id, p.titulo AS producto_nombre, ip.url, ip.es_principal " +
+                     "FROM imagenes_producto ip JOIN productos p ON ip.producto_id=p.id " +
+                     "WHERE CONCAT_WS(' ', ip.id, ip.producto_id, p.titulo, ip.url, ip.es_principal) " +
+                     "LIKE '%"+criterio+"%' ORDER BY ip.id";
+        try{
+            Statement st = ConnBD.AbrirConexionBD().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                ImagenProductoDTO dto = new ImagenProductoDTO();
+                dto.setId(rs.getInt("id"));
+                dto.setProductoId(rs.getInt("producto_id"));
+                dto.setProductoNombre(rs.getString("producto_nombre"));
+                dto.setUrl(rs.getString("url"));
+                dto.setEsPrincipal(rs.getBoolean("es_principal"));
+                lista.add(dto);
+            }
+            ConnBD.CerrarConexionBD();
+        }catch(Exception ex){
+            fu.errorSQL(ex, "buscar imágenes");
+        }
+        return lista;
+    }
+
     public int InsertarImagen(ImagenProductoDTO dto){
         try{
             if(!existeProducto(dto.getProductoId())){

@@ -78,6 +78,39 @@ public class CarritoItemDAO {
         return lista;
     }
 
+    public ObservableList<CarritoItemDTO> BuscarItems(String criterio){
+        ObservableList<CarritoItemDTO> lista = FXCollections.observableArrayList();
+        ConectorBD ConnBD = new ConectorBD();
+        String sql = "SELECT ci.id, ci.carrito_id, u.nombre AS usuario_nombre, ci.variante_id, " +
+                     "v.sku AS variante_sku, p.titulo AS producto_nombre, ci.cantidad " +
+                     "FROM carrito_items ci " +
+                     "JOIN carritos c ON ci.carrito_id=c.id " +
+                     "JOIN usuarios u ON c.usuario_id=u.id " +
+                     "JOIN variantes_producto v ON ci.variante_id=v.id " +
+                     "JOIN productos p ON v.producto_id=p.id " +
+                     "WHERE CONCAT_WS(' ', ci.id, ci.carrito_id, u.nombre, ci.variante_id, v.sku, p.titulo, ci.cantidad) " +
+                     "LIKE '%"+criterio+"%' ORDER BY ci.id";
+        try{
+            Statement st = ConnBD.AbrirConexionBD().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                CarritoItemDTO dto = new CarritoItemDTO();
+                dto.setId(rs.getInt("id"));
+                dto.setCarritoId(rs.getInt("carrito_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
+                dto.setVarianteId(rs.getInt("variante_id"));
+                dto.setVarianteSku(rs.getString("variante_sku"));
+                dto.setProductoNombre(rs.getString("producto_nombre"));
+                dto.setCantidad(rs.getInt("cantidad"));
+                lista.add(dto);
+            }
+            ConnBD.CerrarConexionBD();
+        }catch(Exception ex){
+            fu.errorSQL(ex, "buscar items de carrito");
+        }
+        return lista;
+    }
+
     public int InsertarItem(CarritoItemDTO dto){
         try{
             if(!existeCarrito(dto.getCarritoId()) || !existeVariante(dto.getVarianteId())){

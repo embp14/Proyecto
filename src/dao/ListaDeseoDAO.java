@@ -51,6 +51,32 @@ public class ListaDeseoDAO {
         return lista;
     }
 
+    public ObservableList<ListaDeseoDTO> BuscarListas(String criterio){
+        ObservableList<ListaDeseoDTO> lista = FXCollections.observableArrayList();
+        ConectorBD ConnBD = new ConectorBD();
+        String sql = "SELECT l.id, l.usuario_id, u.nombre AS usuario_nombre, l.nombre, l.creado_en " +
+                     "FROM listas_deseos l JOIN usuarios u ON l.usuario_id=u.id " +
+                     "WHERE CONCAT_WS(' ', l.id, l.usuario_id, u.nombre, l.nombre, l.creado_en) " +
+                     "LIKE '%"+criterio+"%' ORDER BY l.id";
+        try{
+            Statement st = ConnBD.AbrirConexionBD().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                ListaDeseoDTO dto = new ListaDeseoDTO();
+                dto.setId(rs.getInt("id"));
+                dto.setUsuarioId(rs.getInt("usuario_id"));
+                dto.setUsuarioNombre(rs.getString("usuario_nombre"));
+                dto.setNombre(rs.getString("nombre"));
+                dto.setCreadoEn(rs.getTimestamp("creado_en"));
+                lista.add(dto);
+            }
+            ConnBD.CerrarConexionBD();
+        }catch(Exception ex){
+            fu.errorSQL(ex, "buscar listas de deseos");
+        }
+        return lista;
+    }
+
     public int InsertarLista(ListaDeseoDTO dto){
         try{
             if(!existeUsuario(dto.getUsuarioId())){

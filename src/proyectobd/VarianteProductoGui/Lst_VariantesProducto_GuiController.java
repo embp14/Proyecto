@@ -65,16 +65,16 @@ public class Lst_VariantesProducto_GuiController implements Initializable {
     public void call_Buscar(){
         try{
             VarianteProductoDAO dao = new VarianteProductoDAO();
-            ObservableList<VarianteProductoDTO> lista = dao.ListarVariantes();
             String filtro = txt_Buscar.getText().trim();
-            if(!filtro.isEmpty()){
-                if(filtro.matches("\\d+")){
-                    int id = Integer.parseInt(filtro);
-                    lista.removeIf(v -> v.getId() != id);
-                }else{
-                    fu.datosInvalidos("Ingrese un ID num\u00e9rico");
-                    return;
-                }
+            ObservableList<VarianteProductoDTO> lista;
+            if(filtro.isEmpty()){
+                lista = dao.ListarVariantes();
+            }else if(filtro.matches("\\d+")){
+                lista = dao.ListarVariantes();
+                int id = Integer.parseInt(filtro);
+                lista.removeIf(v -> v.getId() != id);
+            }else{
+                lista = dao.BuscarVariantes(filtro);
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){
