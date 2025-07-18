@@ -1,47 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import java.net.URL?>
-
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane styleClass="main-pane" fx:id="Ap_Main" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.ListaDeseoItemsGui.Mnt_ListaDeseoItems_GuiController">
+<AnchorPane styleClass="main-pane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.ListaDeseoItemsGui.Mnt_ListaDeseoItems_GuiController">
    <stylesheets>
       <URL value="@/proyectobd/styles/app.css" />
    </stylesheets>
-    <children>
-        <Pane prefHeight="39.0" prefWidth="600.0" styleClass="header-section">
-            <children>
-                <Label layoutX="160.0" layoutY="2.0" text="Mantenimiento Items Lista" styleClass="header-title">
-                    <font><Font size="24.0"/></font>
-                </Label>
-            </children>
-        </Pane>
-        <TitledPane layoutY="39.0" prefHeight="250.0" prefWidth="600.0" text="Detalles" animated="false">
-            <content>
-                <AnchorPane prefHeight="230.0" prefWidth="598.0">
-                    <children>
-                        <Label layoutX="96.0" layoutY="36.0" text="ID:" />
-                        <TextField fx:id="txt_id" layoutX="160.0" layoutY="32.0" prefWidth="400.0" />
-                        <Label layoutX="56.0" layoutY="72.0" text="Lista:" />
-                        <ComboBox fx:id="cmb_lista" layoutX="160.0" layoutY="68.0" prefWidth="400.0" />
-                        <Label layoutX="48.0" layoutY="108.0" text="Variante:" />
-                        <ComboBox fx:id="cmb_variante" layoutX="160.0" layoutY="104.0" prefWidth="400.0" />
-                        <Label layoutX="92.0" layoutY="144.0" text="Cantidad:" />
-                        <TextField fx:id="txt_cantidad" layoutX="160.0" layoutY="140.0" prefWidth="400.0" />
-                    </children>
-                </AnchorPane>
-            </content>
-        </TitledPane>
-        <TitledPane layoutY="289.0" prefHeight="61.0" prefWidth="600.0" text="Acciones" animated="false">
-            <content>
-                <AnchorPane>
-                    <children>
-                        <Button fx:id="btn_Grabar" layoutX="440.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_Grabar" text="Grabar" />
-                        <Button fx:id="btn_Cerrar" layoutX="509.0" layoutY="8.0" mnemonicParsing="false" onAction="#call_CerrarVentana" text="Cerrar" />
-                    </children>
-                </AnchorPane>
-            </content>
-        </TitledPane>
-    </children>
+   <children>
+      <BorderPane fx:id="Ap_Main" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <top>
+            <HBox alignment="CENTER_LEFT" prefHeight="40.0" styleClass="header-section" spacing="10.0">
+               <padding><Insets left="10.0" right="10.0"/></padding>
+               <Label text="Mantenimiento Items Lista" styleClass="header-title">
+                  <font><Font size="18.0"/></font>
+               </Label>
+            </HBox>
+         </top>
+         <center>
+            <GridPane hgap="10.0" vgap="10.0">
+               <padding><Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/></padding>
+               <columnConstraints>
+                  <ColumnConstraints minWidth="80.0" />
+                  <ColumnConstraints hgrow="ALWAYS" />
+               </columnConstraints>
+               <children>
+                  <Label text="ID:" />
+                  <TextField fx:id="txt_id" GridPane.columnIndex="1" />
+                  <Label text="Lista:" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="cmb_lista" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Variante:" GridPane.rowIndex="2" />
+                  <ComboBox fx:id="cmb_variante" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text="Cantidad:" GridPane.rowIndex="3" />
+                  <TextField fx:id="txt_cantidad" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               </children>
+            </GridPane>
+         </center>
+         <bottom>
+            <HBox alignment="CENTER_RIGHT" spacing="10.0">
+               <padding><Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/></padding>
+               <Region HBox.hgrow="ALWAYS" />
+               <Button fx:id="btn_Grabar" onAction="#call_Grabar" text="Grabar" />
+               <Button fx:id="btn_Cerrar" onAction="#call_CerrarVentana" text="Cerrar" />
+            </HBox>
+         </bottom>
+      </BorderPane>
+   </children>
 </AnchorPane>
