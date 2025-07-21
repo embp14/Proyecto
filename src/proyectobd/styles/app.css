@@ -456,3 +456,9 @@
     -fx-border-color: -fx-primary-accent-color;
 }
 
+.welcome-label {
+    -fx-font-size: 32px;
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+}
+
