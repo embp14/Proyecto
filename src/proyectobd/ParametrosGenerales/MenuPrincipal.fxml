@@ -5,8 +5,11 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane styleClass="main-pane" id="AnchorPane" fx:id="Ap_MenuPrincipal" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.ParametrosGenerales.MenuPrincipalController">
@@ -85,5 +88,15 @@
           </Menu>
         </menus>
       </MenuBar>
+      <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+         <children>
+            <ImageView fitWidth="800.0" pickOnBounds="true" preserveRatio="true" mouseTransparent="true">
+               <image>
+                  <Image url="@/proyectobd/images/logo.png" />
+               </image>
+            </ImageView>
+            <Label text="\u00a1Bienvenido!" styleClass="welcome-label" />
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>
