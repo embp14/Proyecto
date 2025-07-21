@@ -95,7 +95,7 @@
                   <Image url="@/proyectobd/images/logo.png" />
                </image>
             </ImageView>
-            <Label text="\u00a1Bienvenido!" styleClass="welcome-label" />
+            <Label text="¡Bienvenido!" styleClass="welcome-label" />
          </children>
       </StackPane>
    </children>
