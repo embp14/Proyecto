@@ -1,1 +1,1 @@
-Coloque aqui el archivo logo.png para mostrarlo en el menu principal.
+Esta carpeta almacena las imágenes utilizadas por la aplicación.
