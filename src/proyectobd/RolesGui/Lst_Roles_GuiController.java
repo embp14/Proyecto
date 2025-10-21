@@ -57,9 +57,15 @@ public class Lst_Roles_GuiController implements Initializable {
         try{
             RolDAO dao = new RolDAO();
             ObservableList<RolDTO> lista = dao.ListarRoles();
-            if(!txt_Buscar.getText().isEmpty()){
-                int id = Integer.parseInt(txt_Buscar.getText());
-                lista.removeIf(r -> r.getId() != id);
+            String filtro = txt_Buscar.getText().trim();
+            if(!filtro.isEmpty()){
+                if(filtro.matches("\\d+")){
+                    int id = Integer.parseInt(filtro);
+                    lista.removeIf(r -> r.getId() != id);
+                }else{
+                    fu.datosInvalidos("Ingrese un ID num\u00e9rico");
+                    return;
+                }
             }
             tbl_Lista.setItems(lista);
         }catch(Exception ex){

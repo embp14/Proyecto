@@ -134,7 +134,7 @@ public class MenuPrincipalController implements Initializable {
                 stage.setScene(new Scene(root));
                 stage.show();
         } catch (Exception ex){
-            fpr.MostrarAlertas("Error del sistema", ex.toString());
+            fpr.MostrarAlertas("Error", "No se pudo abrir la lista de productos: " + ex.getMessage());
         }
     }
 

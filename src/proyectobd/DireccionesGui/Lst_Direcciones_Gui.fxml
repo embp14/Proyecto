@@ -4,11 +4,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.DireccionesGui.Lst_Direcciones_GuiController">
+<AnchorPane styleClass="main-pane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobd.DireccionesGui.Lst_Direcciones_GuiController">
+   <stylesheets>
+      <URL value="/proyectobd/styles/app.css" />
+   </stylesheets>
    <children>
-      <Pane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" prefHeight="39.0" prefWidth="800.0" style="-fx-background-color: #5585b5;">
+      <Pane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" prefHeight="39.0" prefWidth="800.0" styleClass="header-section">
          <children>
-            <Label layoutX="300.0" layoutY="3.0" text="Lista de Direcciones" textFill="WHITE">
+            <Label layoutX="300.0" layoutY="3.0" text="Lista de Direcciones" styleClass="header-title">
                <font>
                   <Font size="24.0" />
                </font>
